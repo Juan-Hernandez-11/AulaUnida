@@ -1,0 +1,223 @@
+/* [project]/src/styles/landingpage.css [app-client] (css) */
+:root {
+  --primary-color: #38e07b;
+  --secondary-color: #2a9d5a;
+  --background-color: #1a1a1a;
+  --text-primary: #e0e0e0;
+  --text-secondary: #a0a0a0;
+  --accent-color: #4ade80;
+}
+
+body {
+  background-color: var(--background-color);
+  color: #fff;
+  background: #000;
+  font-family: Inter, Arial, sans-serif;
+}
+
+:root {
+  --primary: #00d100;
+  --bg-dark: #000;
+  --bg-light: #fff;
+  --text-dark: #000;
+  --text-light: #fff;
+}
+
+[data-theme="light"] {
+  background: var(--bg-light);
+  color: var(--text-dark);
+}
+
+[data-theme="dark"] {
+  background: var(--bg-dark);
+  color: var(--text-light);
+}
+
+.landing-root {
+  background: var(--background-color);
+  min-height: 100vh;
+  color: var(--text-primary);
+  flex-direction: column;
+  font-family: Spline Sans, sans-serif;
+  display: flex;
+}
+
+.navbar {
+  z-index: 10;
+  -webkit-backdrop-filter: blur(4px);
+  backdrop-filter: blur(4px);
+  background: rgba(26, 26, 26, .85);
+  justify-content: space-between;
+  align-items: center;
+  height: 4rem;
+  padding: 0 2rem;
+  display: flex;
+  position: -webkit-sticky;
+  position: sticky;
+  top: 0;
+}
+
+.navbar-logo {
+  align-items: center;
+  gap: .5rem;
+  display: flex;
+}
+
+.navbar-title {
+  color: var(--text-primary);
+  font-size: 1.3rem;
+  font-weight: 700;
+}
+
+.navbar-menu {
+  gap: 2rem;
+  display: flex;
+}
+
+.nav-link {
+  color: var(--text-secondary);
+  font-size: 1rem;
+  font-weight: 500;
+  text-decoration: none;
+  transition: color .2s;
+}
+
+.nav-link:hover {
+  color: var(--text-primary);
+}
+
+.navbar-btn {
+  background: var(--primary-color);
+  color: #000;
+  border-radius: 8px;
+  padding: .5rem 1.5rem;
+  font-weight: 600;
+  text-decoration: none;
+  transition: background .2s;
+}
+
+.navbar-btn:hover {
+  background: var(--accent-color);
+}
+
+.hero-section {
+  text-align: center;
+  background: url("https://lh3.googleusercontent.com/aida-public/AB6AXuAEzgO50tt6Tl-jWdrC7Xy4XJmWH1IyUEnNlzC26STcspRbxK8DbFyZ0lvfGBVW1NXCCfQqIZku2WfpYWvAvPbNTV_LlarRz2VmuEMOXBS_WJezmjyjj8kGYJW2U06_It31UE8l1PiLzduKsIfnMdzUkG0orTxB-NtlOBo83RrQ0PJmg5gRkUGVKDLguzAEqY7jlkinbJD7DmBUyo7Fe1pUr8vEsHaBwA42YSIAKCUQVR1InPBNVZ6OdwfsuRg84VfdJi2IzKooQF7w") center / cover no-repeat;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  min-height: calc(100vh - 4rem);
+  display: flex;
+  position: relative;
+}
+
+.hero-section:before {
+  content: "";
+  z-index: 0;
+  background: rgba(0, 0, 0, .6);
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+}
+
+.hero-title {
+  z-index: 1;
+  color: #fff;
+  letter-spacing: -2px;
+  font-size: 3rem;
+  font-weight: 900;
+  position: relative;
+}
+
+.hero-desc {
+  z-index: 1;
+  max-width: 600px;
+  color: var(--text-secondary);
+  margin: 1.5rem auto 2rem;
+  font-size: 1.25rem;
+  position: relative;
+}
+
+.hero-btn {
+  z-index: 1;
+  background: var(--primary-color);
+  color: #000;
+  border-radius: 12px;
+  padding: .75rem 2.5rem;
+  font-size: 1.15rem;
+  font-weight: 700;
+  text-decoration: none;
+  transition: transform .2s, background .2s;
+  display: inline-block;
+  position: relative;
+}
+
+.hero-btn:hover {
+  background: var(--accent-color);
+  transform: scale(1.05);
+}
+
+.footer {
+  color: var(--text-secondary);
+  background: rgba(0, 0, 0, .2);
+  padding: 2rem 0 1rem;
+  font-size: 1rem;
+}
+
+.footer-links {
+  justify-content: center;
+  gap: 2rem;
+  margin-bottom: 1rem;
+  display: flex;
+}
+
+.footer-link {
+  color: var(--text-secondary);
+  text-decoration: none;
+  transition: color .2s;
+}
+
+.footer-link:hover {
+  color: var(--text-primary);
+}
+
+.footer-copy {
+  text-align: center;
+  margin-bottom: 1rem;
+}
+
+.footer-social {
+  justify-content: center;
+  gap: 1rem;
+  display: flex;
+}
+
+@media (max-width: 768px) {
+  .navbar {
+    flex-direction: column;
+    height: auto;
+    padding: 1rem;
+  }
+
+  .navbar-menu {
+    gap: 1rem;
+  }
+
+  .hero-title {
+    font-size: 2.2rem;
+  }
+
+  .hero-desc {
+    font-size: 1rem;
+  }
+
+  .footer-links {
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+  }
+}
+
+/*# sourceMappingURL=src_styles_landingpage_css_bad6b30c._.single.css.map*/

@@ -1,0 +1,206 @@
+:root {
+  --primary-color: #38e07b;
+  --secondary-color: #2a9d5a;
+  --background-color: #1a1a1a;
+  --text-primary: #e0e0e0;
+  --text-secondary: #a0a0a0;
+  --accent-color: #4ade80;
+}
+body {
+  font-family: 'Spline Sans', sans-serif;
+  background-color: var(--background-color);
+  color: var(--text-primary);
+}
+
+body {
+  background: #000;
+  color: #fff;
+  font-family: 'Inter', Arial, sans-serif;
+}
+
+:root {
+  --primary: #00D100;
+  --bg-dark: #000;
+  --bg-light: #fff;
+  --text-dark: #000;
+  --text-light: #fff;
+}
+
+[data-theme="light"] {
+  background: var(--bg-light);
+  color: var(--text-dark);
+}
+
+[data-theme="dark"] {
+  background: var(--bg-dark);
+  color: var(--text-light);
+}
+
+/* --- Estructura principal --- */
+.landing-root {
+  min-height: 100vh;
+  background: var(--background-color);
+  color: var(--text-primary);
+  font-family: 'Spline Sans', sans-serif;
+  display: flex;
+  flex-direction: column;
+}
+
+/* --- Navbar --- */
+.navbar {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  background: rgba(26,26,26,0.85);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 2rem;
+  height: 4rem;
+  backdrop-filter: blur(4px);
+}
+.navbar-logo {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+.navbar-title {
+  font-size: 1.3rem;
+  font-weight: 700;
+  color: var(--text-primary);
+}
+.navbar-menu {
+  display: flex;
+  gap: 2rem;
+}
+.nav-link {
+  color: var(--text-secondary);
+  font-size: 1rem;
+  font-weight: 500;
+  text-decoration: none;
+  transition: color 0.2s;
+}
+.nav-link:hover {
+  color: var(--text-primary);
+}
+.navbar-btn {
+  background: var(--primary-color);
+  color: #000;
+  font-weight: 600;
+  border-radius: 8px;
+  padding: 0.5rem 1.5rem;
+  text-decoration: none;
+  transition: background 0.2s;
+}
+.navbar-btn:hover {
+  background: var(--accent-color);
+}
+
+/* --- Hero Section --- */
+.hero-section {
+  position: relative;
+  min-height: calc(100vh - 4rem);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  background: url('https://lh3.googleusercontent.com/aida-public/AB6AXuAEzgO50tt6Tl-jWdrC7Xy4XJmWH1IyUEnNlzC26STcspRbxK8DbFyZ0lvfGBVW1NXCCfQqIZku2WfpYWvAvPbNTV_LlarRz2VmuEMOXBS_WJezmjyjj8kGYJW2U06_It31UE8l1PiLzduKsIfnMdzUkG0orTxB-NtlOBo83RrQ0PJmg5gRkUGVKDLguzAEqY7jlkinbJD7DmBUyo7Fe1pUr8vEsHaBwA42YSIAKCUQVR1InPBNVZ6OdwfsuRg84VfdJi2IzKooQF7w') center/cover no-repeat;
+}
+.hero-section::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: rgba(0,0,0,0.6);
+  z-index: 0;
+}
+.hero-title {
+  position: relative;
+  z-index: 1;
+  font-size: 3rem;
+  font-weight: 900;
+  color: #fff;
+  letter-spacing: -2px;
+}
+.hero-desc {
+  position: relative;
+  z-index: 1;
+  margin-top: 1.5rem;
+  margin-bottom: 2rem;
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
+  color: var(--text-secondary);
+  font-size: 1.25rem;
+}
+.hero-btn {
+  position: relative;
+  z-index: 1;
+  background: var(--primary-color);
+  color: #000;
+  font-weight: 700;
+  border-radius: 12px;
+  padding: 0.75rem 2.5rem;
+  font-size: 1.15rem;
+  text-decoration: none;
+  transition: transform 0.2s, background 0.2s;
+  display: inline-block;
+}
+.hero-btn:hover {
+  background: var(--accent-color);
+  transform: scale(1.05);
+}
+
+/* --- Footer --- */
+.footer {
+  background: rgba(0,0,0,0.2);
+  color: var(--text-secondary);
+  padding: 2rem 0 1rem 0;
+  font-size: 1rem;
+}
+.footer-links {
+  display: flex;
+  gap: 2rem;
+  justify-content: center;
+  margin-bottom: 1rem;
+}
+.footer-link {
+  color: var(--text-secondary);
+  text-decoration: none;
+  transition: color 0.2s;
+}
+.footer-link:hover {
+  color: var(--text-primary);
+}
+.footer-copy {
+  text-align: center;
+  margin-bottom: 1rem;
+}
+.footer-social {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+}
+
+/* --- Responsividad --- */
+@media (max-width: 768px) {
+  .navbar {
+    flex-direction: column;
+    height: auto;
+    padding: 1rem;
+  }
+  .navbar-menu {
+    gap: 1rem;
+  }
+  .hero-title {
+    font-size: 2.2rem;
+  }
+  .hero-desc {
+    font-size: 1rem;
+  }
+  .footer-links {
+    gap: 1rem;
+    flex-direction: column;
+    align-items: center;
+  }
+}

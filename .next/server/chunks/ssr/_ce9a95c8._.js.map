@@ -1,0 +1,7 @@
+{
+  "version": 3,
+  "sources": [],
+  "sections": [
+    {"offset": {"line": 4, "column": 0}, "map": {"version":3,"sources":["file:///C:/Users/juant/Documents/proyectoCUN/aulaunida/src/app/layout.tsx"],"sourcesContent":["// Next.js App Router layout\r\n\r\nimport \"bootstrap/dist/css/bootstrap.min.css\";\r\nimport \"../styles/landingpage.css\";\r\n\r\nexport default function RootLayout({ children }: { children: React.ReactNode }) {\r\n\treturn (\r\n\t\t<html lang=\"es\">\r\n\t\t\t<body>{children}</body>\r\n\t\t</html>\r\n\t);\r\n}\r\n"],"names":[],"mappings":"AAAA,4BAA4B;;;;;;;;;AAKb,SAAS,WAAW,EAAE,QAAQ,EAAiC;IAC7E,qBACC,8OAAC;QAAK,MAAK;kBACV,cAAA,8OAAC;sBAAM;;;;;;;;;;;AAGV","debugId":null}},
+    {"offset": {"line": 33, "column": 0}, "map": {"version":3,"sources":["file:///C:/Users/juant/Documents/proyectoCUN/aulaunida/node_modules/next/src/server/route-modules/app-page/vendored/rsc/react-jsx-dev-runtime.ts"],"sourcesContent":["module.exports = (\n  require('../../module.compiled') as typeof import('../../module.compiled')\n).vendored['react-rsc']!.ReactJsxDevRuntime\n"],"names":["module","exports","require","vendored","ReactJsxDevRuntime"],"mappings":"AAAAA,OAAOC,OAAO,GACZC,QAAQ,4HACRC,QAAQ,CAAC,YAAY,CAAEC,kBAAkB","ignoreList":[0],"debugId":null}}]
+}

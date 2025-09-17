@@ -1,9 +1,3 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
-// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
-// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
-
 generator client {
   provider = "prisma-client-js"
 }
@@ -14,147 +8,139 @@ datasource db {
 }
 
 model User {
-  id           Int       @id @default(autoincrement())
-  name         String
-  email        String    @unique
-  passwordHash String
-  role         Role      @default(STUDENT)
-  sedeId       Int?
-  active       Boolean   @default(true)
-  createdAt    DateTime  @default(now())
-  updatedAt    DateTime  @updatedAt
-
-  sede         Sede?     @relation(fields: [sedeId], references: [id])
-  docenteMaterias MateriaDocente[]
-  estudianteGrados GradoEstudiante[]
-  tareasEntregadas Entrega[]
-  asistencias      Asistencia[]
-  boletines        Boletin[]  // <-- RELACIÓN INVERSA PARA Boletin
-  incidenciasComoEstudiante Incidencia[] @relation("IncidenciasEstudiante")
-  incidenciasComoDocente    Incidencia[] @relation("IncidenciasDocente")
-  anuncios         Anuncio[]
-  cambios         Cambio[]
-  horarios        Horario[] @relation("HorarioDocente") // <-- INVERSA PARA Horario.docente
+  id                        Int               @id @default(autoincrement())
+  name                      String?
+  email                     String            @unique
+  firebaseUid               String            @unique
+  passwordHash              String
+  role                      Role              @default(STUDENT)
+  sedeId                    Int?
+  active                    Boolean           @default(true)
+  createdAt                 DateTime          @default(now())
+  updatedAt                 DateTime          @updatedAt
+  anuncios                  Anuncio[]
+  asistencias               Asistencia[]
+  boletines                 Boletin[]
+  cambios                   Cambio[]
+  tareasEntregadas          Entrega[]
+  estudianteGrados          GradoEstudiante[]
+  horarios                  Horario[]         @relation("HorarioDocente")
+  incidenciasComoDocente    Incidencia[]      @relation("IncidenciasDocente")
+  incidenciasComoEstudiante Incidencia[]      @relation("IncidenciasEstudiante")
+  docenteMaterias           MateriaDocente[]
+  sede                      Sede?             @relation(fields: [sedeId], references: [id])
 }
 
 model Sede {
-  id         Int      @id @default(autoincrement())
-  nombre     String
-  direccion  String
-  grados     Grado[]
-  usuarios   User[]
-  aulas      Aula[]
+  id        Int     @id @default(autoincrement())
+  nombre    String
+  direccion String
+  aulas     Aula[]
+  grados    Grado[]
+  usuarios  User[]
 }
 
 model Grado {
-  id           Int      @id @default(autoincrement())
-  nombre       String   // Ej: "5to grado"
-  seccion      String   // Ej: "A", "B", etc.
-  sedeId       Int
-  cicloId      Int
-  aulaId       Int?
-  estudiantes  GradoEstudiante[]
-  materias     Materia[]
-  horarios     Horario[]
-  createdAt    DateTime @default(now())
-
-  sede         Sede     @relation(fields: [sedeId], references: [id])
-  ciclo        Ciclo    @relation(fields: [cicloId], references: [id])
-  aula         Aula?    @relation(fields: [aulaId], references: [id])
+  id          Int               @id @default(autoincrement())
+  nombre      String
+  seccion     String
+  sedeId      Int
+  cicloId     Int
+  aulaId      Int?
+  createdAt   DateTime          @default(now())
+  aula        Aula?             @relation(fields: [aulaId], references: [id])
+  ciclo       Ciclo             @relation(fields: [cicloId], references: [id])
+  sede        Sede              @relation(fields: [sedeId], references: [id])
+  estudiantes GradoEstudiante[]
+  horarios    Horario[]
+  materias    Materia[]
 }
 
 model Ciclo {
-  id         Int      @id @default(autoincrement())
-  nombre     String   // Ej: "2024-2025"
+  id          Int       @id @default(autoincrement())
+  nombre      String
   fechaInicio DateTime
   fechaFin    DateTime
-  cerrado     Boolean @default(false)
-  grados     Grado[]
-  boletines  Boletin[]
+  cerrado     Boolean   @default(false)
+  boletines   Boletin[]
+  grados      Grado[]
 }
 
 model Aula {
-  id         Int      @id @default(autoincrement())
-  codigo     String   @unique
-  nombre     String
-  sedeId     Int
-  grados     Grado[]
-  horarios   Horario[] // <-- INVERSA PARA Horario.aula
-
-  sede       Sede     @relation(fields: [sedeId], references: [id])
+  id       Int       @id @default(autoincrement())
+  codigo   String    @unique
+  nombre   String
+  sedeId   Int
+  sede     Sede      @relation(fields: [sedeId], references: [id])
+  grados   Grado[]
+  horarios Horario[]
 }
 
 model Materia {
-  id           Int      @id @default(autoincrement())
-  nombre       String
-  gradoId      Int
+  id              Int              @id @default(autoincrement())
+  nombre          String
+  gradoId         Int
+  createdAt       DateTime         @default(now())
+  anuncios        Anuncio[]
+  asistencias     Asistencia[]
+  horarios        Horario[]
+  incidencias     Incidencia[]
+  grado           Grado            @relation(fields: [gradoId], references: [id])
   docenteMaterias MateriaDocente[]
-  tareas       Tarea[]
-  anuncios     Anuncio[]
-  incidencias  Incidencia[]
-  asistencias  Asistencia[] // <-- INVERSA PARA Asistencia.materia
-  horarios     Horario[]    // <-- INVERSA PARA Horario.materia
-  createdAt    DateTime @default(now())
-
-  grado        Grado    @relation(fields: [gradoId], references: [id])
+  tareas          Tarea[]
 }
 
 model MateriaDocente {
-  id         Int      @id @default(autoincrement())
-  materiaId  Int
-  docenteId  Int
-
-  materia    Materia  @relation(fields: [materiaId], references: [id])
-  docente    User     @relation(fields: [docenteId], references: [id])
+  id        Int     @id @default(autoincrement())
+  materiaId Int
+  docenteId Int
+  docente   User    @relation(fields: [docenteId], references: [id])
+  materia   Materia @relation(fields: [materiaId], references: [id])
 
   @@unique([materiaId, docenteId])
 }
 
 model GradoEstudiante {
-  id         Int      @id @default(autoincrement())
-  gradoId    Int
+  id           Int   @id @default(autoincrement())
+  gradoId      Int
   estudianteId Int
-
-  grado      Grado    @relation(fields: [gradoId], references: [id])
-  estudiante User     @relation(fields: [estudianteId], references: [id])
+  estudiante   User  @relation(fields: [estudianteId], references: [id])
+  grado        Grado @relation(fields: [gradoId], references: [id])
 
   @@unique([gradoId, estudianteId])
 }
 
 model Tarea {
-  id           Int      @id @default(autoincrement())
+  id           Int       @id @default(autoincrement())
   materiaId    Int
   titulo       String
   descripcion  String?
   fechaEntrega DateTime?
-  createdAt    DateTime @default(now())
-
-  materia      Materia  @relation(fields: [materiaId], references: [id])
+  createdAt    DateTime  @default(now())
   entregas     Entrega[]
+  materia      Materia   @relation(fields: [materiaId], references: [id])
 }
 
 model Entrega {
-  id           Int      @id @default(autoincrement())
+  id           Int           @id @default(autoincrement())
   tareaId      Int
   estudianteId Int
   archivoUrl   String?
   texto        String?
-  entregadaAt  DateTime @default(now())
+  entregadaAt  DateTime      @default(now())
+  estado       String        @default("entregada")
   calificacion Calificacion?
-  estado       String   @default("entregada")
-
-  tarea        Tarea    @relation(fields: [tareaId], references: [id])
-  estudiante   User     @relation(fields: [estudianteId], references: [id])
+  estudiante   User          @relation(fields: [estudianteId], references: [id])
+  tarea        Tarea         @relation(fields: [tareaId], references: [id])
 }
 
 model Calificacion {
-  id           Int      @id @default(autoincrement())
-  entregaId    Int      @unique
-  valor        Float
+  id                Int      @id @default(autoincrement())
+  entregaId         Int      @unique
+  valor             Float
   retroalimentacion String?
-  calificadaAt DateTime @default(now())
-
-  entrega      Entrega  @relation(fields: [entregaId], references: [id])
+  calificadaAt      DateTime @default(now())
+  entrega           Entrega  @relation(fields: [entregaId], references: [id])
 }
 
 model Asistencia {
@@ -163,19 +149,17 @@ model Asistencia {
   materiaId    Int
   estudianteId Int
   presente     Boolean
-
-  materia      Materia  @relation(fields: [materiaId], references: [id])
   estudiante   User     @relation(fields: [estudianteId], references: [id])
+  materia      Materia  @relation(fields: [materiaId], references: [id])
 }
 
 model Boletin {
-  id           Int      @id @default(autoincrement())
+  id           Int    @id @default(autoincrement())
   estudianteId Int
   cicloId      Int
-  archivoUrl   String   // PDF generado
-
-  estudiante   User     @relation(fields: [estudianteId], references: [id])
-  ciclo        Ciclo    @relation(fields: [cicloId], references: [id])
+  archivoUrl   String
+  ciclo        Ciclo  @relation(fields: [cicloId], references: [id])
+  estudiante   User   @relation(fields: [estudianteId], references: [id])
 }
 
 model Incidencia {
@@ -183,54 +167,49 @@ model Incidencia {
   estudianteId Int
   materiaId    Int
   docenteId    Int
-  tipo         String   // "Académica" o "Disciplinaria"
+  tipo         String
   descripcion  String
   fecha        DateTime @default(now())
   evidenciaUrl String?
-
+  docente      User     @relation("IncidenciasDocente", fields: [docenteId], references: [id])
   estudiante   User     @relation("IncidenciasEstudiante", fields: [estudianteId], references: [id])
   materia      Materia  @relation(fields: [materiaId], references: [id])
-  docente      User     @relation("IncidenciasDocente", fields: [docenteId], references: [id])
 }
 
 model Anuncio {
-  id           Int      @id @default(autoincrement())
-  materiaId    Int?
-  autorId      Int
-  mensaje      String
-  fecha        DateTime @default(now())
-  tipo         String   // "General", "Materia", etc.
-
-  materia      Materia? @relation(fields: [materiaId], references: [id])
-  autor        User     @relation(fields: [autorId], references: [id])
+  id        Int      @id @default(autoincrement())
+  materiaId Int?
+  autorId   Int
+  mensaje   String
+  fecha     DateTime @default(now())
+  tipo      String
+  autor     User     @relation(fields: [autorId], references: [id])
+  materia   Materia? @relation(fields: [materiaId], references: [id])
 }
 
 model Horario {
-  id           Int      @id @default(autoincrement())
-  gradoId      Int
-  materiaId    Int
-  docenteId    Int
-  dia          String   // "Lunes", "Martes", etc.
-  horaInicio   String
-  horaFin      String
-  aulaId       Int?
-
-  grado        Grado    @relation(fields: [gradoId], references: [id])
-  materia      Materia  @relation(fields: [materiaId], references: [id])
-  docente      User     @relation("HorarioDocente", fields: [docenteId], references: [id])
-  aula         Aula?    @relation(fields: [aulaId], references: [id])
+  id         Int     @id @default(autoincrement())
+  gradoId    Int
+  materiaId  Int
+  docenteId  Int
+  dia        String
+  horaInicio String
+  horaFin    String
+  aulaId     Int?
+  aula       Aula?   @relation(fields: [aulaId], references: [id])
+  docente    User    @relation("HorarioDocente", fields: [docenteId], references: [id])
+  grado      Grado   @relation(fields: [gradoId], references: [id])
+  materia    Materia @relation(fields: [materiaId], references: [id])
 }
 
-// Auditoría y bitácora de cambios
 model Cambio {
-  id           Int      @id @default(autoincrement())
-  usuarioId    Int
-  entidad      String   // Ej: "User", "Grado", "Materia", etc.
-  entidadId    Int
-  cambio       String   // Descripción del cambio
-  fecha        DateTime @default(now())
-
-  usuario      User     @relation(fields: [usuarioId], references: [id])
+  id        Int      @id @default(autoincrement())
+  usuarioId Int
+  entidad   String
+  entidadId Int
+  cambio    String
+  fecha     DateTime @default(now())
+  usuario   User     @relation(fields: [usuarioId], references: [id])
 }
 
 enum Role {

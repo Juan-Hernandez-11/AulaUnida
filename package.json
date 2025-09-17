@@ -9,11 +9,14 @@
     "lint": "eslint"
   },
   "dependencies": {
+    "@heroicons/react": "^2.2.0",
+    "@prisma/client": "^6.15.0",
     "admin": "^1.4.1",
     "axios": "^1.11.0",
     "clsx": "^2.1.1",
     "date-fns": "^4.1.0",
     "firebase": "^12.2.1",
+    "firebase-admin": "^13.5.0",
     "jspdf": "^3.0.2",
     "next": "15.5.2",
     "react": "19.1.0",

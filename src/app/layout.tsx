@@ -1,12 +1,18 @@
-// Next.js App Router layout
-
 import "bootstrap/dist/css/bootstrap.min.css";
 import "../styles/landingpage.css";
+import "../app/api/config";
+import { AuthProvider } from "../context/authContext";
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
 	return (
 		<html lang="es">
-			<body>{children}</body>
+			<body>
+				{/* Proveedor de autenticación global */}
+				<AuthProvider>
+					{children}
+				</AuthProvider>
+			</body>
 		</html>
 	);
 }
+

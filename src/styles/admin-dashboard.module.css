@@ -1,0 +1,171 @@
+/* admin-dashboard.module.css */
+
+.dashboardContainer {
+  display: flex;
+  min-height: 100vh;
+  background: #181A1B;
+  color: #fff;
+  font-family: 'Inter', 'Segoe UI', Arial, sans-serif;
+}
+
+.sidebar {
+  width: 18rem;
+  background: #181A1B;
+  display: flex;
+  flex-direction: column;
+  padding: 2rem;
+  border-right: 1px solid #232527;
+  min-height: 100vh;
+}
+
+.avatar {
+  width: 4rem;
+  height: 4rem;
+  border-radius: 9999px;
+  margin-right: 1rem;
+  border: 4px solid #fff;
+  object-fit: cover;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.12);
+}
+
+.logo {
+  font-size: 2rem;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  color: #fff;
+}
+
+.menu {
+  margin-top: 1.5rem;
+  flex: 1;
+}
+
+.menuItem {
+  display: flex;
+  align-items: center;
+  padding: 0.75rem 1rem;
+  border-radius: 0.75rem;
+  font-size: 1rem;
+  font-weight: 600;
+  color: #B0B3B8;
+  transition: background 0.2s, color 0.2s;
+  margin-bottom: 0.25rem;
+  cursor: pointer;
+}
+.menuItemActive {
+  background: #22c55e;
+  color: #fff;
+  box-shadow: 0 2px 8px rgba(34,197,94,0.08);
+}
+.menuItem:hover {
+  background: #232527;
+  color: #fff;
+}
+
+.logoutBtn {
+  margin-top: 2.5rem;
+  background: #232527;
+  color: #B0B3B8;
+  padding: 0.75rem;
+  border-radius: 0.75rem;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.2s, color 0.2s;
+}
+.logoutBtn:hover {
+  background: #dc2626;
+  color: #fff;
+}
+
+.mainContent {
+  flex: 1;
+  padding: 4rem;
+  background: #181A1B;
+  min-height: 100vh;
+}
+
+.title {
+  font-size: 3rem;
+  font-weight: 800;
+  margin-bottom: 0.75rem;
+  color: #fff;
+  line-height: 1.1;
+}
+
+.subtitle {
+  color: #B0B3B8;
+  margin-bottom: 3rem;
+  font-size: 1.125rem;
+}
+
+.metricsGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 2.5rem;
+  margin-bottom: 3.5rem;
+}
+
+.metricCard {
+  background: #232527;
+  border: 1px solid #313338;
+  border-radius: 1.5rem;
+  padding: 3rem 2rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+}
+.metricLabel {
+  color: #B0B3B8;
+  font-size: 1.125rem;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+}
+.metricValue {
+  font-size: 3rem;
+  font-weight: 800;
+  color: #22c55e;
+  letter-spacing: -0.02em;
+}
+
+.activityCard {
+  background: #232527;
+  border: 1px solid #313338;
+  border-radius: 1.5rem;
+  padding: 2.5rem;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+}
+.activityTitle {
+  font-size: 2rem;
+  font-weight: 800;
+  margin-bottom: 2rem;
+  color: #fff;
+}
+.activityTable {
+  width: 100%;
+  text-align: left;
+  border-collapse: collapse;
+}
+.activityTable th {
+  color: #B0B3B8;
+  font-size: 1rem;
+  font-weight: 700;
+  padding: 1rem 1.5rem;
+  border-bottom: 1px solid #313338;
+}
+.activityTable td {
+  padding: 1rem 1.5rem;
+  border-bottom: 1px solid #232527;
+}
+.activityTable tr:last-child td {
+  border-bottom: none;
+}
+.activityUser {
+  font-weight: 700;
+  color: #fff;
+}
+.activityAction, .activityDate {
+  color: #B0B3B8;
+}

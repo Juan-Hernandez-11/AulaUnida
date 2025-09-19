@@ -3,7 +3,7 @@ import { PrismaClient } from '@prisma/client';
 
 const prisma = new PrismaClient();
 
-// GET /api/admin/dashboard
+// GET: Devuelve métricas y actividad reciente para el dashboard admin
 export async function GET() {
   try {
     // Usuarios activos

@@ -1,6 +1,14 @@
 {
   "app": {
+    "[project]/src/app/admin/anuncios/page": [],
+    "[project]/src/app/admin/asignaturas/page": [],
+    "[project]/src/app/admin/ciclos/page": [],
+    "[project]/src/app/admin/configuracion/page": [],
+    "[project]/src/app/admin/grados/page": [],
+    "[project]/src/app/admin/horarios/page": [],
+    "[project]/src/app/admin/matricula/page": [],
     "[project]/src/app/admin/page": [],
+    "[project]/src/app/admin/usuarios/page": [],
     "[project]/src/app/login/page": [],
     "[project]/src/app/page": []
   },

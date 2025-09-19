@@ -79,6 +79,8 @@ model Aula {
 model Materia {
   id              Int              @id @default(autoincrement())
   nombre          String
+  area            String
+  codigo          String           @unique
   gradoId         Int
   createdAt       DateTime         @default(now())
   anuncios        Anuncio[]

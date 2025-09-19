@@ -2,7 +2,7 @@ import ProtectedRoute from '../../../components/ProtectedRoute';
 
 export default function AdminReportesPage() {
   return (
-    <ProtectedRoute allowedRoles={["admin"]}>
+    <ProtectedRoute allowedRoles={["ADMIN"]}>
       <main className="p-8">
         <h1 className="text-2xl font-bold mb-6">Gestión de Reportes</h1>
         <div className="bg-white rounded shadow p-6 mb-8">

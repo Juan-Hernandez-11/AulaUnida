@@ -1,4 +1,4 @@
-// PUT: Editar usuario
+// PUT: Edita un usuario existente. Body: { id, name, email, role }
 export async function PUT(request: Request) {
   try {
     const body = await request.json();
@@ -17,7 +17,7 @@ export async function PUT(request: Request) {
   }
 }
 
-// DELETE: Eliminar usuario
+// DELETE: Elimina un usuario. Body: { id }
 export async function DELETE(request: Request) {
   try {
     const body = await request.json();
@@ -36,7 +36,7 @@ import { PrismaClient } from '@prisma/client';
 
 const prisma = new PrismaClient();
 
-// GET: Listar todos los usuarios
+// GET: Devuelve todos los usuarios (id, name, email, role)
 export async function GET() {
   try {
     const users = await prisma.user.findMany({
@@ -54,7 +54,7 @@ export async function GET() {
   }
 }
 
-// POST: Crear usuario
+// POST: Crea un usuario nuevo. Body: { name, email, role, firebaseUid }
 export async function POST(request: Request) {
   try {
     const body = await request.json();

@@ -155,10 +155,34 @@ type RouteHandlerConfig<Route extends AppRouteHandlerRoutes = AppRouteHandlerRou
   handler satisfies AppPageConfig<"/">
 }
 
+// Validate ../../src/app/api/admin/asignaturas/route.ts
+{
+  const handler = {} as typeof import("../../src/app/api/admin/asignaturas/route.js")
+  handler satisfies RouteHandlerConfig<"/api/admin/asignaturas">
+}
+
 // Validate ../../src/app/api/admin/dashboard/route.ts
 {
   const handler = {} as typeof import("../../src/app/api/admin/dashboard/route.js")
   handler satisfies RouteHandlerConfig<"/api/admin/dashboard">
+}
+
+// Validate ../../src/app/api/admin/estudiantes/route.ts
+{
+  const handler = {} as typeof import("../../src/app/api/admin/estudiantes/route.js")
+  handler satisfies RouteHandlerConfig<"/api/admin/estudiantes">
+}
+
+// Validate ../../src/app/api/admin/grados/route.ts
+{
+  const handler = {} as typeof import("../../src/app/api/admin/grados/route.js")
+  handler satisfies RouteHandlerConfig<"/api/admin/grados">
+}
+
+// Validate ../../src/app/api/admin/matricula/route.ts
+{
+  const handler = {} as typeof import("../../src/app/api/admin/matricula/route.js")
+  handler satisfies RouteHandlerConfig<"/api/admin/matricula">
 }
 
 // Validate ../../src/app/api/admin/usuarios/route.ts

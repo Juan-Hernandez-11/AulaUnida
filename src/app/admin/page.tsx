@@ -2,6 +2,7 @@
 import ProtectedRoute from '../../components/ProtectedRoute';
 import { useAuth } from '../../context/authContext';
 import { UserCircleIcon, BookOpenIcon, CalendarIcon, UsersIcon, ClipboardIcon, AcademicCapIcon, ChartBarIcon, MegaphoneIcon, Cog6ToothIcon, QuestionMarkCircleIcon } from '@heroicons/react/24/outline';
+import NextLink from '../../components/NextLink';
 import { useEffect, useState } from 'react';
 import styles from '../../styles/admin-dashboard.module.css';
 
@@ -12,16 +13,16 @@ const metricsLabels = [
 ];
 
 const sidebarLinks = [
-  { label: 'Gestión de Usuarios', icon: UsersIcon },
-  { label: 'Grados/Secciones', icon: AcademicCapIcon },
-  { label: 'Asignaturas', icon: BookOpenIcon },
-  { label: 'Horarios', icon: CalendarIcon },
-  { label: 'Matrícula', icon: ClipboardIcon },
-  { label: 'Ciclos Lectivos', icon: CalendarIcon },
-  { label: 'Reportes', icon: ChartBarIcon },
-  { label: 'Anuncios', icon: MegaphoneIcon },
-  { label: 'Configuración', icon: Cog6ToothIcon },
-  { label: 'Ayuda/FAQs', icon: QuestionMarkCircleIcon },
+  { label: 'Gestión de Usuarios', icon: UsersIcon, href: '/admin/usuarios' },
+  { label: 'Grados/Secciones', icon: AcademicCapIcon, href: '/admin/grados' },
+  { label: 'Asignaturas', icon: BookOpenIcon, href: '/admin/asignaturas' },
+  { label: 'Horarios', icon: CalendarIcon, href: '/admin/horarios' },
+  { label: 'Matrícula', icon: ClipboardIcon, href: '/admin/matricula' },
+  { label: 'Ciclos Lectivos', icon: CalendarIcon, href: '/admin/ciclos' },
+  { label: 'Reportes', icon: ChartBarIcon, href: '/admin/reportes' },
+  { label: 'Anuncios', icon: MegaphoneIcon, href: '/admin/anuncios' },
+  { label: 'Configuración', icon: Cog6ToothIcon, href: '/admin/configuracion' },
+  { label: 'Ayuda/FAQs', icon: QuestionMarkCircleIcon, href: '/admin/faqs' },
 ];
 
 export default function AdminDashboardPage() {
@@ -55,10 +56,10 @@ export default function AdminDashboardPage() {
             <ul style={{ listStyle: 'none', padding: 0, margin: 0 }}>
               {sidebarLinks.map((link, idx) => (
                 <li key={link.label}>
-                  <a href="#" className={`${styles.menuItem} ${idx === 0 ? styles.menuItemActive : ''}`}>
+                  <NextLink href={link.href} className={styles.menuItem}>
                     <link.icon style={{ width: 24, height: 24, marginRight: 16 }} />
                     {link.label}
-                  </a>
+                  </NextLink>
                 </li>
               ))}
             </ul>

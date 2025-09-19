@@ -17,14 +17,8 @@ export default function LoginPage() {
   const { role, loading: roleLoading } = useUserRole();
   const router = useRouter();
 
-  // Forzar logout automático al entrar a /login (solo para pruebas)
-  useEffect(() => {
-    if (user && !loading) {
-      logout();
-    }
-  }, [user, loading, logout]);
 
-  // Redirigir automáticamente según el rol
+  // Si el usuario ya está autenticado y tiene rol, redirige automáticamente
   useEffect(() => {
     if (user && !loading && role && !roleLoading) {
       if (role === 'ADMIN' || role === 'admin') router.replace('/admin');
@@ -32,6 +26,8 @@ export default function LoginPage() {
       else if (role === 'STUDENT' || role === 'estudiante') router.replace('/estudiante');
     }
   }, [user, loading, role, roleLoading, router]);
+
+  // (La redirección ya está incluida arriba)
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -45,9 +41,12 @@ export default function LoginPage() {
     }
   };
 
-  if (user && (loading || roleLoading)) {
+
+  // Mostrar loading si está cargando la sesión
+  if (loading || roleLoading) {
     return <div>Cargando...</div>;
   }
+  // Si ya hay usuario y rol, mostrar mensaje de redirección
   if (user && role) {
     return <div>Redirigiendo...</div>;
   }

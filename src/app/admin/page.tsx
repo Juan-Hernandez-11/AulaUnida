@@ -23,6 +23,8 @@ const sidebarLinks = [
   { label: 'Anuncios', icon: MegaphoneIcon, href: '/admin/anuncios' },
   { label: 'Configuración', icon: Cog6ToothIcon, href: '/admin/configuracion' },
   { label: 'Ayuda/FAQs', icon: QuestionMarkCircleIcon, href: '/admin/faqs' },
+    { label: 'Crear Usuario', icon: UserCircleIcon, href: '/admin/usuarios' },
+    { label: 'Listado de usuarios', icon: UserCircleIcon, href: '/admin/usuarios/listado' },
 ];
 
 export default function AdminDashboardPage() {

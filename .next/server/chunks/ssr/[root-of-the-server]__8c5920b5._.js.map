@@ -1,0 +1,7 @@
+{
+  "version": 3,
+  "sources": [],
+  "sections": [
+    {"offset": {"line": 3, "column": 0}, "map": {"version":3,"sources":[],"names":[],"mappings":"","debugId":null}},
+    {"offset": {"line": 15, "column": 0}, "map": {"version":3,"sources":["file:///C:/Users/juant/Documents/proyectoCUN/aulaunida/src/app/admin/usuarios/listado/page.tsx"],"sourcesContent":["// Página de listado de usuarios para Next.js App Router (debe estar en /listado/page.tsx)\r\nimport React from \"react\";\r\nimport UsuariosListado from \"./listado\";\r\n\r\nexport default function UsuariosListadoPage() {\r\n  return <UsuariosListado />;\r\n}\r\n"],"names":[],"mappings":"AAAA,0FAA0F;;;;;;;;;;;;;AAI3E,SAAS;IACtB,qBAAO,8OAAC;;;;;AACV","debugId":null}}]
+}

@@ -1,0 +1,58 @@
+.adminFormField {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+.adminFormLabel {
+  color: #fff;
+  font-size: 1rem;
+  font-weight: 600;
+  margin-bottom: 0.25rem;
+}
+.adminFormInput, .adminFormSelect {
+  background: #232b3a;
+  border: none;
+  border-radius: 8px;
+  padding: 14px 16px;
+  color: #fff;
+  font-size: 1rem;
+  outline: none;
+  margin-bottom: 0;
+  transition: border 0.2s;
+}
+.adminFormInput:focus, .adminFormSelect:focus {
+  border: 1.5px solid #22ff88;
+}
+.adminFormInput::placeholder {
+  color: #7a7e8a;
+}
+.adminFormButton {
+  background: #22ff88;
+  color: #181a20;
+  font-weight: 700;
+  border: none;
+  border-radius: 8px;
+  padding: 14px 0;
+  font-size: 1.1rem;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+.adminFormButton:hover {
+  background: #1be06e;
+}
+.adminFormError {
+  color: #ff4d4f;
+  background: #2a1a1a;
+  border-radius: 6px;
+  padding: 8px 12px;
+  margin-top: 8px;
+  font-size: 0.98rem;
+  text-align: center;
+}
+.adminFormPhotoPreview {
+  margin-top: 0.5rem;
+  border-radius: 8px;
+  max-height: 120px;
+  object-fit: contain;
+  border: 1px solid #444;
+}

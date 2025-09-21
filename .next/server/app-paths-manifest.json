@@ -1,7 +1,12 @@
 {
+  "/_not-found/page": "app/_not-found/page.js",
+  "/admin/grados/page": "app/admin/grados/page.js",
   "/admin/page": "app/admin/page.js",
+  "/admin/usuarios/listado/page": "app/admin/usuarios/listado/page.js",
   "/admin/usuarios/page": "app/admin/usuarios/page.js",
   "/api/admin/dashboard/route": "app/api/admin/dashboard/route.js",
+  "/api/admin/grados/route": "app/api/admin/grados/route.js",
+  "/api/admin/usuarios/route": "app/api/admin/usuarios/route.js",
   "/api/user-role/route": "app/api/user-role/route.js",
   "/favicon.ico/route": "app/favicon.ico/route.js",
   "/login/page": "app/login/page.js",

@@ -3,6 +3,7 @@
 import React, { useState } from 'react';
 import ProtectedRoute from '../../../components/ProtectedRoute';
 import styles from '../../../styles/admin-dashboard.module.css';
+import formStyles from '../../../styles/admin-user-form.module.css';
 import { UserCircleIcon, AcademicCapIcon, ClipboardIcon } from '@heroicons/react/24/outline';
 import NextLink from '../../../components/NextLink';
 
@@ -23,10 +24,20 @@ type User = {
   name: string | null;
   email: string;
   role: string;
+  documentType?: string;
+  documentNumber?: string;
+  birthDate?: string;
+  phone?: string;
+  address?: string;
+  gender?: string;
+  photoUrl?: string;
+  firebaseUid?: string;
 };
 
+
 const sidebarLinks = [
-  { label: 'Gestión de Usuarios', icon: UserCircleIcon, href: '/admin/usuarios', active: true },
+  { label: 'Crear Usuario', icon: UserCircleIcon, href: '/admin/usuarios', active: true },
+  { label: 'Listado de usuarios', icon: UserCircleIcon, href: '/admin/usuarios/listado' },
   { label: 'Grados/Secciones', icon: AcademicCapIcon, href: '/admin/grados' },
   { label: 'Matrícula', icon: ClipboardIcon, href: '/admin/matricula' },
 ];
@@ -34,12 +45,37 @@ const sidebarLinks = [
 export default function AdminUsuariosPage() {
   const [users, setUsers] = useState<User[]>([]);
   const [loading, setLoading] = useState(true);
-  const [form, setForm] = useState({ name: '', email: '', role: 'admin', firebaseUid: '' });
+  const [form, setForm] = useState({
+    name: '',
+    email: '',
+    role: 'admin',
+    documentType: '',
+    documentNumber: '',
+    birthDate: '',
+    phone: '',
+    address: '',
+    gender: '',
+    photoUrl: ''
+  });
+//    firebaseUid: '', // Solo para edición, no para creación
+  const [photoFile, setPhotoFile] = useState<File | null>(null);
+  const [photoPreview, setPhotoPreview] = useState<string | null>(null);
   const [editingId, setEditingId] = useState<number | null>(null);
   const [creating, setCreating] = useState(false);
   const [error, setError] = useState('');
   // Estado para errores de validación en tiempo real
-  const [fieldErrors, setFieldErrors] = useState<{ name?: string; email?: string; firebaseUid?: string }>({});
+  const [fieldErrors, setFieldErrors] = useState<{
+    name?: string;
+    email?: string;
+    firebaseUid?: string;
+    documentType?: string;
+    documentNumber?: string;
+    birthDate?: string;
+    phone?: string;
+    address?: string;
+    gender?: string;
+    photoUrl?: string;
+  }>({});
 
   // Obtener usuarios al cargar
   // Cargar usuarios manualmente cuando sea necesario (ejemplo: con un botón o tras crear/editar)
@@ -50,23 +86,64 @@ export default function AdminUsuariosPage() {
     let error = '';
     if (name === 'name') {
       if (!value.trim()) error = 'El nombre es obligatorio.';
-      else if (value.length < 3) error = 'Debe tener al menos 3 caracteres.';
+      else if (!/^[A-Za-zÁÉÍÓÚáéíóúÑñ ]{3,}$/.test(value.trim())) error = 'El nombre debe tener solo letras y al menos 3 caracteres.';
     }
     if (name === 'email') {
       if (!value.trim()) error = 'El correo es obligatorio.';
       else if (!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(value)) error = 'Correo inválido.';
+      else if (users.some(u => u.email.toLowerCase() === value.toLowerCase()) && (!editingId || users.find(u => u.id === editingId)?.email !== value)) error = 'Este correo ya está registrado.';
     }
-    if (name === 'firebaseUid' && !editingId) {
-      if (!value.trim()) error = 'El UID de Firebase es obligatorio.';
-      else if (value.length < 10) error = 'UID demasiado corto.';
+    if (name === 'documentType') {
+      if (!value.trim()) error = 'Tipo de documento obligatorio.';
+    }
+    if (name === 'documentNumber') {
+      if (!value.trim()) error = 'Número de documento obligatorio.';
+      else if (!/^\d{5,}$/.test(value)) error = 'El número de documento debe ser numérico y mínimo 5 dígitos.';
+      else if (users.some(u => u.documentNumber === value) && (!editingId || users.find(u => u.id === editingId)?.documentNumber !== value)) error = 'Este número de documento ya está registrado.';
+    }
+    if (name === 'birthDate') {
+      if (!value.trim()) error = 'Fecha de nacimiento obligatoria.';
+      else {
+        const birth = new Date(value);
+        const now = new Date();
+        if (birth > now) error = 'La fecha de nacimiento no puede ser futura.';
+        const age = now.getFullYear() - birth.getFullYear() - (now < new Date(now.getFullYear(), birth.getMonth(), birth.getDate()) ? 1 : 0);
+        if (age < 5) error = 'La edad mínima es 5 años.';
+      }
+    }
+    if (name === 'phone') {
+      if (!value.trim()) error = 'Teléfono obligatorio.';
+      else if (!/^\d{7,10}$/.test(value)) error = 'El teléfono debe tener entre 7 y 10 dígitos.';
+      else if (value.startsWith('0')) error = 'El teléfono no debe empezar por 0.';
+    }
+    if (name === 'address') {
+      if (!value.trim() || value.trim().length < 5) error = 'La dirección debe tener al menos 5 caracteres.';
+    }
+    if (name === 'gender') {
+      if (!['M', 'F', 'O'].includes(value)) error = 'Selecciona un género válido.';
+    }
+    if (name === 'photoUrl' && value) {
+      if (!/^https?:\/\/.+\.(jpg|jpeg|png|gif|webp)$/i.test(value)) error = 'La foto debe ser una URL de imagen válida.';
     }
     return error;
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
-    const { name, value } = e.target;
-    setForm({ ...form, [name]: value });
-    setFieldErrors(prev => ({ ...prev, [name]: validateField(name, value) }));
+    const { name, value, type } = e.target;
+    if (type === 'file' && name === 'photo') {
+      const file = (e.target as HTMLInputElement).files?.[0] || null;
+      setPhotoFile(file);
+      if (file) {
+        const reader = new FileReader();
+        reader.onloadend = () => setPhotoPreview(reader.result as string);
+        reader.readAsDataURL(file);
+      } else {
+        setPhotoPreview(null);
+      }
+    } else {
+      setForm({ ...form, [name]: value });
+      setFieldErrors(prev => ({ ...prev, [name]: validateField(name, value) }));
+    }
   };
 
   // Crear o editar usuario
@@ -78,10 +155,10 @@ export default function AdminUsuariosPage() {
     const newErrors: typeof fieldErrors = {
       name: validateField('name', form.name),
       email: validateField('email', form.email),
-      firebaseUid: !editingId ? validateField('firebaseUid', form.firebaseUid) : undefined,
     };
+      // No validar firebaseUid en creación
     setFieldErrors(newErrors);
-    if (newErrors.name || newErrors.email || newErrors.firebaseUid) {
+    if (newErrors.name || newErrors.email) {
       setError('Por favor corrige los errores antes de guardar.');
       setCreating(false);
       return;
@@ -99,7 +176,18 @@ export default function AdminUsuariosPage() {
         } else {
           const updatedUser = await res.json();
           setUsers(prev => prev.map(u => u.id === updatedUser.id ? updatedUser : u));
-          setForm({ name: '', email: '', role: 'admin', firebaseUid: '' });
+          setForm({
+            name: '',
+            email: '',
+            role: 'admin',
+            documentType: '',
+            documentNumber: '',
+            birthDate: '',
+            phone: '',
+            address: '',
+            gender: '',
+            photoUrl: ''
+          });
           setEditingId(null);
         }
       } else {
@@ -114,7 +202,18 @@ export default function AdminUsuariosPage() {
         } else {
           const newUser = await res.json();
           setUsers(prev => [...prev, newUser]);
-          setForm({ name: '', email: '', role: 'admin', firebaseUid: '' });
+          setForm({
+            name: '',
+            email: '',
+            role: 'admin',
+            documentType: '',
+            documentNumber: '',
+            birthDate: '',
+            phone: '',
+            address: '',
+            gender: '',
+            photoUrl: ''
+          });
         }
       }
     } catch (err) {
@@ -145,7 +244,18 @@ export default function AdminUsuariosPage() {
 
   // Editar usuario (cargar datos en el formulario)
   const handleEdit = (user: User) => {
-    setForm({ name: user.name || '', email: user.email, role: user.role, firebaseUid: '' });
+    setForm({
+      name: user.name || '',
+      email: user.email,
+      role: user.role,
+      documentType: user.documentType || '',
+      documentNumber: user.documentNumber || '',
+      birthDate: user.birthDate ? user.birthDate.split('T')[0] : '',
+      phone: user.phone || '',
+      address: user.address || '',
+      gender: user.gender || '',
+      photoUrl: user.photoUrl || ''
+    });
     setEditingId(user.id);
     setError('');
   };
@@ -163,7 +273,7 @@ export default function AdminUsuariosPage() {
             <ul style={{ listStyle: 'none', padding: 0, margin: 0 }}>
               {sidebarLinks.map(link => (
                 <li key={link.label}>
-                  <NextLink href={link.href} className={`${styles.menuItem} ${link.active ? styles.menuItemActive : ''}`}>
+                  <NextLink href={link.href} className={`${styles.menuItem} ${window.location.pathname === link.href ? styles.menuItemActive : ''}`}>
                     <link.icon style={{ width: 24, height: 24, marginRight: 16 }} />
                     {link.label}
                   </NextLink>
@@ -178,72 +288,116 @@ export default function AdminUsuariosPage() {
           <h1 className={styles.title}>Gestión de Usuarios</h1>
           <div className={styles.activityCard}>
             <h2 className={styles.activityTitle}>{editingId ? 'Editar Usuario' : 'Crear Usuario'}</h2>
-            <form className="grid grid-cols-1 md:grid-cols-4 gap-4" onSubmit={handleSubmit}>
-                <div className="flex flex-col">
-                  <input
-                    className="border p-2 rounded"
-                    placeholder="Nombre completo"
-                    name="name"
-                    value={form.name}
-                    onChange={handleChange}
-                    disabled={creating}
-                    autoComplete="off"
-                  />
-                  {fieldErrors.name && <span className="text-red-500 text-xs mt-1">{fieldErrors.name}</span>}
+            <form className="grid grid-cols-1 gap-6 bg-[#232734] p-8 rounded-xl shadow-lg"
+              style={{
+                display: 'grid',
+                gridTemplateColumns: 'repeat(1, 1fr)',
+                gap: '1.5rem',
+              }}
+              onSubmit={handleSubmit}
+            >
+              <div style={{
+                display: 'grid',
+                gridTemplateColumns: 'repeat(3, 1fr)',
+                gap: '1.5rem',
+              }}>
+                <div className={formStyles.adminFormField}>
+                  <label className={formStyles.adminFormLabel}>Nombre completo</label>
+                  <input className={formStyles.adminFormInput} placeholder="Nombre completo" name="name" value={form.name || ''} onChange={handleChange} disabled={creating} autoComplete="off" />
+                  {fieldErrors.name && <span className={formStyles.adminFormError}>{fieldErrors.name}</span>}
                 </div>
-                <div className="flex flex-col">
-                  <input
-                    className="border p-2 rounded"
-                    placeholder="Correo electrónico"
-                    name="email"
-                    value={form.email}
-                    onChange={handleChange}
-                    disabled={creating}
-                    type="email"
-                    autoComplete="off"
-                  />
-                  {fieldErrors.email && <span className="text-red-500 text-xs mt-1">{fieldErrors.email}</span>}
+                <div className={formStyles.adminFormField}>
+                  <label className={formStyles.adminFormLabel}>Correo electrónico</label>
+                  <input className={formStyles.adminFormInput} placeholder="Correo electrónico" name="email" value={form.email || ''} onChange={handleChange} disabled={creating} type="email" autoComplete="off" />
+                  {fieldErrors.email && <span className={formStyles.adminFormError}>{fieldErrors.email}</span>}
                 </div>
-                <select
-                  className="border p-2 rounded"
-                  name="role"
-                  value={form.role}
-                  onChange={handleChange}
-                  disabled={creating}
-                >
-                  <option value="admin">admin</option>
-                  <option value="docente">docente</option>
-                  <option value="estudiante">estudiante</option>
-                </select>
-                {!editingId && (
-                  <div className="flex flex-col">
-                    <input
-                      className="border p-2 rounded"
-                      placeholder="Firebase UID"
-                      name="firebaseUid"
-                      value={form.firebaseUid}
-                      onChange={handleChange}
-                      disabled={creating}
-                      autoComplete="off"
-                    />
-                    {fieldErrors.firebaseUid && <span className="text-red-500 text-xs mt-1">{fieldErrors.firebaseUid}</span>}
+                <div className={formStyles.adminFormField}>
+                  <label className={formStyles.adminFormLabel}>Rol</label>
+                  <select className={formStyles.adminFormSelect} name="role" value={form.role || ''} onChange={handleChange} disabled={creating}>
+                    <option value="admin">admin</option>
+                    <option value="docente">docente</option>
+                    <option value="estudiante">estudiante</option>
+                  </select>
+                </div>
+              </div>
+              <div style={{
+                display: 'grid',
+                gridTemplateColumns: 'repeat(3, 1fr)',
+                gap: '1.5rem',
+              }}>
+                <div className={formStyles.adminFormField}>
+                  <label className={formStyles.adminFormLabel}>Tipo de documento</label>
+                  <select className={formStyles.adminFormSelect} name="documentType" value={form.documentType || ''} onChange={handleChange} disabled={creating}>
+                    <option value="">Tipo de documento</option>
+                    <option value="CC">Cédula de ciudadanía</option>
+                    <option value="TI">Tarjeta de identidad</option>
+                    <option value="CE">Cédula de extranjería</option>
+                    <option value="PAS">Pasaporte</option>
+                  </select>
+                  {fieldErrors.documentType && <span className={formStyles.adminFormError}>{fieldErrors.documentType}</span>}
+                </div>
+                <div className={formStyles.adminFormField}>
+                  <label className={formStyles.adminFormLabel}>Número de documento</label>
+                  <input className={formStyles.adminFormInput} placeholder="Número de documento" name="documentNumber" value={form.documentNumber || ''} onChange={handleChange} disabled={creating} autoComplete="off" />
+                  {fieldErrors.documentNumber && <span className={formStyles.adminFormError}>{fieldErrors.documentNumber}</span>}
+                </div>
+                <div className={formStyles.adminFormField}>
+                  <label className={formStyles.adminFormLabel}>Fecha de nacimiento</label>
+                  <input className={formStyles.adminFormInput} type="date" name="birthDate" value={form.birthDate || ''} onChange={handleChange} disabled={creating} />
+                  {fieldErrors.birthDate && <span className={formStyles.adminFormError}>{fieldErrors.birthDate}</span>}
+                </div>
+              </div>
+              <div style={{
+                display: 'grid',
+                gridTemplateColumns: 'repeat(3, 1fr)',
+                gap: '1.5rem',
+              }}>
+                <div className={formStyles.adminFormField}>
+                  <label className={formStyles.adminFormLabel}>Teléfono</label>
+                  <input className={formStyles.adminFormInput} placeholder="Teléfono" name="phone" value={form.phone || ''} onChange={handleChange} disabled={creating} autoComplete="off" />
+                  {fieldErrors.phone && <span className={formStyles.adminFormError}>{fieldErrors.phone}</span>}
+                </div>
+                <div className={formStyles.adminFormField}>
+                  <label className={formStyles.adminFormLabel}>Dirección</label>
+                  <input className={formStyles.adminFormInput} placeholder="Dirección" name="address" value={form.address || ''} onChange={handleChange} disabled={creating} autoComplete="off" />
+                  {fieldErrors.address && <span className={formStyles.adminFormError}>{fieldErrors.address}</span>}
+                </div>
+                <div className={formStyles.adminFormField}>
+                  <label className={formStyles.adminFormLabel}>Género</label>
+                  <select className={formStyles.adminFormSelect} name="gender" value={form.gender || ''} onChange={handleChange} disabled={creating}>
+                    <option value="">Género</option>
+                    <option value="M">Masculino</option>
+                    <option value="F">Femenino</option>
+                    <option value="O">Otro</option>
+                  </select>
+                  {fieldErrors.gender && <span className={formStyles.adminFormError}>{fieldErrors.gender}</span>}
+                </div>
+              </div>
+              <div style={{
+                display: 'grid',
+                gridTemplateColumns: '1fr 2fr',
+                gap: '1.5rem',
+              }}>
+                <div className={formStyles.adminFormField}>
+                  <label className={formStyles.adminFormLabel}>Foto de perfil</label>
+                  <input type="file" accept="image/*" name="photo" onChange={handleChange} disabled={creating} className={formStyles.adminFormInput} />
+                  {photoPreview && (
+                    <img src={photoPreview} alt="Preview" className={formStyles.adminFormPhotoPreview} />
+                  )}
+                </div>
+                {editingId && (
+                  <div className={formStyles.adminFormField}>
+                    <label className={formStyles.adminFormLabel}>Firebase UID</label>
+                    <input className={formStyles.adminFormInput} placeholder="Firebase UID" name="firebaseUid" value={users.find(u => u.id === editingId)?.firebaseUid || ''} disabled readOnly autoComplete="off" />
                   </div>
                 )}
-              <div className="col-span-1 md:col-span-4 flex gap-2 mt-2">
-                <button
-                  className="bg-blue-500 text-white rounded p-2 flex-1"
-                  type="submit"
-                  disabled={creating || !!fieldErrors.name || !!fieldErrors.email || (!editingId && !!fieldErrors.firebaseUid)}
-                >
+              </div>
+              <div className="col-span-1 md:col-span-3 flex gap-2 mt-2">
+                <button className={formStyles.adminFormButton + ' flex-1'} type="submit" disabled={creating || Object.values(fieldErrors).some(Boolean)}>
                   {creating ? (editingId ? 'Guardando...' : 'Guardando...') : (editingId ? 'Guardar cambios' : 'Guardar')}
                 </button>
                 {editingId && (
-                  <button
-                    type="button"
-                    className="bg-gray-400 text-white rounded p-2 flex-1"
-                    onClick={() => { setEditingId(null); setForm({ name: '', email: '', role: 'admin', firebaseUid: '' }); setError(''); }}
-                    disabled={creating}
-                  >
+                  <button type="button" className={formStyles.adminFormButton + ' flex-1'} style={{ background: '#888', color: '#fff' }} onClick={() => { setEditingId(null); setForm({ name: '', email: '', role: 'admin', documentType: '', documentNumber: '', birthDate: '', phone: '', address: '', gender: '', photoUrl: '' }); setError(''); }} disabled={creating}>
                     Cancelar
                   </button>
                 )}
@@ -251,52 +405,7 @@ export default function AdminUsuariosPage() {
             </form>
             {error && <div style={{ color: 'red', marginTop: 12 }}>{error}</div>}
           </div>
-          <div className={styles.activityCard} style={{ marginTop: 32 }}>
-            <h2 className={styles.activityTitle}>Listado de Usuarios</h2>
-            {loading ? (
-              <div style={{ color: '#B0B3B8' }}>Cargando usuarios...</div>
-            ) : (
-              <table className={styles.activityTable}>
-                <thead>
-                  <tr>
-                    <th>Nombre</th>
-                    <th>Correo</th>
-                    <th>Rol</th>
-                    <th>Acciones</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {users.length === 0 ? (
-                    <tr>
-                      <td colSpan={4} style={{ color: '#B0B3B8' }}>(sin datos)</td>
-                    </tr>
-                  ) : (
-                    users.map(user => (
-                      <tr key={user.id}>
-                        <td className={styles.activityUser}>{user.name || '-'}</td>
-                        <td className={styles.activityAction}>{user.email}</td>
-                        <td className={styles.activityAction}>{user.role}</td>
-                        <td className={styles.activityAction}>
-                          <button
-                            style={{ color: '#2563eb', textDecoration: 'underline', marginRight: 12 }}
-                            onClick={() => handleEdit(user)}
-                          >
-                            Editar
-                          </button>
-                          <button
-                            style={{ color: '#dc2626', textDecoration: 'underline' }}
-                            onClick={() => handleDelete(user.id)}
-                          >
-                            Eliminar
-                          </button>
-                        </td>
-                      </tr>
-                    ))
-                  )}
-                </tbody>
-              </table>
-            )}
-          </div>
+          {/* El listado de usuarios ahora está en /admin/usuarios/listado */}
         </main>
       </div>
     </ProtectedRoute>

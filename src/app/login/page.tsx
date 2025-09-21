@@ -6,8 +6,7 @@ import { app } from "../../lib/firebaseClient";
 import { useAuth } from "../../context/authContext";
 import { useUserRole } from "../../hooks/useUserRole";
 import { useRouter } from "next/navigation";
-
-
+import styles from "../../styles/login.module.css";
 
 export default function LoginPage() {
   const [email, setEmail] = useState("");
@@ -44,34 +43,55 @@ export default function LoginPage() {
 
   // Mostrar loading si está cargando la sesión
   if (loading || roleLoading) {
-    return <div>Cargando...</div>;
+    return <div className={styles["login-bg"]}>Cargando...</div>;
   }
   // Si ya hay usuario y rol, mostrar mensaje de redirección
   if (user && role) {
-    return <div>Redirigiendo...</div>;
+    return <div className={styles["login-bg"]}>Redirigiendo...</div>;
   }
 
   return (
-    <div className="login-container">
-      <h2>Iniciar Sesión</h2>
-      <form onSubmit={handleSubmit} className="login-form">
-        <input
-          type="email"
-          placeholder="Correo electrónico"
-          value={email}
-          onChange={e => setEmail(e.target.value)}
-          required
-        />
-        <input
-          type="password"
-          placeholder="Contraseña"
-          value={password}
-          onChange={e => setPassword(e.target.value)}
-          required
-        />
-        <button type="submit">Ingresar</button>
-        {error && <div className="login-error">{error}</div>}
-      </form>
+    <div className={styles["login-bg"]}>
+      <header className={styles["login-header"]}>
+        <span className={styles.logo}></span>
+        AulaUnida
+      </header>
+      <div className={styles["login-center"]}>
+        <div className={styles["login-card"]}>
+          <div className={styles["login-title"]}>Bienvenido a AulaUnida</div>
+          <form onSubmit={handleSubmit} className={styles["login-form"]}>
+            <input
+              type="email"
+              placeholder="Usuario"
+              value={email}
+              onChange={e => setEmail(e.target.value)}
+              required
+              autoComplete="username"
+            />
+            <input
+              type="password"
+              placeholder="Contraseña"
+              value={password}
+              onChange={e => setPassword(e.target.value)}
+              required
+              autoComplete="current-password"
+            />
+            <button type="submit">Ingresar</button>
+            {error && <div className={styles["login-error"]}>{error}</div>}
+          </form>
+          {/* Botón para volver a la página principal */}
+          <button
+            type="button"
+            className={styles["login-back-btn"]}
+            onClick={() => router.push("/")}
+            style={{ marginTop: "1.5rem", background: "none", color: "#fff", border: "1px solid #fff", borderRadius: "6px", padding: "0.5rem 1.2rem", cursor: "pointer", fontSize: "1rem", transition: "background 0.2s, color 0.2s" }}
+            onMouseOver={e => { (e.target as HTMLButtonElement).style.background = "#fff"; (e.target as HTMLButtonElement).style.color = "#222"; }}
+            onMouseOut={e => { (e.target as HTMLButtonElement).style.background = "none"; (e.target as HTMLButtonElement).style.color = "#fff"; }}
+          >
+            Volver a la página principal
+          </button>
+        </div>
+      </div>
     </div>
   );
 }

@@ -16,6 +16,13 @@ model User {
   role                      Role              @default(STUDENT)
   sedeId                    Int?
   active                    Boolean           @default(true)
+  documentType              String?
+  documentNumber            String?           @unique
+  birthDate                 DateTime?
+  phone                     String?
+  address                   String?
+  gender                    String?
+  photoUrl                  String?
   createdAt                 DateTime          @default(now())
   updatedAt                 DateTime          @updatedAt
   anuncios                  Anuncio[]

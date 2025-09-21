@@ -239,8 +239,17 @@ function AdminUsuariosPage() {
         name: '',
         email: '',
         role: 'admin',
-        firebaseUid: ''
+        firebaseUid: '',
+        documentType: '',
+        documentNumber: '',
+        birthDate: '',
+        phone: '',
+        address: '',
+        gender: '',
+        photoUrl: ''
     });
+    const [photoFile, setPhotoFile] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useState"])(null);
+    const [photoPreview, setPhotoPreview] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useState"])(null);
     const [editingId, setEditingId] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useState"])(null);
     const [creating, setCreating] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useState"])(false);
     const [error, setError] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useState"])('');
@@ -264,18 +273,47 @@ function AdminUsuariosPage() {
             if (!value.trim()) error = 'El UID de Firebase es obligatorio.';
             else if (value.length < 10) error = 'UID demasiado corto.';
         }
+        if (name === 'documentType') {
+            if (!value.trim()) error = 'Tipo de documento obligatorio.';
+        }
+        if (name === 'documentNumber') {
+            if (!value.trim()) error = 'Número de documento obligatorio.';
+            else if (!/^\d{5,}$/.test(value)) error = 'Debe ser un número válido.';
+        }
+        if (name === 'birthDate') {
+            if (!value.trim()) error = 'Fecha de nacimiento obligatoria.';
+        }
+        if (name === 'phone') {
+            if (!value.trim()) error = 'Teléfono obligatorio.';
+            else if (!/^\d{7,}$/.test(value)) error = 'Debe ser un teléfono válido.';
+        }
+        if (name === 'gender') {
+            if (!value.trim()) error = 'Selecciona un género.';
+        }
         return error;
     };
     const handleChange = (e)=>{
-        const { name, value } = e.target;
-        setForm({
-            ...form,
-            [name]: value
-        });
-        setFieldErrors((prev)=>({
-                ...prev,
-                [name]: validateField(name, value)
-            }));
+        const { name, value, type } = e.target;
+        if (type === 'file' && name === 'photo') {
+            const file = e.target.files?.[0] || null;
+            setPhotoFile(file);
+            if (file) {
+                const reader = new FileReader();
+                reader.onloadend = ()=>setPhotoPreview(reader.result);
+                reader.readAsDataURL(file);
+            } else {
+                setPhotoPreview(null);
+            }
+        } else {
+            setForm({
+                ...form,
+                [name]: value
+            });
+            setFieldErrors((prev)=>({
+                    ...prev,
+                    [name]: validateField(name, value)
+                }));
+        }
     };
     // Crear o editar usuario
     const handleSubmit = async (e)=>{
@@ -318,7 +356,14 @@ function AdminUsuariosPage() {
                         name: '',
                         email: '',
                         role: 'admin',
-                        firebaseUid: ''
+                        firebaseUid: '',
+                        documentType: '',
+                        documentNumber: '',
+                        birthDate: '',
+                        phone: '',
+                        address: '',
+                        gender: '',
+                        photoUrl: ''
                     });
                     setEditingId(null);
                 }
@@ -343,7 +388,14 @@ function AdminUsuariosPage() {
                         name: '',
                         email: '',
                         role: 'admin',
-                        firebaseUid: ''
+                        firebaseUid: '',
+                        documentType: '',
+                        documentNumber: '',
+                        birthDate: '',
+                        phone: '',
+                        address: '',
+                        gender: '',
+                        photoUrl: ''
                     });
                 }
             }
@@ -381,7 +433,14 @@ function AdminUsuariosPage() {
             name: user.name || '',
             email: user.email,
             role: user.role,
-            firebaseUid: ''
+            firebaseUid: '',
+            documentType: user.documentType || '',
+            documentNumber: user.documentNumber || '',
+            birthDate: user.birthDate ? user.birthDate.split('T')[0] : '',
+            phone: user.phone || '',
+            address: user.address || '',
+            gender: user.gender || '',
+            photoUrl: user.photoUrl || ''
         });
         setEditingId(user.id);
         setError('');
@@ -409,7 +468,7 @@ function AdminUsuariosPage() {
                                     className: __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$styles$2f$admin$2d$dashboard$2e$module$2e$css__$5b$app$2d$ssr$5d$__$28$css__module$29$__["default"].avatar
                                 }, void 0, false, {
                                     fileName: "[project]/src/app/admin/usuarios/page.tsx",
-                                    lineNumber: 159,
+                                    lineNumber: 256,
                                     columnNumber: 13
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -417,13 +476,13 @@ function AdminUsuariosPage() {
                                     children: "AulaUnida"
                                 }, void 0, false, {
                                     fileName: "[project]/src/app/admin/usuarios/page.tsx",
-                                    lineNumber: 160,
+                                    lineNumber: 257,
                                     columnNumber: 13
                                 }, this)
                             ]
                         }, void 0, true, {
                             fileName: "[project]/src/app/admin/usuarios/page.tsx",
-                            lineNumber: 158,
+                            lineNumber: 255,
                             columnNumber: 11
                         }, this),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("nav", {
@@ -447,35 +506,35 @@ function AdminUsuariosPage() {
                                                     }
                                                 }, void 0, false, {
                                                     fileName: "[project]/src/app/admin/usuarios/page.tsx",
-                                                    lineNumber: 167,
+                                                    lineNumber: 264,
                                                     columnNumber: 21
                                                 }, this),
                                                 link.label
                                             ]
                                         }, void 0, true, {
                                             fileName: "[project]/src/app/admin/usuarios/page.tsx",
-                                            lineNumber: 166,
+                                            lineNumber: 263,
                                             columnNumber: 19
                                         }, this)
                                     }, link.label, false, {
                                         fileName: "[project]/src/app/admin/usuarios/page.tsx",
-                                        lineNumber: 165,
+                                        lineNumber: 262,
                                         columnNumber: 17
                                     }, this))
                             }, void 0, false, {
                                 fileName: "[project]/src/app/admin/usuarios/page.tsx",
-                                lineNumber: 163,
+                                lineNumber: 260,
                                 columnNumber: 13
                             }, this)
                         }, void 0, false, {
                             fileName: "[project]/src/app/admin/usuarios/page.tsx",
-                            lineNumber: 162,
+                            lineNumber: 259,
                             columnNumber: 11
                         }, this)
                     ]
                 }, void 0, true, {
                     fileName: "[project]/src/app/admin/usuarios/page.tsx",
-                    lineNumber: 157,
+                    lineNumber: 254,
                     columnNumber: 9
                 }, this),
                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("main", {
@@ -483,7 +542,7 @@ function AdminUsuariosPage() {
                     children: [
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(BackToDashboardButton, {}, void 0, false, {
                             fileName: "[project]/src/app/admin/usuarios/page.tsx",
-                            lineNumber: 177,
+                            lineNumber: 274,
                             columnNumber: 11
                         }, this),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("h1", {
@@ -491,7 +550,7 @@ function AdminUsuariosPage() {
                             children: "Gestión de Usuarios"
                         }, void 0, false, {
                             fileName: "[project]/src/app/admin/usuarios/page.tsx",
-                            lineNumber: 178,
+                            lineNumber: 275,
                             columnNumber: 11
                         }, this),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -502,18 +561,26 @@ function AdminUsuariosPage() {
                                     children: editingId ? 'Editar Usuario' : 'Crear Usuario'
                                 }, void 0, false, {
                                     fileName: "[project]/src/app/admin/usuarios/page.tsx",
-                                    lineNumber: 180,
+                                    lineNumber: 277,
                                     columnNumber: 13
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("form", {
-                                    className: "grid grid-cols-1 md:grid-cols-4 gap-4",
+                                    className: "grid grid-cols-1 md:grid-cols-3 gap-6 bg-[#232734] p-8 rounded-xl shadow-lg",
                                     onSubmit: handleSubmit,
                                     children: [
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                                             className: "flex flex-col",
                                             children: [
+                                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("label", {
+                                                    className: "text-sm font-semibold mb-1 text-white",
+                                                    children: "Nombre completo"
+                                                }, void 0, false, {
+                                                    fileName: "[project]/src/app/admin/usuarios/page.tsx",
+                                                    lineNumber: 281,
+                                                    columnNumber: 17
+                                                }, this),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
-                                                    className: "border p-2 rounded",
+                                                    className: "bg-[#181a20] border border-[#333] p-3 rounded-lg text-white focus:outline-none focus:border-blue-400",
                                                     placeholder: "Nombre completo",
                                                     name: "name",
                                                     value: form.name,
@@ -522,28 +589,36 @@ function AdminUsuariosPage() {
                                                     autoComplete: "off"
                                                 }, void 0, false, {
                                                     fileName: "[project]/src/app/admin/usuarios/page.tsx",
-                                                    lineNumber: 183,
-                                                    columnNumber: 19
+                                                    lineNumber: 282,
+                                                    columnNumber: 17
                                                 }, this),
                                                 fieldErrors.name && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
-                                                    className: "text-red-500 text-xs mt-1",
+                                                    className: "text-red-400 text-xs mt-1",
                                                     children: fieldErrors.name
                                                 }, void 0, false, {
                                                     fileName: "[project]/src/app/admin/usuarios/page.tsx",
-                                                    lineNumber: 192,
-                                                    columnNumber: 40
+                                                    lineNumber: 283,
+                                                    columnNumber: 38
                                                 }, this)
                                             ]
                                         }, void 0, true, {
                                             fileName: "[project]/src/app/admin/usuarios/page.tsx",
-                                            lineNumber: 182,
-                                            columnNumber: 17
+                                            lineNumber: 280,
+                                            columnNumber: 15
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                                             className: "flex flex-col",
                                             children: [
+                                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("label", {
+                                                    className: "text-sm font-semibold mb-1 text-white",
+                                                    children: "Correo electrónico"
+                                                }, void 0, false, {
+                                                    fileName: "[project]/src/app/admin/usuarios/page.tsx",
+                                                    lineNumber: 287,
+                                                    columnNumber: 17
+                                                }, this),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
-                                                    className: "border p-2 rounded",
+                                                    className: "bg-[#181a20] border border-[#333] p-3 rounded-lg text-white focus:outline-none focus:border-blue-400",
                                                     placeholder: "Correo electrónico",
                                                     name: "email",
                                                     value: form.email,
@@ -553,62 +628,416 @@ function AdminUsuariosPage() {
                                                     autoComplete: "off"
                                                 }, void 0, false, {
                                                     fileName: "[project]/src/app/admin/usuarios/page.tsx",
-                                                    lineNumber: 195,
-                                                    columnNumber: 19
+                                                    lineNumber: 288,
+                                                    columnNumber: 17
                                                 }, this),
                                                 fieldErrors.email && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
-                                                    className: "text-red-500 text-xs mt-1",
+                                                    className: "text-red-400 text-xs mt-1",
                                                     children: fieldErrors.email
                                                 }, void 0, false, {
                                                     fileName: "[project]/src/app/admin/usuarios/page.tsx",
-                                                    lineNumber: 205,
+                                                    lineNumber: 289,
+                                                    columnNumber: 39
+                                                }, this)
+                                            ]
+                                        }, void 0, true, {
+                                            fileName: "[project]/src/app/admin/usuarios/page.tsx",
+                                            lineNumber: 286,
+                                            columnNumber: 15
+                                        }, this),
+                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                            className: "flex flex-col",
+                                            children: [
+                                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("label", {
+                                                    className: "text-sm font-semibold mb-1 text-white",
+                                                    children: "Rol"
+                                                }, void 0, false, {
+                                                    fileName: "[project]/src/app/admin/usuarios/page.tsx",
+                                                    lineNumber: 293,
+                                                    columnNumber: 17
+                                                }, this),
+                                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("select", {
+                                                    className: "bg-[#181a20] border border-[#333] p-3 rounded-lg text-white focus:outline-none focus:border-blue-400",
+                                                    name: "role",
+                                                    value: form.role,
+                                                    onChange: handleChange,
+                                                    disabled: creating,
+                                                    children: [
+                                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("option", {
+                                                            value: "admin",
+                                                            children: "admin"
+                                                        }, void 0, false, {
+                                                            fileName: "[project]/src/app/admin/usuarios/page.tsx",
+                                                            lineNumber: 295,
+                                                            columnNumber: 19
+                                                        }, this),
+                                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("option", {
+                                                            value: "docente",
+                                                            children: "docente"
+                                                        }, void 0, false, {
+                                                            fileName: "[project]/src/app/admin/usuarios/page.tsx",
+                                                            lineNumber: 296,
+                                                            columnNumber: 19
+                                                        }, this),
+                                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("option", {
+                                                            value: "estudiante",
+                                                            children: "estudiante"
+                                                        }, void 0, false, {
+                                                            fileName: "[project]/src/app/admin/usuarios/page.tsx",
+                                                            lineNumber: 297,
+                                                            columnNumber: 19
+                                                        }, this)
+                                                    ]
+                                                }, void 0, true, {
+                                                    fileName: "[project]/src/app/admin/usuarios/page.tsx",
+                                                    lineNumber: 294,
+                                                    columnNumber: 17
+                                                }, this)
+                                            ]
+                                        }, void 0, true, {
+                                            fileName: "[project]/src/app/admin/usuarios/page.tsx",
+                                            lineNumber: 292,
+                                            columnNumber: 15
+                                        }, this),
+                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                            className: "flex flex-col",
+                                            children: [
+                                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("label", {
+                                                    className: "text-sm font-semibold mb-1 text-white",
+                                                    children: "Tipo de documento"
+                                                }, void 0, false, {
+                                                    fileName: "[project]/src/app/admin/usuarios/page.tsx",
+                                                    lineNumber: 302,
+                                                    columnNumber: 17
+                                                }, this),
+                                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("select", {
+                                                    className: "bg-[#181a20] border border-[#333] p-3 rounded-lg text-white focus:outline-none focus:border-blue-400",
+                                                    name: "documentType",
+                                                    value: form.documentType,
+                                                    onChange: handleChange,
+                                                    disabled: creating,
+                                                    children: [
+                                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("option", {
+                                                            value: "",
+                                                            children: "Tipo de documento"
+                                                        }, void 0, false, {
+                                                            fileName: "[project]/src/app/admin/usuarios/page.tsx",
+                                                            lineNumber: 304,
+                                                            columnNumber: 19
+                                                        }, this),
+                                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("option", {
+                                                            value: "CC",
+                                                            children: "Cédula de ciudadanía"
+                                                        }, void 0, false, {
+                                                            fileName: "[project]/src/app/admin/usuarios/page.tsx",
+                                                            lineNumber: 305,
+                                                            columnNumber: 19
+                                                        }, this),
+                                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("option", {
+                                                            value: "TI",
+                                                            children: "Tarjeta de identidad"
+                                                        }, void 0, false, {
+                                                            fileName: "[project]/src/app/admin/usuarios/page.tsx",
+                                                            lineNumber: 306,
+                                                            columnNumber: 19
+                                                        }, this),
+                                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("option", {
+                                                            value: "CE",
+                                                            children: "Cédula de extranjería"
+                                                        }, void 0, false, {
+                                                            fileName: "[project]/src/app/admin/usuarios/page.tsx",
+                                                            lineNumber: 307,
+                                                            columnNumber: 19
+                                                        }, this),
+                                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("option", {
+                                                            value: "PAS",
+                                                            children: "Pasaporte"
+                                                        }, void 0, false, {
+                                                            fileName: "[project]/src/app/admin/usuarios/page.tsx",
+                                                            lineNumber: 308,
+                                                            columnNumber: 19
+                                                        }, this)
+                                                    ]
+                                                }, void 0, true, {
+                                                    fileName: "[project]/src/app/admin/usuarios/page.tsx",
+                                                    lineNumber: 303,
+                                                    columnNumber: 17
+                                                }, this),
+                                                fieldErrors.documentType && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
+                                                    className: "text-red-400 text-xs mt-1",
+                                                    children: fieldErrors.documentType
+                                                }, void 0, false, {
+                                                    fileName: "[project]/src/app/admin/usuarios/page.tsx",
+                                                    lineNumber: 310,
+                                                    columnNumber: 46
+                                                }, this)
+                                            ]
+                                        }, void 0, true, {
+                                            fileName: "[project]/src/app/admin/usuarios/page.tsx",
+                                            lineNumber: 301,
+                                            columnNumber: 15
+                                        }, this),
+                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                            className: "flex flex-col",
+                                            children: [
+                                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("label", {
+                                                    className: "text-sm font-semibold mb-1 text-white",
+                                                    children: "Número de documento"
+                                                }, void 0, false, {
+                                                    fileName: "[project]/src/app/admin/usuarios/page.tsx",
+                                                    lineNumber: 314,
+                                                    columnNumber: 17
+                                                }, this),
+                                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
+                                                    className: "bg-[#181a20] border border-[#333] p-3 rounded-lg text-white focus:outline-none focus:border-blue-400",
+                                                    placeholder: "Número de documento",
+                                                    name: "documentNumber",
+                                                    value: form.documentNumber,
+                                                    onChange: handleChange,
+                                                    disabled: creating,
+                                                    autoComplete: "off"
+                                                }, void 0, false, {
+                                                    fileName: "[project]/src/app/admin/usuarios/page.tsx",
+                                                    lineNumber: 315,
+                                                    columnNumber: 17
+                                                }, this),
+                                                fieldErrors.documentNumber && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
+                                                    className: "text-red-400 text-xs mt-1",
+                                                    children: fieldErrors.documentNumber
+                                                }, void 0, false, {
+                                                    fileName: "[project]/src/app/admin/usuarios/page.tsx",
+                                                    lineNumber: 316,
+                                                    columnNumber: 48
+                                                }, this)
+                                            ]
+                                        }, void 0, true, {
+                                            fileName: "[project]/src/app/admin/usuarios/page.tsx",
+                                            lineNumber: 313,
+                                            columnNumber: 15
+                                        }, this),
+                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                            className: "flex flex-col",
+                                            children: [
+                                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("label", {
+                                                    className: "text-sm font-semibold mb-1 text-white",
+                                                    children: "Fecha de nacimiento"
+                                                }, void 0, false, {
+                                                    fileName: "[project]/src/app/admin/usuarios/page.tsx",
+                                                    lineNumber: 320,
+                                                    columnNumber: 17
+                                                }, this),
+                                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
+                                                    className: "bg-[#181a20] border border-[#333] p-3 rounded-lg text-white focus:outline-none focus:border-blue-400",
+                                                    type: "date",
+                                                    name: "birthDate",
+                                                    value: form.birthDate,
+                                                    onChange: handleChange,
+                                                    disabled: creating
+                                                }, void 0, false, {
+                                                    fileName: "[project]/src/app/admin/usuarios/page.tsx",
+                                                    lineNumber: 321,
+                                                    columnNumber: 17
+                                                }, this),
+                                                fieldErrors.birthDate && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
+                                                    className: "text-red-400 text-xs mt-1",
+                                                    children: fieldErrors.birthDate
+                                                }, void 0, false, {
+                                                    fileName: "[project]/src/app/admin/usuarios/page.tsx",
+                                                    lineNumber: 322,
+                                                    columnNumber: 43
+                                                }, this)
+                                            ]
+                                        }, void 0, true, {
+                                            fileName: "[project]/src/app/admin/usuarios/page.tsx",
+                                            lineNumber: 319,
+                                            columnNumber: 15
+                                        }, this),
+                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                            className: "flex flex-col",
+                                            children: [
+                                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("label", {
+                                                    className: "text-sm font-semibold mb-1 text-white",
+                                                    children: "Teléfono"
+                                                }, void 0, false, {
+                                                    fileName: "[project]/src/app/admin/usuarios/page.tsx",
+                                                    lineNumber: 326,
+                                                    columnNumber: 17
+                                                }, this),
+                                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
+                                                    className: "bg-[#181a20] border border-[#333] p-3 rounded-lg text-white focus:outline-none focus:border-blue-400",
+                                                    placeholder: "Teléfono",
+                                                    name: "phone",
+                                                    value: form.phone,
+                                                    onChange: handleChange,
+                                                    disabled: creating,
+                                                    autoComplete: "off"
+                                                }, void 0, false, {
+                                                    fileName: "[project]/src/app/admin/usuarios/page.tsx",
+                                                    lineNumber: 327,
+                                                    columnNumber: 17
+                                                }, this),
+                                                fieldErrors.phone && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
+                                                    className: "text-red-400 text-xs mt-1",
+                                                    children: fieldErrors.phone
+                                                }, void 0, false, {
+                                                    fileName: "[project]/src/app/admin/usuarios/page.tsx",
+                                                    lineNumber: 328,
+                                                    columnNumber: 39
+                                                }, this)
+                                            ]
+                                        }, void 0, true, {
+                                            fileName: "[project]/src/app/admin/usuarios/page.tsx",
+                                            lineNumber: 325,
+                                            columnNumber: 15
+                                        }, this),
+                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                            className: "flex flex-col md:col-span-2",
+                                            children: [
+                                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("label", {
+                                                    className: "text-sm font-semibold mb-1 text-white",
+                                                    children: "Dirección"
+                                                }, void 0, false, {
+                                                    fileName: "[project]/src/app/admin/usuarios/page.tsx",
+                                                    lineNumber: 332,
+                                                    columnNumber: 17
+                                                }, this),
+                                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
+                                                    className: "bg-[#181a20] border border-[#333] p-3 rounded-lg text-white focus:outline-none focus:border-blue-400",
+                                                    placeholder: "Dirección",
+                                                    name: "address",
+                                                    value: form.address,
+                                                    onChange: handleChange,
+                                                    disabled: creating,
+                                                    autoComplete: "off"
+                                                }, void 0, false, {
+                                                    fileName: "[project]/src/app/admin/usuarios/page.tsx",
+                                                    lineNumber: 333,
+                                                    columnNumber: 17
+                                                }, this),
+                                                fieldErrors.address && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
+                                                    className: "text-red-400 text-xs mt-1",
+                                                    children: fieldErrors.address
+                                                }, void 0, false, {
+                                                    fileName: "[project]/src/app/admin/usuarios/page.tsx",
+                                                    lineNumber: 334,
                                                     columnNumber: 41
                                                 }, this)
                                             ]
                                         }, void 0, true, {
                                             fileName: "[project]/src/app/admin/usuarios/page.tsx",
-                                            lineNumber: 194,
-                                            columnNumber: 17
+                                            lineNumber: 331,
+                                            columnNumber: 15
                                         }, this),
-                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("select", {
-                                            className: "border p-2 rounded",
-                                            name: "role",
-                                            value: form.role,
-                                            onChange: handleChange,
-                                            disabled: creating,
+                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                            className: "flex flex-col",
                                             children: [
-                                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("option", {
-                                                    value: "admin",
-                                                    children: "admin"
+                                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("label", {
+                                                    className: "text-sm font-semibold mb-1 text-white",
+                                                    children: "Género"
                                                 }, void 0, false, {
                                                     fileName: "[project]/src/app/admin/usuarios/page.tsx",
-                                                    lineNumber: 214,
-                                                    columnNumber: 19
+                                                    lineNumber: 338,
+                                                    columnNumber: 17
                                                 }, this),
-                                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("option", {
-                                                    value: "docente",
-                                                    children: "docente"
-                                                }, void 0, false, {
+                                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("select", {
+                                                    className: "bg-[#181a20] border border-[#333] p-3 rounded-lg text-white focus:outline-none focus:border-blue-400",
+                                                    name: "gender",
+                                                    value: form.gender,
+                                                    onChange: handleChange,
+                                                    disabled: creating,
+                                                    children: [
+                                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("option", {
+                                                            value: "",
+                                                            children: "Género"
+                                                        }, void 0, false, {
+                                                            fileName: "[project]/src/app/admin/usuarios/page.tsx",
+                                                            lineNumber: 340,
+                                                            columnNumber: 19
+                                                        }, this),
+                                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("option", {
+                                                            value: "M",
+                                                            children: "Masculino"
+                                                        }, void 0, false, {
+                                                            fileName: "[project]/src/app/admin/usuarios/page.tsx",
+                                                            lineNumber: 341,
+                                                            columnNumber: 19
+                                                        }, this),
+                                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("option", {
+                                                            value: "F",
+                                                            children: "Femenino"
+                                                        }, void 0, false, {
+                                                            fileName: "[project]/src/app/admin/usuarios/page.tsx",
+                                                            lineNumber: 342,
+                                                            columnNumber: 19
+                                                        }, this),
+                                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("option", {
+                                                            value: "O",
+                                                            children: "Otro"
+                                                        }, void 0, false, {
+                                                            fileName: "[project]/src/app/admin/usuarios/page.tsx",
+                                                            lineNumber: 343,
+                                                            columnNumber: 19
+                                                        }, this)
+                                                    ]
+                                                }, void 0, true, {
                                                     fileName: "[project]/src/app/admin/usuarios/page.tsx",
-                                                    lineNumber: 215,
-                                                    columnNumber: 19
+                                                    lineNumber: 339,
+                                                    columnNumber: 17
                                                 }, this),
-                                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("option", {
-                                                    value: "estudiante",
-                                                    children: "estudiante"
+                                                fieldErrors.gender && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
+                                                    className: "text-red-400 text-xs mt-1",
+                                                    children: fieldErrors.gender
                                                 }, void 0, false, {
                                                     fileName: "[project]/src/app/admin/usuarios/page.tsx",
-                                                    lineNumber: 216,
+                                                    lineNumber: 345,
+                                                    columnNumber: 40
+                                                }, this)
+                                            ]
+                                        }, void 0, true, {
+                                            fileName: "[project]/src/app/admin/usuarios/page.tsx",
+                                            lineNumber: 337,
+                                            columnNumber: 15
+                                        }, this),
+                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                            className: "flex flex-col md:col-span-2",
+                                            children: [
+                                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("label", {
+                                                    className: "text-sm font-semibold mb-1 text-white",
+                                                    children: "Foto de perfil"
+                                                }, void 0, false, {
+                                                    fileName: "[project]/src/app/admin/usuarios/page.tsx",
+                                                    lineNumber: 349,
+                                                    columnNumber: 17
+                                                }, this),
+                                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
+                                                    type: "file",
+                                                    accept: "image/*",
+                                                    name: "photo",
+                                                    onChange: handleChange,
+                                                    disabled: creating,
+                                                    className: "bg-[#181a20] border border-[#333] p-3 rounded-lg text-white"
+                                                }, void 0, false, {
+                                                    fileName: "[project]/src/app/admin/usuarios/page.tsx",
+                                                    lineNumber: 350,
+                                                    columnNumber: 17
+                                                }, this),
+                                                photoPreview && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("img", {
+                                                    src: photoPreview,
+                                                    alt: "Preview",
+                                                    className: "mt-2 rounded-lg max-h-32 object-contain border border-[#444]"
+                                                }, void 0, false, {
+                                                    fileName: "[project]/src/app/admin/usuarios/page.tsx",
+                                                    lineNumber: 352,
                                                     columnNumber: 19
                                                 }, this)
                                             ]
                                         }, void 0, true, {
                                             fileName: "[project]/src/app/admin/usuarios/page.tsx",
-                                            lineNumber: 207,
-                                            columnNumber: 17
+                                            lineNumber: 348,
+                                            columnNumber: 15
                                         }, this),
                                         !editingId && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                            className: "flex flex-col",
+                                            className: "flex flex-col md:col-span-2",
                                             children: [
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
                                                     className: "border p-2 rounded",
@@ -620,34 +1049,34 @@ function AdminUsuariosPage() {
                                                     autoComplete: "off"
                                                 }, void 0, false, {
                                                     fileName: "[project]/src/app/admin/usuarios/page.tsx",
-                                                    lineNumber: 220,
-                                                    columnNumber: 21
+                                                    lineNumber: 358,
+                                                    columnNumber: 19
                                                 }, this),
                                                 fieldErrors.firebaseUid && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
                                                     className: "text-red-500 text-xs mt-1",
                                                     children: fieldErrors.firebaseUid
                                                 }, void 0, false, {
                                                     fileName: "[project]/src/app/admin/usuarios/page.tsx",
-                                                    lineNumber: 229,
-                                                    columnNumber: 49
+                                                    lineNumber: 359,
+                                                    columnNumber: 47
                                                 }, this)
                                             ]
                                         }, void 0, true, {
                                             fileName: "[project]/src/app/admin/usuarios/page.tsx",
-                                            lineNumber: 219,
-                                            columnNumber: 19
+                                            lineNumber: 357,
+                                            columnNumber: 17
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                            className: "col-span-1 md:col-span-4 flex gap-2 mt-2",
+                                            className: "col-span-1 md:col-span-3 flex gap-2 mt-2",
                                             children: [
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
                                                     className: "bg-blue-500 text-white rounded p-2 flex-1",
                                                     type: "submit",
-                                                    disabled: creating || !!fieldErrors.name || !!fieldErrors.email || !editingId && !!fieldErrors.firebaseUid,
+                                                    disabled: creating || Object.values(fieldErrors).some(Boolean),
                                                     children: creating ? editingId ? 'Guardando...' : 'Guardando...' : editingId ? 'Guardar cambios' : 'Guardar'
                                                 }, void 0, false, {
                                                     fileName: "[project]/src/app/admin/usuarios/page.tsx",
-                                                    lineNumber: 233,
+                                                    lineNumber: 363,
                                                     columnNumber: 17
                                                 }, this),
                                                 editingId && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
@@ -659,7 +1088,14 @@ function AdminUsuariosPage() {
                                                             name: '',
                                                             email: '',
                                                             role: 'admin',
-                                                            firebaseUid: ''
+                                                            firebaseUid: '',
+                                                            documentType: '',
+                                                            documentNumber: '',
+                                                            birthDate: '',
+                                                            phone: '',
+                                                            address: '',
+                                                            gender: '',
+                                                            photoUrl: ''
                                                         });
                                                         setError('');
                                                     },
@@ -667,19 +1103,19 @@ function AdminUsuariosPage() {
                                                     children: "Cancelar"
                                                 }, void 0, false, {
                                                     fileName: "[project]/src/app/admin/usuarios/page.tsx",
-                                                    lineNumber: 241,
+                                                    lineNumber: 367,
                                                     columnNumber: 19
                                                 }, this)
                                             ]
                                         }, void 0, true, {
                                             fileName: "[project]/src/app/admin/usuarios/page.tsx",
-                                            lineNumber: 232,
+                                            lineNumber: 362,
                                             columnNumber: 15
                                         }, this)
                                     ]
                                 }, void 0, true, {
                                     fileName: "[project]/src/app/admin/usuarios/page.tsx",
-                                    lineNumber: 181,
+                                    lineNumber: 278,
                                     columnNumber: 13
                                 }, this),
                                 error && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -690,13 +1126,13 @@ function AdminUsuariosPage() {
                                     children: error
                                 }, void 0, false, {
                                     fileName: "[project]/src/app/admin/usuarios/page.tsx",
-                                    lineNumber: 252,
+                                    lineNumber: 373,
                                     columnNumber: 23
                                 }, this)
                             ]
                         }, void 0, true, {
                             fileName: "[project]/src/app/admin/usuarios/page.tsx",
-                            lineNumber: 179,
+                            lineNumber: 276,
                             columnNumber: 11
                         }, this),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -710,7 +1146,7 @@ function AdminUsuariosPage() {
                                     children: "Listado de Usuarios"
                                 }, void 0, false, {
                                     fileName: "[project]/src/app/admin/usuarios/page.tsx",
-                                    lineNumber: 255,
+                                    lineNumber: 376,
                                     columnNumber: 13
                                 }, this),
                                 loading ? /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -720,7 +1156,7 @@ function AdminUsuariosPage() {
                                     children: "Cargando usuarios..."
                                 }, void 0, false, {
                                     fileName: "[project]/src/app/admin/usuarios/page.tsx",
-                                    lineNumber: 257,
+                                    lineNumber: 378,
                                     columnNumber: 15
                                 }, this) : /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("table", {
                                     className: __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$styles$2f$admin$2d$dashboard$2e$module$2e$css__$5b$app$2d$ssr$5d$__$28$css__module$29$__["default"].activityTable,
@@ -732,39 +1168,39 @@ function AdminUsuariosPage() {
                                                         children: "Nombre"
                                                     }, void 0, false, {
                                                         fileName: "[project]/src/app/admin/usuarios/page.tsx",
-                                                        lineNumber: 262,
+                                                        lineNumber: 383,
                                                         columnNumber: 21
                                                     }, this),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("th", {
                                                         children: "Correo"
                                                     }, void 0, false, {
                                                         fileName: "[project]/src/app/admin/usuarios/page.tsx",
-                                                        lineNumber: 263,
+                                                        lineNumber: 384,
                                                         columnNumber: 21
                                                     }, this),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("th", {
                                                         children: "Rol"
                                                     }, void 0, false, {
                                                         fileName: "[project]/src/app/admin/usuarios/page.tsx",
-                                                        lineNumber: 264,
+                                                        lineNumber: 385,
                                                         columnNumber: 21
                                                     }, this),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("th", {
                                                         children: "Acciones"
                                                     }, void 0, false, {
                                                         fileName: "[project]/src/app/admin/usuarios/page.tsx",
-                                                        lineNumber: 265,
+                                                        lineNumber: 386,
                                                         columnNumber: 21
                                                     }, this)
                                                 ]
                                             }, void 0, true, {
                                                 fileName: "[project]/src/app/admin/usuarios/page.tsx",
-                                                lineNumber: 261,
+                                                lineNumber: 382,
                                                 columnNumber: 19
                                             }, this)
                                         }, void 0, false, {
                                             fileName: "[project]/src/app/admin/usuarios/page.tsx",
-                                            lineNumber: 260,
+                                            lineNumber: 381,
                                             columnNumber: 17
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("tbody", {
@@ -777,12 +1213,12 @@ function AdminUsuariosPage() {
                                                     children: "(sin datos)"
                                                 }, void 0, false, {
                                                     fileName: "[project]/src/app/admin/usuarios/page.tsx",
-                                                    lineNumber: 271,
+                                                    lineNumber: 392,
                                                     columnNumber: 23
                                                 }, this)
                                             }, void 0, false, {
                                                 fileName: "[project]/src/app/admin/usuarios/page.tsx",
-                                                lineNumber: 270,
+                                                lineNumber: 391,
                                                 columnNumber: 21
                                             }, this) : users.map((user)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("tr", {
                                                     children: [
@@ -791,7 +1227,7 @@ function AdminUsuariosPage() {
                                                             children: user.name || '-'
                                                         }, void 0, false, {
                                                             fileName: "[project]/src/app/admin/usuarios/page.tsx",
-                                                            lineNumber: 276,
+                                                            lineNumber: 397,
                                                             columnNumber: 25
                                                         }, this),
                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("td", {
@@ -799,7 +1235,7 @@ function AdminUsuariosPage() {
                                                             children: user.email
                                                         }, void 0, false, {
                                                             fileName: "[project]/src/app/admin/usuarios/page.tsx",
-                                                            lineNumber: 277,
+                                                            lineNumber: 398,
                                                             columnNumber: 25
                                                         }, this),
                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("td", {
@@ -807,7 +1243,7 @@ function AdminUsuariosPage() {
                                                             children: user.role
                                                         }, void 0, false, {
                                                             fileName: "[project]/src/app/admin/usuarios/page.tsx",
-                                                            lineNumber: 278,
+                                                            lineNumber: 399,
                                                             columnNumber: 25
                                                         }, this),
                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("td", {
@@ -823,7 +1259,7 @@ function AdminUsuariosPage() {
                                                                     children: "Editar"
                                                                 }, void 0, false, {
                                                                     fileName: "[project]/src/app/admin/usuarios/page.tsx",
-                                                                    lineNumber: 280,
+                                                                    lineNumber: 401,
                                                                     columnNumber: 27
                                                                 }, this),
                                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
@@ -835,53 +1271,53 @@ function AdminUsuariosPage() {
                                                                     children: "Eliminar"
                                                                 }, void 0, false, {
                                                                     fileName: "[project]/src/app/admin/usuarios/page.tsx",
-                                                                    lineNumber: 286,
+                                                                    lineNumber: 407,
                                                                     columnNumber: 27
                                                                 }, this)
                                                             ]
                                                         }, void 0, true, {
                                                             fileName: "[project]/src/app/admin/usuarios/page.tsx",
-                                                            lineNumber: 279,
+                                                            lineNumber: 400,
                                                             columnNumber: 25
                                                         }, this)
                                                     ]
                                                 }, user.id, true, {
                                                     fileName: "[project]/src/app/admin/usuarios/page.tsx",
-                                                    lineNumber: 275,
+                                                    lineNumber: 396,
                                                     columnNumber: 23
                                                 }, this))
                                         }, void 0, false, {
                                             fileName: "[project]/src/app/admin/usuarios/page.tsx",
-                                            lineNumber: 268,
+                                            lineNumber: 389,
                                             columnNumber: 17
                                         }, this)
                                     ]
                                 }, void 0, true, {
                                     fileName: "[project]/src/app/admin/usuarios/page.tsx",
-                                    lineNumber: 259,
+                                    lineNumber: 380,
                                     columnNumber: 15
                                 }, this)
                             ]
                         }, void 0, true, {
                             fileName: "[project]/src/app/admin/usuarios/page.tsx",
-                            lineNumber: 254,
+                            lineNumber: 375,
                             columnNumber: 11
                         }, this)
                     ]
                 }, void 0, true, {
                     fileName: "[project]/src/app/admin/usuarios/page.tsx",
-                    lineNumber: 176,
+                    lineNumber: 273,
                     columnNumber: 9
                 }, this)
             ]
         }, void 0, true, {
             fileName: "[project]/src/app/admin/usuarios/page.tsx",
-            lineNumber: 155,
+            lineNumber: 252,
             columnNumber: 7
         }, this)
     }, void 0, false, {
         fileName: "[project]/src/app/admin/usuarios/page.tsx",
-        lineNumber: 154,
+        lineNumber: 251,
         columnNumber: 3
     }, this);
 }

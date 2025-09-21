@@ -1,5 +1,7 @@
+
 import "bootstrap/dist/css/bootstrap.min.css";
 import "../styles/landingpage.css";
+import "../styles/urbanist.css";
 import "../app/api/config";
 import { AuthProvider } from "../context/authContext";
 

@@ -47,165 +47,165 @@ type RouteHandlerConfig<Route extends AppRouteHandlerRoutes = AppRouteHandlerRou
 }
 
 
-// Validate ../../src/app/admin/anuncios/page.tsx
+// Validate ../src/app/admin/anuncios/page.tsx
 {
-  const handler = {} as typeof import("../../src/app/admin/anuncios/page.js")
+  const handler = {} as typeof import("../src/app/admin/anuncios/page.js")
   handler satisfies AppPageConfig<"/admin/anuncios">
 }
 
-// Validate ../../src/app/admin/asignaturas/page.tsx
+// Validate ../src/app/admin/asignaturas/page.tsx
 {
-  const handler = {} as typeof import("../../src/app/admin/asignaturas/page.js")
+  const handler = {} as typeof import("../src/app/admin/asignaturas/page.js")
   handler satisfies AppPageConfig<"/admin/asignaturas">
 }
 
-// Validate ../../src/app/admin/backup/page.tsx
+// Validate ../src/app/admin/backup/page.tsx
 {
-  const handler = {} as typeof import("../../src/app/admin/backup/page.js")
+  const handler = {} as typeof import("../src/app/admin/backup/page.js")
   handler satisfies AppPageConfig<"/admin/backup">
 }
 
-// Validate ../../src/app/admin/bitacora/page.tsx
+// Validate ../src/app/admin/bitacora/page.tsx
 {
-  const handler = {} as typeof import("../../src/app/admin/bitacora/page.js")
+  const handler = {} as typeof import("../src/app/admin/bitacora/page.js")
   handler satisfies AppPageConfig<"/admin/bitacora">
 }
 
-// Validate ../../src/app/admin/ciclos/page.tsx
+// Validate ../src/app/admin/ciclos/page.tsx
 {
-  const handler = {} as typeof import("../../src/app/admin/ciclos/page.js")
+  const handler = {} as typeof import("../src/app/admin/ciclos/page.js")
   handler satisfies AppPageConfig<"/admin/ciclos">
 }
 
-// Validate ../../src/app/admin/configuracion/page.tsx
+// Validate ../src/app/admin/configuracion/page.tsx
 {
-  const handler = {} as typeof import("../../src/app/admin/configuracion/page.js")
+  const handler = {} as typeof import("../src/app/admin/configuracion/page.js")
   handler satisfies AppPageConfig<"/admin/configuracion">
 }
 
-// Validate ../../src/app/admin/dashboard/page.tsx
+// Validate ../src/app/admin/dashboard/page.tsx
 {
-  const handler = {} as typeof import("../../src/app/admin/dashboard/page.js")
+  const handler = {} as typeof import("../src/app/admin/dashboard/page.js")
   handler satisfies AppPageConfig<"/admin/dashboard">
 }
 
-// Validate ../../src/app/admin/faqs/page.tsx
+// Validate ../src/app/admin/faqs/page.tsx
 {
-  const handler = {} as typeof import("../../src/app/admin/faqs/page.js")
+  const handler = {} as typeof import("../src/app/admin/faqs/page.js")
   handler satisfies AppPageConfig<"/admin/faqs">
 }
 
-// Validate ../../src/app/admin/grados/page.tsx
+// Validate ../src/app/admin/grados/page.tsx
 {
-  const handler = {} as typeof import("../../src/app/admin/grados/page.js")
+  const handler = {} as typeof import("../src/app/admin/grados/page.js")
   handler satisfies AppPageConfig<"/admin/grados">
 }
 
-// Validate ../../src/app/admin/horarios/page.tsx
+// Validate ../src/app/admin/horarios/page.tsx
 {
-  const handler = {} as typeof import("../../src/app/admin/horarios/page.js")
+  const handler = {} as typeof import("../src/app/admin/horarios/page.js")
   handler satisfies AppPageConfig<"/admin/horarios">
 }
 
-// Validate ../../src/app/admin/matricula/page.tsx
+// Validate ../src/app/admin/matricula/page.tsx
 {
-  const handler = {} as typeof import("../../src/app/admin/matricula/page.js")
+  const handler = {} as typeof import("../src/app/admin/matricula/page.js")
   handler satisfies AppPageConfig<"/admin/matricula">
 }
 
-// Validate ../../src/app/admin/mensajes/page.tsx
+// Validate ../src/app/admin/mensajes/page.tsx
 {
-  const handler = {} as typeof import("../../src/app/admin/mensajes/page.js")
+  const handler = {} as typeof import("../src/app/admin/mensajes/page.js")
   handler satisfies AppPageConfig<"/admin/mensajes">
 }
 
-// Validate ../../src/app/admin/page.tsx
+// Validate ../src/app/admin/page.tsx
 {
-  const handler = {} as typeof import("../../src/app/admin/page.js")
+  const handler = {} as typeof import("../src/app/admin/page.js")
   handler satisfies AppPageConfig<"/admin">
 }
 
-// Validate ../../src/app/admin/reportes/page.tsx
+// Validate ../src/app/admin/reportes/page.tsx
 {
-  const handler = {} as typeof import("../../src/app/admin/reportes/page.js")
+  const handler = {} as typeof import("../src/app/admin/reportes/page.js")
   handler satisfies AppPageConfig<"/admin/reportes">
 }
 
-// Validate ../../src/app/admin/sedes/page.tsx
+// Validate ../src/app/admin/sedes/page.tsx
 {
-  const handler = {} as typeof import("../../src/app/admin/sedes/page.js")
+  const handler = {} as typeof import("../src/app/admin/sedes/page.js")
   handler satisfies AppPageConfig<"/admin/sedes">
 }
 
-// Validate ../../src/app/admin/usuarios/listado/page.tsx
+// Validate ../src/app/admin/usuarios/listado/page.tsx
 {
-  const handler = {} as typeof import("../../src/app/admin/usuarios/listado/page.js")
+  const handler = {} as typeof import("../src/app/admin/usuarios/listado/page.js")
   handler satisfies AppPageConfig<"/admin/usuarios/listado">
 }
 
-// Validate ../../src/app/admin/usuarios/page.tsx
+// Validate ../src/app/admin/usuarios/page.tsx
 {
-  const handler = {} as typeof import("../../src/app/admin/usuarios/page.js")
+  const handler = {} as typeof import("../src/app/admin/usuarios/page.js")
   handler satisfies AppPageConfig<"/admin/usuarios">
 }
 
-// Validate ../../src/app/login/page.tsx
+// Validate ../src/app/login/page.tsx
 {
-  const handler = {} as typeof import("../../src/app/login/page.js")
+  const handler = {} as typeof import("../src/app/login/page.js")
   handler satisfies AppPageConfig<"/login">
 }
 
-// Validate ../../src/app/page.tsx
+// Validate ../src/app/page.tsx
 {
-  const handler = {} as typeof import("../../src/app/page.js")
+  const handler = {} as typeof import("../src/app/page.js")
   handler satisfies AppPageConfig<"/">
 }
 
-// Validate ../../src/app/api/admin/asignaturas/route.ts
+// Validate ../src/app/api/admin/asignaturas/route.ts
 {
-  const handler = {} as typeof import("../../src/app/api/admin/asignaturas/route.js")
+  const handler = {} as typeof import("../src/app/api/admin/asignaturas/route.js")
   handler satisfies RouteHandlerConfig<"/api/admin/asignaturas">
 }
 
-// Validate ../../src/app/api/admin/dashboard/route.ts
+// Validate ../src/app/api/admin/dashboard/route.ts
 {
-  const handler = {} as typeof import("../../src/app/api/admin/dashboard/route.js")
+  const handler = {} as typeof import("../src/app/api/admin/dashboard/route.js")
   handler satisfies RouteHandlerConfig<"/api/admin/dashboard">
 }
 
-// Validate ../../src/app/api/admin/estudiantes/route.ts
+// Validate ../src/app/api/admin/estudiantes/route.ts
 {
-  const handler = {} as typeof import("../../src/app/api/admin/estudiantes/route.js")
+  const handler = {} as typeof import("../src/app/api/admin/estudiantes/route.js")
   handler satisfies RouteHandlerConfig<"/api/admin/estudiantes">
 }
 
-// Validate ../../src/app/api/admin/grados/route.ts
+// Validate ../src/app/api/admin/grados/route.ts
 {
-  const handler = {} as typeof import("../../src/app/api/admin/grados/route.js")
+  const handler = {} as typeof import("../src/app/api/admin/grados/route.js")
   handler satisfies RouteHandlerConfig<"/api/admin/grados">
 }
 
-// Validate ../../src/app/api/admin/matricula/route.ts
+// Validate ../src/app/api/admin/matricula/route.ts
 {
-  const handler = {} as typeof import("../../src/app/api/admin/matricula/route.js")
+  const handler = {} as typeof import("../src/app/api/admin/matricula/route.js")
   handler satisfies RouteHandlerConfig<"/api/admin/matricula">
 }
 
-// Validate ../../src/app/api/admin/usuarios/route.ts
+// Validate ../src/app/api/admin/usuarios/route.ts
 {
-  const handler = {} as typeof import("../../src/app/api/admin/usuarios/route.js")
+  const handler = {} as typeof import("../src/app/api/admin/usuarios/route.js")
   handler satisfies RouteHandlerConfig<"/api/admin/usuarios">
 }
 
-// Validate ../../src/app/api/me/route.ts
+// Validate ../src/app/api/me/route.ts
 {
-  const handler = {} as typeof import("../../src/app/api/me/route.js")
+  const handler = {} as typeof import("../src/app/api/me/route.js")
   handler satisfies RouteHandlerConfig<"/api/me">
 }
 
-// Validate ../../src/app/api/user-role/route.ts
+// Validate ../src/app/api/user-role/route.ts
 {
-  const handler = {} as typeof import("../../src/app/api/user-role/route.js")
+  const handler = {} as typeof import("../src/app/api/user-role/route.js")
   handler satisfies RouteHandlerConfig<"/api/user-role">
 }
 
@@ -213,8 +213,8 @@ type RouteHandlerConfig<Route extends AppRouteHandlerRoutes = AppRouteHandlerRou
 
 
 
-// Validate ../../src/app/layout.tsx
+// Validate ../src/app/layout.tsx
 {
-  const handler = {} as typeof import("../../src/app/layout.js")
+  const handler = {} as typeof import("../src/app/layout.js")
   handler satisfies LayoutConfig<"/">
 }

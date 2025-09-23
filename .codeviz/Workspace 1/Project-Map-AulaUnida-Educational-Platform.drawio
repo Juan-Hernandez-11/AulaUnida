@@ -1,0 +1,1212 @@
+<?xml version="1.0" encoding="UTF-8"?>
+        <mxfile host="codeviz.app" modified="2025-09-23T22:02:31.787Z" agent="CodeViz Exporter" version="14.6.5" type="device">
+          <diagram id="codeviz-diagram" name="System Diagram">
+            <mxGraphModel dx="1000" dy="1000" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1169" pageHeight="827" math="0" shadow="0">
+              <root>
+                <mxCell id="0"/>
+                <mxCell id="1" parent="0"/>
+                <mxCell id="2d4c741e-AccessControl" value="" style="html=1;whiteSpace=wrap;container=1;fillColor=#dae8fc;strokeColor=#6c8ebf;dashed=1;fillOpacity=20;strokeWidth=2;containerType=none;recursiveResize=0;movable=1;resizable=1;autosize=0;dropTarget=0" vertex="1" parent="2d4c741e-AulaUnidaPlatform">
+                  <mxGeometry x="480" y="1153.5" width="306" height="211" as="geometry"/>
+                </mxCell>
+                <mxCell id="2d4c741e-AccessControl_label" value="**Access Control &amp; Authorization**" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;labelBackgroundColor=white;spacing=5" vertex="1" parent="2d4c741e-AulaUnidaPlatform">
+                  <mxGeometry x="488" y="1161.5" width="230" height="24" as="geometry"/>
+                </mxCell>
+<mxCell id="2d4c741e-Authentication" value="" style="html=1;whiteSpace=wrap;container=1;fillColor=#dae8fc;strokeColor=#6c8ebf;dashed=1;fillOpacity=20;strokeWidth=2;containerType=none;recursiveResize=0;movable=1;resizable=1;autosize=0;dropTarget=0" vertex="1" parent="2d4c741e-AulaUnidaPlatform">
+                  <mxGeometry x="40" y="1144.5" width="480" height="229" as="geometry"/>
+                </mxCell>
+                <mxCell id="2d4c741e-Authentication_label" value="**Authentication System**
+Firebase Integration" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;labelBackgroundColor=white;spacing=5" vertex="1" parent="2d4c741e-AulaUnidaPlatform">
+                  <mxGeometry x="48" y="1152.5" width="404" height="24" as="geometry"/>
+                </mxCell>
+<mxCell id="2d4c741e-Backend" value="" style="html=1;whiteSpace=wrap;container=1;fillColor=#dae8fc;strokeColor=#6c8ebf;dashed=1;fillOpacity=20;strokeWidth=2;containerType=none;recursiveResize=0;movable=1;resizable=1;autosize=0;dropTarget=0" vertex="1" parent="2d4c741e-AulaUnidaPlatform">
+                  <mxGeometry x="477" y="873" width="297" height="229" as="geometry"/>
+                </mxCell>
+                <mxCell id="2d4c741e-Backend_label" value="**Backend (Next.js API Routes)**
+src/app/api/" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;labelBackgroundColor=white;spacing=5" vertex="1" parent="2d4c741e-AulaUnidaPlatform">
+                  <mxGeometry x="485" y="881" width="221" height="24" as="geometry"/>
+                </mxCell>
+<mxCell id="2d4c741e-DataPersistence" value="" style="html=1;whiteSpace=wrap;container=1;fillColor=#dae8fc;strokeColor=#6c8ebf;dashed=1;fillOpacity=20;strokeWidth=2;containerType=none;recursiveResize=0;movable=1;resizable=1;autosize=0;dropTarget=0" vertex="1" parent="2d4c741e-AulaUnidaPlatform">
+                  <mxGeometry x="745" y="1092" width="311" height="334" as="geometry"/>
+                </mxCell>
+                <mxCell id="2d4c741e-DataPersistence_label" value="**Database and ORM**
+Prisma" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;labelBackgroundColor=white;spacing=5" vertex="1" parent="2d4c741e-AulaUnidaPlatform">
+                  <mxGeometry x="753" y="1100" width="235" height="24" as="geometry"/>
+                </mxCell>
+<mxCell id="2d4c741e-Frontend" value="" style="html=1;whiteSpace=wrap;container=1;fillColor=#dae8fc;strokeColor=#6c8ebf;dashed=1;fillOpacity=20;strokeWidth=2;containerType=none;recursiveResize=0;movable=1;resizable=1;autosize=0;dropTarget=0" vertex="1" parent="2d4c741e-AulaUnidaPlatform">
+                  <mxGeometry x="155.85416666666666" y="339" width="354" height="544" as="geometry"/>
+                </mxCell>
+                <mxCell id="2d4c741e-Frontend_label" value="**Frontend (Next.js / React)**
+src/app/ and src/components/" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;labelBackgroundColor=white;spacing=5" vertex="1" parent="2d4c741e-AulaUnidaPlatform">
+                  <mxGeometry x="163.85416666666666" y="347" width="278" height="24" as="geometry"/>
+                </mxCell>
+<mxCell id="2d4c741e-ProjectSetup" value="" style="html=1;whiteSpace=wrap;container=1;fillColor=#dae8fc;strokeColor=#6c8ebf;dashed=1;fillOpacity=20;strokeWidth=2;containerType=none;recursiveResize=0;movable=1;resizable=1;autosize=0;dropTarget=0" vertex="1" parent="2d4c741e-AulaUnidaPlatform">
+                  <mxGeometry x="199.54166666666666" y="23" width="639" height="316" as="geometry"/>
+                </mxCell>
+                <mxCell id="2d4c741e-ProjectSetup_label" value="**Deployment &amp; Configuration**" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;labelBackgroundColor=white;spacing=5" vertex="1" parent="2d4c741e-AulaUnidaPlatform">
+                  <mxGeometry x="207.54166666666666" y="31" width="563" height="24" as="geometry"/>
+                </mxCell>
+<mxCell id="c35c4854-ASM" value="" style="html=1;whiteSpace=wrap;container=1;fillColor=#dae8fc;strokeColor=#6c8ebf;dashed=1;fillOpacity=20;strokeWidth=2;containerType=none;recursiveResize=0;movable=1;resizable=1;autosize=0;dropTarget=0" vertex="1" parent="c35c4854-FunctionalAreas">
+                  <mxGeometry x="519" y="-441.5" width="584" height="229" as="geometry"/>
+                </mxCell>
+                <mxCell id="c35c4854-ASM_label" value="**Academic Structure Management**
+Institutional organization" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;labelBackgroundColor=white;spacing=5" vertex="1" parent="c35c4854-FunctionalAreas">
+                  <mxGeometry x="527" y="-433.5" width="508" height="24" as="geometry"/>
+                </mxCell>
+<mxCell id="c35c4854-AUDIT" value="" style="html=1;whiteSpace=wrap;container=1;fillColor=#dae8fc;strokeColor=#6c8ebf;dashed=1;fillOpacity=20;strokeWidth=2;containerType=none;recursiveResize=0;movable=1;resizable=1;autosize=0;dropTarget=0" vertex="1" parent="c35c4854-FunctionalAreas">
+                  <mxGeometry x="54" y="-441.5" width="505" height="229" as="geometry"/>
+                </mxCell>
+                <mxCell id="c35c4854-AUDIT_label" value="**Audit and Administration**
+System oversight and data integrity" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;labelBackgroundColor=white;spacing=5" vertex="1" parent="c35c4854-FunctionalAreas">
+                  <mxGeometry x="62" y="-433.5" width="429" height="24" as="geometry"/>
+                </mxCell>
+<mxCell id="c35c4854-CIM" value="" style="html=1;whiteSpace=wrap;container=1;fillColor=#dae8fc;strokeColor=#6c8ebf;dashed=1;fillOpacity=20;strokeWidth=2;containerType=none;recursiveResize=0;movable=1;resizable=1;autosize=0;dropTarget=0" vertex="1" parent="c35c4854-FunctionalAreas">
+                  <mxGeometry x="2864" y="-441.5" width="565" height="229" as="geometry"/>
+                </mxCell>
+                <mxCell id="c35c4854-CIM_label" value="**Communication and Incident Management**
+Internal communication and event handling" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;labelBackgroundColor=white;spacing=5" vertex="1" parent="c35c4854-FunctionalAreas">
+                  <mxGeometry x="2872" y="-433.5" width="489" height="24" as="geometry"/>
+                </mxCell>
+<mxCell id="c35c4854-CSM" value="" style="html=1;whiteSpace=wrap;container=1;fillColor=#dae8fc;strokeColor=#6c8ebf;dashed=1;fillOpacity=20;strokeWidth=2;containerType=none;recursiveResize=0;movable=1;resizable=1;autosize=0;dropTarget=0" vertex="1" parent="c35c4854-FunctionalAreas">
+                  <mxGeometry x="1061.5908745613488" y="-430.5402469655211" width="425" height="229" as="geometry"/>
+                </mxCell>
+                <mxCell id="c35c4854-CSM_label" value="**Course and Subject Management**
+Subjects and teacher assignments" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;labelBackgroundColor=white;spacing=5" vertex="1" parent="c35c4854-FunctionalAreas">
+                  <mxGeometry x="1069.5908745613488" y="-422.5402469655211" width="349" height="24" as="geometry"/>
+                </mxCell>
+<mxCell id="c35c4854-SCHED" value="" style="html=1;whiteSpace=wrap;container=1;fillColor=#dae8fc;strokeColor=#6c8ebf;dashed=1;fillOpacity=20;strokeWidth=2;containerType=none;recursiveResize=0;movable=1;resizable=1;autosize=0;dropTarget=0" vertex="1" parent="c35c4854-FunctionalAreas">
+                  <mxGeometry x="2517" y="-441.5" width="387" height="229" as="geometry"/>
+                </mxCell>
+                <mxCell id="c35c4854-SCHED_label" value="**Scheduling**
+Class organization" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;labelBackgroundColor=white;spacing=5" vertex="1" parent="c35c4854-FunctionalAreas">
+                  <mxGeometry x="2525" y="-433.5" width="311" height="24" as="geometry"/>
+                </mxCell>
+<mxCell id="c35c4854-SEPT" value="" style="html=1;whiteSpace=wrap;container=1;fillColor=#dae8fc;strokeColor=#6c8ebf;dashed=1;fillOpacity=20;strokeWidth=2;containerType=none;recursiveResize=0;movable=1;resizable=1;autosize=0;dropTarget=0" vertex="1" parent="c35c4854-FunctionalAreas">
+                  <mxGeometry x="1448" y="-441.5" width="1109" height="229" as="geometry"/>
+                </mxCell>
+                <mxCell id="c35c4854-SEPT_label" value="**Student Enrollment and Progress Tracking**
+Student academic journey" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;labelBackgroundColor=white;spacing=5" vertex="1" parent="c35c4854-FunctionalAreas">
+                  <mxGeometry x="1456" y="-433.5" width="1033" height="24" as="geometry"/>
+                </mxCell>
+<mxCell id="c35c4854-UM" value="" style="html=1;whiteSpace=wrap;container=1;fillColor=#dae8fc;strokeColor=#6c8ebf;dashed=1;fillOpacity=20;strokeWidth=2;containerType=none;recursiveResize=0;movable=1;resizable=1;autosize=0;dropTarget=0" vertex="1" parent="c35c4854-FunctionalAreas">
+                  <mxGeometry x="3389" y="-494" width="618" height="334" as="geometry"/>
+                </mxCell>
+                <mxCell id="c35c4854-UM_label" value="**User Management and RBAC**
+Authentication, Authorization, Profiles" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;labelBackgroundColor=white;spacing=5" vertex="1" parent="c35c4854-FunctionalAreas">
+                  <mxGeometry x="3397" y="-486" width="542" height="24" as="geometry"/>
+                </mxCell>
+<mxCell id="2d4c741e-AulaUnidaPlatform" value="" style="html=1;whiteSpace=wrap;container=1;fillColor=#dae8fc;strokeColor=#6c8ebf;dashed=1;fillOpacity=20;strokeWidth=2;containerType=none;recursiveResize=0;movable=1;resizable=1;autosize=0;dropTarget=0" vertex="1" parent="2d4c741e-group">
+                  <mxGeometry x="40" y="61" width="1056" height="1532" as="geometry"/>
+                </mxCell>
+                <mxCell id="2d4c741e-AulaUnidaPlatform_label" value="**AulaUnida Educational Platform**
+Full-stack web application" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;labelBackgroundColor=white;spacing=5" vertex="1" parent="2d4c741e-group">
+                  <mxGeometry x="48" y="69" width="980" height="24" as="geometry"/>
+                </mxCell>
+<mxCell id="2d4c741e-ExternalSystems" value="" style="html=1;whiteSpace=wrap;container=1;fillColor=#dae8fc;strokeColor=#6c8ebf;dashed=1;fillOpacity=20;strokeWidth=2;containerType=none;recursiveResize=0;movable=1;resizable=1;autosize=0;dropTarget=0" vertex="1" parent="2d4c741e-group">
+                  <mxGeometry x="197.16666666666666" y="1583" width="670" height="211" as="geometry"/>
+                </mxCell>
+                <mxCell id="2d4c741e-ExternalSystems_label" value="**External Systems**" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;labelBackgroundColor=white;spacing=5" vertex="1" parent="2d4c741e-group">
+                  <mxGeometry x="205.16666666666666" y="1591" width="594" height="24" as="geometry"/>
+                </mxCell>
+<mxCell id="c35c4854-BackendServices" value="" style="html=1;whiteSpace=wrap;container=1;fillColor=#dae8fc;strokeColor=#6c8ebf;dashed=1;fillOpacity=20;strokeWidth=2;containerType=none;recursiveResize=0;movable=1;resizable=1;autosize=0;dropTarget=0" vertex="1" parent="c35c4854-AulaUnida">
+                  <mxGeometry x="1382.4204545454545" y="89" width="482" height="374" as="geometry"/>
+                </mxCell>
+                <mxCell id="c35c4854-BackendServices_label" value="**Backend Services**
+API and Business Logic" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;labelBackgroundColor=white;spacing=5" vertex="1" parent="c35c4854-AulaUnida">
+                  <mxGeometry x="1390.4204545454545" y="97" width="406" height="24" as="geometry"/>
+                </mxCell>
+<mxCell id="c35c4854-ExternalDependencies" value="" style="html=1;whiteSpace=wrap;container=1;fillColor=#dae8fc;strokeColor=#6c8ebf;dashed=1;fillOpacity=20;strokeWidth=2;containerType=none;recursiveResize=0;movable=1;resizable=1;autosize=0;dropTarget=0" vertex="1" parent="c35c4854-AulaUnida">
+                  <mxGeometry x="1778.25" y="1330" width="434" height="339" as="geometry"/>
+                </mxCell>
+                <mxCell id="c35c4854-ExternalDependencies_label" value="**External Dependencies**
+Authentication and Data Storage" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;labelBackgroundColor=white;spacing=5" vertex="1" parent="c35c4854-AulaUnida">
+                  <mxGeometry x="1786.25" y="1338" width="358" height="24" as="geometry"/>
+                </mxCell>
+<mxCell id="c35c4854-FunctionalAreas" value="" style="html=1;whiteSpace=wrap;container=1;fillColor=#dae8fc;strokeColor=#6c8ebf;dashed=1;fillOpacity=20;strokeWidth=2;containerType=none;recursiveResize=0;movable=1;resizable=1;autosize=0;dropTarget=0" vertex="1" parent="c35c4854-AulaUnida">
+                  <mxGeometry x="54" y="563" width="3993" height="560" as="geometry"/>
+                </mxCell>
+                <mxCell id="c35c4854-FunctionalAreas_label" value="**Core Functional Areas**
+System Modules" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;labelBackgroundColor=white;spacing=5" vertex="1" parent="c35c4854-AulaUnida">
+                  <mxGeometry x="62" y="571" width="3917" height="24" as="geometry"/>
+                </mxCell>
+<mxCell id="c35c4854-UserInterface" value="" style="html=1;whiteSpace=wrap;container=1;fillColor=#dae8fc;strokeColor=#6c8ebf;dashed=1;fillOpacity=20;strokeWidth=2;containerType=none;recursiveResize=0;movable=1;resizable=1;autosize=0;dropTarget=0" vertex="1" parent="c35c4854-AulaUnida">
+                  <mxGeometry x="3777.5833333333335" y="1011" width="266" height="229" as="geometry"/>
+                </mxCell>
+                <mxCell id="c35c4854-UserInterface_label" value="**User Interface**
+Frontend Application" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;labelBackgroundColor=white;spacing=5" vertex="1" parent="c35c4854-AulaUnida">
+                  <mxGeometry x="3785.5833333333335" y="1019" width="190" height="24" as="geometry"/>
+                </mxCell>
+<mxCell id="2d4c741e-group" value="" style="html=1;whiteSpace=wrap;container=1;fillColor=#dae8fc;strokeColor=#6c8ebf;dashed=1;fillOpacity=20;strokeWidth=2;containerType=none;recursiveResize=0;movable=1;resizable=1;autosize=0;dropTarget=0" vertex="1" parent="2d4c741e-wrapper">
+                  <mxGeometry x="444" y="20" width="1107" height="1834" as="geometry"/>
+                </mxCell>
+                <mxCell id="2d4c741e-group_label" value="**Diagram**" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;labelBackgroundColor=white;spacing=5" vertex="1" parent="2d4c741e-wrapper">
+                  <mxGeometry x="452" y="28" width="1031" height="24" as="geometry"/>
+                </mxCell>
+<mxCell id="c35c4854-AulaUnida" value="" style="html=1;whiteSpace=wrap;container=1;fillColor=#dae8fc;strokeColor=#6c8ebf;dashed=1;fillOpacity=20;strokeWidth=2;containerType=none;recursiveResize=0;movable=1;resizable=1;autosize=0;dropTarget=0" vertex="1" parent="c35c4854-wrapper">
+                  <mxGeometry x="10358" y="20" width="4319" height="1709" as="geometry"/>
+                </mxCell>
+                <mxCell id="c35c4854-AulaUnida_label" value="**AulaUnida: Academic Management System**
+Centralized Academic Operations" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;labelBackgroundColor=white;spacing=5" vertex="1" parent="c35c4854-wrapper">
+                  <mxGeometry x="10366" y="28" width="4243" height="24" as="geometry"/>
+                </mxCell>
+<mxCell id="2d4c741e-wrapper" value="" style="html=1;whiteSpace=wrap;container=1;fillColor=#dae8fc;strokeColor=#6c8ebf;dashed=1;fillOpacity=20;strokeWidth=2;containerType=none;recursiveResize=0;movable=1;resizable=1;autosize=0;dropTarget=0" vertex="1" parent="1">
+                  <mxGeometry x="424" y="0" width="9954" height="1951" as="geometry"/>
+                </mxCell>
+                <mxCell id="2d4c741e-wrapper_label" value="Project Map: AulaUnida Educational Platform
+lee mi proyecto y haz el mapa de lo que llevo" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;labelBackgroundColor=white;spacing=5" vertex="1" parent="1">
+                  <mxGeometry x="432" y="8" width="9878" height="24" as="geometry"/>
+                </mxCell>
+<mxCell id="base-diagram-group" value="" style="html=1;whiteSpace=wrap;container=1;fillColor=#dae8fc;strokeColor=#6c8ebf;dashed=1;fillOpacity=20;strokeWidth=2;containerType=none;recursiveResize=0;movable=1;resizable=1;autosize=0;dropTarget=0" vertex="1" parent="1">
+                  <mxGeometry x="-130" y="0" width="484" height="354" as="geometry"/>
+                </mxCell>
+                <mxCell id="base-diagram-group_label" value="Base Diagram" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;labelBackgroundColor=white;spacing=5" vertex="1" parent="1">
+                  <mxGeometry x="-122" y="8" width="408" height="24" as="geometry"/>
+                </mxCell>
+<mxCell id="c35c4854-wrapper" value="" style="html=1;whiteSpace=wrap;container=1;fillColor=#dae8fc;strokeColor=#6c8ebf;dashed=1;fillOpacity=20;strokeWidth=2;containerType=none;recursiveResize=0;movable=1;resizable=1;autosize=0;dropTarget=0" vertex="1" parent="1">
+                  <mxGeometry x="10338" y="0" width="6420" height="1749" as="geometry"/>
+                </mxCell>
+                <mxCell id="c35c4854-wrapper_label" value="AulaUnida: Academic Management System Functionality Diagram
+puedes hacer el diagrama de funcionalidad de mi programa aparte de la que ya me creaste" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;labelBackgroundColor=white;spacing=5" vertex="1" parent="1">
+                  <mxGeometry x="10346" y="8" width="6344" height="24" as="geometry"/>
+                </mxCell>
+                <mxCell id="2d4c741e-report" value="# Project Map: AulaUnida Educational Platform
+
+## Overview
+
+The &apos;AulaUnida&apos; project is a full-stack web application built with Next.js, designed to serve as an educational platform or Learning Management System (LMS). It provides a multi-role environment, likely for students, teachers, and administrators, to interact within an educational context.
+
+## Core Technologies
+
+-   **Frontend Framework**: Next.js (with React)
+-   **Backend (API Routes)**: Next.js API Routes
+-   **Database ORM**: Prisma
+-   **Authentication**: Firebase (Authentication &amp; potentially other services)
+-   **Styling**: Unspecified, but likely component-based CSS or a UI library
+-   **Deployment**: Docker (Containerization)
+
+## Architectural Overview
+
+The project follows a typical full-stack architecture where Next.js serves both the frontend user interface and the backend API routes. User authentication is handled by Firebase, and data persistence is managed through a database accessed via Prisma ORM. Role-based access control is a crucial aspect, differentiating functionalities for `admin`, `docente` (teacher), and `estudiante` (student).
+
+## Key Components and Their Roles
+
+### 1. Frontend (Next.js / React)
+
+-   **`src/app/`**: Contains the main application routes and pages for different sections (e.g., `/admin`, `/docente`, `/estudiante`, `/login`). This defines the user-facing part of the application.
+-   **`src/components/`**: Houses reusable UI components, such as `ProtectedRoute.tsx`, which is vital for enforcing access control based on user roles and authentication status.
+-   **`src/context/authContext.tsx`**: Manages the global authentication state across the frontend application, making user session information available to various components.
+
+### 2. Backend (Next.js API Routes)
+
+-   **`src/app/api/`**: Implements the server-side logic and API endpoints. These routes handle data operations, business logic, and interact with the database and authentication services. They serve data to the frontend and perform actions that require server-side processing.
+
+### 3. Authentication System (Firebase)
+
+-   **`src/lib/firebaseAdmin.ts`**: Used in backend API routes for server-side Firebase operations, such as verifying user tokens or managing users. This ensures secure backend access.
+-   **`src/lib/firebaseClient.ts`**: Used in the frontend for client-side Firebase interactions, such as user sign-up, login, and session management.
+-   **`src/context/authContext.tsx`**: Integrates with the Firebase client to provide authentication state to the React components.
+
+### 4. Database &amp; ORM (Prisma)
+
+-   **`prisma/schema.prisma`**: Defines the application&apos;s database schema, including tables (models), relationships, and fields. This acts as the single source of truth for the database structure.
+-   **`src/lib/prisma.ts`**: Initializes and exports the Prisma client, which is used by the Next.js API routes to interact with the database (perform CRUD operations).
+
+### 5. Access Control &amp; Authorization
+
+-   **`src/components/ProtectedRoute.tsx`**: A frontend component that wraps routes or pages, checking user authentication and authorization before rendering content. Redirects unauthenticated or unauthorized users.
+-   **`src/lib/requireAdmin.ts`**: A utility function likely used in API routes or server-side components to enforce administrator-specific access, preventing unauthorized users from performing privileged actions.
+
+### 6. Deployment &amp; Configuration
+
+-   **`Dockerfile`&amp;#32;/&amp;#32;`docker-compose.yml`**: Indicate that the application is containerized, facilitating consistent deployment across different environments.
+-   **`next.config.mjs`**: Contains Next.js specific configurations, such as image optimization settings, environment variables, and build configurations.
+-   **`package.json`**: Lists all project dependencies (e.g., `next`, `react`, `prisma`, `firebase`) and defines scripts for development, building, and starting the application.
+
+## Data Flow and Interactions
+
+1.  **User Interaction**: A user interacts with the **Frontend** (Next.js Web Application).
+2.  **Authentication**: The **Frontend** communicates with the **Authentication Service** (Firebase Client SDK) for user login, registration, and session management.
+3.  **Data Requests**: The **Frontend** makes API calls to the **Backend** (Next.js API Routes) to fetch or modify data.
+4.  **Backend Logic**: The **Backend** processes these requests. For authenticated operations, it verifies user tokens with the **Authentication Service** (Firebase Admin SDK).
+5.  **Database Operations**: The **Backend** uses **Prisma** to interact with the **Database** (e.g., PostgreSQL) for all data storage and retrieval.
+6.  **Response**: The **Backend** sends processed data back to the **Frontend**, which then updates the UI.
+
+## Project Structure (Key Directories)
+
+```
+. # Project Root
+├── prisma/             # Database schema definition
+│   └── schema.prisma
+├── src/
+│   ├── app/            # Next.js App Router: pages, routes, API endpoints
+│   │   ├── (auth)/     # Authentication related routes/pages
+│   │   ├── admin/      # Admin dashboard pages
+│   │   ├── docente/    # Teacher specific pages
+│   │   ├── estudiante/ # Student specific pages
+│   │   ├── api/        # Backend API routes
+│   │   └── layout.tsx  # Root layout
+│   ├── components/     # Reusable React components
+│   │   └── ProtectedRoute.tsx # Access control component
+│   ├── context/        # React Context providers
+│   │   └── authContext.tsx    # Authentication context
+│   ├── lib/            # Utility functions and configurations
+│   │   ├── firebaseAdmin.ts   # Firebase Admin SDK setup
+│   │   ├── firebaseClient.ts  # Firebase Client SDK setup
+│   │   ├── prisma.ts          # Prisma client setup
+│   │   └── requireAdmin.ts    # Admin access enforcement
+│   └── types/          # TypeScript type definitions
+├── Dockerfile          # Docker container definition
+├── docker-compose.yml  # Docker Compose setup
+├── next.config.mjs     # Next.js configuration
+├── package.json        # Project dependencies and scripts
+└── tsconfig.json       # TypeScript configuration
+```
+
+## Architectural Diagram
+
+```mermaid
+C4Context
+    title System Context Diagram for AulaUnida
+
+    Person(user, &quot;User&quot;, &quot;Student, Teacher, or Administrator&quot;)
+
+    System(aulaunida_system, &quot;AulaUnida Educational Platform&quot;, &quot;A web application for educational management.&quot;)
+
+    System_Ext(firebase_auth, &quot;Firebase Authentication&quot;, &quot;External authentication and user management service.&quot;)
+    System_Ext(database, &quot;Database&quot;, &quot;Stores all application data (e.g., PostgreSQL).&quot;)
+
+    Rel(user, aulaunida_system, &quot;Uses&quot;)
+
+    Boundary(aulaunida_app, &quot;AulaUnida Application&quot;) {
+        Container(frontend_app, &quot;Next.js Web Application&quot;, &quot;React UI, Next.js Pages &amp; Components&quot;, &quot;Web Browser/Client&quot;)
+        Container(backend_api, &quot;Next.js API Routes&quot;, &quot;Server-side logic, data processing, authorization&quot;, &quot;Node.js Server&quot;)
+    }
+
+    Rel(user, frontend_app, &quot;Accesses via web browser&quot;)
+
+    Rel(frontend_app, backend_api, &quot;Makes API calls to&quot;, &quot;HTTP/HTTPS&quot;)
+    Rel(frontend_app, firebase_auth, &quot;Authenticates and manages sessions via&quot;, &quot;Firebase Client SDK&quot;)
+
+    Rel(backend_api, firebase_auth, &quot;Verifies user tokens and manages users via&quot;, &quot;Firebase Admin SDK&quot;)
+    Rel(backend_api, database, &quot;Reads from and writes to&quot;, &quot;Prisma ORM&quot;)
+```" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f5f5f5" vertex="1" parent="2d4c741e-wrapper">
+                      <mxGeometry x="1776.1060030955314" y="459.56965419972505" width="8052" height="1401" as="geometry"/>
+                    </mxCell>
+<mxCell id="2d4c741e-DB1" value="**Database**
+e.g., PostgreSQL" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f5f5f5" vertex="1" parent="2d4c741e-ExternalSystems">
+                      <mxGeometry x="267" y="106" width="108" height="65" as="geometry"/>
+                    </mxCell>
+<mxCell id="2d4c741e-FB1" value="**Firebase Authentication**
+External Auth and User Management" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f5f5f5" vertex="1" parent="2d4c741e-ExternalSystems">
+                      <mxGeometry x="20" y="106" width="227" height="65" as="geometry"/>
+                    </mxCell>
+<mxCell id="2d4c741e-U1" value="**User**
+Student, Teacher, Administrator" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f5f5f5" vertex="1" parent="2d4c741e-ExternalSystems">
+                      <mxGeometry x="395" y="106" width="195" height="65" as="geometry"/>
+                    </mxCell>
+<mxCell id="2d4c741e-AC_REQUIRE_ADMIN" value="**requireAdmin.ts**
+Enforces admin-specific access" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f5f5f5" vertex="1" parent="2d4c741e-AccessControl">
+                      <mxGeometry x="20" y="106" width="191" height="65" as="geometry"/>
+                    </mxCell>
+<mxCell id="2d4c741e-AUTH_FIREBASE_ADMIN" value="**Firebase Admin SDK**
+Server-side token verification" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f5f5f5" vertex="1" parent="2d4c741e-Authentication">
+                      <mxGeometry x="217" y="124" width="183" height="65" as="geometry"/>
+                    </mxCell>
+<mxCell id="2d4c741e-AUTH_FIREBASE_CLIENT" value="**Firebase Client SDK**
+Client-side auth interactions" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f5f5f5" vertex="1" parent="2d4c741e-Authentication">
+                      <mxGeometry x="20" y="124" width="177" height="65" as="geometry"/>
+                    </mxCell>
+<mxCell id="2d4c741e-BE_API_ROUTES" value="**API Routes**
+Server-side logic and endpoints" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f5f5f5" vertex="1" parent="2d4c741e-Backend">
+                      <mxGeometry x="20" y="124" width="197" height="65" as="geometry"/>
+                    </mxCell>
+<mxCell id="2d4c741e-DP_PRISMA_CLIENT" value="**Prisma Client**
+DB interaction interface" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f5f5f5" vertex="1" parent="2d4c741e-DataPersistence">
+                      <mxGeometry x="80.5" y="124" width="150" height="65" as="geometry"/>
+                    </mxCell>
+<mxCell id="2d4c741e-DP_PRISMA_SCHEMA" value="**Prisma Schema**
+Database schema definition" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f5f5f5" vertex="1" parent="2d4c741e-DataPersistence">
+                      <mxGeometry x="20" y="229" width="174" height="65" as="geometry"/>
+                    </mxCell>
+<mxCell id="2d4c741e-FE_APP_ROUTES" value="**Application Routes and Pages**
+src/app/" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f5f5f5" vertex="1" parent="2d4c741e-Frontend">
+                      <mxGeometry x="77.125" y="124" width="197" height="65" as="geometry"/>
+                    </mxCell>
+<mxCell id="2d4c741e-FE_AUTH_CONTEXT" value="**Auth Context**
+Manages global auth state" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f5f5f5" vertex="1" parent="2d4c741e-Frontend">
+                      <mxGeometry x="67" y="439" width="168" height="65" as="geometry"/>
+                    </mxCell>
+<mxCell id="2d4c741e-FE_PROTECTED_ROUTE" value="**ProtectedRoute**
+Enforces access control" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f5f5f5" vertex="1" parent="2d4c741e-Frontend">
+                      <mxGeometry x="30" y="334" width="148" height="65" as="geometry"/>
+                    </mxCell>
+<mxCell id="2d4c741e-FE_UI_COMPONENTS" value="**Reusable UI Components**
+src/components/" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f5f5f5" vertex="1" parent="2d4c741e-Frontend">
+                      <mxGeometry x="20" y="229" width="168" height="65" as="geometry"/>
+                    </mxCell>
+<mxCell id="2d4c741e-PS_DOCKER_COMPOSE" value="**docker-compose.yml**
+Multi-container orchestration" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f5f5f5" vertex="1" parent="2d4c741e-ProjectSetup">
+                      <mxGeometry x="20" y="106" width="184" height="65" as="geometry"/>
+                    </mxCell>
+<mxCell id="2d4c741e-PS_DOCKERFILE" value="**Dockerfile**
+Container definition" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f5f5f5" vertex="1" parent="2d4c741e-ProjectSetup">
+                      <mxGeometry x="47" y="211" width="130" height="65" as="geometry"/>
+                    </mxCell>
+<mxCell id="2d4c741e-PS_NEXT_CONFIG" value="**next.config.mjs**
+Next.js specific configuration" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f5f5f5" vertex="1" parent="2d4c741e-ProjectSetup">
+                      <mxGeometry x="379" y="211" width="180" height="65" as="geometry"/>
+                    </mxCell>
+<mxCell id="2d4c741e-PS_PACKAGE_JSON" value="**package.json**
+Dependencies and scripts" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f5f5f5" vertex="1" parent="2d4c741e-ProjectSetup">
+                      <mxGeometry x="197" y="211" width="162" height="65" as="geometry"/>
+                    </mxCell>
+<mxCell id="begin-diagram-generation" value="Generate Base Diagram" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f5f5f5" vertex="1" parent="base-diagram-group">
+                      <mxGeometry x="20" y="60" width="194" height="254" as="geometry"/>
+                    </mxCell>
+<mxCell id="c35c4854-report" value="# AulaUnida: Academic Management System Functionality Diagram
+
+AulaUnida is a comprehensive web-based academic management system designed to centralize and streamline educational processes for small to medium institutions. It facilitates interaction among students, teachers, and administrators, providing a secure and structured environment for academic operations.
+
+## Core Functional Areas
+
+### 1. User Management &amp; Role-Based Access Control
+
+This module manages all user-related aspects, from authentication to authorization, ensuring that each user interacts with the system based on their assigned role.
+
+-   **Authentication**: Secure user login and logout are handled via Firebase Authentication (client-side `src/lib/firebaseClient.ts` and server-side `src/lib/firebaseAdmin.ts`).
+-   **Role Management**: Users are assigned specific roles (Administrator, Docente, Estudiante) stored in the PostgreSQL database via Prisma ORM (`prisma/schema.prisma`).
+-   **Authorization**: Access to routes and functionalities is protected based on user roles. The frontend (`src/components/ProtectedRoute.tsx`, `src/hooks/useUserRole.ts`) retrieves roles from the backend (`src/app/api/user-role/route.ts`). Server-side API routes use middleware (`src/lib/requireAdmin.ts`) for strict access control.
+-   **Profile Management**: Users can manage their personal information, with data stored in PostgreSQL.
+
+### 2. Academic Structure Management
+
+This area defines and organizes the institutional structure within the system.
+
+-   **Sede (Campus/Location)**: Management of different educational campuses or locations.
+-   **Aula (Classroom)**: Organization and assignment of physical classrooms.
+-   **Ciclo (Academic Cycle)**: Definition and tracking of academic periods (e.g., semesters, terms).
+-   **Grado (Grade Level/Course)**: Management of grade levels or courses, including their assignment to specific campuses and academic cycles.
+
+These entities are stored in the PostgreSQL database and managed through API endpoints using Prisma.
+
+### 3. Course &amp; Subject Management
+
+This module handles the definition of subjects and their assignment to teachers.
+
+-   **Materia (Subject)**: Defines academic subjects, including their associated areas and unique codes. Data is stored in PostgreSQL.
+-   **Teacher-Subject Assignment**: Facilitates the assignment of teachers (`Docente`) to specific subjects, ensuring that the correct educators are linked to their respective courses. This relationship is managed in the PostgreSQL database.
+
+### 4. Student Enrollment &amp; Progress Tracking
+
+This core functionality focuses on managing student academic journeys, from enrollment to grading and reporting.
+
+-   **Enrollment**: Manages the process of enrolling students into specific grade levels or courses.
+-   **Attendance Tracking**: Allows teachers to track and record student attendance for each subject.
+-   **Assignments**: Teachers can create, distribute, and manage assignments. Students can submit their work through the platform.
+-   **Grading**: Teachers review, grade, and provide feedback on submitted assignments. Grades are stored in the PostgreSQL database.
+-   **Report Cards (Boletines)**: Generates and distributes student report cards per academic cycle, summarizing their performance.
+
+All data for these functionalities (enrollments, attendance records, assignments, grades) is persisted in the PostgreSQL database.
+
+### 5. Scheduling
+
+This functionality is dedicated to organizing and managing class schedules.
+
+-   **Horario (Schedule)**: Manages class schedules, associating specific grade levels (`Grado`), subjects (`Materia`), teachers (`Docente`), and classrooms (`Aula`) for defined time slots. This ensures that all academic activities are properly organized and communicated.
+
+Schedule data is stored and retrieved from the PostgreSQL database.
+
+### 6. Communication &amp; Incident Management
+
+This module provides tools for internal communication and handling academic or disciplinary incidents.
+
+-   **Anuncio (Announcement)**: A system for broadcasting announcements, which can be general to all users or specific to certain subjects or roles. Announcements are stored in PostgreSQL.
+-   **Incidencia (Incident)**: Allows for reporting and tracking of academic or disciplinary incidents involving students and teachers, providing a structured way to manage and resolve such events. Incident details are stored in PostgreSQL.
+
+### 7. Audit &amp; Administration
+
+This area provides administrative tools for system oversight and data integrity.
+
+-   **Admin Dashboard**: A central hub for administrators to perform user management, view system metrics, and potentially initiate data restoration processes.
+-   **Change Log (Bitácora/Auditoría)**: Maintains an audit trail of modifications made to various entities within the system, ensuring transparency and accountability for all data changes. This log is stored in PostgreSQL.
+
+## Component Interaction Summary
+
+-   **Frontend (Next.js/React)**: Provides the user interface, handles client-side logic, and communicates with the backend via API routes.
+-   **Backend (Next.js API Routes/Node.js)**: Serves as the application&apos;s business logic layer, processing requests, interacting with the database, and enforcing authorization rules. It uses Firebase Admin SDK for token verification and Prisma for database operations.
+-   **Database (PostgreSQL)**: The primary data store for all academic and user-related information, including roles, academic structures, grades, schedules, and audit logs.
+-   **Prisma ORM**: Facilitates type-safe and efficient interaction between the Node.js backend and the PostgreSQL database.
+-   **Firebase Authentication**: Provides secure and scalable user authentication services." style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f5f5f5" vertex="1" parent="c35c4854-wrapper">
+                      <mxGeometry x="4298.784090909091" y="136.5" width="2041" height="1496" as="geometry"/>
+                    </mxCell>
+<mxCell id="c35c4854-USER" value="**User (Student/Teacher/Admin)**
+Interacts with the system" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f5f5f5" vertex="1" parent="c35c4854-AulaUnida">
+                      <mxGeometry x="4035.784090909091" y="784.5" width="203" height="65" as="geometry"/>
+                    </mxCell>
+<mxCell id="c35c4854-BE" value="**Backend (Next.js API Routes/Node.js)**
+Processes requests, interacts with DB" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f5f5f5" vertex="1" parent="c35c4854-BackendServices">
+                      <mxGeometry x="157.36363636363637" y="124" width="245" height="65" as="geometry"/>
+                    </mxCell>
+<mxCell id="c35c4854-FB_AUTH" value="**Firebase Authentication**
+Secure user login/logout" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f5f5f5" vertex="1" parent="c35c4854-ExternalDependencies">
+                      <mxGeometry x="192.57894736842104" y="234" width="161" height="65" as="geometry"/>
+                    </mxCell>
+<mxCell id="c35c4854-FE" value="**Frontend (Next.js/React)**
+Client-side UI and logic" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f5f5f5" vertex="1" parent="c35c4854-UserInterface">
+                      <mxGeometry x="20" y="124" width="166" height="65" as="geometry"/>
+                    </mxCell>
+<mxCell id="c35c4854-PG_DB" value="**PostgreSQL Database**
+Primary data store" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f5f5f5" vertex="1" parent="c35c4854-ExternalDependencies">
+                      <mxGeometry x="26.578947368421055" y="234" width="146" height="65" as="geometry"/>
+                    </mxCell>
+<mxCell id="c35c4854-PRISMA" value="**Prisma ORM**
+Type-safe DB interaction" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f5f5f5" vertex="1" parent="c35c4854-BackendServices">
+                      <mxGeometry x="20" y="269" width="156" height="65" as="geometry"/>
+                    </mxCell>
+<mxCell id="c35c4854-ASM_AULA" value="**Aula**
+Classroom" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f5f5f5" vertex="1" parent="c35c4854-ASM">
+                      <mxGeometry x="156" y="124" width="75" height="65" as="geometry"/>
+                    </mxCell>
+<mxCell id="c35c4854-ASM_CICLO" value="**Ciclo**
+Academic Cycle" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f5f5f5" vertex="1" parent="c35c4854-ASM">
+                      <mxGeometry x="399" y="124" width="105" height="65" as="geometry"/>
+                    </mxCell>
+<mxCell id="c35c4854-ASM_GRADO" value="**Grado**
+Grade Level/Course" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f5f5f5" vertex="1" parent="c35c4854-ASM">
+                      <mxGeometry x="251" y="124" width="128" height="65" as="geometry"/>
+                    </mxCell>
+<mxCell id="c35c4854-ASM_SEDE" value="**Sede**
+Campus/Location" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f5f5f5" vertex="1" parent="c35c4854-ASM">
+                      <mxGeometry x="20" y="124" width="116" height="65" as="geometry"/>
+                    </mxCell>
+<mxCell id="c35c4854-AUDIT_DASH" value="**Admin Dashboard**
+Central hub for administrators" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f5f5f5" vertex="1" parent="c35c4854-AUDIT">
+                      <mxGeometry x="20" y="124" width="188" height="65" as="geometry"/>
+                    </mxCell>
+<mxCell id="c35c4854-AUDIT_LOG" value="**Change Log (Bitácora)**
+Audit trail of data modifications" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f5f5f5" vertex="1" parent="c35c4854-AUDIT">
+                      <mxGeometry x="228" y="124" width="197" height="65" as="geometry"/>
+                    </mxCell>
+<mxCell id="c35c4854-CIM_ANUNCIO" value="**Anuncio**
+Broadcast announcements" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f5f5f5" vertex="1" parent="c35c4854-CIM">
+                      <mxGeometry x="318" y="124" width="167" height="65" as="geometry"/>
+                    </mxCell>
+<mxCell id="c35c4854-CIM_INCIDENCIA" value="**Incidencia**
+Report and track academic/disciplinary events" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f5f5f5" vertex="1" parent="c35c4854-CIM">
+                      <mxGeometry x="20" y="124" width="278" height="65" as="geometry"/>
+                    </mxCell>
+<mxCell id="c35c4854-CSM_ASSIGN" value="**Teacher-Subject Assignment**
+Docente to Materia" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f5f5f5" vertex="1" parent="c35c4854-CSM">
+                      <mxGeometry x="157" y="124" width="188" height="65" as="geometry"/>
+                    </mxCell>
+<mxCell id="c35c4854-CSM_MATERIA" value="**Materia**
+Academic Subject" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f5f5f5" vertex="1" parent="c35c4854-CSM">
+                      <mxGeometry x="20" y="124" width="117" height="65" as="geometry"/>
+                    </mxCell>
+<mxCell id="c35c4854-SCHED_HORARIO" value="**Horario**
+Class schedules (Grado, Materia, Docente, Aula)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f5f5f5" vertex="1" parent="c35c4854-SCHED">
+                      <mxGeometry x="20" y="124" width="287" height="65" as="geometry"/>
+                    </mxCell>
+<mxCell id="c35c4854-SEPT_ASSIGN" value="**Assignments**
+Create, distribute, submit work" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f5f5f5" vertex="1" parent="c35c4854-SEPT">
+                      <mxGeometry x="388" y="124" width="191" height="65" as="geometry"/>
+                    </mxCell>
+<mxCell id="c35c4854-SEPT_ATTEND" value="**Attendance Tracking**
+Record student presence" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f5f5f5" vertex="1" parent="c35c4854-SEPT">
+                      <mxGeometry x="210" y="124" width="158" height="65" as="geometry"/>
+                    </mxCell>
+<mxCell id="c35c4854-SEPT_ENROLL" value="**Enrollment**
+Student into Grado/Course" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f5f5f5" vertex="1" parent="c35c4854-SEPT">
+                      <mxGeometry x="20" y="124" width="170" height="65" as="geometry"/>
+                    </mxCell>
+<mxCell id="c35c4854-SEPT_GRADE" value="**Grading**
+Review, grade, feedback" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f5f5f5" vertex="1" parent="c35c4854-SEPT">
+                      <mxGeometry x="599" y="124" width="153" height="65" as="geometry"/>
+                    </mxCell>
+<mxCell id="c35c4854-SEPT_REPORT" value="**Report Cards (Boletines)**
+Generate student performance summaries" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f5f5f5" vertex="1" parent="c35c4854-SEPT">
+                      <mxGeometry x="772" y="124" width="257" height="65" as="geometry"/>
+                    </mxCell>
+<mxCell id="c35c4854-UM_AUTH" value="**Authentication**
+User Login/Logout" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f5f5f5" vertex="1" parent="c35c4854-UM">
+                      <mxGeometry x="347.5" y="124" width="123" height="65" as="geometry"/>
+                    </mxCell>
+<mxCell id="c35c4854-UM_AUTHZ" value="**Authorization**
+Access control based on roles" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f5f5f5" vertex="1" parent="c35c4854-UM">
+                      <mxGeometry x="351.75" y="229" width="186" height="65" as="geometry"/>
+                    </mxCell>
+<mxCell id="c35c4854-UM_PROFILE" value="**Profile Management**
+User personal information" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f5f5f5" vertex="1" parent="c35c4854-UM">
+                      <mxGeometry x="162.5" y="124" width="165" height="65" as="geometry"/>
+                    </mxCell>
+<mxCell id="c35c4854-UM_ROLES" value="**Role Management**
+Administrator, Docente, Estudiante" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f5f5f5" vertex="1" parent="c35c4854-UM">
+                      <mxGeometry x="20" y="229" width="215" height="65" as="geometry"/>
+                    </mxCell>
+                <mxCell id="edge-2d4c741e-L_U1_FE_APP_ROUTES_0" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#808080;strokeWidth=2;jumpStyle=arc;jumpSize=10;spacing=15;labelBackgroundColor=white;labelBorderColor=none" edge="1" parent="1" source="2d4c741e-U1" target="2d4c741e-FE_APP_ROUTES">
+                    <mxGeometry relative="1" as="geometry"/>
+                  </mxCell>
+                  <mxCell id="edge-2d4c741e-L_U1_FE_APP_ROUTES_0_label" value="Interacts with" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="edge-2d4c741e-L_U1_FE_APP_ROUTES_0">
+                    <mxGeometry x="-0.2" y="10" relative="1" as="geometry">
+                      <mxPoint as="offset"/>
+                    </mxGeometry>
+                  </mxCell>
+<mxCell id="edge-2d4c741e-L_FE_APP_ROUTES_FE_UI_COMPONENTS_1" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#808080;strokeWidth=2;jumpStyle=arc;jumpSize=10;spacing=15;labelBackgroundColor=white;labelBorderColor=none" edge="1" parent="1" source="2d4c741e-FE_APP_ROUTES" target="2d4c741e-FE_UI_COMPONENTS">
+                    <mxGeometry relative="1" as="geometry"/>
+                  </mxCell>
+                  <mxCell id="edge-2d4c741e-L_FE_APP_ROUTES_FE_UI_COMPONENTS_1_label" value="Uses" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="edge-2d4c741e-L_FE_APP_ROUTES_FE_UI_COMPONENTS_1">
+                    <mxGeometry x="-0.2" y="10" relative="1" as="geometry">
+                      <mxPoint as="offset"/>
+                    </mxGeometry>
+                  </mxCell>
+<mxCell id="edge-2d4c741e-L_FE_UI_COMPONENTS_FE_PROTECTED_ROUTE_2" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#808080;strokeWidth=2;jumpStyle=arc;jumpSize=10;spacing=15;labelBackgroundColor=white;labelBorderColor=none" edge="1" parent="1" source="2d4c741e-FE_UI_COMPONENTS" target="2d4c741e-FE_PROTECTED_ROUTE">
+                    <mxGeometry relative="1" as="geometry"/>
+                  </mxCell>
+                  <mxCell id="edge-2d4c741e-L_FE_UI_COMPONENTS_FE_PROTECTED_ROUTE_2_label" value="Includes" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="edge-2d4c741e-L_FE_UI_COMPONENTS_FE_PROTECTED_ROUTE_2">
+                    <mxGeometry x="-0.2" y="10" relative="1" as="geometry">
+                      <mxPoint as="offset"/>
+                    </mxGeometry>
+                  </mxCell>
+<mxCell id="edge-2d4c741e-L_FE_APP_ROUTES_FE_AUTH_CONTEXT_3" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#808080;strokeWidth=2;jumpStyle=arc;jumpSize=10;spacing=15;labelBackgroundColor=white;labelBorderColor=none" edge="1" parent="1" source="2d4c741e-FE_APP_ROUTES" target="2d4c741e-FE_AUTH_CONTEXT">
+                    <mxGeometry relative="1" as="geometry"/>
+                  </mxCell>
+                  <mxCell id="edge-2d4c741e-L_FE_APP_ROUTES_FE_AUTH_CONTEXT_3_label" value="Manages global state via" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="edge-2d4c741e-L_FE_APP_ROUTES_FE_AUTH_CONTEXT_3">
+                    <mxGeometry x="-0.2" y="10" relative="1" as="geometry">
+                      <mxPoint as="offset"/>
+                    </mxGeometry>
+                  </mxCell>
+<mxCell id="edge-2d4c741e-L_FE_AUTH_CONTEXT_AUTH_FIREBASE_CLIENT_4" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#808080;strokeWidth=2;jumpStyle=arc;jumpSize=10;spacing=15;labelBackgroundColor=white;labelBorderColor=none" edge="1" parent="1" source="2d4c741e-FE_AUTH_CONTEXT" target="2d4c741e-AUTH_FIREBASE_CLIENT">
+                    <mxGeometry relative="1" as="geometry"/>
+                  </mxCell>
+                  <mxCell id="edge-2d4c741e-L_FE_AUTH_CONTEXT_AUTH_FIREBASE_CLIENT_4_label" value="Communicates with" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="edge-2d4c741e-L_FE_AUTH_CONTEXT_AUTH_FIREBASE_CLIENT_4">
+                    <mxGeometry x="-0.2" y="10" relative="1" as="geometry">
+                      <mxPoint as="offset"/>
+                    </mxGeometry>
+                  </mxCell>
+<mxCell id="edge-2d4c741e-L_AUTH_FIREBASE_CLIENT_FB1_5" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#808080;strokeWidth=2;jumpStyle=arc;jumpSize=10;spacing=15;labelBackgroundColor=white;labelBorderColor=none" edge="1" parent="1" source="2d4c741e-AUTH_FIREBASE_CLIENT" target="2d4c741e-FB1">
+                    <mxGeometry relative="1" as="geometry"/>
+                  </mxCell>
+                  <mxCell id="edge-2d4c741e-L_AUTH_FIREBASE_CLIENT_FB1_5_label" value="Authenticates &amp; manages sessions with" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="edge-2d4c741e-L_AUTH_FIREBASE_CLIENT_FB1_5">
+                    <mxGeometry x="-0.2" y="10" relative="1" as="geometry">
+                      <mxPoint as="offset"/>
+                    </mxGeometry>
+                  </mxCell>
+<mxCell id="edge-2d4c741e-L_FE_PROTECTED_ROUTE_FE_AUTH_CONTEXT_6" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#808080;strokeWidth=2;jumpStyle=arc;jumpSize=10;spacing=15;labelBackgroundColor=white;labelBorderColor=none" edge="1" parent="1" source="2d4c741e-FE_PROTECTED_ROUTE" target="2d4c741e-FE_AUTH_CONTEXT">
+                    <mxGeometry relative="1" as="geometry"/>
+                  </mxCell>
+                  <mxCell id="edge-2d4c741e-L_FE_PROTECTED_ROUTE_FE_AUTH_CONTEXT_6_label" value="Checks auth status from" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="edge-2d4c741e-L_FE_PROTECTED_ROUTE_FE_AUTH_CONTEXT_6">
+                    <mxGeometry x="-0.2" y="10" relative="1" as="geometry">
+                      <mxPoint as="offset"/>
+                    </mxGeometry>
+                  </mxCell>
+<mxCell id="edge-2d4c741e-L_FE_APP_ROUTES_BE_API_ROUTES_7" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#808080;strokeWidth=2;jumpStyle=arc;jumpSize=10;spacing=15;labelBackgroundColor=white;labelBorderColor=none" edge="1" parent="1" source="2d4c741e-FE_APP_ROUTES" target="2d4c741e-BE_API_ROUTES">
+                    <mxGeometry relative="1" as="geometry"/>
+                  </mxCell>
+                  <mxCell id="edge-2d4c741e-L_FE_APP_ROUTES_BE_API_ROUTES_7_label" value="Makes API calls to" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="edge-2d4c741e-L_FE_APP_ROUTES_BE_API_ROUTES_7">
+                    <mxGeometry x="-0.2" y="10" relative="1" as="geometry">
+                      <mxPoint as="offset"/>
+                    </mxGeometry>
+                  </mxCell>
+<mxCell id="edge-2d4c741e-L_BE_API_ROUTES_AUTH_FIREBASE_ADMIN_8" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#808080;strokeWidth=2;jumpStyle=arc;jumpSize=10;spacing=15;labelBackgroundColor=white;labelBorderColor=none" edge="1" parent="1" source="2d4c741e-BE_API_ROUTES" target="2d4c741e-AUTH_FIREBASE_ADMIN">
+                    <mxGeometry relative="1" as="geometry"/>
+                  </mxCell>
+                  <mxCell id="edge-2d4c741e-L_BE_API_ROUTES_AUTH_FIREBASE_ADMIN_8_label" value="Verifies user tokens via" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="edge-2d4c741e-L_BE_API_ROUTES_AUTH_FIREBASE_ADMIN_8">
+                    <mxGeometry x="-0.2" y="10" relative="1" as="geometry">
+                      <mxPoint as="offset"/>
+                    </mxGeometry>
+                  </mxCell>
+<mxCell id="edge-2d4c741e-L_AUTH_FIREBASE_ADMIN_FB1_9" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#808080;strokeWidth=2;jumpStyle=arc;jumpSize=10;spacing=15;labelBackgroundColor=white;labelBorderColor=none" edge="1" parent="1" source="2d4c741e-AUTH_FIREBASE_ADMIN" target="2d4c741e-FB1">
+                    <mxGeometry relative="1" as="geometry"/>
+                  </mxCell>
+                  <mxCell id="edge-2d4c741e-L_AUTH_FIREBASE_ADMIN_FB1_9_label" value="Communicates with" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="edge-2d4c741e-L_AUTH_FIREBASE_ADMIN_FB1_9">
+                    <mxGeometry x="-0.2" y="10" relative="1" as="geometry">
+                      <mxPoint as="offset"/>
+                    </mxGeometry>
+                  </mxCell>
+<mxCell id="edge-2d4c741e-L_BE_API_ROUTES_DP_PRISMA_CLIENT_10" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#808080;strokeWidth=2;jumpStyle=arc;jumpSize=10;spacing=15;labelBackgroundColor=white;labelBorderColor=none" edge="1" parent="1" source="2d4c741e-BE_API_ROUTES" target="2d4c741e-DP_PRISMA_CLIENT">
+                    <mxGeometry relative="1" as="geometry"/>
+                  </mxCell>
+                  <mxCell id="edge-2d4c741e-L_BE_API_ROUTES_DP_PRISMA_CLIENT_10_label" value="Interacts with DB via" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="edge-2d4c741e-L_BE_API_ROUTES_DP_PRISMA_CLIENT_10">
+                    <mxGeometry x="-0.2" y="10" relative="1" as="geometry">
+                      <mxPoint as="offset"/>
+                    </mxGeometry>
+                  </mxCell>
+<mxCell id="edge-2d4c741e-L_DP_PRISMA_CLIENT_DP_PRISMA_SCHEMA_11" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#808080;strokeWidth=2;jumpStyle=arc;jumpSize=10;spacing=15;labelBackgroundColor=white;labelBorderColor=none" edge="1" parent="1" source="2d4c741e-DP_PRISMA_CLIENT" target="2d4c741e-DP_PRISMA_SCHEMA">
+                    <mxGeometry relative="1" as="geometry"/>
+                  </mxCell>
+                  <mxCell id="edge-2d4c741e-L_DP_PRISMA_CLIENT_DP_PRISMA_SCHEMA_11_label" value="Uses schema from" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="edge-2d4c741e-L_DP_PRISMA_CLIENT_DP_PRISMA_SCHEMA_11">
+                    <mxGeometry x="-0.2" y="10" relative="1" as="geometry">
+                      <mxPoint as="offset"/>
+                    </mxGeometry>
+                  </mxCell>
+<mxCell id="edge-2d4c741e-L_DP_PRISMA_CLIENT_DB1_12" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#808080;strokeWidth=2;jumpStyle=arc;jumpSize=10;spacing=15;labelBackgroundColor=white;labelBorderColor=none" edge="1" parent="1" source="2d4c741e-DP_PRISMA_CLIENT" target="2d4c741e-DB1">
+                    <mxGeometry relative="1" as="geometry"/>
+                  </mxCell>
+                  <mxCell id="edge-2d4c741e-L_DP_PRISMA_CLIENT_DB1_12_label" value="Connects to" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="edge-2d4c741e-L_DP_PRISMA_CLIENT_DB1_12">
+                    <mxGeometry x="-0.2" y="10" relative="1" as="geometry">
+                      <mxPoint as="offset"/>
+                    </mxGeometry>
+                  </mxCell>
+<mxCell id="edge-2d4c741e-L_BE_API_ROUTES_AC_REQUIRE_ADMIN_13" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#808080;strokeWidth=2;jumpStyle=arc;jumpSize=10;spacing=15;labelBackgroundColor=white;labelBorderColor=none" edge="1" parent="1" source="2d4c741e-BE_API_ROUTES" target="2d4c741e-AC_REQUIRE_ADMIN">
+                    <mxGeometry relative="1" as="geometry"/>
+                  </mxCell>
+                  <mxCell id="edge-2d4c741e-L_BE_API_ROUTES_AC_REQUIRE_ADMIN_13_label" value="Enforces privileged actions via" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="edge-2d4c741e-L_BE_API_ROUTES_AC_REQUIRE_ADMIN_13">
+                    <mxGeometry x="-0.2" y="10" relative="1" as="geometry">
+                      <mxPoint as="offset"/>
+                    </mxGeometry>
+                  </mxCell>
+<mxCell id="edge-2d4c741e-L_PS_DOCKERFILE_AulaUnidaPlatform_14" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#808080;strokeWidth=2;jumpStyle=arc;jumpSize=10;spacing=15;labelBackgroundColor=white;labelBorderColor=none" edge="1" parent="1" source="2d4c741e-PS_DOCKERFILE" target="2d4c741e-AulaUnidaPlatform">
+                    <mxGeometry relative="1" as="geometry"/>
+                  </mxCell>
+                  <mxCell id="edge-2d4c741e-L_PS_DOCKERFILE_AulaUnidaPlatform_14_label" value="Containerizes" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="edge-2d4c741e-L_PS_DOCKERFILE_AulaUnidaPlatform_14">
+                    <mxGeometry x="-0.2" y="10" relative="1" as="geometry">
+                      <mxPoint as="offset"/>
+                    </mxGeometry>
+                  </mxCell>
+<mxCell id="edge-2d4c741e-L_PS_DOCKER_COMPOSE_PS_DOCKERFILE_15" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#808080;strokeWidth=2;jumpStyle=arc;jumpSize=10;spacing=15;labelBackgroundColor=white;labelBorderColor=none" edge="1" parent="1" source="2d4c741e-PS_DOCKER_COMPOSE" target="2d4c741e-PS_DOCKERFILE">
+                    <mxGeometry relative="1" as="geometry"/>
+                  </mxCell>
+                  <mxCell id="edge-2d4c741e-L_PS_DOCKER_COMPOSE_PS_DOCKERFILE_15_label" value="Orchestrates" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="edge-2d4c741e-L_PS_DOCKER_COMPOSE_PS_DOCKERFILE_15">
+                    <mxGeometry x="-0.2" y="10" relative="1" as="geometry">
+                      <mxPoint as="offset"/>
+                    </mxGeometry>
+                  </mxCell>
+<mxCell id="edge-2d4c741e-L_PS_NEXT_CONFIG_FE_APP_ROUTES_16" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#808080;strokeWidth=2;jumpStyle=arc;jumpSize=10;spacing=15;labelBackgroundColor=white;labelBorderColor=none" edge="1" parent="1" source="2d4c741e-PS_NEXT_CONFIG" target="2d4c741e-FE_APP_ROUTES">
+                    <mxGeometry relative="1" as="geometry"/>
+                  </mxCell>
+                  <mxCell id="edge-2d4c741e-L_PS_NEXT_CONFIG_FE_APP_ROUTES_16_label" value="Configures" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="edge-2d4c741e-L_PS_NEXT_CONFIG_FE_APP_ROUTES_16">
+                    <mxGeometry x="-0.2" y="10" relative="1" as="geometry">
+                      <mxPoint as="offset"/>
+                    </mxGeometry>
+                  </mxCell>
+<mxCell id="edge-2d4c741e-L_PS_NEXT_CONFIG_BE_API_ROUTES_17" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#808080;strokeWidth=2;jumpStyle=arc;jumpSize=10;spacing=15;labelBackgroundColor=white;labelBorderColor=none" edge="1" parent="1" source="2d4c741e-PS_NEXT_CONFIG" target="2d4c741e-BE_API_ROUTES">
+                    <mxGeometry relative="1" as="geometry"/>
+                  </mxCell>
+                  <mxCell id="edge-2d4c741e-L_PS_NEXT_CONFIG_BE_API_ROUTES_17_label" value="Configures" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="edge-2d4c741e-L_PS_NEXT_CONFIG_BE_API_ROUTES_17">
+                    <mxGeometry x="-0.2" y="10" relative="1" as="geometry">
+                      <mxPoint as="offset"/>
+                    </mxGeometry>
+                  </mxCell>
+<mxCell id="edge-2d4c741e-L_PS_PACKAGE_JSON_AulaUnidaPlatform_18" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#808080;strokeWidth=2;jumpStyle=arc;jumpSize=10;spacing=15;labelBackgroundColor=white;labelBorderColor=none" edge="1" parent="1" source="2d4c741e-PS_PACKAGE_JSON" target="2d4c741e-AulaUnidaPlatform">
+                    <mxGeometry relative="1" as="geometry"/>
+                  </mxCell>
+                  <mxCell id="edge-2d4c741e-L_PS_PACKAGE_JSON_AulaUnidaPlatform_18_label" value="Defines dependencies for" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="edge-2d4c741e-L_PS_PACKAGE_JSON_AulaUnidaPlatform_18">
+                    <mxGeometry x="-0.2" y="10" relative="1" as="geometry">
+                      <mxPoint as="offset"/>
+                    </mxGeometry>
+                  </mxCell>
+<mxCell id="edge-2d4c741e-L_U1_FE_APP_ROUTES_0" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#808080;strokeWidth=2;jumpStyle=arc;jumpSize=10;spacing=15;labelBackgroundColor=white;labelBorderColor=none" edge="1" parent="1" source="2d4c741e-U1" target="2d4c741e-FE_APP_ROUTES">
+                    <mxGeometry relative="1" as="geometry"/>
+                  </mxCell>
+                  <mxCell id="edge-2d4c741e-L_U1_FE_APP_ROUTES_0_label" value="Interacts with" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="edge-2d4c741e-L_U1_FE_APP_ROUTES_0">
+                    <mxGeometry x="-0.2" y="10" relative="1" as="geometry">
+                      <mxPoint as="offset"/>
+                    </mxGeometry>
+                  </mxCell>
+<mxCell id="edge-2d4c741e-L_FE_APP_ROUTES_FE_UI_COMPONENTS_1" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#808080;strokeWidth=2;jumpStyle=arc;jumpSize=10;spacing=15;labelBackgroundColor=white;labelBorderColor=none" edge="1" parent="1" source="2d4c741e-FE_APP_ROUTES" target="2d4c741e-FE_UI_COMPONENTS">
+                    <mxGeometry relative="1" as="geometry"/>
+                  </mxCell>
+                  <mxCell id="edge-2d4c741e-L_FE_APP_ROUTES_FE_UI_COMPONENTS_1_label" value="Uses" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="edge-2d4c741e-L_FE_APP_ROUTES_FE_UI_COMPONENTS_1">
+                    <mxGeometry x="-0.2" y="10" relative="1" as="geometry">
+                      <mxPoint as="offset"/>
+                    </mxGeometry>
+                  </mxCell>
+<mxCell id="edge-2d4c741e-L_FE_UI_COMPONENTS_FE_PROTECTED_ROUTE_2" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#808080;strokeWidth=2;jumpStyle=arc;jumpSize=10;spacing=15;labelBackgroundColor=white;labelBorderColor=none" edge="1" parent="1" source="2d4c741e-FE_UI_COMPONENTS" target="2d4c741e-FE_PROTECTED_ROUTE">
+                    <mxGeometry relative="1" as="geometry"/>
+                  </mxCell>
+                  <mxCell id="edge-2d4c741e-L_FE_UI_COMPONENTS_FE_PROTECTED_ROUTE_2_label" value="Includes" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="edge-2d4c741e-L_FE_UI_COMPONENTS_FE_PROTECTED_ROUTE_2">
+                    <mxGeometry x="-0.2" y="10" relative="1" as="geometry">
+                      <mxPoint as="offset"/>
+                    </mxGeometry>
+                  </mxCell>
+<mxCell id="edge-2d4c741e-L_FE_APP_ROUTES_FE_AUTH_CONTEXT_3" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#808080;strokeWidth=2;jumpStyle=arc;jumpSize=10;spacing=15;labelBackgroundColor=white;labelBorderColor=none" edge="1" parent="1" source="2d4c741e-FE_APP_ROUTES" target="2d4c741e-FE_AUTH_CONTEXT">
+                    <mxGeometry relative="1" as="geometry"/>
+                  </mxCell>
+                  <mxCell id="edge-2d4c741e-L_FE_APP_ROUTES_FE_AUTH_CONTEXT_3_label" value="Manages global state via" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="edge-2d4c741e-L_FE_APP_ROUTES_FE_AUTH_CONTEXT_3">
+                    <mxGeometry x="-0.2" y="10" relative="1" as="geometry">
+                      <mxPoint as="offset"/>
+                    </mxGeometry>
+                  </mxCell>
+<mxCell id="edge-2d4c741e-L_FE_AUTH_CONTEXT_AUTH_FIREBASE_CLIENT_4" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#808080;strokeWidth=2;jumpStyle=arc;jumpSize=10;spacing=15;labelBackgroundColor=white;labelBorderColor=none" edge="1" parent="1" source="2d4c741e-FE_AUTH_CONTEXT" target="2d4c741e-AUTH_FIREBASE_CLIENT">
+                    <mxGeometry relative="1" as="geometry"/>
+                  </mxCell>
+                  <mxCell id="edge-2d4c741e-L_FE_AUTH_CONTEXT_AUTH_FIREBASE_CLIENT_4_label" value="Communicates with" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="edge-2d4c741e-L_FE_AUTH_CONTEXT_AUTH_FIREBASE_CLIENT_4">
+                    <mxGeometry x="-0.2" y="10" relative="1" as="geometry">
+                      <mxPoint as="offset"/>
+                    </mxGeometry>
+                  </mxCell>
+<mxCell id="edge-2d4c741e-L_AUTH_FIREBASE_CLIENT_FB1_5" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#808080;strokeWidth=2;jumpStyle=arc;jumpSize=10;spacing=15;labelBackgroundColor=white;labelBorderColor=none" edge="1" parent="1" source="2d4c741e-AUTH_FIREBASE_CLIENT" target="2d4c741e-FB1">
+                    <mxGeometry relative="1" as="geometry"/>
+                  </mxCell>
+                  <mxCell id="edge-2d4c741e-L_AUTH_FIREBASE_CLIENT_FB1_5_label" value="Authenticates &amp; manages sessions with" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="edge-2d4c741e-L_AUTH_FIREBASE_CLIENT_FB1_5">
+                    <mxGeometry x="-0.2" y="10" relative="1" as="geometry">
+                      <mxPoint as="offset"/>
+                    </mxGeometry>
+                  </mxCell>
+<mxCell id="edge-2d4c741e-L_FE_PROTECTED_ROUTE_FE_AUTH_CONTEXT_6" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#808080;strokeWidth=2;jumpStyle=arc;jumpSize=10;spacing=15;labelBackgroundColor=white;labelBorderColor=none" edge="1" parent="1" source="2d4c741e-FE_PROTECTED_ROUTE" target="2d4c741e-FE_AUTH_CONTEXT">
+                    <mxGeometry relative="1" as="geometry"/>
+                  </mxCell>
+                  <mxCell id="edge-2d4c741e-L_FE_PROTECTED_ROUTE_FE_AUTH_CONTEXT_6_label" value="Checks auth status from" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="edge-2d4c741e-L_FE_PROTECTED_ROUTE_FE_AUTH_CONTEXT_6">
+                    <mxGeometry x="-0.2" y="10" relative="1" as="geometry">
+                      <mxPoint as="offset"/>
+                    </mxGeometry>
+                  </mxCell>
+<mxCell id="edge-2d4c741e-L_FE_APP_ROUTES_BE_API_ROUTES_7" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#808080;strokeWidth=2;jumpStyle=arc;jumpSize=10;spacing=15;labelBackgroundColor=white;labelBorderColor=none" edge="1" parent="1" source="2d4c741e-FE_APP_ROUTES" target="2d4c741e-BE_API_ROUTES">
+                    <mxGeometry relative="1" as="geometry"/>
+                  </mxCell>
+                  <mxCell id="edge-2d4c741e-L_FE_APP_ROUTES_BE_API_ROUTES_7_label" value="Makes API calls to" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="edge-2d4c741e-L_FE_APP_ROUTES_BE_API_ROUTES_7">
+                    <mxGeometry x="-0.2" y="10" relative="1" as="geometry">
+                      <mxPoint as="offset"/>
+                    </mxGeometry>
+                  </mxCell>
+<mxCell id="edge-2d4c741e-L_BE_API_ROUTES_AUTH_FIREBASE_ADMIN_8" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#808080;strokeWidth=2;jumpStyle=arc;jumpSize=10;spacing=15;labelBackgroundColor=white;labelBorderColor=none" edge="1" parent="1" source="2d4c741e-BE_API_ROUTES" target="2d4c741e-AUTH_FIREBASE_ADMIN">
+                    <mxGeometry relative="1" as="geometry"/>
+                  </mxCell>
+                  <mxCell id="edge-2d4c741e-L_BE_API_ROUTES_AUTH_FIREBASE_ADMIN_8_label" value="Verifies user tokens via" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="edge-2d4c741e-L_BE_API_ROUTES_AUTH_FIREBASE_ADMIN_8">
+                    <mxGeometry x="-0.2" y="10" relative="1" as="geometry">
+                      <mxPoint as="offset"/>
+                    </mxGeometry>
+                  </mxCell>
+<mxCell id="edge-2d4c741e-L_AUTH_FIREBASE_ADMIN_FB1_9" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#808080;strokeWidth=2;jumpStyle=arc;jumpSize=10;spacing=15;labelBackgroundColor=white;labelBorderColor=none" edge="1" parent="1" source="2d4c741e-AUTH_FIREBASE_ADMIN" target="2d4c741e-FB1">
+                    <mxGeometry relative="1" as="geometry"/>
+                  </mxCell>
+                  <mxCell id="edge-2d4c741e-L_AUTH_FIREBASE_ADMIN_FB1_9_label" value="Communicates with" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="edge-2d4c741e-L_AUTH_FIREBASE_ADMIN_FB1_9">
+                    <mxGeometry x="-0.2" y="10" relative="1" as="geometry">
+                      <mxPoint as="offset"/>
+                    </mxGeometry>
+                  </mxCell>
+<mxCell id="edge-2d4c741e-L_BE_API_ROUTES_DP_PRISMA_CLIENT_10" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#808080;strokeWidth=2;jumpStyle=arc;jumpSize=10;spacing=15;labelBackgroundColor=white;labelBorderColor=none" edge="1" parent="1" source="2d4c741e-BE_API_ROUTES" target="2d4c741e-DP_PRISMA_CLIENT">
+                    <mxGeometry relative="1" as="geometry"/>
+                  </mxCell>
+                  <mxCell id="edge-2d4c741e-L_BE_API_ROUTES_DP_PRISMA_CLIENT_10_label" value="Interacts with DB via" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="edge-2d4c741e-L_BE_API_ROUTES_DP_PRISMA_CLIENT_10">
+                    <mxGeometry x="-0.2" y="10" relative="1" as="geometry">
+                      <mxPoint as="offset"/>
+                    </mxGeometry>
+                  </mxCell>
+<mxCell id="edge-2d4c741e-L_DP_PRISMA_CLIENT_DP_PRISMA_SCHEMA_11" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#808080;strokeWidth=2;jumpStyle=arc;jumpSize=10;spacing=15;labelBackgroundColor=white;labelBorderColor=none" edge="1" parent="1" source="2d4c741e-DP_PRISMA_CLIENT" target="2d4c741e-DP_PRISMA_SCHEMA">
+                    <mxGeometry relative="1" as="geometry"/>
+                  </mxCell>
+                  <mxCell id="edge-2d4c741e-L_DP_PRISMA_CLIENT_DP_PRISMA_SCHEMA_11_label" value="Uses schema from" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="edge-2d4c741e-L_DP_PRISMA_CLIENT_DP_PRISMA_SCHEMA_11">
+                    <mxGeometry x="-0.2" y="10" relative="1" as="geometry">
+                      <mxPoint as="offset"/>
+                    </mxGeometry>
+                  </mxCell>
+<mxCell id="edge-2d4c741e-L_DP_PRISMA_CLIENT_DB1_12" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#808080;strokeWidth=2;jumpStyle=arc;jumpSize=10;spacing=15;labelBackgroundColor=white;labelBorderColor=none" edge="1" parent="1" source="2d4c741e-DP_PRISMA_CLIENT" target="2d4c741e-DB1">
+                    <mxGeometry relative="1" as="geometry"/>
+                  </mxCell>
+                  <mxCell id="edge-2d4c741e-L_DP_PRISMA_CLIENT_DB1_12_label" value="Connects to" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="edge-2d4c741e-L_DP_PRISMA_CLIENT_DB1_12">
+                    <mxGeometry x="-0.2" y="10" relative="1" as="geometry">
+                      <mxPoint as="offset"/>
+                    </mxGeometry>
+                  </mxCell>
+<mxCell id="edge-2d4c741e-L_BE_API_ROUTES_AC_REQUIRE_ADMIN_13" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#808080;strokeWidth=2;jumpStyle=arc;jumpSize=10;spacing=15;labelBackgroundColor=white;labelBorderColor=none" edge="1" parent="1" source="2d4c741e-BE_API_ROUTES" target="2d4c741e-AC_REQUIRE_ADMIN">
+                    <mxGeometry relative="1" as="geometry"/>
+                  </mxCell>
+                  <mxCell id="edge-2d4c741e-L_BE_API_ROUTES_AC_REQUIRE_ADMIN_13_label" value="Enforces privileged actions via" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="edge-2d4c741e-L_BE_API_ROUTES_AC_REQUIRE_ADMIN_13">
+                    <mxGeometry x="-0.2" y="10" relative="1" as="geometry">
+                      <mxPoint as="offset"/>
+                    </mxGeometry>
+                  </mxCell>
+<mxCell id="edge-2d4c741e-L_PS_DOCKERFILE_AulaUnidaPlatform_14" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#808080;strokeWidth=2;jumpStyle=arc;jumpSize=10;spacing=15;labelBackgroundColor=white;labelBorderColor=none" edge="1" parent="1" source="2d4c741e-PS_DOCKERFILE" target="2d4c741e-AulaUnidaPlatform">
+                    <mxGeometry relative="1" as="geometry"/>
+                  </mxCell>
+                  <mxCell id="edge-2d4c741e-L_PS_DOCKERFILE_AulaUnidaPlatform_14_label" value="Containerizes" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="edge-2d4c741e-L_PS_DOCKERFILE_AulaUnidaPlatform_14">
+                    <mxGeometry x="-0.2" y="10" relative="1" as="geometry">
+                      <mxPoint as="offset"/>
+                    </mxGeometry>
+                  </mxCell>
+<mxCell id="edge-2d4c741e-L_PS_DOCKER_COMPOSE_PS_DOCKERFILE_15" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#808080;strokeWidth=2;jumpStyle=arc;jumpSize=10;spacing=15;labelBackgroundColor=white;labelBorderColor=none" edge="1" parent="1" source="2d4c741e-PS_DOCKER_COMPOSE" target="2d4c741e-PS_DOCKERFILE">
+                    <mxGeometry relative="1" as="geometry"/>
+                  </mxCell>
+                  <mxCell id="edge-2d4c741e-L_PS_DOCKER_COMPOSE_PS_DOCKERFILE_15_label" value="Orchestrates" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="edge-2d4c741e-L_PS_DOCKER_COMPOSE_PS_DOCKERFILE_15">
+                    <mxGeometry x="-0.2" y="10" relative="1" as="geometry">
+                      <mxPoint as="offset"/>
+                    </mxGeometry>
+                  </mxCell>
+<mxCell id="edge-2d4c741e-L_PS_NEXT_CONFIG_FE_APP_ROUTES_16" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#808080;strokeWidth=2;jumpStyle=arc;jumpSize=10;spacing=15;labelBackgroundColor=white;labelBorderColor=none" edge="1" parent="1" source="2d4c741e-PS_NEXT_CONFIG" target="2d4c741e-FE_APP_ROUTES">
+                    <mxGeometry relative="1" as="geometry"/>
+                  </mxCell>
+                  <mxCell id="edge-2d4c741e-L_PS_NEXT_CONFIG_FE_APP_ROUTES_16_label" value="Configures" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="edge-2d4c741e-L_PS_NEXT_CONFIG_FE_APP_ROUTES_16">
+                    <mxGeometry x="-0.2" y="10" relative="1" as="geometry">
+                      <mxPoint as="offset"/>
+                    </mxGeometry>
+                  </mxCell>
+<mxCell id="edge-2d4c741e-L_PS_NEXT_CONFIG_BE_API_ROUTES_17" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#808080;strokeWidth=2;jumpStyle=arc;jumpSize=10;spacing=15;labelBackgroundColor=white;labelBorderColor=none" edge="1" parent="1" source="2d4c741e-PS_NEXT_CONFIG" target="2d4c741e-BE_API_ROUTES">
+                    <mxGeometry relative="1" as="geometry"/>
+                  </mxCell>
+                  <mxCell id="edge-2d4c741e-L_PS_NEXT_CONFIG_BE_API_ROUTES_17_label" value="Configures" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="edge-2d4c741e-L_PS_NEXT_CONFIG_BE_API_ROUTES_17">
+                    <mxGeometry x="-0.2" y="10" relative="1" as="geometry">
+                      <mxPoint as="offset"/>
+                    </mxGeometry>
+                  </mxCell>
+<mxCell id="edge-2d4c741e-L_PS_PACKAGE_JSON_AulaUnidaPlatform_18" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#808080;strokeWidth=2;jumpStyle=arc;jumpSize=10;spacing=15;labelBackgroundColor=white;labelBorderColor=none" edge="1" parent="1" source="2d4c741e-PS_PACKAGE_JSON" target="2d4c741e-AulaUnidaPlatform">
+                    <mxGeometry relative="1" as="geometry"/>
+                  </mxCell>
+                  <mxCell id="edge-2d4c741e-L_PS_PACKAGE_JSON_AulaUnidaPlatform_18_label" value="Defines dependencies for" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="edge-2d4c741e-L_PS_PACKAGE_JSON_AulaUnidaPlatform_18">
+                    <mxGeometry x="-0.2" y="10" relative="1" as="geometry">
+                      <mxPoint as="offset"/>
+                    </mxGeometry>
+                  </mxCell>
+<mxCell id="edge-c35c4854-L_USER_FE_0" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#808080;strokeWidth=2;jumpStyle=arc;jumpSize=10;spacing=15;labelBackgroundColor=white;labelBorderColor=none" edge="1" parent="1" source="c35c4854-USER" target="c35c4854-FE">
+                    <mxGeometry relative="1" as="geometry"/>
+                  </mxCell>
+                  <mxCell id="edge-c35c4854-L_USER_FE_0_label" value="Interacts with" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="edge-c35c4854-L_USER_FE_0">
+                    <mxGeometry x="-0.2" y="10" relative="1" as="geometry">
+                      <mxPoint as="offset"/>
+                    </mxGeometry>
+                  </mxCell>
+<mxCell id="edge-c35c4854-L_FE_BE_1" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#808080;strokeWidth=2;jumpStyle=arc;jumpSize=10;spacing=15;labelBackgroundColor=white;labelBorderColor=none" edge="1" parent="1" source="c35c4854-FE" target="c35c4854-BE">
+                    <mxGeometry relative="1" as="geometry"/>
+                  </mxCell>
+                  <mxCell id="edge-c35c4854-L_FE_BE_1_label" value="Sends requests to" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="edge-c35c4854-L_FE_BE_1">
+                    <mxGeometry x="-0.2" y="10" relative="1" as="geometry">
+                      <mxPoint as="offset"/>
+                    </mxGeometry>
+                  </mxCell>
+<mxCell id="edge-c35c4854-L_FE_FB_AUTH_2" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#808080;strokeWidth=2;jumpStyle=arc;jumpSize=10;spacing=15;labelBackgroundColor=white;labelBorderColor=none" edge="1" parent="1" source="c35c4854-FE" target="c35c4854-FB_AUTH">
+                    <mxGeometry relative="1" as="geometry"/>
+                  </mxCell>
+                  <mxCell id="edge-c35c4854-L_FE_FB_AUTH_2_label" value="Authenticates via" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="edge-c35c4854-L_FE_FB_AUTH_2">
+                    <mxGeometry x="-0.2" y="10" relative="1" as="geometry">
+                      <mxPoint as="offset"/>
+                    </mxGeometry>
+                  </mxCell>
+<mxCell id="edge-c35c4854-L_BE_PRISMA_3" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#808080;strokeWidth=2;jumpStyle=arc;jumpSize=10;spacing=15;labelBackgroundColor=white;labelBorderColor=none" edge="1" parent="1" source="c35c4854-BE" target="c35c4854-PRISMA">
+                    <mxGeometry relative="1" as="geometry"/>
+                  </mxCell>
+                  <mxCell id="edge-c35c4854-L_BE_PRISMA_3_label" value="Uses" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="edge-c35c4854-L_BE_PRISMA_3">
+                    <mxGeometry x="-0.2" y="10" relative="1" as="geometry">
+                      <mxPoint as="offset"/>
+                    </mxGeometry>
+                  </mxCell>
+<mxCell id="edge-c35c4854-L_BE_FB_AUTH_4" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#808080;strokeWidth=2;jumpStyle=arc;jumpSize=10;spacing=15;labelBackgroundColor=white;labelBorderColor=none" edge="1" parent="1" source="c35c4854-BE" target="c35c4854-FB_AUTH">
+                    <mxGeometry relative="1" as="geometry"/>
+                  </mxCell>
+                  <mxCell id="edge-c35c4854-L_BE_FB_AUTH_4_label" value="Verifies tokens with" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="edge-c35c4854-L_BE_FB_AUTH_4">
+                    <mxGeometry x="-0.2" y="10" relative="1" as="geometry">
+                      <mxPoint as="offset"/>
+                    </mxGeometry>
+                  </mxCell>
+<mxCell id="edge-c35c4854-L_PRISMA_PG_DB_5" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#808080;strokeWidth=2;jumpStyle=arc;jumpSize=10;spacing=15;labelBackgroundColor=white;labelBorderColor=none" edge="1" parent="1" source="c35c4854-PRISMA" target="c35c4854-PG_DB">
+                    <mxGeometry relative="1" as="geometry"/>
+                  </mxCell>
+                  <mxCell id="edge-c35c4854-L_PRISMA_PG_DB_5_label" value="Interacts with" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="edge-c35c4854-L_PRISMA_PG_DB_5">
+                    <mxGeometry x="-0.2" y="10" relative="1" as="geometry">
+                      <mxPoint as="offset"/>
+                    </mxGeometry>
+                  </mxCell>
+<mxCell id="edge-c35c4854-L_UM_ROLES_PG_DB_6" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#808080;strokeWidth=2;jumpStyle=arc;jumpSize=10;spacing=15;labelBackgroundColor=white;labelBorderColor=none" edge="1" parent="1" source="c35c4854-UM_ROLES" target="c35c4854-PG_DB">
+                    <mxGeometry relative="1" as="geometry"/>
+                  </mxCell>
+                  <mxCell id="edge-c35c4854-L_UM_ROLES_PG_DB_6_label" value="Stored in" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="edge-c35c4854-L_UM_ROLES_PG_DB_6">
+                    <mxGeometry x="-0.2" y="10" relative="1" as="geometry">
+                      <mxPoint as="offset"/>
+                    </mxGeometry>
+                  </mxCell>
+<mxCell id="edge-c35c4854-L_UM_PROFILE_PG_DB_7" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#808080;strokeWidth=2;jumpStyle=arc;jumpSize=10;spacing=15;labelBackgroundColor=white;labelBorderColor=none" edge="1" parent="1" source="c35c4854-UM_PROFILE" target="c35c4854-PG_DB">
+                    <mxGeometry relative="1" as="geometry"/>
+                  </mxCell>
+                  <mxCell id="edge-c35c4854-L_UM_PROFILE_PG_DB_7_label" value="Stored in" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="edge-c35c4854-L_UM_PROFILE_PG_DB_7">
+                    <mxGeometry x="-0.2" y="10" relative="1" as="geometry">
+                      <mxPoint as="offset"/>
+                    </mxGeometry>
+                  </mxCell>
+<mxCell id="edge-c35c4854-L_ASM_SEDE_PG_DB_8" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#808080;strokeWidth=2;jumpStyle=arc;jumpSize=10;spacing=15;labelBackgroundColor=white;labelBorderColor=none" edge="1" parent="1" source="c35c4854-ASM_SEDE" target="c35c4854-PG_DB">
+                    <mxGeometry relative="1" as="geometry"/>
+                  </mxCell>
+                  <mxCell id="edge-c35c4854-L_ASM_SEDE_PG_DB_8_label" value="Stored in" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="edge-c35c4854-L_ASM_SEDE_PG_DB_8">
+                    <mxGeometry x="-0.2" y="10" relative="1" as="geometry">
+                      <mxPoint as="offset"/>
+                    </mxGeometry>
+                  </mxCell>
+<mxCell id="edge-c35c4854-L_ASM_AULA_PG_DB_9" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#808080;strokeWidth=2;jumpStyle=arc;jumpSize=10;spacing=15;labelBackgroundColor=white;labelBorderColor=none" edge="1" parent="1" source="c35c4854-ASM_AULA" target="c35c4854-PG_DB">
+                    <mxGeometry relative="1" as="geometry"/>
+                  </mxCell>
+                  <mxCell id="edge-c35c4854-L_ASM_AULA_PG_DB_9_label" value="Stored in" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="edge-c35c4854-L_ASM_AULA_PG_DB_9">
+                    <mxGeometry x="-0.2" y="10" relative="1" as="geometry">
+                      <mxPoint as="offset"/>
+                    </mxGeometry>
+                  </mxCell>
+<mxCell id="edge-c35c4854-L_ASM_CICLO_PG_DB_10" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#808080;strokeWidth=2;jumpStyle=arc;jumpSize=10;spacing=15;labelBackgroundColor=white;labelBorderColor=none" edge="1" parent="1" source="c35c4854-ASM_CICLO" target="c35c4854-PG_DB">
+                    <mxGeometry relative="1" as="geometry"/>
+                  </mxCell>
+                  <mxCell id="edge-c35c4854-L_ASM_CICLO_PG_DB_10_label" value="Stored in" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="edge-c35c4854-L_ASM_CICLO_PG_DB_10">
+                    <mxGeometry x="-0.2" y="10" relative="1" as="geometry">
+                      <mxPoint as="offset"/>
+                    </mxGeometry>
+                  </mxCell>
+<mxCell id="edge-c35c4854-L_ASM_GRADO_PG_DB_11" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#808080;strokeWidth=2;jumpStyle=arc;jumpSize=10;spacing=15;labelBackgroundColor=white;labelBorderColor=none" edge="1" parent="1" source="c35c4854-ASM_GRADO" target="c35c4854-PG_DB">
+                    <mxGeometry relative="1" as="geometry"/>
+                  </mxCell>
+                  <mxCell id="edge-c35c4854-L_ASM_GRADO_PG_DB_11_label" value="Stored in" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="edge-c35c4854-L_ASM_GRADO_PG_DB_11">
+                    <mxGeometry x="-0.2" y="10" relative="1" as="geometry">
+                      <mxPoint as="offset"/>
+                    </mxGeometry>
+                  </mxCell>
+<mxCell id="edge-c35c4854-L_CSM_MATERIA_PG_DB_12" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#808080;strokeWidth=2;jumpStyle=arc;jumpSize=10;spacing=15;labelBackgroundColor=white;labelBorderColor=none" edge="1" parent="1" source="c35c4854-CSM_MATERIA" target="c35c4854-PG_DB">
+                    <mxGeometry relative="1" as="geometry"/>
+                  </mxCell>
+                  <mxCell id="edge-c35c4854-L_CSM_MATERIA_PG_DB_12_label" value="Stored in" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="edge-c35c4854-L_CSM_MATERIA_PG_DB_12">
+                    <mxGeometry x="-0.2" y="10" relative="1" as="geometry">
+                      <mxPoint as="offset"/>
+                    </mxGeometry>
+                  </mxCell>
+<mxCell id="edge-c35c4854-L_CSM_ASSIGN_PG_DB_13" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#808080;strokeWidth=2;jumpStyle=arc;jumpSize=10;spacing=15;labelBackgroundColor=white;labelBorderColor=none" edge="1" parent="1" source="c35c4854-CSM_ASSIGN" target="c35c4854-PG_DB">
+                    <mxGeometry relative="1" as="geometry"/>
+                  </mxCell>
+                  <mxCell id="edge-c35c4854-L_CSM_ASSIGN_PG_DB_13_label" value="Stored in" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="edge-c35c4854-L_CSM_ASSIGN_PG_DB_13">
+                    <mxGeometry x="-0.2" y="10" relative="1" as="geometry">
+                      <mxPoint as="offset"/>
+                    </mxGeometry>
+                  </mxCell>
+<mxCell id="edge-c35c4854-L_SEPT_ENROLL_PG_DB_14" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#808080;strokeWidth=2;jumpStyle=arc;jumpSize=10;spacing=15;labelBackgroundColor=white;labelBorderColor=none" edge="1" parent="1" source="c35c4854-SEPT_ENROLL" target="c35c4854-PG_DB">
+                    <mxGeometry relative="1" as="geometry"/>
+                  </mxCell>
+                  <mxCell id="edge-c35c4854-L_SEPT_ENROLL_PG_DB_14_label" value="Stored in" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="edge-c35c4854-L_SEPT_ENROLL_PG_DB_14">
+                    <mxGeometry x="-0.2" y="10" relative="1" as="geometry">
+                      <mxPoint as="offset"/>
+                    </mxGeometry>
+                  </mxCell>
+<mxCell id="edge-c35c4854-L_SEPT_ATTEND_PG_DB_15" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#808080;strokeWidth=2;jumpStyle=arc;jumpSize=10;spacing=15;labelBackgroundColor=white;labelBorderColor=none" edge="1" parent="1" source="c35c4854-SEPT_ATTEND" target="c35c4854-PG_DB">
+                    <mxGeometry relative="1" as="geometry"/>
+                  </mxCell>
+                  <mxCell id="edge-c35c4854-L_SEPT_ATTEND_PG_DB_15_label" value="Stored in" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="edge-c35c4854-L_SEPT_ATTEND_PG_DB_15">
+                    <mxGeometry x="-0.2" y="10" relative="1" as="geometry">
+                      <mxPoint as="offset"/>
+                    </mxGeometry>
+                  </mxCell>
+<mxCell id="edge-c35c4854-L_SEPT_ASSIGN_PG_DB_16" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#808080;strokeWidth=2;jumpStyle=arc;jumpSize=10;spacing=15;labelBackgroundColor=white;labelBorderColor=none" edge="1" parent="1" source="c35c4854-SEPT_ASSIGN" target="c35c4854-PG_DB">
+                    <mxGeometry relative="1" as="geometry"/>
+                  </mxCell>
+                  <mxCell id="edge-c35c4854-L_SEPT_ASSIGN_PG_DB_16_label" value="Stored in" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="edge-c35c4854-L_SEPT_ASSIGN_PG_DB_16">
+                    <mxGeometry x="-0.2" y="10" relative="1" as="geometry">
+                      <mxPoint as="offset"/>
+                    </mxGeometry>
+                  </mxCell>
+<mxCell id="edge-c35c4854-L_SEPT_GRADE_PG_DB_17" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#808080;strokeWidth=2;jumpStyle=arc;jumpSize=10;spacing=15;labelBackgroundColor=white;labelBorderColor=none" edge="1" parent="1" source="c35c4854-SEPT_GRADE" target="c35c4854-PG_DB">
+                    <mxGeometry relative="1" as="geometry"/>
+                  </mxCell>
+                  <mxCell id="edge-c35c4854-L_SEPT_GRADE_PG_DB_17_label" value="Stored in" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="edge-c35c4854-L_SEPT_GRADE_PG_DB_17">
+                    <mxGeometry x="-0.2" y="10" relative="1" as="geometry">
+                      <mxPoint as="offset"/>
+                    </mxGeometry>
+                  </mxCell>
+<mxCell id="edge-c35c4854-L_SEPT_REPORT_PG_DB_18" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#808080;strokeWidth=2;jumpStyle=arc;jumpSize=10;spacing=15;labelBackgroundColor=white;labelBorderColor=none" edge="1" parent="1" source="c35c4854-SEPT_REPORT" target="c35c4854-PG_DB">
+                    <mxGeometry relative="1" as="geometry"/>
+                  </mxCell>
+                  <mxCell id="edge-c35c4854-L_SEPT_REPORT_PG_DB_18_label" value="Generated from &amp; stored in" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="edge-c35c4854-L_SEPT_REPORT_PG_DB_18">
+                    <mxGeometry x="-0.2" y="10" relative="1" as="geometry">
+                      <mxPoint as="offset"/>
+                    </mxGeometry>
+                  </mxCell>
+<mxCell id="edge-c35c4854-L_SCHED_HORARIO_PG_DB_19" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#808080;strokeWidth=2;jumpStyle=arc;jumpSize=10;spacing=15;labelBackgroundColor=white;labelBorderColor=none" edge="1" parent="1" source="c35c4854-SCHED_HORARIO" target="c35c4854-PG_DB">
+                    <mxGeometry relative="1" as="geometry"/>
+                  </mxCell>
+                  <mxCell id="edge-c35c4854-L_SCHED_HORARIO_PG_DB_19_label" value="Stored in" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="edge-c35c4854-L_SCHED_HORARIO_PG_DB_19">
+                    <mxGeometry x="-0.2" y="10" relative="1" as="geometry">
+                      <mxPoint as="offset"/>
+                    </mxGeometry>
+                  </mxCell>
+<mxCell id="edge-c35c4854-L_CIM_ANUNCIO_PG_DB_20" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#808080;strokeWidth=2;jumpStyle=arc;jumpSize=10;spacing=15;labelBackgroundColor=white;labelBorderColor=none" edge="1" parent="1" source="c35c4854-CIM_ANUNCIO" target="c35c4854-PG_DB">
+                    <mxGeometry relative="1" as="geometry"/>
+                  </mxCell>
+                  <mxCell id="edge-c35c4854-L_CIM_ANUNCIO_PG_DB_20_label" value="Stored in" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="edge-c35c4854-L_CIM_ANUNCIO_PG_DB_20">
+                    <mxGeometry x="-0.2" y="10" relative="1" as="geometry">
+                      <mxPoint as="offset"/>
+                    </mxGeometry>
+                  </mxCell>
+<mxCell id="edge-c35c4854-L_CIM_INCIDENCIA_PG_DB_21" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#808080;strokeWidth=2;jumpStyle=arc;jumpSize=10;spacing=15;labelBackgroundColor=white;labelBorderColor=none" edge="1" parent="1" source="c35c4854-CIM_INCIDENCIA" target="c35c4854-PG_DB">
+                    <mxGeometry relative="1" as="geometry"/>
+                  </mxCell>
+                  <mxCell id="edge-c35c4854-L_CIM_INCIDENCIA_PG_DB_21_label" value="Stored in" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="edge-c35c4854-L_CIM_INCIDENCIA_PG_DB_21">
+                    <mxGeometry x="-0.2" y="10" relative="1" as="geometry">
+                      <mxPoint as="offset"/>
+                    </mxGeometry>
+                  </mxCell>
+<mxCell id="edge-c35c4854-L_AUDIT_LOG_PG_DB_22" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#808080;strokeWidth=2;jumpStyle=arc;jumpSize=10;spacing=15;labelBackgroundColor=white;labelBorderColor=none" edge="1" parent="1" source="c35c4854-AUDIT_LOG" target="c35c4854-PG_DB">
+                    <mxGeometry relative="1" as="geometry"/>
+                  </mxCell>
+                  <mxCell id="edge-c35c4854-L_AUDIT_LOG_PG_DB_22_label" value="Stored in" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="edge-c35c4854-L_AUDIT_LOG_PG_DB_22">
+                    <mxGeometry x="-0.2" y="10" relative="1" as="geometry">
+                      <mxPoint as="offset"/>
+                    </mxGeometry>
+                  </mxCell>
+<mxCell id="edge-c35c4854-L_BE_UM_AUTH_23" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#808080;strokeWidth=2;jumpStyle=arc;jumpSize=10;spacing=15;labelBackgroundColor=white;labelBorderColor=none" edge="1" parent="1" source="c35c4854-BE" target="c35c4854-UM_AUTH">
+                    <mxGeometry relative="1" as="geometry"/>
+                  </mxCell>
+                  <mxCell id="edge-c35c4854-L_BE_UM_AUTH_23_label" value="Manages" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="edge-c35c4854-L_BE_UM_AUTH_23">
+                    <mxGeometry x="-0.2" y="10" relative="1" as="geometry">
+                      <mxPoint as="offset"/>
+                    </mxGeometry>
+                  </mxCell>
+<mxCell id="edge-c35c4854-L_BE_UM_AUTHZ_24" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#808080;strokeWidth=2;jumpStyle=arc;jumpSize=10;spacing=15;labelBackgroundColor=white;labelBorderColor=none" edge="1" parent="1" source="c35c4854-BE" target="c35c4854-UM_AUTHZ">
+                    <mxGeometry relative="1" as="geometry"/>
+                  </mxCell>
+                  <mxCell id="edge-c35c4854-L_BE_UM_AUTHZ_24_label" value="Enforces" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="edge-c35c4854-L_BE_UM_AUTHZ_24">
+                    <mxGeometry x="-0.2" y="10" relative="1" as="geometry">
+                      <mxPoint as="offset"/>
+                    </mxGeometry>
+                  </mxCell>
+<mxCell id="edge-c35c4854-L_BE_UM_PROFILE_25" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#808080;strokeWidth=2;jumpStyle=arc;jumpSize=10;spacing=15;labelBackgroundColor=white;labelBorderColor=none" edge="1" parent="1" source="c35c4854-BE" target="c35c4854-UM_PROFILE">
+                    <mxGeometry relative="1" as="geometry"/>
+                  </mxCell>
+                  <mxCell id="edge-c35c4854-L_BE_UM_PROFILE_25_label" value="Manages" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="edge-c35c4854-L_BE_UM_PROFILE_25">
+                    <mxGeometry x="-0.2" y="10" relative="1" as="geometry">
+                      <mxPoint as="offset"/>
+                    </mxGeometry>
+                  </mxCell>
+<mxCell id="edge-c35c4854-L_BE_ASM_SEDE_26" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#808080;strokeWidth=2;jumpStyle=arc;jumpSize=10;spacing=15;labelBackgroundColor=white;labelBorderColor=none" edge="1" parent="1" source="c35c4854-BE" target="c35c4854-ASM_SEDE">
+                    <mxGeometry relative="1" as="geometry"/>
+                  </mxCell>
+                  <mxCell id="edge-c35c4854-L_BE_ASM_SEDE_26_label" value="Manages" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="edge-c35c4854-L_BE_ASM_SEDE_26">
+                    <mxGeometry x="-0.2" y="10" relative="1" as="geometry">
+                      <mxPoint as="offset"/>
+                    </mxGeometry>
+                  </mxCell>
+<mxCell id="edge-c35c4854-L_BE_ASM_AULA_27" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#808080;strokeWidth=2;jumpStyle=arc;jumpSize=10;spacing=15;labelBackgroundColor=white;labelBorderColor=none" edge="1" parent="1" source="c35c4854-BE" target="c35c4854-ASM_AULA">
+                    <mxGeometry relative="1" as="geometry"/>
+                  </mxCell>
+                  <mxCell id="edge-c35c4854-L_BE_ASM_AULA_27_label" value="Manages" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="edge-c35c4854-L_BE_ASM_AULA_27">
+                    <mxGeometry x="-0.2" y="10" relative="1" as="geometry">
+                      <mxPoint as="offset"/>
+                    </mxGeometry>
+                  </mxCell>
+<mxCell id="edge-c35c4854-L_BE_ASM_CICLO_28" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#808080;strokeWidth=2;jumpStyle=arc;jumpSize=10;spacing=15;labelBackgroundColor=white;labelBorderColor=none" edge="1" parent="1" source="c35c4854-BE" target="c35c4854-ASM_CICLO">
+                    <mxGeometry relative="1" as="geometry"/>
+                  </mxCell>
+                  <mxCell id="edge-c35c4854-L_BE_ASM_CICLO_28_label" value="Manages" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="edge-c35c4854-L_BE_ASM_CICLO_28">
+                    <mxGeometry x="-0.2" y="10" relative="1" as="geometry">
+                      <mxPoint as="offset"/>
+                    </mxGeometry>
+                  </mxCell>
+<mxCell id="edge-c35c4854-L_BE_ASM_GRADO_29" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#808080;strokeWidth=2;jumpStyle=arc;jumpSize=10;spacing=15;labelBackgroundColor=white;labelBorderColor=none" edge="1" parent="1" source="c35c4854-BE" target="c35c4854-ASM_GRADO">
+                    <mxGeometry relative="1" as="geometry"/>
+                  </mxCell>
+                  <mxCell id="edge-c35c4854-L_BE_ASM_GRADO_29_label" value="Manages" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="edge-c35c4854-L_BE_ASM_GRADO_29">
+                    <mxGeometry x="-0.2" y="10" relative="1" as="geometry">
+                      <mxPoint as="offset"/>
+                    </mxGeometry>
+                  </mxCell>
+<mxCell id="edge-c35c4854-L_BE_CSM_MATERIA_30" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#808080;strokeWidth=2;jumpStyle=arc;jumpSize=10;spacing=15;labelBackgroundColor=white;labelBorderColor=none" edge="1" parent="1" source="c35c4854-BE" target="c35c4854-CSM_MATERIA">
+                    <mxGeometry relative="1" as="geometry"/>
+                  </mxCell>
+                  <mxCell id="edge-c35c4854-L_BE_CSM_MATERIA_30_label" value="Manages" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="edge-c35c4854-L_BE_CSM_MATERIA_30">
+                    <mxGeometry x="-0.2" y="10" relative="1" as="geometry">
+                      <mxPoint as="offset"/>
+                    </mxGeometry>
+                  </mxCell>
+<mxCell id="edge-c35c4854-L_BE_CSM_ASSIGN_31" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#808080;strokeWidth=2;jumpStyle=arc;jumpSize=10;spacing=15;labelBackgroundColor=white;labelBorderColor=none" edge="1" parent="1" source="c35c4854-BE" target="c35c4854-CSM_ASSIGN">
+                    <mxGeometry relative="1" as="geometry"/>
+                  </mxCell>
+                  <mxCell id="edge-c35c4854-L_BE_CSM_ASSIGN_31_label" value="Manages" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="edge-c35c4854-L_BE_CSM_ASSIGN_31">
+                    <mxGeometry x="-0.2" y="10" relative="1" as="geometry">
+                      <mxPoint as="offset"/>
+                    </mxGeometry>
+                  </mxCell>
+<mxCell id="edge-c35c4854-L_BE_SEPT_ENROLL_32" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#808080;strokeWidth=2;jumpStyle=arc;jumpSize=10;spacing=15;labelBackgroundColor=white;labelBorderColor=none" edge="1" parent="1" source="c35c4854-BE" target="c35c4854-SEPT_ENROLL">
+                    <mxGeometry relative="1" as="geometry"/>
+                  </mxCell>
+                  <mxCell id="edge-c35c4854-L_BE_SEPT_ENROLL_32_label" value="Manages" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="edge-c35c4854-L_BE_SEPT_ENROLL_32">
+                    <mxGeometry x="-0.2" y="10" relative="1" as="geometry">
+                      <mxPoint as="offset"/>
+                    </mxGeometry>
+                  </mxCell>
+<mxCell id="edge-c35c4854-L_BE_SEPT_ATTEND_33" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#808080;strokeWidth=2;jumpStyle=arc;jumpSize=10;spacing=15;labelBackgroundColor=white;labelBorderColor=none" edge="1" parent="1" source="c35c4854-BE" target="c35c4854-SEPT_ATTEND">
+                    <mxGeometry relative="1" as="geometry"/>
+                  </mxCell>
+                  <mxCell id="edge-c35c4854-L_BE_SEPT_ATTEND_33_label" value="Manages" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="edge-c35c4854-L_BE_SEPT_ATTEND_33">
+                    <mxGeometry x="-0.2" y="10" relative="1" as="geometry">
+                      <mxPoint as="offset"/>
+                    </mxGeometry>
+                  </mxCell>
+<mxCell id="edge-c35c4854-L_BE_SEPT_ASSIGN_34" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#808080;strokeWidth=2;jumpStyle=arc;jumpSize=10;spacing=15;labelBackgroundColor=white;labelBorderColor=none" edge="1" parent="1" source="c35c4854-BE" target="c35c4854-SEPT_ASSIGN">
+                    <mxGeometry relative="1" as="geometry"/>
+                  </mxCell>
+                  <mxCell id="edge-c35c4854-L_BE_SEPT_ASSIGN_34_label" value="Manages" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="edge-c35c4854-L_BE_SEPT_ASSIGN_34">
+                    <mxGeometry x="-0.2" y="10" relative="1" as="geometry">
+                      <mxPoint as="offset"/>
+                    </mxGeometry>
+                  </mxCell>
+<mxCell id="edge-c35c4854-L_BE_SEPT_GRADE_35" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#808080;strokeWidth=2;jumpStyle=arc;jumpSize=10;spacing=15;labelBackgroundColor=white;labelBorderColor=none" edge="1" parent="1" source="c35c4854-BE" target="c35c4854-SEPT_GRADE">
+                    <mxGeometry relative="1" as="geometry"/>
+                  </mxCell>
+                  <mxCell id="edge-c35c4854-L_BE_SEPT_GRADE_35_label" value="Manages" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="edge-c35c4854-L_BE_SEPT_GRADE_35">
+                    <mxGeometry x="-0.2" y="10" relative="1" as="geometry">
+                      <mxPoint as="offset"/>
+                    </mxGeometry>
+                  </mxCell>
+<mxCell id="edge-c35c4854-L_BE_SEPT_REPORT_36" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#808080;strokeWidth=2;jumpStyle=arc;jumpSize=10;spacing=15;labelBackgroundColor=white;labelBorderColor=none" edge="1" parent="1" source="c35c4854-BE" target="c35c4854-SEPT_REPORT">
+                    <mxGeometry relative="1" as="geometry"/>
+                  </mxCell>
+                  <mxCell id="edge-c35c4854-L_BE_SEPT_REPORT_36_label" value="Generates/Manages" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="edge-c35c4854-L_BE_SEPT_REPORT_36">
+                    <mxGeometry x="-0.2" y="10" relative="1" as="geometry">
+                      <mxPoint as="offset"/>
+                    </mxGeometry>
+                  </mxCell>
+<mxCell id="edge-c35c4854-L_BE_SCHED_HORARIO_37" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#808080;strokeWidth=2;jumpStyle=arc;jumpSize=10;spacing=15;labelBackgroundColor=white;labelBorderColor=none" edge="1" parent="1" source="c35c4854-BE" target="c35c4854-SCHED_HORARIO">
+                    <mxGeometry relative="1" as="geometry"/>
+                  </mxCell>
+                  <mxCell id="edge-c35c4854-L_BE_SCHED_HORARIO_37_label" value="Manages" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="edge-c35c4854-L_BE_SCHED_HORARIO_37">
+                    <mxGeometry x="-0.2" y="10" relative="1" as="geometry">
+                      <mxPoint as="offset"/>
+                    </mxGeometry>
+                  </mxCell>
+<mxCell id="edge-c35c4854-L_BE_CIM_ANUNCIO_38" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#808080;strokeWidth=2;jumpStyle=arc;jumpSize=10;spacing=15;labelBackgroundColor=white;labelBorderColor=none" edge="1" parent="1" source="c35c4854-BE" target="c35c4854-CIM_ANUNCIO">
+                    <mxGeometry relative="1" as="geometry"/>
+                  </mxCell>
+                  <mxCell id="edge-c35c4854-L_BE_CIM_ANUNCIO_38_label" value="Manages" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="edge-c35c4854-L_BE_CIM_ANUNCIO_38">
+                    <mxGeometry x="-0.2" y="10" relative="1" as="geometry">
+                      <mxPoint as="offset"/>
+                    </mxGeometry>
+                  </mxCell>
+<mxCell id="edge-c35c4854-L_BE_CIM_INCIDENCIA_39" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#808080;strokeWidth=2;jumpStyle=arc;jumpSize=10;spacing=15;labelBackgroundColor=white;labelBorderColor=none" edge="1" parent="1" source="c35c4854-BE" target="c35c4854-CIM_INCIDENCIA">
+                    <mxGeometry relative="1" as="geometry"/>
+                  </mxCell>
+                  <mxCell id="edge-c35c4854-L_BE_CIM_INCIDENCIA_39_label" value="Manages" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="edge-c35c4854-L_BE_CIM_INCIDENCIA_39">
+                    <mxGeometry x="-0.2" y="10" relative="1" as="geometry">
+                      <mxPoint as="offset"/>
+                    </mxGeometry>
+                  </mxCell>
+<mxCell id="edge-c35c4854-L_BE_AUDIT_DASH_40" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#808080;strokeWidth=2;jumpStyle=arc;jumpSize=10;spacing=15;labelBackgroundColor=white;labelBorderColor=none" edge="1" parent="1" source="c35c4854-BE" target="c35c4854-AUDIT_DASH">
+                    <mxGeometry relative="1" as="geometry"/>
+                  </mxCell>
+                  <mxCell id="edge-c35c4854-L_BE_AUDIT_DASH_40_label" value="Serves" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="edge-c35c4854-L_BE_AUDIT_DASH_40">
+                    <mxGeometry x="-0.2" y="10" relative="1" as="geometry">
+                      <mxPoint as="offset"/>
+                    </mxGeometry>
+                  </mxCell>
+<mxCell id="edge-c35c4854-L_BE_AUDIT_LOG_41" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#808080;strokeWidth=2;jumpStyle=arc;jumpSize=10;spacing=15;labelBackgroundColor=white;labelBorderColor=none" edge="1" parent="1" source="c35c4854-BE" target="c35c4854-AUDIT_LOG">
+                    <mxGeometry relative="1" as="geometry"/>
+                  </mxCell>
+                  <mxCell id="edge-c35c4854-L_BE_AUDIT_LOG_41_label" value="Records" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="edge-c35c4854-L_BE_AUDIT_LOG_41">
+                    <mxGeometry x="-0.2" y="10" relative="1" as="geometry">
+                      <mxPoint as="offset"/>
+                    </mxGeometry>
+                  </mxCell>
+<mxCell id="edge-c35c4854-L_UM_AUTH_UM_AUTHZ_42" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#808080;strokeWidth=2;jumpStyle=arc;jumpSize=10;spacing=15;labelBackgroundColor=white;labelBorderColor=none" edge="1" parent="1" source="c35c4854-UM_AUTH" target="c35c4854-UM_AUTHZ">
+                    <mxGeometry relative="1" as="geometry"/>
+                  </mxCell>
+                  <mxCell id="edge-c35c4854-L_UM_AUTH_UM_AUTHZ_42_label" value="Provides authenticated user context" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="edge-c35c4854-L_UM_AUTH_UM_AUTHZ_42">
+                    <mxGeometry x="-0.2" y="10" relative="1" as="geometry">
+                      <mxPoint as="offset"/>
+                    </mxGeometry>
+                  </mxCell>
+<mxCell id="edge-c35c4854-L_UM_AUTHZ_BE_43" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#808080;strokeWidth=2;jumpStyle=arc;jumpSize=10;spacing=15;labelBackgroundColor=white;labelBorderColor=none" edge="1" parent="1" source="c35c4854-UM_AUTHZ" target="c35c4854-BE">
+                    <mxGeometry relative="1" as="geometry"/>
+                  </mxCell>
+                  <mxCell id="edge-c35c4854-L_UM_AUTHZ_BE_43_label" value="Checks role for access to" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="edge-c35c4854-L_UM_AUTHZ_BE_43">
+                    <mxGeometry x="-0.2" y="10" relative="1" as="geometry">
+                      <mxPoint as="offset"/>
+                    </mxGeometry>
+                  </mxCell>
+<mxCell id="edge-c35c4854-L_UM_AUTHZ_FE_44" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#808080;strokeWidth=2;jumpStyle=arc;jumpSize=10;spacing=15;labelBackgroundColor=white;labelBorderColor=none" edge="1" parent="1" source="c35c4854-UM_AUTHZ" target="c35c4854-FE">
+                    <mxGeometry relative="1" as="geometry"/>
+                  </mxCell>
+                  <mxCell id="edge-c35c4854-L_UM_AUTHZ_FE_44_label" value="Controls UI elements in" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="edge-c35c4854-L_UM_AUTHZ_FE_44">
+                    <mxGeometry x="-0.2" y="10" relative="1" as="geometry">
+                      <mxPoint as="offset"/>
+                    </mxGeometry>
+                  </mxCell>
+              </root>
+            </mxGraphModel>
+          </diagram>
+        </mxfile>

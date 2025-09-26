@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState } from 'react';
+import { usePathname } from 'next/navigation';
 import ProtectedRoute from '../../../components/ProtectedRoute';
 import styles from '../../../styles/admin-dashboard.module.css';
 import formStyles from '../../../styles/admin-user-form.module.css';
@@ -57,7 +58,8 @@ export default function AdminUsuariosPage() {
     gender: '',
     photoUrl: ''
   });
-//    firebaseUid: '', // Solo para edición, no para creación
+  const pathname = usePathname();
+  //    firebaseUid: '', // Solo para edición, no para creación
   const [photoFile, setPhotoFile] = useState<File | null>(null);
   const [photoPreview, setPhotoPreview] = useState<string | null>(null);
   const [editingId, setEditingId] = useState<number | null>(null);
@@ -261,7 +263,7 @@ export default function AdminUsuariosPage() {
   };
 
   return (
-  <ProtectedRoute allowedRoles={["ADMIN"]}>
+    <ProtectedRoute allowedRoles={["ADMIN"]}>
       <div className={styles.dashboardContainer}>
         {/* Sidebar */}
         <aside className={styles.sidebar}>
@@ -273,7 +275,7 @@ export default function AdminUsuariosPage() {
             <ul style={{ listStyle: 'none', padding: 0, margin: 0 }}>
               {sidebarLinks.map(link => (
                 <li key={link.label}>
-                  <NextLink href={link.href} className={`${styles.menuItem} ${window.location.pathname === link.href ? styles.menuItemActive : ''}`}>
+                  <NextLink href={link.href} className={`${styles.menuItem} ${pathname === link.href ? styles.menuItemActive : ''}`}>
                     <link.icon style={{ width: 24, height: 24, marginRight: 16 }} />
                     {link.label}
                   </NextLink>

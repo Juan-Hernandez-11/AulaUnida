@@ -1,5 +1,4 @@
 {
-  "/admin/grados/page": "app/admin/grados/page.js",
   "/admin/page": "app/admin/page.js",
   "/admin/usuarios/listado/page": "app/admin/usuarios/listado/page.js",
   "/admin/usuarios/page": "app/admin/usuarios/page.js",

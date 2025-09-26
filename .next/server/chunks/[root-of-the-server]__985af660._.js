@@ -292,10 +292,50 @@ async function POST(request) {
     if ('error' in admin) return admin;
     try {
         const body = await request.json();
-        const { name, email, role, documentType, documentNumber, birthDate, phone, address, gender, photoUrl } = body;
-        if (!name || !email || !role || !documentNumber) {
+        const { name, email, role, documentType, documentNumber, birthDate, phone, address, gender, photoUrl } = body || {};
+        // Validar campos obligatorios y tipos
+        if (!name || typeof name !== 'string') {
             return __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$server$2e$js__$5b$app$2d$route$5d$__$28$ecmascript$29$__["NextResponse"].json({
-                error: 'Faltan campos obligatorios'
+                error: 'El nombre es obligatorio.',
+                field: 'name'
+            }, {
+                status: 400
+            });
+        }
+        if (!email || typeof email !== 'string') {
+            return __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$server$2e$js__$5b$app$2d$route$5d$__$28$ecmascript$29$__["NextResponse"].json({
+                error: 'El correo es obligatorio.',
+                field: 'email'
+            }, {
+                status: 400
+            });
+        }
+        if (!role || typeof role !== 'string') {
+            return __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$server$2e$js__$5b$app$2d$route$5d$__$28$ecmascript$29$__["NextResponse"].json({
+                error: 'El rol es obligatorio.',
+                field: 'role'
+            }, {
+                status: 400
+            });
+        }
+        if (!documentNumber || typeof documentNumber !== 'string') {
+            return __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$server$2e$js__$5b$app$2d$route$5d$__$28$ecmascript$29$__["NextResponse"].json({
+                error: 'El número de documento es obligatorio.',
+                field: 'documentNumber'
+            }, {
+                status: 400
+            });
+        }
+        // Validar role permitido
+        const allowedRoles = [
+            'ADMIN',
+            'DOCENTE',
+            'ESTUDIANTE'
+        ];
+        if (!allowedRoles.includes(role.toUpperCase())) {
+            return __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$server$2e$js__$5b$app$2d$route$5d$__$28$ecmascript$29$__["NextResponse"].json({
+                error: 'Rol no permitido.',
+                field: 'role'
             }, {
                 status: 400
             });
@@ -303,9 +343,10 @@ async function POST(request) {
         // Validaciones robustas de datos personales en backend
         // Correo único y formato
         const emailRegex = /^[^@\s]+@[^@\s]+\.[^@\s]+$/;
-        if (!email || !emailRegex.test(email)) {
+        if (!emailRegex.test(email)) {
             return __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$server$2e$js__$5b$app$2d$route$5d$__$28$ecmascript$29$__["NextResponse"].json({
-                error: 'Correo electrónico inválido.'
+                error: 'Correo electrónico inválido.',
+                field: 'email'
             }, {
                 status: 400
             });
@@ -317,15 +358,17 @@ async function POST(request) {
         });
         if (existingEmail) {
             return __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$server$2e$js__$5b$app$2d$route$5d$__$28$ecmascript$29$__["NextResponse"].json({
-                error: 'El correo ya está registrado.'
+                error: 'El correo ya está registrado.',
+                field: 'email'
             }, {
                 status: 400
             });
         }
         // Documento único y formato
-        if (!documentNumber || !/^\d{5,}$/.test(documentNumber)) {
+        if (!/^\d{5,}$/.test(documentNumber)) {
             return __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$server$2e$js__$5b$app$2d$route$5d$__$28$ecmascript$29$__["NextResponse"].json({
-                error: 'El número de documento debe ser numérico y mínimo 5 dígitos.'
+                error: 'El número de documento debe ser numérico y mínimo 5 dígitos.',
+                field: 'documentNumber'
             }, {
                 status: 400
             });
@@ -337,23 +380,26 @@ async function POST(request) {
         });
         if (existingDoc) {
             return __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$server$2e$js__$5b$app$2d$route$5d$__$28$ecmascript$29$__["NextResponse"].json({
-                error: 'El número de documento ya está registrado.'
+                error: 'El número de documento ya está registrado.',
+                field: 'documentNumber'
             }, {
                 status: 400
             });
         }
         // Nombre: solo letras y espacios, mínimo 3 caracteres
-        if (!name || !/^[A-Za-zÁÉÍÓÚáéíóúÑñ ]{3,}$/.test(name.trim())) {
+        if (!/^[A-Za-zÁÉÍÓÚáéíóúÑñ ]{3,}$/.test(name.trim())) {
             return __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$server$2e$js__$5b$app$2d$route$5d$__$28$ecmascript$29$__["NextResponse"].json({
-                error: 'El nombre debe tener solo letras y al menos 3 caracteres.'
+                error: 'El nombre debe tener solo letras y al menos 3 caracteres.',
+                field: 'name'
             }, {
                 status: 400
             });
         }
         // Fecha de nacimiento: no futura, edad mínima 5 años
-        if (!birthDate) {
+        if (!birthDate || typeof birthDate !== 'string') {
             return __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$server$2e$js__$5b$app$2d$route$5d$__$28$ecmascript$29$__["NextResponse"].json({
-                error: 'La fecha de nacimiento es obligatoria.'
+                error: 'La fecha de nacimiento es obligatoria.',
+                field: 'birthDate'
             }, {
                 status: 400
             });
@@ -362,7 +408,8 @@ async function POST(request) {
         const now = new Date();
         if (birth > now) {
             return __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$server$2e$js__$5b$app$2d$route$5d$__$28$ecmascript$29$__["NextResponse"].json({
-                error: 'La fecha de nacimiento no puede ser futura.'
+                error: 'La fecha de nacimiento no puede ser futura.',
+                field: 'birthDate'
             }, {
                 status: 400
             });
@@ -370,23 +417,26 @@ async function POST(request) {
         const age = now.getFullYear() - birth.getFullYear() - (now < new Date(now.getFullYear(), birth.getMonth(), birth.getDate()) ? 1 : 0);
         if (age < 5) {
             return __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$server$2e$js__$5b$app$2d$route$5d$__$28$ecmascript$29$__["NextResponse"].json({
-                error: 'La edad mínima es 5 años.'
+                error: 'La edad mínima es 5 años.',
+                field: 'birthDate'
             }, {
                 status: 400
             });
         }
         // Teléfono: solo números, 7-10 dígitos, no empieza por 0
-        if (!phone || !/^\d{7,10}$/.test(phone) || phone.startsWith('0')) {
+        if (!phone || typeof phone !== 'string' || !/^\d{7,10}$/.test(phone) || phone.startsWith('0')) {
             return __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$server$2e$js__$5b$app$2d$route$5d$__$28$ecmascript$29$__["NextResponse"].json({
-                error: 'El teléfono debe tener entre 7 y 10 dígitos, no empezar por 0.'
+                error: 'El teléfono debe tener entre 7 y 10 dígitos, no empezar por 0.',
+                field: 'phone'
             }, {
                 status: 400
             });
         }
         // Dirección: mínimo 5 caracteres
-        if (!address || address.trim().length < 5) {
+        if (!address || typeof address !== 'string' || address.trim().length < 5) {
             return __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$server$2e$js__$5b$app$2d$route$5d$__$28$ecmascript$29$__["NextResponse"].json({
-                error: 'La dirección debe tener al menos 5 caracteres.'
+                error: 'La dirección debe tener al menos 5 caracteres.',
+                field: 'address'
             }, {
                 status: 400
             });
@@ -398,15 +448,17 @@ async function POST(request) {
             'O'
         ].includes(gender)) {
             return __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$server$2e$js__$5b$app$2d$route$5d$__$28$ecmascript$29$__["NextResponse"].json({
-                error: 'El género debe ser M, F u O.'
+                error: 'El género debe ser M, F u O.',
+                field: 'gender'
             }, {
                 status: 400
             });
         }
         // Foto: si se envía, debe ser url de imagen (opcional, solo si se usa)
-        if (photoUrl && !/^https?:\/\/.+\.(jpg|jpeg|png|gif|webp)$/i.test(photoUrl)) {
+        if (photoUrl && (typeof photoUrl !== 'string' || !/^https?:\/\/.+\.(jpg|jpeg|png|gif|webp)$/i.test(photoUrl))) {
             return __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$server$2e$js__$5b$app$2d$route$5d$__$28$ecmascript$29$__["NextResponse"].json({
-                error: 'La foto debe ser una URL de imagen válida.'
+                error: 'La foto debe ser una URL de imagen válida.',
+                field: 'photoUrl'
             }, {
                 status: 400
             });
@@ -415,17 +467,19 @@ async function POST(request) {
         (0, __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$lib$2f$firebaseAdmin$2e$ts__$5b$app$2d$route$5d$__$28$ecmascript$29$__["initFirebaseAdmin"])();
         const auth = (0, __TURBOPACK__imported__module__$5b$externals$5d2f$firebase$2d$admin$2f$auth__$5b$external$5d$__$28$firebase$2d$admin$2f$auth$2c$__esm_import$29$__["getAuth"])();
         // Verificar si el usuario ya existe en Firebase Auth
-        let firebaseUser;
         try {
-            firebaseUser = await auth.getUserByEmail(email);
+            await auth.getUserByEmail(email);
+            // Si existe en Firebase, unificar mensaje con el de la base de datos
             return __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$server$2e$js__$5b$app$2d$route$5d$__$28$ecmascript$29$__["NextResponse"].json({
-                error: 'El correo ya está registrado en Firebase Auth.'
+                error: 'El correo ya está registrado.',
+                field: 'email'
             }, {
                 status: 400
             });
         } catch (e) {
         // Si no existe, se crea
         }
+        // (Futuro) Validar archivo de foto si se implementa subida
         // Crear usuario en Firebase Auth con la contraseña igual al número de documento
         const createdUser = await auth.createUser({
             email,
@@ -434,12 +488,23 @@ async function POST(request) {
             photoURL: photoUrl || undefined,
             emailVerified: false
         });
+        // Mapear role del frontend a enum Prisma
+        const roleMap = {
+            'ADMIN': 'ADMIN',
+            'admin': 'ADMIN',
+            'DOCENTE': 'DOCENTE',
+            'docente': 'DOCENTE',
+            'ESTUDIANTE': 'STUDENT',
+            'estudiante': 'STUDENT',
+            'STUDENT': 'STUDENT'
+        };
+        const prismaRole = roleMap[role] || 'STUDENT';
         // Guardar usuario en la base de datos
         const user = await prisma.user.create({
             data: {
                 name,
                 email,
-                role: role.toUpperCase(),
+                role: prismaRole,
                 firebaseUid: createdUser.uid,
                 passwordHash: '',
                 documentType: documentType || null,

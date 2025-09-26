@@ -10,7 +10,7 @@ const firebaseConfig = {
     apiKey: ("TURBOPACK compile-time value", "AIzaSyBwIoJmTpxDk1k7Oe74Msru0Vv_TbEL5fo"),
     authDomain: ("TURBOPACK compile-time value", "aulaunida-58506.firebaseapp.com"),
     projectId: ("TURBOPACK compile-time value", "aulaunida-58506"),
-    storageBucket: ("TURBOPACK compile-time value", "aulaunida-58506.firebasestorage.app"),
+    storageBucket: ("TURBOPACK compile-time value", "aulaunida-58506.appspot.com"),
     messagingSenderId: ("TURBOPACK compile-time value", "109632574576"),
     appId: ("TURBOPACK compile-time value", "1:109632574576:web:3b1e2f0"),
     measurementId: ("TURBOPACK compile-time value", "G-80F5JCMZQD")

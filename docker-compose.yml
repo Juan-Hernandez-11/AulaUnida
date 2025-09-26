@@ -17,7 +17,7 @@ services:
     depends_on:
       - db
     environment:
-      DATABASE_URL: postgres://postgres:postgres@db:5432/aulaunida
+      DATABASE_URL: "postgresql://postgres:Jd080904@host.docker.internal:5432/db_aulaunida?schema=public"
       NEXT_PUBLIC_API_KEY_FIREBASE: AIzaSyBwIoJmTpxDk1k7Oe74Msru0Vv_TbEL5fo
       NEXT_PUBLIC_AUTHDOMAIN: aulaunida-58506.firebaseapp.com
       NEXT_PUBLIC_PROJECTID: aulaunida-58506
@@ -27,7 +27,6 @@ services:
       NEXT_PUBLIC_MEASUREMENTID: G-80F5JCMZQD
       FIREBASE_PROJECT_ID: aulaunida-58506
       FIREBASE_CLIENT_EMAIL: firebase-adminsdk-fbsvc@aulaunida-58506.iam.gserviceaccount.com
-      FIREBASE_PRIVATE_KEY: -----BEGIN PRIVATE KEY-----MIIEvgIBADANBgkqhkiG9w0BAQEFAASCBKgwggSkAgEAAoIBAQC1HNi2s+EpS+QRs7mCrgChLDR5U0nWnKe07nDG/KOKBKa/+FmGHIyAnX5aIRYsrpw0KwQPugdkXw7j/faWjqi8vEXfpLINlNjoizFD61PUVXFmgU7V2uNQXa2ObNzR383N+uSA8W3ebujeC71jLpl6xCrA3HHDoi1OvXnBFrmEh0n1gDZC54KSGljLM8piicIS4g/U8JpYYu+N+h/2/cMtbA6FERtAlDxU+KqZzwRczZUsv8sNysvn1sdzwCI9pJbK3BWmjAtUFTGI7MBY/Vbp44A4IcaUd5iAlX/Tk0ptENmWzoM2uJBnkQER8U/Br/sYspME6swSktHKmW1AgMBAAECggEATjUir+KFPFv1JF/Dn9ablv2Lu0hn/jCvisXcFVFLHXJcv1Dy96KkWXWo9iqLdMgB09Uvb8sZHhKeTzXRZYzI/UyDJ24U3Df5UnDZfE8Eu9eXfjjAQZvCacD3DkFkaEdbe/C93NOcMVpz2D54eSRJ3+0LCc9aM7zQrfHb1cMjEp55C6slXPOU2V/RnaSzNeQdz6nUNzEAdrjSSGkIA11LJ168V82Vq451ve6r9mwTsaZdETf1NyXOyf9VRp0zkKf15EyTMXNKgmu3i2iWyul5N7uleVMMtd6CgwFXDJg3isa8AWUKMpdTy2ttnDO9HLX9uuwXqNRbvs4XW4Ct5/DHEQKBgQDsBPLp8bUvZVIFbInmLKMXSCfUP3AGIr3lm+aqHut5yEfX/UWz6DZ3z3ur6Cf6SDMsSA59SdHzO8Fg0ExjanCSnsvW264+lh4DANL1feOJWdJYH3tEwAgm1WgcbDcSGgy3ade5fsZlnSabZXx5i5B1yfStX5h7gMORLPzi74sN/wKBgQDEcfOO0IITePsfSPuzh5G06q69xnBzDvwZH/UVXfinGAitZmiXs87pwNIZy1FaYRZzVfabGuSWCG2tyhUXRCQ/sRvO677Vv/JxoYRa6ZBJntbI536AyfRsddNv8MVMOkh1Mi4hEv0FldBmoODiH/yHK8iYiu5psnOqsF7CeGq0SwKBgQCItLUe3Gnd8gn4Kk4VjHVK3vhy7+urIiRsAkkw8IfkGiXC7WiaND6YVw2DHQ1K4tcBJxt9Zmy9PjdcJEqaquRZiLD42nWqurjXdHq8xxYsUGKNuG5l+/S8yY9sJyIe0gfblOrm/o9b/BKIn9fhbv1VvIyEf4KKxqKATFaN+8HHcQKBgG2a/r/SSqE+wS6FdBqJK5z7zB+Klrc7xyDlmcMgOVpRqJXHK9hotKvrr85AiNWakgIsFnoYGS406a0rsXTXyjnXQaLEGif8/vKzobtv0dehzkkuEIEfLUdOvngYqJyNcFwjcWV2yMHTAwIgBRllq2pn3XZvHfLPZIX5/gUXVsHdAoGBAI+ti9LXzSG2feX0HIsgVzOUiiQxfCzzxTAPcL8pFpX4DGeYVjVe8yMNy/MQ2iI0oVADiu+JqXoVwS6v/GrVsU+gZmvfpkSW5icNnytTPixJS+dcfCH8bgbNGFeT+rPm3x6x7HKjZKm1QTmmj13+xAx9xtjxi2z4OZ0sMXrKDvhb-----END PRIVATE KEY-----
     ports:
       - "3000:3000"
     volumes:

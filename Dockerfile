@@ -1,4 +1,4 @@
-v# Imagen base oficial de Node.js
+# Imagen base oficial de Node.js
 FROM node:18
 
 # Directorio de trabajo

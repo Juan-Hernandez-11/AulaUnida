@@ -38,15 +38,31 @@ export async function GET(req: NextRequest) {
 export async function POST(req: NextRequest) {
   try {
     const { gradoId, estudianteId } = await req.json();
-    if (!gradoId || !estudianteId) {
-      return NextResponse.json({ error: 'Faltan datos' }, { status: 400 });
+    if (
+      typeof gradoId !== 'number' || isNaN(gradoId) ||
+      typeof estudianteId !== 'number' || isNaN(estudianteId)
+    ) {
+      return NextResponse.json({ error: 'gradoId y estudianteId deben ser números válidos.' }, { status: 400 });
+    }
+    // Validar existencia de grado
+    const grado = await prisma.grado.findUnique({ where: { id: gradoId } });
+    if (!grado) {
+      return NextResponse.json({ error: 'El grado especificado no existe.' }, { status: 404 });
+    }
+    // Validar que el usuario sea estudiante
+    const user = await prisma.user.findUnique({ where: { id: estudianteId } });
+    if (!user) {
+      return NextResponse.json({ error: 'El usuario no existe.' }, { status: 404 });
+    }
+    if (user.role !== 'STUDENT') {
+      return NextResponse.json({ error: 'Solo se pueden matricular usuarios con rol estudiante.' }, { status: 400 });
     }
     // Verifica si ya está matriculado
     const existe = await prisma.gradoEstudiante.findFirst({
       where: { gradoId, estudianteId },
     });
     if (existe) {
-      return NextResponse.json({ error: 'Ya está matriculado' }, { status: 400 });
+      return NextResponse.json({ error: 'El estudiante ya está matriculado en este grado.' }, { status: 409 });
     }
     const matricula = await prisma.gradoEstudiante.create({
       data: { gradoId, estudianteId },
@@ -57,8 +73,11 @@ export async function POST(req: NextRequest) {
       name: matricula.estudiante.name,
       email: matricula.estudiante.email,
     });
-  } catch (error) {
-    return NextResponse.json({ error: 'Error al matricular estudiante' }, { status: 500 });
+  } catch (error: any) {
+    if (error.code && error.code.startsWith('P')) {
+      return NextResponse.json({ error: 'Error de base de datos: ' + error.message }, { status: 500 });
+    }
+    return NextResponse.json({ error: 'Error inesperado al matricular estudiante.' }, { status: 500 });
   }
 }
 
@@ -72,14 +91,30 @@ export async function POST(req: NextRequest) {
 export async function DELETE(req: NextRequest) {
   try {
     const { gradoId, estudianteId } = await req.json();
-    if (!gradoId || !estudianteId) {
-      return NextResponse.json({ error: 'Faltan datos' }, { status: 400 });
+    if (
+      typeof gradoId !== 'number' || isNaN(gradoId) ||
+      typeof estudianteId !== 'number' || isNaN(estudianteId)
+    ) {
+      return NextResponse.json({ error: 'gradoId y estudianteId deben ser números válidos.' }, { status: 400 });
+    }
+    // Validar existencia de grado
+    const grado = await prisma.grado.findUnique({ where: { id: gradoId } });
+    if (!grado) {
+      return NextResponse.json({ error: 'El grado especificado no existe.' }, { status: 404 });
+    }
+    // Validar existencia de usuario
+    const user = await prisma.user.findUnique({ where: { id: estudianteId } });
+    if (!user) {
+      return NextResponse.json({ error: 'El usuario no existe.' }, { status: 404 });
     }
     await prisma.gradoEstudiante.deleteMany({
       where: { gradoId, estudianteId },
     });
     return NextResponse.json({ ok: true });
-  } catch (error) {
+  } catch (error: any) {
+    if (error.code && error.code.startsWith('P')) {
+      return NextResponse.json({ error: 'Error de base de datos: ' + error.message }, { status: 500 });
+    }
     return NextResponse.json({ error: 'Error al eliminar matrícula' }, { status: 500 });
   }
 }

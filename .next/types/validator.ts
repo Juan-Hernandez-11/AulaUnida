@@ -59,6 +59,12 @@ type RouteHandlerConfig<Route extends AppRouteHandlerRoutes = AppRouteHandlerRou
   handler satisfies AppPageConfig<"/admin/asignaturas">
 }
 
+// Validate ../../src/app/admin/aulas/page.tsx
+{
+  const handler = {} as typeof import("../../src/app/admin/aulas/page.js")
+  handler satisfies AppPageConfig<"/admin/aulas">
+}
+
 // Validate ../../src/app/admin/backup/page.tsx
 {
   const handler = {} as typeof import("../../src/app/admin/backup/page.js")
@@ -105,6 +111,12 @@ type RouteHandlerConfig<Route extends AppRouteHandlerRoutes = AppRouteHandlerRou
 {
   const handler = {} as typeof import("../../src/app/admin/horarios/page.js")
   handler satisfies AppPageConfig<"/admin/horarios">
+}
+
+// Validate ../../src/app/admin/materias/page.tsx
+{
+  const handler = {} as typeof import("../../src/app/admin/materias/page.js")
+  handler satisfies AppPageConfig<"/admin/materias">
 }
 
 // Validate ../../src/app/admin/matricula/page.tsx
@@ -167,6 +179,18 @@ type RouteHandlerConfig<Route extends AppRouteHandlerRoutes = AppRouteHandlerRou
   handler satisfies RouteHandlerConfig<"/api/admin/asignaturas">
 }
 
+// Validate ../../src/app/api/admin/aulas/route.ts
+{
+  const handler = {} as typeof import("../../src/app/api/admin/aulas/route.js")
+  handler satisfies RouteHandlerConfig<"/api/admin/aulas">
+}
+
+// Validate ../../src/app/api/admin/ciclos/route.ts
+{
+  const handler = {} as typeof import("../../src/app/api/admin/ciclos/route.js")
+  handler satisfies RouteHandlerConfig<"/api/admin/ciclos">
+}
+
 // Validate ../../src/app/api/admin/dashboard/route.ts
 {
   const handler = {} as typeof import("../../src/app/api/admin/dashboard/route.js")
@@ -185,10 +209,22 @@ type RouteHandlerConfig<Route extends AppRouteHandlerRoutes = AppRouteHandlerRou
   handler satisfies RouteHandlerConfig<"/api/admin/grados">
 }
 
+// Validate ../../src/app/api/admin/materias/route.ts
+{
+  const handler = {} as typeof import("../../src/app/api/admin/materias/route.js")
+  handler satisfies RouteHandlerConfig<"/api/admin/materias">
+}
+
 // Validate ../../src/app/api/admin/matricula/route.ts
 {
   const handler = {} as typeof import("../../src/app/api/admin/matricula/route.js")
   handler satisfies RouteHandlerConfig<"/api/admin/matricula">
+}
+
+// Validate ../../src/app/api/admin/sedes/route.ts
+{
+  const handler = {} as typeof import("../../src/app/api/admin/sedes/route.js")
+  handler satisfies RouteHandlerConfig<"/api/admin/sedes">
 }
 
 // Validate ../../src/app/api/admin/usuarios/route.ts

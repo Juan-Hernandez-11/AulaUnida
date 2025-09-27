@@ -1,10 +1,10 @@
 {
   "app": {
+    "[project]/src/app/admin/ciclos/page": [],
+    "[project]/src/app/admin/matricula/page": [],
     "[project]/src/app/admin/page": [],
-    "[project]/src/app/admin/usuarios/listado/page": [],
-    "[project]/src/app/admin/usuarios/page": [],
-    "[project]/src/app/login/page": [],
-    "[project]/src/app/page": []
+    "[project]/src/app/admin/reportes/page": [],
+    "[project]/src/app/admin/usuarios/page": []
   },
   "appUsingSizeAdjust": false,
   "pages": {},

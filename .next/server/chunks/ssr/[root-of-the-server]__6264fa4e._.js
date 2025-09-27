@@ -164,7 +164,6 @@ var __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$NextLin
 ;
 ;
 ;
-// Botón de volver reutilizable
 function BackToDashboardButton() {
     return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
         style: {
@@ -193,24 +192,24 @@ function BackToDashboardButton() {
                         d: "M15 19l-7-7 7-7"
                     }, void 0, false, {
                         fileName: "[project]/src/app/admin/matricula/page.tsx",
-                        lineNumber: 14,
+                        lineNumber: 13,
                         columnNumber: 107
                     }, this)
                 }, void 0, false, {
                     fileName: "[project]/src/app/admin/matricula/page.tsx",
-                    lineNumber: 14,
+                    lineNumber: 13,
                     columnNumber: 9
                 }, this),
                 "Volver al Dashboard"
             ]
         }, void 0, true, {
             fileName: "[project]/src/app/admin/matricula/page.tsx",
-            lineNumber: 13,
+            lineNumber: 12,
             columnNumber: 7
         }, this)
     }, void 0, false, {
         fileName: "[project]/src/app/admin/matricula/page.tsx",
-        lineNumber: 12,
+        lineNumber: 11,
         columnNumber: 5
     }, this);
 }
@@ -240,11 +239,39 @@ function AdminMatriculaPage() {
     const [loading, setLoading] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useState"])(false);
     const [error, setError] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useState"])('');
     const [success, setSuccess] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useState"])('');
-    // Estado para errores de validación en tiempo real
     const [fieldErrors, setFieldErrors] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useState"])({});
     const [selectedEstudiante, setSelectedEstudiante] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useState"])('');
-    // Cargar datos manualmente cuando sea necesario (ejemplo: con un botón o tras crear/editar)
-    // Maneja el cambio de grado seleccionado
+    const [refreshing, setRefreshing] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useState"])(false);
+    // Cargar grados y estudiantes al montar
+    (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useEffect"])(()=>{
+        setLoading(true);
+        Promise.all([
+            fetch('/api/admin/grados').then((r)=>r.json()),
+            fetch('/api/admin/usuarios').then((r)=>r.json())
+        ]).then(([grados, usuarios])=>{
+            setGrados(grados);
+            setEstudiantes(usuarios.filter((u)=>u.role === 'STUDENT' || u.role === 'estudiante'));
+            setLoading(false);
+        }).catch(()=>setLoading(false));
+    }, []);
+    // Cargar estudiantes matriculados al seleccionar grado o refrescar
+    const fetchMatriculados = ()=>{
+        if (!gradoId) return;
+        setLoading(true);
+        fetch(`/api/admin/matricula?gradoId=${gradoId}`).then((r)=>r.json()).then((data)=>{
+            setMatriculados(data);
+            setLoading(false);
+            setRefreshing(false);
+        }).catch(()=>{
+            setLoading(false);
+            setRefreshing(false);
+        });
+    };
+    (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useEffect"])(()=>{
+        fetchMatriculados();
+    }, [
+        gradoId
+    ]);
     const handleGradoChange = (e)=>{
         const value = e.target.value;
         setGradoId(value);
@@ -263,7 +290,6 @@ function AdminMatriculaPage() {
                 estudianteId: !value ? 'Debes seleccionar un estudiante.' : ''
             }));
     };
-    // Matricula un estudiante en el grado seleccionado
     const handleMatricular = async (estudianteId)=>{
         if (!gradoId) return;
         setLoading(true);
@@ -297,7 +323,6 @@ function AdminMatriculaPage() {
         setLoading(false);
         setTimeout(()=>setSuccess(''), 2500);
     };
-    // Elimina la matrícula de un estudiante en el grado seleccionado
     const handleEliminar = async (estudianteId)=>{
         if (!gradoId) return;
         if (!window.confirm('¿Seguro que deseas eliminar la matrícula?')) return;
@@ -351,7 +376,7 @@ function AdminMatriculaPage() {
                                     className: __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$styles$2f$admin$2d$dashboard$2e$module$2e$css__$5b$app$2d$ssr$5d$__$28$css__module$29$__["default"].avatar
                                 }, void 0, false, {
                                     fileName: "[project]/src/app/admin/matricula/page.tsx",
-                                    lineNumber: 128,
+                                    lineNumber: 141,
                                     columnNumber: 13
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -359,13 +384,13 @@ function AdminMatriculaPage() {
                                     children: "AulaUnida"
                                 }, void 0, false, {
                                     fileName: "[project]/src/app/admin/matricula/page.tsx",
-                                    lineNumber: 129,
+                                    lineNumber: 142,
                                     columnNumber: 13
                                 }, this)
                             ]
                         }, void 0, true, {
                             fileName: "[project]/src/app/admin/matricula/page.tsx",
-                            lineNumber: 127,
+                            lineNumber: 140,
                             columnNumber: 11
                         }, this),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("nav", {
@@ -389,35 +414,35 @@ function AdminMatriculaPage() {
                                                     }
                                                 }, void 0, false, {
                                                     fileName: "[project]/src/app/admin/matricula/page.tsx",
-                                                    lineNumber: 136,
+                                                    lineNumber: 149,
                                                     columnNumber: 21
                                                 }, this),
                                                 link.label
                                             ]
                                         }, void 0, true, {
                                             fileName: "[project]/src/app/admin/matricula/page.tsx",
-                                            lineNumber: 135,
+                                            lineNumber: 148,
                                             columnNumber: 19
                                         }, this)
                                     }, link.label, false, {
                                         fileName: "[project]/src/app/admin/matricula/page.tsx",
-                                        lineNumber: 134,
+                                        lineNumber: 147,
                                         columnNumber: 17
                                     }, this))
                             }, void 0, false, {
                                 fileName: "[project]/src/app/admin/matricula/page.tsx",
-                                lineNumber: 132,
+                                lineNumber: 145,
                                 columnNumber: 13
                             }, this)
                         }, void 0, false, {
                             fileName: "[project]/src/app/admin/matricula/page.tsx",
-                            lineNumber: 131,
+                            lineNumber: 144,
                             columnNumber: 11
                         }, this)
                     ]
                 }, void 0, true, {
                     fileName: "[project]/src/app/admin/matricula/page.tsx",
-                    lineNumber: 126,
+                    lineNumber: 139,
                     columnNumber: 9
                 }, this),
                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("main", {
@@ -425,7 +450,7 @@ function AdminMatriculaPage() {
                     children: [
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(BackToDashboardButton, {}, void 0, false, {
                             fileName: "[project]/src/app/admin/matricula/page.tsx",
-                            lineNumber: 146,
+                            lineNumber: 159,
                             columnNumber: 11
                         }, this),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("h1", {
@@ -433,76 +458,72 @@ function AdminMatriculaPage() {
                             children: "Gestión de Matrícula"
                         }, void 0, false, {
                             fileName: "[project]/src/app/admin/matricula/page.tsx",
-                            lineNumber: 147,
+                            lineNumber: 160,
                             columnNumber: 11
                         }, this),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                             className: __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$styles$2f$admin$2d$dashboard$2e$module$2e$css__$5b$app$2d$ssr$5d$__$28$css__module$29$__["default"].activityCard,
                             children: [
-                                error && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                                     style: {
-                                        background: '#dc2626',
-                                        color: '#fff',
-                                        padding: 12,
-                                        borderRadius: 8,
-                                        marginBottom: 16,
-                                        fontWeight: 500
+                                        marginBottom: 18,
+                                        color: '#b0b3b8',
+                                        fontSize: 16
                                     },
-                                    children: error
+                                    children: "Selecciona un grado para ver y gestionar sus estudiantes matriculados. Puedes agregar o eliminar estudiantes según corresponda."
                                 }, void 0, false, {
                                     fileName: "[project]/src/app/admin/matricula/page.tsx",
-                                    lineNumber: 150,
-                                    columnNumber: 23
-                                }, this),
-                                success && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                    style: {
-                                        background: '#22c55e',
-                                        color: '#fff',
-                                        padding: 12,
-                                        borderRadius: 8,
-                                        marginBottom: 16,
-                                        fontWeight: 500
-                                    },
-                                    children: success
-                                }, void 0, false, {
-                                    fileName: "[project]/src/app/admin/matricula/page.tsx",
-                                    lineNumber: 151,
-                                    columnNumber: 25
-                                }, this),
-                                loading && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                    style: {
-                                        background: '#232527',
-                                        color: '#B0B3B8',
-                                        padding: 10,
-                                        borderRadius: 8,
-                                        marginBottom: 16
-                                    },
-                                    children: "Procesando..."
-                                }, void 0, false, {
-                                    fileName: "[project]/src/app/admin/matricula/page.tsx",
-                                    lineNumber: 152,
-                                    columnNumber: 25
+                                    lineNumber: 163,
+                                    columnNumber: 13
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("h2", {
-                                    className: __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$styles$2f$admin$2d$dashboard$2e$module$2e$css__$5b$app$2d$ssr$5d$__$28$css__module$29$__["default"].activityTitle,
+                                    style: {
+                                        fontWeight: 600,
+                                        color: '#22c55e',
+                                        marginBottom: 8
+                                    },
                                     children: "Selecciona un grado"
                                 }, void 0, false, {
                                     fileName: "[project]/src/app/admin/matricula/page.tsx",
-                                    lineNumber: 153,
+                                    lineNumber: 167,
                                     columnNumber: 13
                                 }, this),
-                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("select", {
-                                    className: "border p-2 rounded mb-4",
+                                grados.length === 0 ? /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                    style: {
+                                        color: '#f87171',
+                                        marginBottom: 16
+                                    },
+                                    children: "No hay grados registrados."
+                                }, void 0, false, {
+                                    fileName: "[project]/src/app/admin/matricula/page.tsx",
+                                    lineNumber: 169,
+                                    columnNumber: 15
+                                }, this) : /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("select", {
                                     value: gradoId,
                                     onChange: handleGradoChange,
+                                    style: {
+                                        background: '#181A1B',
+                                        color: '#fff',
+                                        border: '1.5px solid #232527',
+                                        borderRadius: 6,
+                                        padding: '10px 14px',
+                                        fontSize: 16,
+                                        outline: 'none',
+                                        boxShadow: 'none',
+                                        marginBottom: 16,
+                                        width: '100%',
+                                        transition: 'border 0.2s'
+                                    },
+                                    onFocus: (e)=>e.currentTarget.style.border = '1.5px solid #22c55e',
+                                    onBlur: (e)=>e.currentTarget.style.border = '1.5px solid #232527',
                                     children: [
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("option", {
                                             value: "",
                                             children: "Selecciona grado"
                                         }, void 0, false, {
                                             fileName: "[project]/src/app/admin/matricula/page.tsx",
-                                            lineNumber: 155,
-                                            columnNumber: 15
+                                            lineNumber: 190,
+                                            columnNumber: 17
                                         }, this),
                                         grados.map((g)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("option", {
                                                 value: g.id,
@@ -513,148 +534,309 @@ function AdminMatriculaPage() {
                                                 ]
                                             }, g.id, true, {
                                                 fileName: "[project]/src/app/admin/matricula/page.tsx",
-                                                lineNumber: 157,
-                                                columnNumber: 17
+                                                lineNumber: 192,
+                                                columnNumber: 19
                                             }, this))
                                     ]
                                 }, void 0, true, {
                                     fileName: "[project]/src/app/admin/matricula/page.tsx",
-                                    lineNumber: 154,
-                                    columnNumber: 13
+                                    lineNumber: 171,
+                                    columnNumber: 15
                                 }, this),
                                 gradoId && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["Fragment"], {
                                     children: [
-                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("h3", {
-                                            className: "font-bold mb-2",
-                                            children: "Estudiantes matriculados"
-                                        }, void 0, false, {
-                                            fileName: "[project]/src/app/admin/matricula/page.tsx",
-                                            lineNumber: 162,
-                                            columnNumber: 17
-                                        }, this),
-                                        loading ? /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                                             style: {
-                                                color: '#B0B3B8'
+                                                marginBottom: 12,
+                                                padding: '8px 16px',
+                                                background: '#232734',
+                                                borderRadius: 8,
+                                                display: 'flex',
+                                                alignItems: 'center',
+                                                gap: 24
                                             },
-                                            children: "Cargando..."
-                                        }, void 0, false, {
-                                            fileName: "[project]/src/app/admin/matricula/page.tsx",
-                                            lineNumber: 164,
-                                            columnNumber: 19
-                                        }, this) : /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("table", {
-                                            className: __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$styles$2f$admin$2d$dashboard$2e$module$2e$css__$5b$app$2d$ssr$5d$__$28$css__module$29$__["default"].activityTable,
                                             children: [
-                                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("thead", {
-                                                    children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("tr", {
-                                                        children: [
-                                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("th", {
-                                                                children: "Nombre"
-                                                            }, void 0, false, {
-                                                                fileName: "[project]/src/app/admin/matricula/page.tsx",
-                                                                lineNumber: 169,
-                                                                columnNumber: 25
-                                                            }, this),
-                                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("th", {
-                                                                children: "Email"
-                                                            }, void 0, false, {
-                                                                fileName: "[project]/src/app/admin/matricula/page.tsx",
-                                                                lineNumber: 170,
-                                                                columnNumber: 25
-                                                            }, this),
-                                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("th", {
-                                                                children: "Acciones"
-                                                            }, void 0, false, {
-                                                                fileName: "[project]/src/app/admin/matricula/page.tsx",
-                                                                lineNumber: 171,
-                                                                columnNumber: 25
-                                                            }, this)
-                                                        ]
-                                                    }, void 0, true, {
-                                                        fileName: "[project]/src/app/admin/matricula/page.tsx",
-                                                        lineNumber: 168,
-                                                        columnNumber: 23
-                                                    }, this)
+                                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
+                                                    style: {
+                                                        fontWeight: 600,
+                                                        color: '#fff'
+                                                    },
+                                                    children: "Grado:"
                                                 }, void 0, false, {
                                                     fileName: "[project]/src/app/admin/matricula/page.tsx",
-                                                    lineNumber: 167,
-                                                    columnNumber: 21
+                                                    lineNumber: 200,
+                                                    columnNumber: 19
                                                 }, this),
-                                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("tbody", {
-                                                    children: matriculados.length === 0 ? /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("tr", {
-                                                        children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("td", {
-                                                            colSpan: 3,
-                                                            style: {
-                                                                color: '#B0B3B8'
-                                                            },
-                                                            children: "Sin estudiantes matriculados"
+                                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
+                                                    style: {
+                                                        color: '#22c55e',
+                                                        fontWeight: 500
+                                                    },
+                                                    children: [
+                                                        grados.find((g)=>String(g.id) === gradoId)?.nombre,
+                                                        " ",
+                                                        grados.find((g)=>String(g.id) === gradoId)?.seccion
+                                                    ]
+                                                }, void 0, true, {
+                                                    fileName: "[project]/src/app/admin/matricula/page.tsx",
+                                                    lineNumber: 201,
+                                                    columnNumber: 19
+                                                }, this),
+                                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
+                                                    style: {
+                                                        color: '#b0b3b8',
+                                                        fontWeight: 400
+                                                    },
+                                                    children: [
+                                                        "Matriculados: ",
+                                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("b", {
+                                                            children: matriculados.length
                                                         }, void 0, false, {
                                                             fileName: "[project]/src/app/admin/matricula/page.tsx",
-                                                            lineNumber: 176,
-                                                            columnNumber: 29
+                                                            lineNumber: 202,
+                                                            columnNumber: 85
                                                         }, this)
-                                                    }, void 0, false, {
-                                                        fileName: "[project]/src/app/admin/matricula/page.tsx",
-                                                        lineNumber: 176,
-                                                        columnNumber: 25
-                                                    }, this) : matriculados.map((e)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("tr", {
-                                                            children: [
-                                                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("td", {
-                                                                    className: __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$styles$2f$admin$2d$dashboard$2e$module$2e$css__$5b$app$2d$ssr$5d$__$28$css__module$29$__["default"].activityUser,
-                                                                    children: e.name
-                                                                }, void 0, false, {
-                                                                    fileName: "[project]/src/app/admin/matricula/page.tsx",
-                                                                    lineNumber: 180,
-                                                                    columnNumber: 29
-                                                                }, this),
-                                                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("td", {
-                                                                    className: __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$styles$2f$admin$2d$dashboard$2e$module$2e$css__$5b$app$2d$ssr$5d$__$28$css__module$29$__["default"].activityAction,
-                                                                    children: e.email
-                                                                }, void 0, false, {
-                                                                    fileName: "[project]/src/app/admin/matricula/page.tsx",
-                                                                    lineNumber: 181,
-                                                                    columnNumber: 29
-                                                                }, this),
-                                                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("td", {
-                                                                    className: __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$styles$2f$admin$2d$dashboard$2e$module$2e$css__$5b$app$2d$ssr$5d$__$28$css__module$29$__["default"].activityAction,
-                                                                    children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
-                                                                        style: {
-                                                                            color: '#dc2626'
-                                                                        },
-                                                                        onClick: ()=>handleEliminar(e.id),
-                                                                        children: "Eliminar"
-                                                                    }, void 0, false, {
-                                                                        fileName: "[project]/src/app/admin/matricula/page.tsx",
-                                                                        lineNumber: 183,
-                                                                        columnNumber: 31
-                                                                    }, this)
-                                                                }, void 0, false, {
-                                                                    fileName: "[project]/src/app/admin/matricula/page.tsx",
-                                                                    lineNumber: 182,
-                                                                    columnNumber: 29
-                                                                }, this)
-                                                            ]
-                                                        }, e.id, true, {
-                                                            fileName: "[project]/src/app/admin/matricula/page.tsx",
-                                                            lineNumber: 179,
-                                                            columnNumber: 27
-                                                        }, this))
+                                                    ]
+                                                }, void 0, true, {
+                                                    fileName: "[project]/src/app/admin/matricula/page.tsx",
+                                                    lineNumber: 202,
+                                                    columnNumber: 19
+                                                }, this),
+                                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
+                                                    style: {
+                                                        marginLeft: 'auto',
+                                                        background: '#2563eb',
+                                                        color: '#fff',
+                                                        borderRadius: 6,
+                                                        padding: '6px 16px',
+                                                        fontWeight: 500,
+                                                        border: 'none',
+                                                        cursor: refreshing ? 'not-allowed' : 'pointer'
+                                                    },
+                                                    onClick: ()=>{
+                                                        setRefreshing(true);
+                                                        fetchMatriculados();
+                                                    },
+                                                    disabled: refreshing,
+                                                    children: refreshing ? 'Actualizando...' : 'Refrescar'
                                                 }, void 0, false, {
                                                     fileName: "[project]/src/app/admin/matricula/page.tsx",
-                                                    lineNumber: 174,
-                                                    columnNumber: 21
+                                                    lineNumber: 203,
+                                                    columnNumber: 19
                                                 }, this)
                                             ]
                                         }, void 0, true, {
                                             fileName: "[project]/src/app/admin/matricula/page.tsx",
-                                            lineNumber: 166,
-                                            columnNumber: 19
+                                            lineNumber: 199,
+                                            columnNumber: 17
+                                        }, this),
+                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("hr", {
+                                            style: {
+                                                border: 'none',
+                                                borderTop: '1px solid #232527',
+                                                margin: '16px 0'
+                                            }
+                                        }, void 0, false, {
+                                            fileName: "[project]/src/app/admin/matricula/page.tsx",
+                                            lineNumber: 212,
+                                            columnNumber: 17
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("h3", {
-                                            className: "font-bold mt-6 mb-2",
+                                            style: {
+                                                fontWeight: 600,
+                                                marginBottom: 8
+                                            },
+                                            children: "Estudiantes matriculados"
+                                        }, void 0, false, {
+                                            fileName: "[project]/src/app/admin/matricula/page.tsx",
+                                            lineNumber: 213,
+                                            columnNumber: 17
+                                        }, this),
+                                        loading ? /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                            style: {
+                                                color: '#888'
+                                            },
+                                            children: "Cargando..."
+                                        }, void 0, false, {
+                                            fileName: "[project]/src/app/admin/matricula/page.tsx",
+                                            lineNumber: 215,
+                                            columnNumber: 19
+                                        }, this) : /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                            style: {
+                                                overflowX: 'auto'
+                                            },
+                                            children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("table", {
+                                                style: {
+                                                    width: '100%',
+                                                    borderCollapse: 'collapse',
+                                                    marginBottom: 16
+                                                },
+                                                children: [
+                                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("thead", {
+                                                        style: {
+                                                            background: '#232734'
+                                                        },
+                                                        children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("tr", {
+                                                            children: [
+                                                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("th", {
+                                                                    style: {
+                                                                        padding: 8,
+                                                                        textAlign: 'left',
+                                                                        fontWeight: 600
+                                                                    },
+                                                                    children: "Nombre"
+                                                                }, void 0, false, {
+                                                                    fileName: "[project]/src/app/admin/matricula/page.tsx",
+                                                                    lineNumber: 221,
+                                                                    columnNumber: 27
+                                                                }, this),
+                                                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("th", {
+                                                                    style: {
+                                                                        padding: 8,
+                                                                        textAlign: 'left',
+                                                                        fontWeight: 600
+                                                                    },
+                                                                    children: "Email"
+                                                                }, void 0, false, {
+                                                                    fileName: "[project]/src/app/admin/matricula/page.tsx",
+                                                                    lineNumber: 222,
+                                                                    columnNumber: 27
+                                                                }, this),
+                                                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("th", {
+                                                                    style: {
+                                                                        padding: 8,
+                                                                        textAlign: 'left',
+                                                                        fontWeight: 600
+                                                                    },
+                                                                    children: "Acciones"
+                                                                }, void 0, false, {
+                                                                    fileName: "[project]/src/app/admin/matricula/page.tsx",
+                                                                    lineNumber: 223,
+                                                                    columnNumber: 27
+                                                                }, this)
+                                                            ]
+                                                        }, void 0, true, {
+                                                            fileName: "[project]/src/app/admin/matricula/page.tsx",
+                                                            lineNumber: 220,
+                                                            columnNumber: 25
+                                                        }, this)
+                                                    }, void 0, false, {
+                                                        fileName: "[project]/src/app/admin/matricula/page.tsx",
+                                                        lineNumber: 219,
+                                                        columnNumber: 23
+                                                    }, this),
+                                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("tbody", {
+                                                        children: matriculados.length === 0 ? /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("tr", {
+                                                            children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("td", {
+                                                                colSpan: 3,
+                                                                style: {
+                                                                    padding: 24,
+                                                                    textAlign: 'center',
+                                                                    color: '#888'
+                                                                },
+                                                                children: "Sin estudiantes matriculados"
+                                                            }, void 0, false, {
+                                                                fileName: "[project]/src/app/admin/matricula/page.tsx",
+                                                                lineNumber: 228,
+                                                                columnNumber: 31
+                                                            }, this)
+                                                        }, void 0, false, {
+                                                            fileName: "[project]/src/app/admin/matricula/page.tsx",
+                                                            lineNumber: 228,
+                                                            columnNumber: 27
+                                                        }, this) : matriculados.map((e, idx)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("tr", {
+                                                                style: {
+                                                                    borderTop: '1px solid #232527',
+                                                                    background: idx % 2 === 0 ? '#181A1B' : '#232734'
+                                                                },
+                                                                children: [
+                                                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("td", {
+                                                                        style: {
+                                                                            padding: 8
+                                                                        },
+                                                                        children: e.name
+                                                                    }, void 0, false, {
+                                                                        fileName: "[project]/src/app/admin/matricula/page.tsx",
+                                                                        lineNumber: 232,
+                                                                        columnNumber: 31
+                                                                    }, this),
+                                                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("td", {
+                                                                        style: {
+                                                                            padding: 8
+                                                                        },
+                                                                        children: e.email
+                                                                    }, void 0, false, {
+                                                                        fileName: "[project]/src/app/admin/matricula/page.tsx",
+                                                                        lineNumber: 233,
+                                                                        columnNumber: 31
+                                                                    }, this),
+                                                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("td", {
+                                                                        style: {
+                                                                            padding: 8
+                                                                        },
+                                                                        children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
+                                                                            style: {
+                                                                                color: '#dc2626',
+                                                                                fontWeight: 500,
+                                                                                background: 'none',
+                                                                                border: 'none',
+                                                                                cursor: 'pointer'
+                                                                            },
+                                                                            onClick: ()=>handleEliminar(e.id),
+                                                                            children: "Eliminar"
+                                                                        }, void 0, false, {
+                                                                            fileName: "[project]/src/app/admin/matricula/page.tsx",
+                                                                            lineNumber: 235,
+                                                                            columnNumber: 33
+                                                                        }, this)
+                                                                    }, void 0, false, {
+                                                                        fileName: "[project]/src/app/admin/matricula/page.tsx",
+                                                                        lineNumber: 234,
+                                                                        columnNumber: 31
+                                                                    }, this)
+                                                                ]
+                                                            }, e.id, true, {
+                                                                fileName: "[project]/src/app/admin/matricula/page.tsx",
+                                                                lineNumber: 231,
+                                                                columnNumber: 29
+                                                            }, this))
+                                                    }, void 0, false, {
+                                                        fileName: "[project]/src/app/admin/matricula/page.tsx",
+                                                        lineNumber: 226,
+                                                        columnNumber: 23
+                                                    }, this)
+                                                ]
+                                            }, void 0, true, {
+                                                fileName: "[project]/src/app/admin/matricula/page.tsx",
+                                                lineNumber: 218,
+                                                columnNumber: 21
+                                            }, this)
+                                        }, void 0, false, {
+                                            fileName: "[project]/src/app/admin/matricula/page.tsx",
+                                            lineNumber: 217,
+                                            columnNumber: 19
+                                        }, this),
+                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("hr", {
+                                            style: {
+                                                border: 'none',
+                                                borderTop: '1px solid #232527',
+                                                margin: '16px 0'
+                                            }
+                                        }, void 0, false, {
+                                            fileName: "[project]/src/app/admin/matricula/page.tsx",
+                                            lineNumber: 245,
+                                            columnNumber: 17
+                                        }, this),
+                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("h3", {
+                                            style: {
+                                                fontWeight: 600,
+                                                marginTop: 8,
+                                                marginBottom: 8
+                                            },
                                             children: "Agregar estudiante"
                                         }, void 0, false, {
                                             fileName: "[project]/src/app/admin/matricula/page.tsx",
-                                            lineNumber: 191,
+                                            lineNumber: 246,
                                             columnNumber: 17
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -665,20 +847,36 @@ function AdminMatriculaPage() {
                                             },
                                             children: [
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                                    className: "flex flex-col flex-1",
+                                                    style: {
+                                                        flex: 1
+                                                    },
                                                     children: [
                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("select", {
-                                                            className: "border p-2 rounded mr-2",
                                                             id: "add-estudiante",
                                                             value: selectedEstudiante,
                                                             onChange: handleEstudianteChange,
+                                                            style: {
+                                                                background: '#181A1B',
+                                                                color: '#fff',
+                                                                border: '1.5px solid #232527',
+                                                                borderRadius: 6,
+                                                                padding: '10px 14px',
+                                                                fontSize: 16,
+                                                                outline: 'none',
+                                                                boxShadow: 'none',
+                                                                marginRight: 8,
+                                                                width: '100%',
+                                                                transition: 'border 0.2s'
+                                                            },
+                                                            onFocus: (e)=>e.currentTarget.style.border = '1.5px solid #22c55e',
+                                                            onBlur: (e)=>e.currentTarget.style.border = '1.5px solid #232527',
                                                             children: [
                                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("option", {
                                                                     value: "",
                                                                     children: "Selecciona estudiante"
                                                                 }, void 0, false, {
                                                                     fileName: "[project]/src/app/admin/matricula/page.tsx",
-                                                                    lineNumber: 195,
+                                                                    lineNumber: 269,
                                                                     columnNumber: 23
                                                                 }, this),
                                                                 estudiantes.filter((e)=>!matriculados.some((m)=>m.id === e.id)).map((e)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("option", {
@@ -691,31 +889,46 @@ function AdminMatriculaPage() {
                                                                         ]
                                                                     }, e.id, true, {
                                                                         fileName: "[project]/src/app/admin/matricula/page.tsx",
-                                                                        lineNumber: 197,
+                                                                        lineNumber: 271,
                                                                         columnNumber: 25
                                                                     }, this))
                                                             ]
                                                         }, void 0, true, {
                                                             fileName: "[project]/src/app/admin/matricula/page.tsx",
-                                                            lineNumber: 194,
+                                                            lineNumber: 249,
                                                             columnNumber: 21
                                                         }, this),
                                                         fieldErrors.estudianteId && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
-                                                            className: "text-red-500 text-xs mt-1",
+                                                            style: {
+                                                                color: 'red',
+                                                                fontSize: 12
+                                                            },
                                                             children: fieldErrors.estudianteId
                                                         }, void 0, false, {
                                                             fileName: "[project]/src/app/admin/matricula/page.tsx",
-                                                            lineNumber: 200,
+                                                            lineNumber: 274,
                                                             columnNumber: 50
                                                         }, this)
                                                     ]
                                                 }, void 0, true, {
                                                     fileName: "[project]/src/app/admin/matricula/page.tsx",
-                                                    lineNumber: 193,
+                                                    lineNumber: 248,
                                                     columnNumber: 19
                                                 }, this),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
-                                                    className: "bg-green-600 text-white rounded p-2",
+                                                    style: {
+                                                        background: loading ? '#22c55e99' : '#22c55e',
+                                                        color: '#fff',
+                                                        borderRadius: 6,
+                                                        padding: '10px 24px',
+                                                        fontWeight: 700,
+                                                        border: 'none',
+                                                        cursor: loading ? 'not-allowed' : 'pointer',
+                                                        minWidth: 120,
+                                                        fontSize: 16,
+                                                        boxShadow: 'none',
+                                                        transition: 'background 0.2s'
+                                                    },
                                                     onClick: ()=>{
                                                         if (!selectedEstudiante) {
                                                             setFieldErrors((prev)=>({
@@ -731,13 +944,13 @@ function AdminMatriculaPage() {
                                                     children: "Matricular"
                                                 }, void 0, false, {
                                                     fileName: "[project]/src/app/admin/matricula/page.tsx",
-                                                    lineNumber: 202,
+                                                    lineNumber: 276,
                                                     columnNumber: 19
                                                 }, this)
                                             ]
                                         }, void 0, true, {
                                             fileName: "[project]/src/app/admin/matricula/page.tsx",
-                                            lineNumber: 192,
+                                            lineNumber: 247,
                                             columnNumber: 17
                                         }, this)
                                     ]
@@ -750,31 +963,64 @@ function AdminMatriculaPage() {
                                     children: fieldErrors.gradoId
                                 }, void 0, false, {
                                     fileName: "[project]/src/app/admin/matricula/page.tsx",
-                                    lineNumber: 219,
+                                    lineNumber: 305,
                                     columnNumber: 37
+                                }, this),
+                                error && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                    style: {
+                                        color: 'red',
+                                        marginBottom: 12
+                                    },
+                                    children: error
+                                }, void 0, false, {
+                                    fileName: "[project]/src/app/admin/matricula/page.tsx",
+                                    lineNumber: 306,
+                                    columnNumber: 23
+                                }, this),
+                                success && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                    style: {
+                                        color: 'green',
+                                        marginBottom: 12
+                                    },
+                                    children: success
+                                }, void 0, false, {
+                                    fileName: "[project]/src/app/admin/matricula/page.tsx",
+                                    lineNumber: 307,
+                                    columnNumber: 25
+                                }, this),
+                                loading && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                    style: {
+                                        color: '#888',
+                                        marginBottom: 12
+                                    },
+                                    children: "Procesando..."
+                                }, void 0, false, {
+                                    fileName: "[project]/src/app/admin/matricula/page.tsx",
+                                    lineNumber: 308,
+                                    columnNumber: 25
                                 }, this)
                             ]
                         }, void 0, true, {
                             fileName: "[project]/src/app/admin/matricula/page.tsx",
-                            lineNumber: 148,
+                            lineNumber: 161,
                             columnNumber: 11
                         }, this)
                     ]
                 }, void 0, true, {
                     fileName: "[project]/src/app/admin/matricula/page.tsx",
-                    lineNumber: 145,
+                    lineNumber: 158,
                     columnNumber: 9
                 }, this)
             ]
         }, void 0, true, {
             fileName: "[project]/src/app/admin/matricula/page.tsx",
-            lineNumber: 124,
+            lineNumber: 137,
             columnNumber: 7
         }, this)
     }, void 0, false, {
         fileName: "[project]/src/app/admin/matricula/page.tsx",
-        lineNumber: 123,
-        columnNumber: 3
+        lineNumber: 136,
+        columnNumber: 5
     }, this);
 }
 }),

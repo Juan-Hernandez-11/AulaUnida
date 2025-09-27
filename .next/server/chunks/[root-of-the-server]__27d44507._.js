@@ -92,20 +92,85 @@ async function GET() {
 async function POST(request) {
     try {
         const { nombre, seccion, sedeId, cicloId, aulaId } = await request.json();
-        if (!nombre || !seccion || !sedeId || !cicloId) {
+        if (typeof nombre !== 'string' || !nombre.trim() || typeof seccion !== 'string' || !seccion.trim() || typeof sedeId !== 'number' || isNaN(sedeId) || typeof cicloId !== 'number' || isNaN(cicloId)) {
             return __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$server$2e$js__$5b$app$2d$route$5d$__$28$ecmascript$29$__["NextResponse"].json({
-                error: 'Faltan campos obligatorios'
+                error: 'Faltan campos obligatorios o tipos incorrectos'
             }, {
                 status: 400
             });
         }
+        // Validar existencia de sede
+        const sede = await prisma.sede.findUnique({
+            where: {
+                id: sedeId
+            }
+        });
+        if (!sede) {
+            return __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$server$2e$js__$5b$app$2d$route$5d$__$28$ecmascript$29$__["NextResponse"].json({
+                error: 'La sede especificada no existe'
+            }, {
+                status: 400
+            });
+        }
+        // Validar existencia de ciclo
+        const ciclo = await prisma.ciclo.findUnique({
+            where: {
+                id: cicloId
+            }
+        });
+        if (!ciclo) {
+            return __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$server$2e$js__$5b$app$2d$route$5d$__$28$ecmascript$29$__["NextResponse"].json({
+                error: 'El ciclo especificado no existe'
+            }, {
+                status: 400
+            });
+        }
+        // Validar existencia de aula si se envía
+        let aula = null;
+        if (aulaId !== undefined && aulaId !== null) {
+            if (typeof aulaId !== 'number' || isNaN(aulaId)) {
+                return __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$server$2e$js__$5b$app$2d$route$5d$__$28$ecmascript$29$__["NextResponse"].json({
+                    error: 'El aulaId debe ser un número válido'
+                }, {
+                    status: 400
+                });
+            }
+            aula = await prisma.aula.findUnique({
+                where: {
+                    id: aulaId
+                }
+            });
+            if (!aula) {
+                return __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$server$2e$js__$5b$app$2d$route$5d$__$28$ecmascript$29$__["NextResponse"].json({
+                    error: 'El aula especificada no existe'
+                }, {
+                    status: 400
+                });
+            }
+        }
+        // Validar unicidad de nombre+seccion+sede+ciclo
+        const existe = await prisma.grado.findFirst({
+            where: {
+                nombre: nombre.trim(),
+                seccion: seccion.trim(),
+                sedeId,
+                cicloId
+            }
+        });
+        if (existe) {
+            return __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$server$2e$js__$5b$app$2d$route$5d$__$28$ecmascript$29$__["NextResponse"].json({
+                error: 'Ya existe un grado con ese nombre, sección, sede y ciclo.'
+            }, {
+                status: 409
+            });
+        }
         const grado = await prisma.grado.create({
             data: {
-                nombre,
-                seccion,
-                sedeId: Number(sedeId),
-                cicloId: Number(cicloId),
-                aulaId: aulaId ? Number(aulaId) : undefined
+                nombre: nombre.trim(),
+                seccion: seccion.trim(),
+                sedeId,
+                cicloId,
+                aulaId: aulaId ?? undefined
             },
             select: {
                 id: true,
@@ -115,6 +180,13 @@ async function POST(request) {
         });
         return __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$server$2e$js__$5b$app$2d$route$5d$__$28$ecmascript$29$__["NextResponse"].json(grado);
     } catch (error) {
+        if (error.code && error.code.startsWith('P')) {
+            return __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$server$2e$js__$5b$app$2d$route$5d$__$28$ecmascript$29$__["NextResponse"].json({
+                error: 'Error de base de datos: ' + error.message
+            }, {
+                status: 500
+            });
+        }
         return __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$server$2e$js__$5b$app$2d$route$5d$__$28$ecmascript$29$__["NextResponse"].json({
             error: 'Error al crear grado'
         }, {
@@ -125,23 +197,91 @@ async function POST(request) {
 async function PUT(request) {
     try {
         const { id, nombre, seccion, sedeId, cicloId, aulaId } = await request.json();
-        if (!id || !nombre || !seccion || !sedeId || !cicloId) {
+        if (typeof id !== 'number' || isNaN(id) || typeof nombre !== 'string' || !nombre.trim() || typeof seccion !== 'string' || !seccion.trim() || typeof sedeId !== 'number' || isNaN(sedeId) || typeof cicloId !== 'number' || isNaN(cicloId)) {
             return __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$server$2e$js__$5b$app$2d$route$5d$__$28$ecmascript$29$__["NextResponse"].json({
-                error: 'Faltan campos obligatorios'
+                error: 'Faltan campos obligatorios o tipos incorrectos'
             }, {
                 status: 400
             });
         }
+        // Validar existencia de sede
+        const sede = await prisma.sede.findUnique({
+            where: {
+                id: sedeId
+            }
+        });
+        if (!sede) {
+            return __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$server$2e$js__$5b$app$2d$route$5d$__$28$ecmascript$29$__["NextResponse"].json({
+                error: 'La sede especificada no existe'
+            }, {
+                status: 400
+            });
+        }
+        // Validar existencia de ciclo
+        const ciclo = await prisma.ciclo.findUnique({
+            where: {
+                id: cicloId
+            }
+        });
+        if (!ciclo) {
+            return __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$server$2e$js__$5b$app$2d$route$5d$__$28$ecmascript$29$__["NextResponse"].json({
+                error: 'El ciclo especificado no existe'
+            }, {
+                status: 400
+            });
+        }
+        // Validar existencia de aula si se envía
+        let aula = null;
+        if (aulaId !== undefined && aulaId !== null) {
+            if (typeof aulaId !== 'number' || isNaN(aulaId)) {
+                return __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$server$2e$js__$5b$app$2d$route$5d$__$28$ecmascript$29$__["NextResponse"].json({
+                    error: 'El aulaId debe ser un número válido'
+                }, {
+                    status: 400
+                });
+            }
+            aula = await prisma.aula.findUnique({
+                where: {
+                    id: aulaId
+                }
+            });
+            if (!aula) {
+                return __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$server$2e$js__$5b$app$2d$route$5d$__$28$ecmascript$29$__["NextResponse"].json({
+                    error: 'El aula especificada no existe'
+                }, {
+                    status: 400
+                });
+            }
+        }
+        // Validar unicidad de nombre+seccion+sede+ciclo (excluyendo el propio grado)
+        const existe = await prisma.grado.findFirst({
+            where: {
+                nombre: nombre.trim(),
+                seccion: seccion.trim(),
+                sedeId,
+                cicloId,
+                NOT: {
+                    id
+                }
+            }
+        });
+        if (existe) {
+            return __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$server$2e$js__$5b$app$2d$route$5d$__$28$ecmascript$29$__["NextResponse"].json({
+                error: 'Ya existe un grado con ese nombre, sección, sede y ciclo.'
+            }, {
+                status: 409
+            });
+        }
         const grado = await prisma.grado.update({
             where: {
-                id: Number(id)
+                id
             },
             data: {
-                nombre,
-                seccion,
-                sedeId: Number(sedeId),
-                cicloId: Number(cicloId),
-                aulaId: aulaId ? Number(aulaId) : undefined
+                nombre: nombre.trim(),
+                seccion: seccion.trim(),
+                sedeId,
+                cicloId,
+                aulaId: aulaId ?? undefined
             },
             select: {
                 id: true,
@@ -151,6 +291,13 @@ async function PUT(request) {
         });
         return __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$server$2e$js__$5b$app$2d$route$5d$__$28$ecmascript$29$__["NextResponse"].json(grado);
     } catch (error) {
+        if (error.code && error.code.startsWith('P')) {
+            return __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$server$2e$js__$5b$app$2d$route$5d$__$28$ecmascript$29$__["NextResponse"].json({
+                error: 'Error de base de datos: ' + error.message
+            }, {
+                status: 500
+            });
+        }
         return __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$server$2e$js__$5b$app$2d$route$5d$__$28$ecmascript$29$__["NextResponse"].json({
             error: 'Error al editar grado'
         }, {
@@ -161,22 +308,29 @@ async function PUT(request) {
 async function DELETE(request) {
     try {
         const { id } = await request.json();
-        if (!id) {
+        if (typeof id !== 'number' || isNaN(id)) {
             return __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$server$2e$js__$5b$app$2d$route$5d$__$28$ecmascript$29$__["NextResponse"].json({
-                error: 'Falta el id'
+                error: 'Falta el id o el id no es válido'
             }, {
                 status: 400
             });
         }
         await prisma.grado.delete({
             where: {
-                id: Number(id)
+                id
             }
         });
         return __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$server$2e$js__$5b$app$2d$route$5d$__$28$ecmascript$29$__["NextResponse"].json({
             success: true
         });
     } catch (error) {
+        if (error.code && error.code.startsWith('P')) {
+            return __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$server$2e$js__$5b$app$2d$route$5d$__$28$ecmascript$29$__["NextResponse"].json({
+                error: 'Error de base de datos: ' + error.message
+            }, {
+                status: 500
+            });
+        }
         return __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$server$2e$js__$5b$app$2d$route$5d$__$28$ecmascript$29$__["NextResponse"].json({
             error: 'Error al eliminar grado'
         }, {

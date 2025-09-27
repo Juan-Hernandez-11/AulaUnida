@@ -1,0 +1,10 @@
+TODO: Panel de gestión de profesores (solo para ADMIN)
+
+- Registro y edición de profesores (datos personales, contacto, etc.)
+- Asignación de materias dominantes (materias principales que puede impartir)
+- Selección de grados/secciones donde da clases
+- Definición de horarios (día, hora, materia, grado)
+- Visualización clara de todas sus asignaciones y horarios
+- Todo el flujo protegido para rol ADMIN
+
+Meta: Dejar listo el módulo de gestión de profesores este fin de semana.

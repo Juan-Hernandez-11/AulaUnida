@@ -7,7 +7,7 @@ import { UserCircleIcon, AcademicCapIcon, ClipboardIcon, MegaphoneIcon } from '@
 const sidebarLinks = [
   { label: 'Gestión de Usuarios', icon: UserCircleIcon, href: '/admin/usuarios' },
   { label: 'Grados/Secciones', icon: AcademicCapIcon, href: '/admin/grados' },
-  { label: 'Anuncios', icon: MegaphoneIcon, href: '/admin/anuncios', active: true },
+  // { label: 'Anuncios', icon: MegaphoneIcon, href: '/admin/anuncios', active: true },
   { label: 'Matrícula', icon: ClipboardIcon, href: '/admin/matricula' },
 ];
 
@@ -37,7 +37,7 @@ export default function AdminAnunciosPage() {
             <ul style={{ listStyle: 'none', padding: 0, margin: 0 }}>
               {sidebarLinks.map(link => (
                 <li key={link.label}>
-                  <NextLink href={link.href} className={`${styles.menuItem} ${link.active ? styles.menuItemActive : ''}`}>
+                  <NextLink href={link.href} className={styles.menuItem}>
                     <link.icon style={{ width: 24, height: 24, marginRight: 16 }} />
                     {link.label}
                   </NextLink>

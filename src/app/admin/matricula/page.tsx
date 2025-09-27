@@ -1,12 +1,11 @@
 "use client";
 
-import React, { useState, ChangeEvent } from 'react';
+import { useEffect, useState, ChangeEvent } from 'react';
 import ProtectedRoute from '../../../components/ProtectedRoute';
 import styles from '../../../styles/admin-dashboard.module.css';
 import { UserCircleIcon, AcademicCapIcon, ClipboardIcon } from '@heroicons/react/24/outline';
 import NextLink from '../../../components/NextLink';
 
-// Botón de volver reutilizable
 function BackToDashboardButton() {
   return (
     <div style={{ marginBottom: 24 }}>
@@ -18,17 +17,8 @@ function BackToDashboardButton() {
   );
 }
 
-// Tipos para grado y usuario
-interface Grado {
-  id: number;
-  nombre: string;
-  seccion: string;
-}
-interface Estudiante {
-  id: number;
-  name: string;
-  email: string;
-}
+type Grado = { id: number; nombre: string; seccion: string };
+type Estudiante = { id: number; name: string; email: string };
 
 const sidebarLinks = [
   { label: 'Gestión de Usuarios', icon: UserCircleIcon, href: '/admin/usuarios' },
@@ -44,13 +34,38 @@ export default function AdminMatriculaPage() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
   const [success, setSuccess] = useState('');
-  // Estado para errores de validación en tiempo real
   const [fieldErrors, setFieldErrors] = useState<{ gradoId?: string; estudianteId?: string }>({});
   const [selectedEstudiante, setSelectedEstudiante] = useState('');
+  const [refreshing, setRefreshing] = useState(false);
 
-  // Cargar datos manualmente cuando sea necesario (ejemplo: con un botón o tras crear/editar)
+  // Cargar grados y estudiantes al montar
+  useEffect(() => {
+    setLoading(true);
+    Promise.all([
+      fetch('/api/admin/grados').then(r => r.json()),
+      fetch('/api/admin/usuarios').then(r => r.json()),
+    ]).then(([grados, usuarios]) => {
+      setGrados(grados);
+      setEstudiantes(usuarios.filter((u: any) => u.role === 'STUDENT' || u.role === 'estudiante'));
+      setLoading(false);
+    }).catch(() => setLoading(false));
+  }, []);
 
-  // Maneja el cambio de grado seleccionado
+  // Cargar estudiantes matriculados al seleccionar grado o refrescar
+  const fetchMatriculados = () => {
+    if (!gradoId) return;
+    setLoading(true);
+    fetch(`/api/admin/matricula?gradoId=${gradoId}`)
+      .then(r => r.json())
+      .then(data => {
+        setMatriculados(data);
+        setLoading(false);
+        setRefreshing(false);
+      })
+      .catch(() => { setLoading(false); setRefreshing(false); });
+  };
+  useEffect(() => { fetchMatriculados(); }, [gradoId]);
+
   const handleGradoChange = (e: ChangeEvent<HTMLSelectElement>) => {
     const value = e.target.value;
     setGradoId(value);
@@ -65,7 +80,6 @@ export default function AdminMatriculaPage() {
     setFieldErrors(prev => ({ ...prev, estudianteId: !value ? 'Debes seleccionar un estudiante.' : '' }));
   };
 
-  // Matricula un estudiante en el grado seleccionado
   const handleMatricular = async (estudianteId: number) => {
     if (!gradoId) return;
     setLoading(true);
@@ -92,7 +106,6 @@ export default function AdminMatriculaPage() {
     setTimeout(() => setSuccess(''), 2500);
   };
 
-  // Elimina la matrícula de un estudiante en el grado seleccionado
   const handleEliminar = async (estudianteId: number) => {
     if (!gradoId) return;
     if (!window.confirm('¿Seguro que deseas eliminar la matrícula?')) return;
@@ -120,7 +133,7 @@ export default function AdminMatriculaPage() {
   };
 
   return (
-  <ProtectedRoute allowedRoles={["ADMIN"]}>
+    <ProtectedRoute allowedRoles={["ADMIN"]}>
       <div className={styles.dashboardContainer}>
         {/* Sidebar */}
         <aside className={styles.sidebar}>
@@ -146,61 +159,134 @@ export default function AdminMatriculaPage() {
           <BackToDashboardButton />
           <h1 className={styles.title}>Gestión de Matrícula</h1>
           <div className={styles.activityCard}>
-            {/* Feedback visual */}
-            {error && <div style={{ background: '#dc2626', color: '#fff', padding: 12, borderRadius: 8, marginBottom: 16, fontWeight: 500 }}>{error}</div>}
-            {success && <div style={{ background: '#22c55e', color: '#fff', padding: 12, borderRadius: 8, marginBottom: 16, fontWeight: 500 }}>{success}</div>}
-            {loading && <div style={{ background: '#232527', color: '#B0B3B8', padding: 10, borderRadius: 8, marginBottom: 16 }}>Procesando...</div>}
-            <h2 className={styles.activityTitle}>Selecciona un grado</h2>
-            <select className="border p-2 rounded mb-4" value={gradoId} onChange={handleGradoChange}>
-              <option value="">Selecciona grado</option>
-              {grados.map(g => (
-                <option key={g.id} value={g.id}>{g.nombre} {g.seccion}</option>
-              ))}
-            </select>
+            {/* Instrucción */}
+            <div style={{ marginBottom: 18, color: '#b0b3b8', fontSize: 16 }}>
+              Selecciona un grado para ver y gestionar sus estudiantes matriculados. Puedes agregar o eliminar estudiantes según corresponda.
+            </div>
+            {/* Selector de grado */}
+            <h2 style={{ fontWeight: 600, color: '#22c55e', marginBottom: 8 }}>Selecciona un grado</h2>
+            {grados.length === 0 ? (
+              <div style={{ color: '#f87171', marginBottom: 16 }}>No hay grados registrados.</div>
+            ) : (
+              <select
+                value={gradoId}
+                onChange={handleGradoChange}
+                style={{
+                  background: '#181A1B',
+                  color: '#fff',
+                  border: '1.5px solid #232527',
+                  borderRadius: 6,
+                  padding: '10px 14px',
+                  fontSize: 16,
+                  outline: 'none',
+                  boxShadow: 'none',
+                  marginBottom: 16,
+                  width: '100%',
+                  transition: 'border 0.2s',
+                }}
+                onFocus={e => e.currentTarget.style.border = '1.5px solid #22c55e'}
+                onBlur={e => e.currentTarget.style.border = '1.5px solid #232527'}
+              >
+                <option value="">Selecciona grado</option>
+                {grados.map(g => (
+                  <option key={g.id} value={g.id}>{g.nombre} {g.seccion}</option>
+                ))}
+              </select>
+            )}
+            {/* Datos del grado seleccionado */}
             {gradoId && (
               <>
-                <h3 className="font-bold mb-2">Estudiantes matriculados</h3>
+                <div style={{ marginBottom: 12, padding: '8px 16px', background: '#232734', borderRadius: 8, display: 'flex', alignItems: 'center', gap: 24 }}>
+                  <span style={{ fontWeight: 600, color: '#fff' }}>Grado:</span>
+                  <span style={{ color: '#22c55e', fontWeight: 500 }}>{grados.find(g => String(g.id) === gradoId)?.nombre} {grados.find(g => String(g.id) === gradoId)?.seccion}</span>
+                  <span style={{ color: '#b0b3b8', fontWeight: 400 }}>Matriculados: <b>{matriculados.length}</b></span>
+                  <button
+                    style={{ marginLeft: 'auto', background: '#2563eb', color: '#fff', borderRadius: 6, padding: '6px 16px', fontWeight: 500, border: 'none', cursor: refreshing ? 'not-allowed' : 'pointer' }}
+                    onClick={() => { setRefreshing(true); fetchMatriculados(); }}
+                    disabled={refreshing}
+                  >
+                    {refreshing ? 'Actualizando...' : 'Refrescar'}
+                  </button>
+                </div>
+                {/* Separador visual */}
+                <hr style={{ border: 'none', borderTop: '1px solid #232527', margin: '16px 0' }} />
+                <h3 style={{ fontWeight: 600, marginBottom: 8 }}>Estudiantes matriculados</h3>
                 {loading ? (
-                  <div style={{ color: '#B0B3B8' }}>Cargando...</div>
+                  <div style={{ color: '#888' }}>Cargando...</div>
                 ) : (
-                  <table className={styles.activityTable}>
-                    <thead>
-                      <tr>
-                        <th>Nombre</th>
-                        <th>Email</th>
-                        <th>Acciones</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      {matriculados.length === 0 ? (
-                        <tr><td colSpan={3} style={{ color: '#B0B3B8' }}>Sin estudiantes matriculados</td></tr>
-                      ) : (
-                        matriculados.map(e => (
-                          <tr key={e.id}>
-                            <td className={styles.activityUser}>{e.name}</td>
-                            <td className={styles.activityAction}>{e.email}</td>
-                            <td className={styles.activityAction}>
-                              <button style={{ color: '#dc2626' }} onClick={() => handleEliminar(e.id)}>Eliminar</button>
-                            </td>
-                          </tr>
-                        ))
-                      )}
-                    </tbody>
-                  </table>
+                  <div style={{ overflowX: 'auto' }}>
+                    <table style={{ width: '100%', borderCollapse: 'collapse', marginBottom: 16 }}>
+                      <thead style={{ background: '#232734' }}>
+                        <tr>
+                          <th style={{ padding: 8, textAlign: 'left', fontWeight: 600 }}>Nombre</th>
+                          <th style={{ padding: 8, textAlign: 'left', fontWeight: 600 }}>Email</th>
+                          <th style={{ padding: 8, textAlign: 'left', fontWeight: 600 }}>Acciones</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        {matriculados.length === 0 ? (
+                          <tr><td colSpan={3} style={{ padding: 24, textAlign: 'center', color: '#888' }}>Sin estudiantes matriculados</td></tr>
+                        ) : (
+                          matriculados.map((e, idx) => (
+                            <tr key={e.id} style={{ borderTop: '1px solid #232527', background: idx % 2 === 0 ? '#181A1B' : '#232734' }}>
+                              <td style={{ padding: 8 }}>{e.name}</td>
+                              <td style={{ padding: 8 }}>{e.email}</td>
+                              <td style={{ padding: 8 }}>
+                                <button style={{ color: '#dc2626', fontWeight: 500, background: 'none', border: 'none', cursor: 'pointer' }} onClick={() => handleEliminar(e.id)}>Eliminar</button>
+                              </td>
+                            </tr>
+                          ))
+                        )}
+                      </tbody>
+                    </table>
+                  </div>
                 )}
-                <h3 className="font-bold mt-6 mb-2">Agregar estudiante</h3>
+                {/* Separador visual */}
+                <hr style={{ border: 'none', borderTop: '1px solid #232527', margin: '16px 0' }} />
+                <h3 style={{ fontWeight: 600, marginTop: 8, marginBottom: 8 }}>Agregar estudiante</h3>
                 <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
-                  <div className="flex flex-col flex-1">
-                    <select className="border p-2 rounded mr-2" id="add-estudiante" value={selectedEstudiante} onChange={handleEstudianteChange}>
+                  <div style={{ flex: 1 }}>
+                    <select
+                      id="add-estudiante"
+                      value={selectedEstudiante}
+                      onChange={handleEstudianteChange}
+                      style={{
+                        background: '#181A1B',
+                        color: '#fff',
+                        border: '1.5px solid #232527',
+                        borderRadius: 6,
+                        padding: '10px 14px',
+                        fontSize: 16,
+                        outline: 'none',
+                        boxShadow: 'none',
+                        marginRight: 8,
+                        width: '100%',
+                        transition: 'border 0.2s',
+                      }}
+                      onFocus={e => e.currentTarget.style.border = '1.5px solid #22c55e'}
+                      onBlur={e => e.currentTarget.style.border = '1.5px solid #232527'}
+                    >
                       <option value="">Selecciona estudiante</option>
                       {estudiantes.filter(e => !matriculados.some(m => m.id === e.id)).map(e => (
                         <option key={e.id} value={e.id}>{e.name} ({e.email})</option>
                       ))}
                     </select>
-                    {fieldErrors.estudianteId && <span className="text-red-500 text-xs mt-1">{fieldErrors.estudianteId}</span>}
+                    {fieldErrors.estudianteId && <span style={{ color: 'red', fontSize: 12 }}>{fieldErrors.estudianteId}</span>}
                   </div>
                   <button
-                    className="bg-green-600 text-white rounded p-2"
+                    style={{
+                      background: loading ? '#22c55e99' : '#22c55e',
+                      color: '#fff',
+                      borderRadius: 6,
+                      padding: '10px 24px',
+                      fontWeight: 700,
+                      border: 'none',
+                      cursor: loading ? 'not-allowed' : 'pointer',
+                      minWidth: 120,
+                      fontSize: 16,
+                      boxShadow: 'none',
+                      transition: 'background 0.2s',
+                    }}
                     onClick={() => {
                       if (!selectedEstudiante) {
                         setFieldErrors(prev => ({ ...prev, estudianteId: 'Debes seleccionar un estudiante.' }));
@@ -217,6 +303,9 @@ export default function AdminMatriculaPage() {
               </>
             )}
             {fieldErrors.gradoId && <div style={{ color: 'red', marginTop: 12 }}>{fieldErrors.gradoId}</div>}
+            {error && <div style={{ color: 'red', marginBottom: 12 }}>{error}</div>}
+            {success && <div style={{ color: 'green', marginBottom: 12 }}>{success}</div>}
+            {loading && <div style={{ color: '#888', marginBottom: 12 }}>Procesando...</div>}
           </div>
         </main>
       </div>

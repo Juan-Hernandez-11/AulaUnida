@@ -237,33 +237,59 @@ function AdminGradosPage() {
     // --- ESTADO Y LÓGICA PRINCIPAL (SE CONSERVAN TUS COMENTARIOS) ---
     const [grados, setGrados] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useState"])([]);
     const [loading, setLoading] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useState"])(true);
+    // Estados para selects
+    const [sedes, setSedes] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useState"])([]);
+    const [ciclos, setCiclos] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useState"])([]);
+    const [aulas, setAulas] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useState"])([]);
+    // Agrega los campos al form
     const [form, setForm] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useState"])({
         nombre: '',
-        seccion: ''
+        seccion: '',
+        sedeId: '',
+        cicloId: '',
+        aulaId: ''
     });
     const [editingId, setEditingId] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useState"])(null);
     const [creating, setCreating] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useState"])(false);
     const [error, setError] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useState"])('');
+    const [success, setSuccess] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useState"])('');
     // Estado para errores de validación en tiempo real
     const [fieldErrors, setFieldErrors] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useState"])({});
     (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useEffect"])(()=>{
         setLoading(true);
-        fetch('/api/admin/grados').then((res)=>res.json()).then((data)=>{
-            setGrados(data);
+        Promise.all([
+            fetch('/api/admin/grados').then((res)=>res.json()),
+            fetch('/api/admin/sedes').then((res)=>res.json()),
+            fetch('/api/admin/ciclos').then((res)=>res.json()),
+            fetch('/api/admin/aulas').then((res)=>res.json())
+        ]).then(([grados, sedes, ciclos, aulas])=>{
+            setGrados(grados);
+            setSedes(sedes);
+            setCiclos(ciclos);
+            setAulas(aulas);
             setLoading(false);
         }).catch(()=>setLoading(false));
     }, []);
-    // Validación en tiempo real
+    // Validación en tiempo real extendida
     const validateField = (name, value)=>{
         let error = '';
         if (name === 'nombre') {
             if (!value.trim()) error = 'El nombre del grado es obligatorio.';
             else if (value.length < 2) error = 'Debe tener al menos 2 caracteres.';
+            else if (grados.some((g)=>g.nombre.toLowerCase() === value.trim().toLowerCase() && (!editingId || g.id !== editingId) && g.seccion.toLowerCase() === form.seccion.trim().toLowerCase())) error = 'Ya existe un grado con ese nombre y sección.';
         }
         if (name === 'seccion') {
             if (!value.trim()) error = 'La sección es obligatoria.';
             else if (value.length < 1) error = 'Debe tener al menos 1 caracter.';
+            else if (grados.some((g)=>g.seccion.toLowerCase() === value.trim().toLowerCase() && g.nombre.toLowerCase() === form.nombre.trim().toLowerCase() && (!editingId || g.id !== editingId))) error = 'Ya existe un grado con ese nombre y sección.';
         }
+        if (name === 'sedeId') {
+            if (!value) error = 'Debes seleccionar una sede.';
+        }
+        if (name === 'cicloId') {
+            if (!value) error = 'Debes seleccionar un ciclo.';
+        }
+        // aulaId es opcional
         return error;
     };
     const handleChange = (e)=>{
@@ -281,20 +307,30 @@ function AdminGradosPage() {
         e.preventDefault();
         setCreating(true);
         setError('');
+        setSuccess('');
         // Validación global antes de enviar
         const newErrors = {
             nombre: validateField('nombre', form.nombre),
-            seccion: validateField('seccion', form.seccion)
+            seccion: validateField('seccion', form.seccion),
+            sedeId: validateField('sedeId', form.sedeId),
+            cicloId: validateField('cicloId', form.cicloId)
         };
         setFieldErrors(newErrors);
-        if (newErrors.nombre || newErrors.seccion) {
+        if (newErrors.nombre || newErrors.seccion || newErrors.sedeId || newErrors.cicloId) {
             setError('Por favor corrige los errores antes de guardar.');
             setCreating(false);
             return;
         }
         try {
+            // Prepara los datos convirtiendo los IDs a número
+            const payload = {
+                nombre: form.nombre,
+                seccion: form.seccion,
+                sedeId: form.sedeId ? Number(form.sedeId) : undefined,
+                cicloId: form.cicloId ? Number(form.cicloId) : undefined,
+                aulaId: form.aulaId ? Number(form.aulaId) : undefined
+            };
             if (editingId) {
-                // Editar grado
                 const res = await fetch('/api/admin/grados', {
                     method: 'PUT',
                     headers: {
@@ -302,7 +338,7 @@ function AdminGradosPage() {
                     },
                     body: JSON.stringify({
                         id: editingId,
-                        ...form
+                        ...payload
                     })
                 });
                 if (!res.ok) {
@@ -313,18 +349,21 @@ function AdminGradosPage() {
                     setGrados((prev)=>prev.map((g)=>g.id === updated.id ? updated : g));
                     setForm({
                         nombre: '',
-                        seccion: ''
+                        seccion: '',
+                        sedeId: '',
+                        cicloId: '',
+                        aulaId: ''
                     });
                     setEditingId(null);
+                    setSuccess('Grado editado correctamente.');
                 }
             } else {
-                // Crear grado
                 const res = await fetch('/api/admin/grados', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json'
                     },
-                    body: JSON.stringify(form)
+                    body: JSON.stringify(payload)
                 });
                 if (!res.ok) {
                     const data = await res.json();
@@ -337,17 +376,24 @@ function AdminGradosPage() {
                         ]);
                     setForm({
                         nombre: '',
-                        seccion: ''
+                        seccion: '',
+                        sedeId: '',
+                        cicloId: '',
+                        aulaId: ''
                     });
+                    setSuccess('Grado creado correctamente.');
                 }
             }
         } catch  {
             setError('Error de red');
         }
         setCreating(false);
+        setTimeout(()=>setSuccess(''), 2500);
     };
     const handleDelete = async (id)=>{
         if (!window.confirm('¿Seguro que deseas eliminar este grado?')) return;
+        setError('');
+        setSuccess('');
         try {
             const res = await fetch('/api/admin/grados', {
                 method: 'DELETE',
@@ -363,18 +409,24 @@ function AdminGradosPage() {
                 setError(data.error || 'Error al eliminar grado');
             } else {
                 setGrados((prev)=>prev.filter((g)=>g.id !== id));
+                setSuccess('Grado eliminado correctamente.');
             }
         } catch  {
             setError('Error de red');
         }
+        setTimeout(()=>setSuccess(''), 2500);
     };
     const handleEdit = (grado)=>{
         setForm({
             nombre: grado.nombre,
-            seccion: grado.seccion
+            seccion: grado.seccion,
+            sedeId: grado.sedeId !== undefined ? String(grado.sedeId) : '',
+            cicloId: grado.cicloId !== undefined ? String(grado.cicloId) : '',
+            aulaId: grado.aulaId !== undefined ? String(grado.aulaId) : ''
         });
         setEditingId(grado.id);
         setError('');
+        setSuccess('');
     };
     // --- LAYOUT VISUAL MODERNO Y CONSISTENTE ---
     // Se agrega el sidebar y layout del dashboard admin, manteniendo tu lógica y comentarios intactos.
@@ -401,7 +453,7 @@ function AdminGradosPage() {
                                     className: __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$styles$2f$admin$2d$dashboard$2e$module$2e$css__$5b$app$2d$ssr$5d$__$28$css__module$29$__["default"].avatar
                                 }, void 0, false, {
                                     fileName: "[project]/src/app/admin/grados/page.tsx",
-                                    lineNumber: 164,
+                                    lineNumber: 216,
                                     columnNumber: 13
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -409,13 +461,13 @@ function AdminGradosPage() {
                                     children: "AulaUnida"
                                 }, void 0, false, {
                                     fileName: "[project]/src/app/admin/grados/page.tsx",
-                                    lineNumber: 165,
+                                    lineNumber: 217,
                                     columnNumber: 13
                                 }, this)
                             ]
                         }, void 0, true, {
                             fileName: "[project]/src/app/admin/grados/page.tsx",
-                            lineNumber: 163,
+                            lineNumber: 215,
                             columnNumber: 11
                         }, this),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("nav", {
@@ -439,35 +491,35 @@ function AdminGradosPage() {
                                                     }
                                                 }, void 0, false, {
                                                     fileName: "[project]/src/app/admin/grados/page.tsx",
-                                                    lineNumber: 172,
+                                                    lineNumber: 224,
                                                     columnNumber: 21
                                                 }, this),
                                                 link.label
                                             ]
                                         }, void 0, true, {
                                             fileName: "[project]/src/app/admin/grados/page.tsx",
-                                            lineNumber: 171,
+                                            lineNumber: 223,
                                             columnNumber: 19
                                         }, this)
                                     }, link.label, false, {
                                         fileName: "[project]/src/app/admin/grados/page.tsx",
-                                        lineNumber: 170,
+                                        lineNumber: 222,
                                         columnNumber: 17
                                     }, this))
                             }, void 0, false, {
                                 fileName: "[project]/src/app/admin/grados/page.tsx",
-                                lineNumber: 168,
+                                lineNumber: 220,
                                 columnNumber: 13
                             }, this)
                         }, void 0, false, {
                             fileName: "[project]/src/app/admin/grados/page.tsx",
-                            lineNumber: 167,
+                            lineNumber: 219,
                             columnNumber: 11
                         }, this)
                     ]
                 }, void 0, true, {
                     fileName: "[project]/src/app/admin/grados/page.tsx",
-                    lineNumber: 162,
+                    lineNumber: 214,
                     columnNumber: 9
                 }, this),
                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("main", {
@@ -475,7 +527,7 @@ function AdminGradosPage() {
                     children: [
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(BackToDashboardButton, {}, void 0, false, {
                             fileName: "[project]/src/app/admin/grados/page.tsx",
-                            lineNumber: 182,
+                            lineNumber: 234,
                             columnNumber: 11
                         }, this),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("h1", {
@@ -483,7 +535,7 @@ function AdminGradosPage() {
                             children: "Gestión de Grados y Secciones"
                         }, void 0, false, {
                             fileName: "[project]/src/app/admin/grados/page.tsx",
-                            lineNumber: 183,
+                            lineNumber: 235,
                             columnNumber: 11
                         }, this),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -494,126 +546,454 @@ function AdminGradosPage() {
                                     children: editingId ? 'Editar Grado' : 'Crear Grado'
                                 }, void 0, false, {
                                     fileName: "[project]/src/app/admin/grados/page.tsx",
-                                    lineNumber: 185,
+                                    lineNumber: 237,
                                     columnNumber: 13
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("form", {
                                     style: {
                                         display: 'flex',
                                         gap: 16,
-                                        marginBottom: 24
+                                        marginBottom: 24,
+                                        background: '#232734',
+                                        borderRadius: 12,
+                                        padding: 24,
+                                        boxShadow: '0 2px 8px rgba(0,0,0,0.10)'
                                     },
                                     onSubmit: handleSubmit,
                                     children: [
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                            className: "flex flex-col flex-1",
+                                            style: {
+                                                display: 'flex',
+                                                flexDirection: 'column',
+                                                flex: 1
+                                            },
                                             children: [
+                                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("label", {
+                                                    htmlFor: "nombre",
+                                                    style: {
+                                                        color: '#fff',
+                                                        fontWeight: 500,
+                                                        marginBottom: 4
+                                                    },
+                                                    children: "Nombre del grado"
+                                                }, void 0, false, {
+                                                    fileName: "[project]/src/app/admin/grados/page.tsx",
+                                                    lineNumber: 252,
+                                                    columnNumber: 17
+                                                }, this),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
-                                                    className: "border p-2 rounded",
-                                                    placeholder: "Nombre del grado",
+                                                    id: "nombre",
                                                     name: "nombre",
                                                     value: form.nombre,
                                                     onChange: handleChange,
                                                     disabled: creating,
-                                                    autoComplete: "off"
+                                                    autoComplete: "off",
+                                                    placeholder: "Ej: 1° Básico",
+                                                    style: {
+                                                        marginBottom: 2,
+                                                        background: '#181A1B',
+                                                        color: '#fff',
+                                                        border: '1.5px solid #232527',
+                                                        borderRadius: 6,
+                                                        padding: '10px 14px',
+                                                        fontSize: 16,
+                                                        outline: 'none',
+                                                        boxShadow: 'none'
+                                                    },
+                                                    onFocus: (e)=>e.currentTarget.style.border = '1.5px solid #22c55e',
+                                                    onBlur: (e)=>e.currentTarget.style.border = '1.5px solid #232527'
                                                 }, void 0, false, {
                                                     fileName: "[project]/src/app/admin/grados/page.tsx",
-                                                    lineNumber: 189,
+                                                    lineNumber: 253,
                                                     columnNumber: 17
                                                 }, this),
                                                 fieldErrors.nombre && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
-                                                    className: "text-red-500 text-xs mt-1",
+                                                    style: {
+                                                        color: '#f87171',
+                                                        fontSize: 13
+                                                    },
                                                     children: fieldErrors.nombre
                                                 }, void 0, false, {
                                                     fileName: "[project]/src/app/admin/grados/page.tsx",
-                                                    lineNumber: 198,
+                                                    lineNumber: 275,
                                                     columnNumber: 40
                                                 }, this)
                                             ]
                                         }, void 0, true, {
                                             fileName: "[project]/src/app/admin/grados/page.tsx",
-                                            lineNumber: 188,
+                                            lineNumber: 251,
                                             columnNumber: 15
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                            className: "flex flex-col flex-1",
+                                            style: {
+                                                display: 'flex',
+                                                flexDirection: 'column',
+                                                flex: 1
+                                            },
                                             children: [
+                                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("label", {
+                                                    htmlFor: "seccion",
+                                                    style: {
+                                                        color: '#fff',
+                                                        fontWeight: 500,
+                                                        marginBottom: 4
+                                                    },
+                                                    children: "Sección"
+                                                }, void 0, false, {
+                                                    fileName: "[project]/src/app/admin/grados/page.tsx",
+                                                    lineNumber: 278,
+                                                    columnNumber: 17
+                                                }, this),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
-                                                    className: "border p-2 rounded",
-                                                    placeholder: "Sección",
+                                                    id: "seccion",
                                                     name: "seccion",
                                                     value: form.seccion,
                                                     onChange: handleChange,
                                                     disabled: creating,
-                                                    autoComplete: "off"
+                                                    autoComplete: "off",
+                                                    placeholder: "Ej: A",
+                                                    style: {
+                                                        marginBottom: 2,
+                                                        background: '#181A1B',
+                                                        color: '#fff',
+                                                        border: '1.5px solid #232527',
+                                                        borderRadius: 6,
+                                                        padding: '10px 14px',
+                                                        fontSize: 16,
+                                                        outline: 'none',
+                                                        boxShadow: 'none'
+                                                    },
+                                                    onFocus: (e)=>e.currentTarget.style.border = '1.5px solid #22c55e',
+                                                    onBlur: (e)=>e.currentTarget.style.border = '1.5px solid #232527'
                                                 }, void 0, false, {
                                                     fileName: "[project]/src/app/admin/grados/page.tsx",
-                                                    lineNumber: 201,
+                                                    lineNumber: 279,
                                                     columnNumber: 17
                                                 }, this),
                                                 fieldErrors.seccion && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
-                                                    className: "text-red-500 text-xs mt-1",
+                                                    style: {
+                                                        color: '#f87171',
+                                                        fontSize: 13
+                                                    },
                                                     children: fieldErrors.seccion
                                                 }, void 0, false, {
                                                     fileName: "[project]/src/app/admin/grados/page.tsx",
-                                                    lineNumber: 210,
+                                                    lineNumber: 301,
                                                     columnNumber: 41
                                                 }, this)
                                             ]
                                         }, void 0, true, {
                                             fileName: "[project]/src/app/admin/grados/page.tsx",
-                                            lineNumber: 200,
+                                            lineNumber: 277,
+                                            columnNumber: 15
+                                        }, this),
+                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                            style: {
+                                                display: 'flex',
+                                                flexDirection: 'column',
+                                                flex: 1
+                                            },
+                                            children: [
+                                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("label", {
+                                                    htmlFor: "sedeId",
+                                                    style: {
+                                                        color: '#fff',
+                                                        fontWeight: 500,
+                                                        marginBottom: 4
+                                                    },
+                                                    children: "Sede"
+                                                }, void 0, false, {
+                                                    fileName: "[project]/src/app/admin/grados/page.tsx",
+                                                    lineNumber: 304,
+                                                    columnNumber: 17
+                                                }, this),
+                                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("select", {
+                                                    id: "sedeId",
+                                                    name: "sedeId",
+                                                    value: form.sedeId,
+                                                    onChange: handleChange,
+                                                    disabled: creating,
+                                                    style: {
+                                                        marginBottom: 2,
+                                                        background: '#181A1B',
+                                                        color: '#fff',
+                                                        border: '1.5px solid #232527',
+                                                        borderRadius: 6,
+                                                        padding: '10px 14px',
+                                                        fontSize: 16,
+                                                        outline: 'none',
+                                                        boxShadow: 'none'
+                                                    },
+                                                    children: [
+                                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("option", {
+                                                            value: "",
+                                                            children: "Selecciona sede"
+                                                        }, void 0, false, {
+                                                            fileName: "[project]/src/app/admin/grados/page.tsx",
+                                                            lineNumber: 323,
+                                                            columnNumber: 19
+                                                        }, this),
+                                                        sedes.map((s)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("option", {
+                                                                value: s.id,
+                                                                children: s.nombre
+                                                            }, s.id, false, {
+                                                                fileName: "[project]/src/app/admin/grados/page.tsx",
+                                                                lineNumber: 325,
+                                                                columnNumber: 21
+                                                            }, this))
+                                                    ]
+                                                }, void 0, true, {
+                                                    fileName: "[project]/src/app/admin/grados/page.tsx",
+                                                    lineNumber: 305,
+                                                    columnNumber: 17
+                                                }, this),
+                                                fieldErrors.sedeId && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
+                                                    style: {
+                                                        color: '#f87171',
+                                                        fontSize: 13
+                                                    },
+                                                    children: fieldErrors.sedeId
+                                                }, void 0, false, {
+                                                    fileName: "[project]/src/app/admin/grados/page.tsx",
+                                                    lineNumber: 328,
+                                                    columnNumber: 40
+                                                }, this)
+                                            ]
+                                        }, void 0, true, {
+                                            fileName: "[project]/src/app/admin/grados/page.tsx",
+                                            lineNumber: 303,
+                                            columnNumber: 15
+                                        }, this),
+                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                            style: {
+                                                display: 'flex',
+                                                flexDirection: 'column',
+                                                flex: 1
+                                            },
+                                            children: [
+                                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("label", {
+                                                    htmlFor: "cicloId",
+                                                    style: {
+                                                        color: '#fff',
+                                                        fontWeight: 500,
+                                                        marginBottom: 4
+                                                    },
+                                                    children: "Ciclo"
+                                                }, void 0, false, {
+                                                    fileName: "[project]/src/app/admin/grados/page.tsx",
+                                                    lineNumber: 331,
+                                                    columnNumber: 17
+                                                }, this),
+                                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("select", {
+                                                    id: "cicloId",
+                                                    name: "cicloId",
+                                                    value: form.cicloId,
+                                                    onChange: handleChange,
+                                                    disabled: creating,
+                                                    style: {
+                                                        marginBottom: 2,
+                                                        background: '#181A1B',
+                                                        color: '#fff',
+                                                        border: '1.5px solid #232527',
+                                                        borderRadius: 6,
+                                                        padding: '10px 14px',
+                                                        fontSize: 16,
+                                                        outline: 'none',
+                                                        boxShadow: 'none'
+                                                    },
+                                                    children: [
+                                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("option", {
+                                                            value: "",
+                                                            children: "Selecciona ciclo"
+                                                        }, void 0, false, {
+                                                            fileName: "[project]/src/app/admin/grados/page.tsx",
+                                                            lineNumber: 350,
+                                                            columnNumber: 19
+                                                        }, this),
+                                                        ciclos.map((c)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("option", {
+                                                                value: c.id,
+                                                                children: c.nombre
+                                                            }, c.id, false, {
+                                                                fileName: "[project]/src/app/admin/grados/page.tsx",
+                                                                lineNumber: 352,
+                                                                columnNumber: 21
+                                                            }, this))
+                                                    ]
+                                                }, void 0, true, {
+                                                    fileName: "[project]/src/app/admin/grados/page.tsx",
+                                                    lineNumber: 332,
+                                                    columnNumber: 17
+                                                }, this),
+                                                fieldErrors.cicloId && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
+                                                    style: {
+                                                        color: '#f87171',
+                                                        fontSize: 13
+                                                    },
+                                                    children: fieldErrors.cicloId
+                                                }, void 0, false, {
+                                                    fileName: "[project]/src/app/admin/grados/page.tsx",
+                                                    lineNumber: 355,
+                                                    columnNumber: 41
+                                                }, this)
+                                            ]
+                                        }, void 0, true, {
+                                            fileName: "[project]/src/app/admin/grados/page.tsx",
+                                            lineNumber: 330,
+                                            columnNumber: 15
+                                        }, this),
+                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                            style: {
+                                                display: 'flex',
+                                                flexDirection: 'column',
+                                                flex: 1
+                                            },
+                                            children: [
+                                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("label", {
+                                                    htmlFor: "aulaId",
+                                                    style: {
+                                                        color: '#fff',
+                                                        fontWeight: 500,
+                                                        marginBottom: 4
+                                                    },
+                                                    children: "Aula (opcional)"
+                                                }, void 0, false, {
+                                                    fileName: "[project]/src/app/admin/grados/page.tsx",
+                                                    lineNumber: 358,
+                                                    columnNumber: 17
+                                                }, this),
+                                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("select", {
+                                                    id: "aulaId",
+                                                    name: "aulaId",
+                                                    value: form.aulaId,
+                                                    onChange: handleChange,
+                                                    disabled: creating,
+                                                    style: {
+                                                        marginBottom: 2,
+                                                        background: '#181A1B',
+                                                        color: '#fff',
+                                                        border: '1.5px solid #232527',
+                                                        borderRadius: 6,
+                                                        padding: '10px 14px',
+                                                        fontSize: 16,
+                                                        outline: 'none',
+                                                        boxShadow: 'none'
+                                                    },
+                                                    children: [
+                                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("option", {
+                                                            value: "",
+                                                            children: "Sin aula asignada"
+                                                        }, void 0, false, {
+                                                            fileName: "[project]/src/app/admin/grados/page.tsx",
+                                                            lineNumber: 377,
+                                                            columnNumber: 19
+                                                        }, this),
+                                                        aulas.map((a)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("option", {
+                                                                value: a.id,
+                                                                children: a.nombre
+                                                            }, a.id, false, {
+                                                                fileName: "[project]/src/app/admin/grados/page.tsx",
+                                                                lineNumber: 379,
+                                                                columnNumber: 21
+                                                            }, this))
+                                                    ]
+                                                }, void 0, true, {
+                                                    fileName: "[project]/src/app/admin/grados/page.tsx",
+                                                    lineNumber: 359,
+                                                    columnNumber: 17
+                                                }, this)
+                                            ]
+                                        }, void 0, true, {
+                                            fileName: "[project]/src/app/admin/grados/page.tsx",
+                                            lineNumber: 357,
                                             columnNumber: 15
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
-                                            className: "bg-blue-500 text-white rounded p-2",
+                                            style: {
+                                                background: creating ? '#2563eb99' : '#2563eb',
+                                                color: '#fff',
+                                                borderRadius: 6,
+                                                padding: '10px 24px',
+                                                fontWeight: 700,
+                                                border: 'none',
+                                                cursor: creating ? 'not-allowed' : 'pointer',
+                                                marginTop: 24,
+                                                minWidth: 120
+                                            },
                                             type: "submit",
-                                            disabled: creating || !!fieldErrors.nombre || !!fieldErrors.seccion,
+                                            disabled: creating || !!fieldErrors.nombre || !!fieldErrors.seccion || !!fieldErrors.sedeId || !!fieldErrors.cicloId || !form.nombre.trim() || !form.seccion.trim(),
+                                            "aria-disabled": creating || !!fieldErrors.nombre || !!fieldErrors.seccion || !!fieldErrors.sedeId || !!fieldErrors.cicloId || !form.nombre.trim() || !form.seccion.trim(),
                                             children: creating ? editingId ? 'Guardando...' : 'Guardando...' : editingId ? 'Guardar cambios' : 'Guardar'
                                         }, void 0, false, {
                                             fileName: "[project]/src/app/admin/grados/page.tsx",
-                                            lineNumber: 212,
+                                            lineNumber: 383,
                                             columnNumber: 15
                                         }, this),
                                         editingId && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
                                             type: "button",
-                                            className: "bg-gray-400 text-white rounded p-2",
+                                            style: {
+                                                background: '#888',
+                                                color: '#fff',
+                                                borderRadius: 6,
+                                                padding: '10px 24px',
+                                                fontWeight: 700,
+                                                border: 'none',
+                                                marginTop: 24,
+                                                minWidth: 120
+                                            },
                                             onClick: ()=>{
                                                 setEditingId(null);
                                                 setForm({
                                                     nombre: '',
-                                                    seccion: ''
+                                                    seccion: '',
+                                                    sedeId: '',
+                                                    cicloId: '',
+                                                    aulaId: ''
                                                 });
                                                 setError('');
+                                                setSuccess('');
                                             },
                                             disabled: creating,
+                                            "aria-disabled": creating,
                                             children: "Cancelar"
                                         }, void 0, false, {
                                             fileName: "[project]/src/app/admin/grados/page.tsx",
-                                            lineNumber: 216,
+                                            lineNumber: 402,
                                             columnNumber: 17
                                         }, this)
                                     ]
                                 }, void 0, true, {
                                     fileName: "[project]/src/app/admin/grados/page.tsx",
-                                    lineNumber: 187,
+                                    lineNumber: 239,
                                     columnNumber: 13
                                 }, this),
                                 error && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                                     style: {
-                                        color: 'red',
-                                        marginBottom: 12
+                                        color: '#f87171',
+                                        marginBottom: 12,
+                                        fontWeight: 500
                                     },
                                     children: error
                                 }, void 0, false, {
                                     fileName: "[project]/src/app/admin/grados/page.tsx",
-                                    lineNumber: 221,
+                                    lineNumber: 423,
                                     columnNumber: 23
+                                }, this),
+                                success && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                    style: {
+                                        color: '#22c55e',
+                                        marginBottom: 12,
+                                        fontWeight: 500
+                                    },
+                                    children: success
+                                }, void 0, false, {
+                                    fileName: "[project]/src/app/admin/grados/page.tsx",
+                                    lineNumber: 424,
+                                    columnNumber: 25
                                 }, this)
                             ]
                         }, void 0, true, {
                             fileName: "[project]/src/app/admin/grados/page.tsx",
-                            lineNumber: 184,
+                            lineNumber: 236,
                             columnNumber: 11
                         }, this),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -624,7 +1004,7 @@ function AdminGradosPage() {
                                     children: "Listado de Grados y Secciones"
                                 }, void 0, false, {
                                     fileName: "[project]/src/app/admin/grados/page.tsx",
-                                    lineNumber: 224,
+                                    lineNumber: 427,
                                     columnNumber: 13
                                 }, this),
                                 loading ? /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -636,7 +1016,7 @@ function AdminGradosPage() {
                                     children: "Cargando grados..."
                                 }, void 0, false, {
                                     fileName: "[project]/src/app/admin/grados/page.tsx",
-                                    lineNumber: 226,
+                                    lineNumber: 429,
                                     columnNumber: 15
                                 }, this) : /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("table", {
                                     className: __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$styles$2f$admin$2d$dashboard$2e$module$2e$css__$5b$app$2d$ssr$5d$__$28$css__module$29$__["default"].activityTable,
@@ -648,32 +1028,32 @@ function AdminGradosPage() {
                                                         children: "Grado"
                                                     }, void 0, false, {
                                                         fileName: "[project]/src/app/admin/grados/page.tsx",
-                                                        lineNumber: 231,
+                                                        lineNumber: 434,
                                                         columnNumber: 21
                                                     }, this),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("th", {
                                                         children: "Sección"
                                                     }, void 0, false, {
                                                         fileName: "[project]/src/app/admin/grados/page.tsx",
-                                                        lineNumber: 232,
+                                                        lineNumber: 435,
                                                         columnNumber: 21
                                                     }, this),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("th", {
                                                         children: "Acciones"
                                                     }, void 0, false, {
                                                         fileName: "[project]/src/app/admin/grados/page.tsx",
-                                                        lineNumber: 233,
+                                                        lineNumber: 436,
                                                         columnNumber: 21
                                                     }, this)
                                                 ]
                                             }, void 0, true, {
                                                 fileName: "[project]/src/app/admin/grados/page.tsx",
-                                                lineNumber: 230,
+                                                lineNumber: 433,
                                                 columnNumber: 19
                                             }, this)
                                         }, void 0, false, {
                                             fileName: "[project]/src/app/admin/grados/page.tsx",
-                                            lineNumber: 229,
+                                            lineNumber: 432,
                                             columnNumber: 17
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("tbody", {
@@ -688,12 +1068,12 @@ function AdminGradosPage() {
                                                     children: "Sin grados registrados"
                                                 }, void 0, false, {
                                                     fileName: "[project]/src/app/admin/grados/page.tsx",
-                                                    lineNumber: 238,
+                                                    lineNumber: 441,
                                                     columnNumber: 25
                                                 }, this)
                                             }, void 0, false, {
                                                 fileName: "[project]/src/app/admin/grados/page.tsx",
-                                                lineNumber: 238,
+                                                lineNumber: 441,
                                                 columnNumber: 21
                                             }, this) : grados.map((g, idx)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("tr", {
                                                     children: [
@@ -702,7 +1082,7 @@ function AdminGradosPage() {
                                                             children: g.nombre
                                                         }, void 0, false, {
                                                             fileName: "[project]/src/app/admin/grados/page.tsx",
-                                                            lineNumber: 242,
+                                                            lineNumber: 445,
                                                             columnNumber: 25
                                                         }, this),
                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("td", {
@@ -710,7 +1090,7 @@ function AdminGradosPage() {
                                                             children: g.seccion
                                                         }, void 0, false, {
                                                             fileName: "[project]/src/app/admin/grados/page.tsx",
-                                                            lineNumber: 243,
+                                                            lineNumber: 446,
                                                             columnNumber: 25
                                                         }, this),
                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("td", {
@@ -725,7 +1105,7 @@ function AdminGradosPage() {
                                                                     children: "Editar"
                                                                 }, void 0, false, {
                                                                     fileName: "[project]/src/app/admin/grados/page.tsx",
-                                                                    lineNumber: 245,
+                                                                    lineNumber: 448,
                                                                     columnNumber: 27
                                                                 }, this),
                                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
@@ -736,53 +1116,53 @@ function AdminGradosPage() {
                                                                     children: "Eliminar"
                                                                 }, void 0, false, {
                                                                     fileName: "[project]/src/app/admin/grados/page.tsx",
-                                                                    lineNumber: 246,
+                                                                    lineNumber: 449,
                                                                     columnNumber: 27
                                                                 }, this)
                                                             ]
                                                         }, void 0, true, {
                                                             fileName: "[project]/src/app/admin/grados/page.tsx",
-                                                            lineNumber: 244,
+                                                            lineNumber: 447,
                                                             columnNumber: 25
                                                         }, this)
                                                     ]
                                                 }, g.id || idx, true, {
                                                     fileName: "[project]/src/app/admin/grados/page.tsx",
-                                                    lineNumber: 241,
+                                                    lineNumber: 444,
                                                     columnNumber: 23
                                                 }, this))
                                         }, void 0, false, {
                                             fileName: "[project]/src/app/admin/grados/page.tsx",
-                                            lineNumber: 236,
+                                            lineNumber: 439,
                                             columnNumber: 17
                                         }, this)
                                     ]
                                 }, void 0, true, {
                                     fileName: "[project]/src/app/admin/grados/page.tsx",
-                                    lineNumber: 228,
+                                    lineNumber: 431,
                                     columnNumber: 15
                                 }, this)
                             ]
                         }, void 0, true, {
                             fileName: "[project]/src/app/admin/grados/page.tsx",
-                            lineNumber: 223,
+                            lineNumber: 426,
                             columnNumber: 11
                         }, this)
                     ]
                 }, void 0, true, {
                     fileName: "[project]/src/app/admin/grados/page.tsx",
-                    lineNumber: 181,
+                    lineNumber: 233,
                     columnNumber: 9
                 }, this)
             ]
         }, void 0, true, {
             fileName: "[project]/src/app/admin/grados/page.tsx",
-            lineNumber: 160,
+            lineNumber: 212,
             columnNumber: 7
         }, this)
     }, void 0, false, {
         fileName: "[project]/src/app/admin/grados/page.tsx",
-        lineNumber: 159,
+        lineNumber: 211,
         columnNumber: 5
     }, this);
 }

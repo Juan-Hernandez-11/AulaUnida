@@ -9,7 +9,7 @@ import styles from '../../styles/admin-dashboard.module.css';
 const metricsLabels = [
   { label: 'Usuarios Activos', key: 'usuariosActivos' },
   { label: 'Grados Registrados', key: 'gradosRegistrados' },
-  { label: 'Anuncios Recientes', key: 'anunciosRecientes' },
+  // { label: 'Anuncios Recientes', key: 'anunciosRecientes' },
 ];
 
 const sidebarLinks = [
@@ -20,9 +20,9 @@ const sidebarLinks = [
   { label: 'Matrícula', icon: ClipboardIcon, href: '/admin/matricula' },
   { label: 'Ciclos Lectivos', icon: CalendarIcon, href: '/admin/ciclos' },
   { label: 'Reportes', icon: ChartBarIcon, href: '/admin/reportes' },
-  { label: 'Anuncios', icon: MegaphoneIcon, href: '/admin/anuncios' },
+  // { label: 'Anuncios', icon: MegaphoneIcon, href: '/admin/anuncios' },
   { label: 'Configuración', icon: Cog6ToothIcon, href: '/admin/configuracion' },
-  { label: 'Ayuda/FAQs', icon: QuestionMarkCircleIcon, href: '/admin/faqs' },
+  // { label: 'Ayuda/FAQs', icon: QuestionMarkCircleIcon, href: '/admin/faqs' },
     { label: 'Crear Usuario', icon: UserCircleIcon, href: '/admin/usuarios' },
     { label: 'Listado de usuarios', icon: UserCircleIcon, href: '/admin/usuarios/listado' },
 ];

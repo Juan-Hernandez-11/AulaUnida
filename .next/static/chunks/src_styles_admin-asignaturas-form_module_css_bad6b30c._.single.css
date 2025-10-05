@@ -1,0 +1,74 @@
+/* [project]/src/styles/admin-asignaturas-form.module.css [app-client] (css) */
+.admin-asignaturas-form-module__EAFHQG__formBox {
+  flex-direction: column;
+  gap: 18px;
+  width: 100%;
+  display: flex;
+}
+
+.admin-asignaturas-form-module__EAFHQG__field {
+  flex-direction: column;
+  gap: 4px;
+  display: flex;
+}
+
+.admin-asignaturas-form-module__EAFHQG__label {
+  color: #b0b3b8;
+  font-weight: 500;
+}
+
+.admin-asignaturas-form-module__EAFHQG__input, .admin-asignaturas-form-module__EAFHQG__select {
+  color: #fff;
+  box-shadow: none;
+  background: #181a1b;
+  border: 1.5px solid #232527;
+  border-radius: 6px;
+  outline: none;
+  width: 100%;
+  padding: 10px 14px;
+  font-size: 16px;
+  transition: border .2s;
+}
+
+.admin-asignaturas-form-module__EAFHQG__input:focus, .admin-asignaturas-form-module__EAFHQG__select:focus {
+  border: 1.5px solid #22c55e;
+}
+
+.admin-asignaturas-form-module__EAFHQG__select[multiple] {
+  min-height: 48px;
+  max-height: 120px;
+  overflow-y: auto;
+}
+
+.admin-asignaturas-form-module__EAFHQG__buttonBox {
+  justify-content: flex-end;
+  margin-top: 12px;
+  display: flex;
+}
+
+.admin-asignaturas-form-module__EAFHQG__saveButton {
+  color: #181a1b;
+  cursor: pointer;
+  min-width: 120px;
+  box-shadow: none;
+  background: #22d3ee;
+  border: none;
+  border-radius: 6px;
+  padding: 10px 24px;
+  font-size: 16px;
+  font-weight: 700;
+  transition: background .2s;
+}
+
+.admin-asignaturas-form-module__EAFHQG__saveButton:disabled {
+  cursor: not-allowed;
+  background: rgba(34, 211, 238, .6);
+}
+
+.admin-asignaturas-form-module__EAFHQG__error {
+  color: #ef4444;
+  margin-top: 2px;
+  font-size: 12px;
+}
+
+/*# sourceMappingURL=src_styles_admin-asignaturas-form_module_css_bad6b30c._.single.css.map*/

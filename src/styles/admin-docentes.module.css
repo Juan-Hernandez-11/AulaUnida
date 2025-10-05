@@ -1,0 +1,107 @@
+.admin-docentes-root {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 2rem 1rem;
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 2px 12px 0 rgba(0,0,0,0.07);
+}
+.admin-docentes-form {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 1rem 2rem;
+  margin-bottom: 1.5rem;
+}
+.admin-docentes-form > div {
+  display: flex;
+  flex-direction: column;
+}
+.admin-docentes-form label {
+  font-weight: 500;
+  margin-bottom: 0.3rem;
+}
+.admin-docentes-form input,
+.admin-docentes-form select {
+  padding: 0.5rem 0.7rem;
+  border: 1px solid #d1d5db;
+  border-radius: 6px;
+  font-size: 1rem;
+  background: #f9fafb;
+  transition: border 0.2s;
+}
+.admin-docentes-form input:focus,
+.admin-docentes-form select:focus {
+  border-color: #2563eb;
+  outline: none;
+}
+.admin-docentes-form .error {
+  color: #dc2626;
+  font-size: 0.92em;
+  margin-top: 0.1rem;
+}
+.admin-docentes-form button {
+  grid-column: span 2;
+  padding: 0.6rem 1.2rem;
+  background: #2563eb;
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  font-weight: 600;
+  cursor: pointer;
+  margin-top: 0.5rem;
+  transition: background 0.2s;
+}
+.admin-docentes-form button[disabled] {
+  background: #a5b4fc;
+  cursor: not-allowed;
+}
+.error-message {
+  color: #dc2626;
+  margin-top: 0.5rem;
+  grid-column: span 2;
+}
+.success-message {
+  color: #16a34a;
+  margin-top: 0.5rem;
+  grid-column: span 2;
+}
+.admin-docentes-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 1rem;
+  background: #f9fafb;
+  border-radius: 8px;
+  overflow: hidden;
+}
+.admin-docentes-table th,
+.admin-docentes-table td {
+  padding: 0.7rem 0.5rem;
+  border-bottom: 1px solid #e5e7eb;
+  text-align: left;
+}
+.admin-docentes-table th {
+  background: #2563eb;
+  color: #fff;
+  font-weight: 600;
+}
+.admin-docentes-table tr:last-child td {
+  border-bottom: none;
+}
+.admin-docentes-table button {
+  margin-right: 0.5rem;
+  padding: 0.3rem 0.8rem;
+  border: none;
+  border-radius: 4px;
+  background: #2563eb;
+  color: #fff;
+  font-size: 0.97em;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+.admin-docentes-table button:last-child {
+  background: #dc2626;
+}
+.admin-docentes-table button[disabled] {
+  background: #a5b4fc;
+  cursor: not-allowed;
+}

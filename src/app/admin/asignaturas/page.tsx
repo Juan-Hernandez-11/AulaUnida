@@ -1,8 +1,9 @@
 "use client";
 
-import { useState, ChangeEvent, FormEvent } from 'react';
+import { useState, ChangeEvent, FormEvent, useEffect, useRef } from 'react';
 import ProtectedRoute from '../../../components/ProtectedRoute';
 import styles from '../../../styles/admin-dashboard.module.css';
+import formStyles from '../../../styles/admin-asignaturas-form.module.css';
 import { UserCircleIcon, AcademicCapIcon, ClipboardIcon, BookOpenIcon } from '@heroicons/react/24/outline';
 import NextLink from '../../../components/NextLink';
 
@@ -24,6 +25,12 @@ interface Grado {
   nombre: string;
   seccion: string;
 }
+
+interface Asignacion {
+  gradoId: number;
+  docenteId: number;
+  periodoId?: number;
+}
 interface Docente {
   id: number;
   name: string;
@@ -33,9 +40,8 @@ interface Asignatura {
   nombre: string;
   area: string;
   codigo: string;
-  gradoId: number;
+  grados: Grado[];
   docenteId?: number;
-  grado?: Grado;
   docente?: Docente;
 }
 
@@ -53,14 +59,44 @@ export default function AdminAsignaturasPage() {
   const [grados, setGrados] = useState<Grado[]>([]);
   const [docentes, setDocentes] = useState<Docente[]>([]);
   const [loading, setLoading] = useState(true);
-  const [form, setForm] = useState({ nombre: '', area: '', codigo: '', gradoId: '', docenteId: '' });
+  const [form, setForm] = useState<{ nombre: string; area: string; codigo: string; gradoIds: string[]; asignaciones: Asignacion[] }>({ nombre: '', area: '', codigo: '', gradoIds: [], asignaciones: [] });
   const [editingId, setEditingId] = useState<number | null>(null);
   const [creating, setCreating] = useState(false);
   const [error, setError] = useState('');
+  const [success, setSuccess] = useState('');
+  const tableRef = useRef<HTMLTableElement | null>(null);
+  const [lastCreatedId, setLastCreatedId] = useState<number | null>(null);
   // Estado para errores de validación en tiempo real
-  const [fieldErrors, setFieldErrors] = useState<{ nombre?: string; area?: string; codigo?: string; gradoId?: string }>({});
+  const [fieldErrors, setFieldErrors] = useState<{ nombre?: string; area?: string; codigo?: string; gradoIds?: string }>({});
 
-  // Cargar datos manualmente cuando sea necesario (ejemplo: con un botón o tras crear/editar)
+  // Cargar docentes al montar el componente y después de crear/editar
+  const fetchDocentes = async () => {
+    try {
+      const res = await fetch('/api/admin/docentes');
+      if (res.ok) {
+        const data = await res.json();
+        if (Array.isArray(data)) setDocentes(data);
+      }
+    } catch {}
+  };
+
+  // Cargar asignaturas al montar y después de crear/editar
+  const fetchAsignaturas = async () => {
+    setLoading(true);
+    try {
+      const res = await fetch('/api/admin/asignaturas');
+      if (res.ok) {
+        const data = await res.json();
+        if (Array.isArray(data)) setAsignaturas(data);
+      }
+    } catch {}
+    setLoading(false);
+  };
+
+  useEffect(() => {
+    fetchDocentes();
+    fetchAsignaturas();
+  }, []);
 
   // Validación en tiempo real
   const validateField = (name: string, value: string) => {
@@ -76,16 +112,33 @@ export default function AdminAsignaturasPage() {
       if (!value.trim()) error = 'El código es obligatorio.';
       else if (value.length < 2) error = 'Debe tener al menos 2 caracteres.';
     }
-    if (name === 'gradoId') {
-      if (!value.trim()) error = 'Debes seleccionar un grado.';
+    if (name === 'gradoIds') {
+      if (!value.trim()) error = 'Debes seleccionar al menos un grado.';
     }
     return error;
   };
 
   const handleChange = (e: ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
-    const { name, value } = e.target;
-    setForm({ ...form, [name]: value });
-    setFieldErrors(prev => ({ ...prev, [name]: validateField(name, value) }));
+    const { name, value, multiple, options } = e.target as HTMLSelectElement;
+    if (multiple) {
+      const values = Array.from(options).filter(o => o.selected).map(o => o.value);
+      setForm({ ...form, [name]: values });
+      setFieldErrors(prev => ({ ...prev, [name]: validateField(name, values.join(',')) }));
+    } else {
+      setForm({ ...form, [name]: value });
+      setFieldErrors(prev => ({ ...prev, [name]: validateField(name, value) }));
+    }
+  };
+
+  // Maneja el cambio de docente para un grado específico
+  const handleDocenteChange = (gradoId: number, docenteId: string) => {
+    setForm(prev => {
+      const asignaciones = prev.asignaciones.filter(a => a.gradoId !== gradoId);
+      if (docenteId) {
+        asignaciones.push({ gradoId, docenteId: Number(docenteId) });
+      }
+      return { ...prev, asignaciones };
+    });
   };
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
@@ -97,47 +150,63 @@ export default function AdminAsignaturasPage() {
       nombre: validateField('nombre', form.nombre),
       area: validateField('area', form.area),
       codigo: validateField('codigo', form.codigo),
-      gradoId: validateField('gradoId', form.gradoId),
+      gradoIds: validateField('gradoIds', form.gradoIds.join(',')),
     };
     setFieldErrors(newErrors);
-    if (newErrors.nombre || newErrors.area || newErrors.codigo || newErrors.gradoId) {
+    if (newErrors.nombre || newErrors.area || newErrors.codigo || newErrors.gradoIds) {
       setError('Por favor corrige los errores antes de guardar.');
       setCreating(false);
       return;
     }
     try {
+      const payload = {
+        nombre: form.nombre,
+        area: form.area,
+        codigo: form.codigo,
+        gradoIds: form.gradoIds.map(Number),
+        asignaciones: form.asignaciones
+      };
       if (editingId) {
         const res = await fetch('/api/admin/asignaturas', {
           method: 'PUT',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ id: editingId, ...form, gradoId: Number(form.gradoId), docenteId: form.docenteId ? Number(form.docenteId) : undefined }),
+          body: JSON.stringify({ id: editingId, ...payload }),
         });
         if (!res.ok) {
           const data = await res.json();
           setError(data.error || 'Error al editar asignatura');
+          setSuccess('');
         } else {
           const updated = await res.json();
-          setAsignaturas(prev => prev.map(a => a.id === updated.id ? updated : a));
-          setForm({ nombre: '', area: '', codigo: '', gradoId: '', docenteId: '' });
+          setForm({ nombre: '', area: '', codigo: '', gradoIds: [], asignaciones: [] });
           setEditingId(null);
+          setSuccess('Asignatura actualizada correctamente.');
+          setLastCreatedId(updated.id);
+          await fetchDocentes();
+          await fetchAsignaturas();
         }
       } else {
         const res = await fetch('/api/admin/asignaturas', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ ...form, gradoId: Number(form.gradoId), docenteId: form.docenteId ? Number(form.docenteId) : undefined }),
+          body: JSON.stringify(payload),
         });
         if (!res.ok) {
           const data = await res.json();
           setError(data.error || 'Error al crear asignatura');
+          setSuccess('');
         } else {
           const nueva = await res.json();
-          setAsignaturas(prev => [...prev, nueva]);
-          setForm({ nombre: '', area: '', codigo: '', gradoId: '', docenteId: '' });
+          setForm({ nombre: '', area: '', codigo: '', gradoIds: [], asignaciones: [] });
+          setSuccess('Asignatura creada correctamente.');
+          setLastCreatedId(nueva.id);
+          await fetchDocentes();
+          await fetchAsignaturas();
         }
       }
     } catch {
       setError('Error de red');
+      setSuccess('');
     }
     setCreating(false);
   };
@@ -166,12 +235,25 @@ export default function AdminAsignaturasPage() {
       nombre: asig.nombre,
       area: asig.area,
       codigo: asig.codigo,
-      gradoId: String(asig.gradoId),
-      docenteId: asig.docenteId ? String(asig.docenteId) : '',
+      gradoIds: asig.grados ? asig.grados.map(g => String(g.id)) : [],
+      asignaciones: asig.grados
+        ? asig.grados
+            .filter(g => Array.isArray((g as any).docentes) && (g as any).docentes.length > 0)
+            .map(g => ({ gradoId: g.id, docenteId: (g as any).docentes[0].id }))
+        : [],
     });
     setEditingId(asig.id);
     setError('');
   };
+
+  // Cargar grados al montar el componente
+  useEffect(() => {
+    fetch('/api/admin/grados')
+      .then(r => r.json())
+      .then(data => {
+        if (Array.isArray(data)) setGrados(data);
+      });
+  }, []);
 
   // --- LAYOUT VISUAL MODERNO Y CONSISTENTE ---
   // Se agrega el sidebar y layout del dashboard admin, manteniendo tu lógica y comentarios intactos.
@@ -203,50 +285,113 @@ export default function AdminAsignaturasPage() {
           <h1 className={styles.title}>Gestión de Asignaturas</h1>
           <div className={styles.activityCard}>
             <h2 className={styles.activityTitle}>{editingId ? 'Editar Asignatura' : 'Crear Asignatura'}</h2>
-            {/* Formulario de creación/edición de asignatura */}
-            <form style={{ display: 'flex', gap: 16, marginBottom: 24 }} onSubmit={handleSubmit}>
-              <div className="flex flex-col flex-1">
-                <input className="border p-2 rounded" placeholder="Nombre" name="nombre" value={form.nombre} onChange={handleChange} disabled={creating} autoComplete="off" />
-                {fieldErrors.nombre && <span className="text-red-500 text-xs mt-1">{fieldErrors.nombre}</span>}
+            <form className={formStyles.formBox} onSubmit={handleSubmit}>
+              <div className={formStyles.field}>
+                <label htmlFor="nombre" className={formStyles.label}>Nombre</label>
+                <input
+                  id="nombre"
+                  className={formStyles.input}
+                  placeholder="Nombre de la asignatura"
+                  name="nombre"
+                  value={form.nombre}
+                  onChange={handleChange}
+                  disabled={creating}
+                  autoComplete="off"
+                />
+                {fieldErrors.nombre && <span className={formStyles.error}>{fieldErrors.nombre}</span>}
               </div>
-              <div className="flex flex-col flex-1">
-                <input className="border p-2 rounded" placeholder="Área" name="area" value={form.area} onChange={handleChange} disabled={creating} autoComplete="off" />
-                {fieldErrors.area && <span className="text-red-500 text-xs mt-1">{fieldErrors.area}</span>}
+              <div className={formStyles.field}>
+                <label htmlFor="area" className={formStyles.label}>Área</label>
+                <input
+                  id="area"
+                  className={formStyles.input}
+                  placeholder="Área de la asignatura"
+                  name="area"
+                  value={form.area}
+                  onChange={handleChange}
+                  disabled={creating}
+                  autoComplete="off"
+                />
+                {fieldErrors.area && <span className={formStyles.error}>{fieldErrors.area}</span>}
               </div>
-              <div className="flex flex-col flex-1">
-                <input className="border p-2 rounded" placeholder="Código" name="codigo" value={form.codigo} onChange={handleChange} disabled={creating} autoComplete="off" />
-                {fieldErrors.codigo && <span className="text-red-500 text-xs mt-1">{fieldErrors.codigo}</span>}
+              <div className={formStyles.field}>
+                <label htmlFor="codigo" className={formStyles.label}>Código</label>
+                <input
+                  id="codigo"
+                  className={formStyles.input}
+                  placeholder="Código de la asignatura"
+                  name="codigo"
+                  value={form.codigo}
+                  onChange={handleChange}
+                  disabled={creating}
+                  autoComplete="off"
+                />
+                {fieldErrors.codigo && <span className={formStyles.error}>{fieldErrors.codigo}</span>}
               </div>
-              <div className="flex flex-col flex-1">
-                <select className="border p-2 rounded" name="gradoId" value={form.gradoId} onChange={handleChange} disabled={creating}>
-                  <option value="">Selecciona grado</option>
-                  {grados.map(g => <option key={g.id} value={g.id}>{g.nombre} {g.seccion}</option>)}
+              <div className={formStyles.field}>
+                <label htmlFor="gradoIds" className={formStyles.label}>Grados</label>
+                <select
+                  id="gradoIds"
+                  multiple
+                  className={formStyles.select}
+                  name="gradoIds"
+                  value={form.gradoIds}
+                  onChange={handleChange}
+                  disabled={creating}
+                >
+                  {grados.length === 0 ? (
+                    <option value="" disabled>No hay grados disponibles</option>
+                  ) : (
+                    grados.map(g => <option key={g.id} value={g.id}>{g.nombre} {g.seccion}</option>)
+                  )}
                 </select>
-                {fieldErrors.gradoId && <span className="text-red-500 text-xs mt-1">{fieldErrors.gradoId}</span>}
+                {fieldErrors.gradoIds && <span className={formStyles.error}>{fieldErrors.gradoIds}</span>}
               </div>
-              <div className="flex flex-col flex-1">
-                <select className="border p-2 rounded" name="docenteId" value={form.docenteId} onChange={handleChange} disabled={creating}>
-                  <option value="">Sin docente asignado</option>
-                  {docentes.map(d => <option key={d.id} value={d.id}>{d.name}</option>)}
-                </select>
+              <div className={formStyles.field}>
+                <label className={formStyles.label}>Docente por grado</label>
+                {form.gradoIds.length === 0 ? (
+                  <div style={{ color: '#888', fontSize: 14 }}>Selecciona al menos un grado</div>
+                ) : (
+                  form.gradoIds.map(gradoId => (
+                    <div key={gradoId} style={{ marginBottom: 8 }}>
+                      <span style={{ fontWeight: 500 }}>{grados.find(g => String(g.id) === gradoId)?.nombre} {grados.find(g => String(g.id) === gradoId)?.seccion}</span>
+                      <select
+                        className={formStyles.select}
+                        value={form.asignaciones.find(a => a.gradoId === Number(gradoId))?.docenteId || ''}
+                        onChange={e => handleDocenteChange(Number(gradoId), e.target.value)}
+                        disabled={creating}
+                      >
+                        <option value="">Sin docente asignado</option>
+                        {docentes.map(d => <option key={d.id} value={d.id}>{d.name}</option>)}
+                      </select>
+                    </div>
+                  ))
+                )}
               </div>
-              <button className="bg-blue-500 text-white rounded p-2" type="submit" disabled={creating || !!fieldErrors.nombre || !!fieldErrors.area || !!fieldErrors.codigo || !!fieldErrors.gradoId}>
-                {creating ? (editingId ? 'Guardando...' : 'Guardando...') : (editingId ? 'Guardar cambios' : 'Guardar')}
-              </button>
-              {editingId && (
-                <button type="button" className="bg-gray-400 text-white rounded p-2" onClick={() => { setEditingId(null); setForm({ nombre: '', area: '', codigo: '', gradoId: '', docenteId: '' }); setError(''); }} disabled={creating}>
-                  Cancelar
+              <div className={formStyles.buttonBox}>
+                <button
+                  type="submit"
+                  className={formStyles.saveButton}
+                  disabled={creating || !!fieldErrors.nombre || !!fieldErrors.area || !!fieldErrors.codigo || !!fieldErrors.gradoIds}
+                >
+                  {creating ? (editingId ? 'Guardando...' : 'Guardando...') : (editingId ? 'Guardar cambios' : 'Guardar')}
                 </button>
-              )}
+                {editingId && (
+                  <button type="button" className="bg-gray-400 text-white rounded p-2" onClick={() => { setEditingId(null); setForm({ nombre: '', area: '', codigo: '', gradoIds: [], asignaciones: [] }); setError(''); }} disabled={creating}>
+                    Cancelar
+                  </button>
+                )}
+              </div>
             </form>
             {error && <div style={{ color: 'red', marginBottom: 12 }}>{error}</div>}
           </div>
           <div className={styles.activityCard}>
             <h2 className={styles.activityTitle}>Listado de Asignaturas</h2>
+            {success && <div style={{ color: 'green', marginBottom: 12 }}>{success}</div>}
             {loading ? (
               <div style={{ padding: '2rem', textAlign: 'center', color: '#B0B3B8' }}>Cargando asignaturas...</div>
             ) : (
-              <table className={styles.activityTable}>
+              <table className={styles.activityTable} ref={tableRef}>
                 <thead>
                   <tr>
                     <th>Nombre</th>
@@ -262,12 +407,23 @@ export default function AdminAsignaturasPage() {
                     <tr><td colSpan={6} style={{ padding: '2rem', textAlign: 'center', color: '#B0B3B8' }}>Sin asignaturas registradas</td></tr>
                   ) : (
                     asignaturas.map((a, idx) => (
-                      <tr key={a.id || idx}>
+                      <tr key={a.id || idx} style={lastCreatedId === a.id ? { background: '#e0ffe0', fontWeight: 600 } : {}}>
                         <td className={styles.activityUser}>{a.nombre}</td>
                         <td className={styles.activityAction}>{a.area}</td>
                         <td className={styles.activityAction}>{a.codigo}</td>
-                        <td className={styles.activityAction}>{a.grado ? `${a.grado.nombre} ${a.grado.seccion}` : '-'}</td>
-                        <td className={styles.activityAction}>{a.docente ? a.docente.name : '-'}</td>
+                        <td className={styles.activityAction}>
+                          {a.grados && a.grados.length > 0 ? (
+                            <ul style={{ margin: 0, padding: 0, listStyle: 'none' }}>
+                              {a.grados.map(g => (
+                                <li key={g.id}>
+                                  <strong>{g.nombre} {g.seccion}:</strong> {Array.isArray((g as any).docentes) && (g as any).docentes.length > 0
+                                    ? (g as any).docentes.map((d: any) => d.name).join(', ')
+                                    : <span style={{ color: '#888' }}>Sin docente</span>}
+                                </li>
+                              ))}
+                            </ul>
+                          ) : '-'}
+                        </td>
                         <td className={styles.activityAction}>
                           <button style={{ color: '#2563eb', marginRight: 8 }} onClick={() => handleEdit(a)}>Editar</button>
                           <button style={{ color: '#dc2626' }} onClick={() => handleDelete(a.id)}>Eliminar</button>

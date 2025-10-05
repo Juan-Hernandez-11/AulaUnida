@@ -1,0 +1,102 @@
+/* [project]/src/styles/docente-dashboard.module.css [app-client] (css) */
+.docente-dashboard-module__4EU89q__dashboardRoot {
+  background: var(--background-color, #1a1a1a);
+  min-height: 100vh;
+  color: var(--text-primary, #e0e0e0);
+  display: flex;
+}
+
+.docente-dashboard-module__4EU89q__sidebar {
+  background: #181c23;
+  flex-direction: column;
+  align-items: center;
+  width: 250px;
+  padding: 2rem 0;
+  display: flex;
+  box-shadow: 2px 0 8px rgba(0, 0, 0, .08);
+}
+
+.docente-dashboard-module__4EU89q__profile {
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 2rem;
+  display: flex;
+}
+
+.docente-dashboard-module__4EU89q__profileImg {
+  object-fit: cover;
+  border: 3px solid var(--primary-color, #38e07b);
+  border-radius: 50%;
+  width: 72px;
+  height: 72px;
+  margin-bottom: .5rem;
+}
+
+.docente-dashboard-module__4EU89q__profileName {
+  font-size: 1.1rem;
+  font-weight: 600;
+}
+
+.docente-dashboard-module__4EU89q__profileId {
+  color: var(--text-secondary, #a0a0a0);
+  font-size: .85rem;
+}
+
+.docente-dashboard-module__4EU89q__menu {
+  width: 100%;
+}
+
+.docente-dashboard-module__4EU89q__menuList {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.docente-dashboard-module__4EU89q__menuItem {
+  margin-bottom: 1rem;
+}
+
+.docente-dashboard-module__4EU89q__menuLink {
+  color: var(--text-primary, #e0e0e0);
+  background: var(--primary-color, #38e07b);
+  border-radius: 8px;
+  align-items: center;
+  padding: .75rem 2rem;
+  font-weight: 500;
+  text-decoration: none;
+  transition: background .2s;
+  display: flex;
+}
+
+.docente-dashboard-module__4EU89q__menuLink:active, .docente-dashboard-module__4EU89q__menuLink:focus {
+  background: var(--accent-color, #4ade80);
+}
+
+.docente-dashboard-module__4EU89q__main {
+  flex-direction: column;
+  flex: 1;
+  padding: 3rem 2rem;
+  display: flex;
+}
+
+.docente-dashboard-module__4EU89q__title {
+  margin-bottom: 2rem;
+  font-size: 2.2rem;
+  font-weight: 700;
+}
+
+.docente-dashboard-module__4EU89q__section {
+  background: #23272f;
+  border-radius: 16px;
+  margin-bottom: 2rem;
+  padding: 2rem;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, .1);
+}
+
+.docente-dashboard-module__4EU89q__sectionTitle {
+  margin-bottom: 1rem;
+  font-size: 1.3rem;
+  font-weight: 600;
+}
+
+/*# sourceMappingURL=src_styles_docente-dashboard_module_42ec7e03.css.map*/

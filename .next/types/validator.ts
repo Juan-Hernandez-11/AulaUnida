@@ -95,6 +95,12 @@ type RouteHandlerConfig<Route extends AppRouteHandlerRoutes = AppRouteHandlerRou
   handler satisfies AppPageConfig<"/admin/dashboard">
 }
 
+// Validate ../../src/app/admin/docentes/page.tsx
+{
+  const handler = {} as typeof import("../../src/app/admin/docentes/page.js")
+  handler satisfies AppPageConfig<"/admin/docentes">
+}
+
 // Validate ../../src/app/admin/faqs/page.tsx
 {
   const handler = {} as typeof import("../../src/app/admin/faqs/page.js")
@@ -161,6 +167,18 @@ type RouteHandlerConfig<Route extends AppRouteHandlerRoutes = AppRouteHandlerRou
   handler satisfies AppPageConfig<"/admin/usuarios">
 }
 
+// Validate ../../src/app/docente/notas/page.tsx
+{
+  const handler = {} as typeof import("../../src/app/docente/notas/page.js")
+  handler satisfies AppPageConfig<"/docente/notas">
+}
+
+// Validate ../../src/app/docente/page.tsx
+{
+  const handler = {} as typeof import("../../src/app/docente/page.js")
+  handler satisfies AppPageConfig<"/docente">
+}
+
 // Validate ../../src/app/login/page.tsx
 {
   const handler = {} as typeof import("../../src/app/login/page.js")
@@ -197,6 +215,18 @@ type RouteHandlerConfig<Route extends AppRouteHandlerRoutes = AppRouteHandlerRou
   handler satisfies RouteHandlerConfig<"/api/admin/dashboard">
 }
 
+// Validate ../../src/app/api/admin/docentes/[id]/asignaciones/route.ts
+{
+  const handler = {} as typeof import("../../src/app/api/admin/docentes/[id]/asignaciones/route.js")
+  handler satisfies RouteHandlerConfig<"/api/admin/docentes/[id]/asignaciones">
+}
+
+// Validate ../../src/app/api/admin/docentes/route.ts
+{
+  const handler = {} as typeof import("../../src/app/api/admin/docentes/route.js")
+  handler satisfies RouteHandlerConfig<"/api/admin/docentes">
+}
+
 // Validate ../../src/app/api/admin/estudiantes/route.ts
 {
   const handler = {} as typeof import("../../src/app/api/admin/estudiantes/route.js")
@@ -207,6 +237,12 @@ type RouteHandlerConfig<Route extends AppRouteHandlerRoutes = AppRouteHandlerRou
 {
   const handler = {} as typeof import("../../src/app/api/admin/grados/route.js")
   handler satisfies RouteHandlerConfig<"/api/admin/grados">
+}
+
+// Validate ../../src/app/api/admin/horarios/route.ts
+{
+  const handler = {} as typeof import("../../src/app/api/admin/horarios/route.js")
+  handler satisfies RouteHandlerConfig<"/api/admin/horarios">
 }
 
 // Validate ../../src/app/api/admin/materias/route.ts
@@ -221,6 +257,12 @@ type RouteHandlerConfig<Route extends AppRouteHandlerRoutes = AppRouteHandlerRou
   handler satisfies RouteHandlerConfig<"/api/admin/matricula">
 }
 
+// Validate ../../src/app/api/admin/periodos/route.ts
+{
+  const handler = {} as typeof import("../../src/app/api/admin/periodos/route.js")
+  handler satisfies RouteHandlerConfig<"/api/admin/periodos">
+}
+
 // Validate ../../src/app/api/admin/sedes/route.ts
 {
   const handler = {} as typeof import("../../src/app/api/admin/sedes/route.js")
@@ -231,6 +273,30 @@ type RouteHandlerConfig<Route extends AppRouteHandlerRoutes = AppRouteHandlerRou
 {
   const handler = {} as typeof import("../../src/app/api/admin/usuarios/route.js")
   handler satisfies RouteHandlerConfig<"/api/admin/usuarios">
+}
+
+// Validate ../../src/app/api/docente/asignaciones/route.ts
+{
+  const handler = {} as typeof import("../../src/app/api/docente/asignaciones/route.js")
+  handler satisfies RouteHandlerConfig<"/api/docente/asignaciones">
+}
+
+// Validate ../../src/app/api/docente/estudiantes/route.ts
+{
+  const handler = {} as typeof import("../../src/app/api/docente/estudiantes/route.js")
+  handler satisfies RouteHandlerConfig<"/api/docente/estudiantes">
+}
+
+// Validate ../../src/app/api/docente/notas/route.ts
+{
+  const handler = {} as typeof import("../../src/app/api/docente/notas/route.js")
+  handler satisfies RouteHandlerConfig<"/api/docente/notas">
+}
+
+// Validate ../../src/app/api/estudiante/notas/route.ts
+{
+  const handler = {} as typeof import("../../src/app/api/estudiante/notas/route.js")
+  handler satisfies RouteHandlerConfig<"/api/estudiante/notas">
 }
 
 // Validate ../../src/app/api/me/route.ts

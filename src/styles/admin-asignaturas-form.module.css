@@ -1,0 +1,62 @@
+.formBox {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  width: 100%;
+}
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+.label {
+  color: #b0b3b8;
+  font-weight: 500;
+}
+.input, .select {
+  background: #181A1B;
+  color: #fff;
+  border: 1.5px solid #232527;
+  border-radius: 6px;
+  padding: 10px 14px;
+  font-size: 16px;
+  outline: none;
+  box-shadow: none;
+  width: 100%;
+  transition: border 0.2s;
+}
+.input:focus, .select:focus {
+  border: 1.5px solid #22c55e;
+}
+.select[multiple] {
+  min-height: 48px;
+  max-height: 120px;
+  overflow-y: auto;
+}
+.buttonBox {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 12px;
+}
+.saveButton {
+  background: #22d3ee;
+  color: #181A1B;
+  border-radius: 6px;
+  padding: 10px 24px;
+  font-weight: 700;
+  border: none;
+  cursor: pointer;
+  min-width: 120px;
+  font-size: 16px;
+  box-shadow: none;
+  transition: background 0.2s;
+}
+.saveButton:disabled {
+  background: #22d3ee99;
+  cursor: not-allowed;
+}
+.error {
+  color: #ef4444;
+  font-size: 12px;
+  margin-top: 2px;
+}

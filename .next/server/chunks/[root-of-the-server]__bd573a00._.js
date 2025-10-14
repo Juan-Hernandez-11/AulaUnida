@@ -1,5 +1,5 @@
 module.exports = [
-"[project]/.next-internal/server/app/api/admin/periodos/route/actions.js [app-rsc] (server actions loader, ecmascript)", ((__turbopack_context__, module, exports) => {
+"[project]/.next-internal/server/app/api/admin/estudiantes/route/actions.js [app-rsc] (server actions loader, ecmascript)", ((__turbopack_context__, module, exports) => {
 
 }),
 "[externals]/next/dist/compiled/next-server/app-route-turbo.runtime.dev.js [external] (next/dist/compiled/next-server/app-route-turbo.runtime.dev.js, cjs)", ((__turbopack_context__, module, exports) => {
@@ -50,81 +50,37 @@ const mod = __turbopack_context__.x("@prisma/client", () => require("@prisma/cli
 
 module.exports = mod;
 }),
-"[project]/src/app/api/admin/periodos/route.ts [app-route] (ecmascript)", ((__turbopack_context__) => {
+"[project]/src/app/api/admin/estudiantes/route.ts [app-route] (ecmascript)", ((__turbopack_context__) => {
 "use strict";
 
 __turbopack_context__.s([
     "GET",
-    ()=>GET,
-    "POST",
-    ()=>POST
+    ()=>GET
 ]);
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$server$2e$js__$5b$app$2d$route$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/next/server.js [app-route] (ecmascript)");
 var __TURBOPACK__imported__module__$5b$externals$5d2f40$prisma$2f$client__$5b$external$5d$__$2840$prisma$2f$client$2c$__cjs$29$__ = __turbopack_context__.i("[externals]/@prisma/client [external] (@prisma/client, cjs)");
 ;
 ;
 const prisma = new __TURBOPACK__imported__module__$5b$externals$5d2f40$prisma$2f$client__$5b$external$5d$__$2840$prisma$2f$client$2c$__cjs$29$__["PrismaClient"]();
-async function GET(request) {
+async function GET() {
     try {
-        const url = new URL(request.url);
-        const cicloId = url.searchParams.get('cicloId');
-        let periodos;
-        if (cicloId) {
-            periodos = await prisma.periodo.findMany({
-                where: {
-                    cicloId: Number(cicloId)
-                },
-                select: {
-                    id: true,
-                    nombre: true,
-                    fechaInicio: true,
-                    fechaFin: true,
-                    cicloId: true
-                },
-                orderBy: {
-                    fechaInicio: 'asc'
-                }
-            });
-        } else {
-            periodos = await prisma.periodo.findMany({
-                select: {
-                    id: true,
-                    nombre: true,
-                    fechaInicio: true,
-                    fechaFin: true,
-                    cicloId: true
-                },
-                orderBy: {
-                    fechaInicio: 'asc'
-                }
-            });
-        }
-        return __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$server$2e$js__$5b$app$2d$route$5d$__$28$ecmascript$29$__["NextResponse"].json(periodos);
-    } catch (error) {
-        return __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$server$2e$js__$5b$app$2d$route$5d$__$28$ecmascript$29$__["NextResponse"].json({
-            error: 'Error al obtener periodos'
-        }, {
-            status: 500
-        });
-    }
-}
-async function POST(request) {
-    try {
-        const { nombre, fechaInicio, fechaFin, cicloId } = await request.json();
-        const nuevoPeriodo = await prisma.periodo.create({
-            data: {
-                nombre,
-                fechaInicio: new Date(fechaInicio),
-                fechaFin: new Date(fechaFin),
-                cicloId
+        const estudiantes = await prisma.user.findMany({
+            where: {
+                role: 'STUDENT'
+            },
+            select: {
+                id: true,
+                name: true,
+                email: true
+            },
+            orderBy: {
+                name: 'asc'
             }
         });
-        return __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$server$2e$js__$5b$app$2d$route$5d$__$28$ecmascript$29$__["NextResponse"].json(nuevoPeriodo, {
-            status: 201
-        });
+        return __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$server$2e$js__$5b$app$2d$route$5d$__$28$ecmascript$29$__["NextResponse"].json(estudiantes);
     } catch (error) {
         return __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$server$2e$js__$5b$app$2d$route$5d$__$28$ecmascript$29$__["NextResponse"].json({
-            error: 'Error al crear periodo'
+            error: 'Error al obtener estudiantes'
         }, {
             status: 500
         });
@@ -133,4 +89,4 @@ async function POST(request) {
 }),
 ];
 
-//# sourceMappingURL=%5Broot-of-the-server%5D__214611c9._.js.map
+//# sourceMappingURL=%5Broot-of-the-server%5D__bd573a00._.js.map

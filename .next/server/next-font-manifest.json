@@ -1,10 +1,7 @@
 {
   "app": {
     "[project]/src/app/_not-found/page": [],
-    "[project]/src/app/admin/grados/page": [],
-    "[project]/src/app/admin/horarios/page": [],
     "[project]/src/app/admin/page": [],
-    "[project]/src/app/admin/usuarios/page": [],
     "[project]/src/app/docente/notas/page": [],
     "[project]/src/app/docente/page": [],
     "[project]/src/app/login/page": [],

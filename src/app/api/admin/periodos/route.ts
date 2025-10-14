@@ -26,3 +26,21 @@ export async function GET(request: Request) {
     return NextResponse.json({ error: 'Error al obtener periodos' }, { status: 500 });
   }
 }
+
+// POST: Crea un nuevo periodo
+export async function POST(request: Request) {
+  try {
+    const { nombre, fechaInicio, fechaFin, cicloId } = await request.json();
+    const nuevoPeriodo = await prisma.periodo.create({
+      data: {
+        nombre,
+        fechaInicio: new Date(fechaInicio),
+        fechaFin: new Date(fechaFin),
+        cicloId,
+      },
+    });
+    return NextResponse.json(nuevoPeriodo, { status: 201 });
+  } catch (error) {
+    return NextResponse.json({ error: 'Error al crear periodo' }, { status: 500 });
+  }
+}

@@ -1,0 +1,6 @@
+{
+  "version": 3,
+  "sources": [],
+  "sections": [
+    {"offset": {"line": 1, "column": 0}, "map": {"version":3,"sources":["file:///C:/Users/juant/Documents/proyectoCUN/aulaunida/src/styles/estudiante-notas.module.css"],"sourcesContent":[".container { max-width: 900px; margin: 40px auto; background: #232527; border-radius: 12px; padding: 24px; color: #fff; }\r\n.title { font-size: 22px; margin-bottom: 12px; }\r\n.empty { color: #bbb; }\r\n.table { width: 100%; border-collapse: collapse; }\r\n.table th, .table td { padding: 8px 12px; border-bottom: 1px solid rgba(255,255,255,0.06); }\r\n.smallButton { padding:8px 12px; border-radius:6px; cursor:pointer; background:#111; color:#fff; border:1px solid rgba(255,255,255,0.04) }\r\n"],"names":[],"mappings":"AAAA;;;;;;;;;AACA;;;;;AACA;;;;AACA;;;;;AACA;;;;;AACA","debugId":null}}]
+}

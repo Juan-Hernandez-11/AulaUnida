@@ -1,0 +1,6 @@
+{
+  "version": 3,
+  "sources": [],
+  "sections": [
+    {"offset": {"line": 1, "column": 0}, "map": {"version":3,"sources":["turbopack:///[project]/src/styles/theme.css"],"sourcesContent":[":root {\r\n  --color-primary: #10b981; /* verde app */\r\n  --color-bg: #0f0f0f; /* negro oscuro */\r\n  --color-surface: #1b1b1b;\r\n  --color-muted: #bfc6c9;\r\n  --color-white: #ffffff;\r\n  --radius-md: 10px;\r\n}\r\n\r\nbody {\r\n  background: var(--color-bg);\r\n  color: var(--color-white);\r\n  font-family: 'Urbanist', system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial;\r\n}\r\n\r\n/* boton global */\r\n.btn-primary {\r\n  background: var(--color-primary);\r\n  color: #071117;\r\n  border: none;\r\n  padding: 8px 12px;\r\n  border-radius: var(--radius-md);\r\n  cursor: pointer;\r\n}\r\n\r\n.btn-ghost {\r\n  background: transparent;\r\n  color: var(--color-white);\r\n  border: 1px solid rgba(255,255,255,0.06);\r\n  padding: 8px 12px;\r\n  border-radius: var(--radius-md);\r\n  cursor: pointer;\r\n}\r\n"],"names":[],"mappings":"AAAA;;;;;;;;;AASA;;;;;;AAOA;;;;;;;;;AASA"}}]
+}

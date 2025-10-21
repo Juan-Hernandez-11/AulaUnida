@@ -1,9 +1,13 @@
 "use client";
 
 import { useEffect, useState, ChangeEvent, FormEvent } from 'react';
+import LoadingModal from '@/components/ui/LoadingModal';
+import useDelayedOpen from '@/hooks/useDelayedOpen';
 import ProtectedRoute from '../../../components/ProtectedRoute';
 import styles from '../../../styles/admin-dashboard.module.css';
+import sedesStyles from '../../../styles/sedes.module.css';
 import { UserCircleIcon, AcademicCapIcon, ClipboardIcon } from '@heroicons/react/24/outline';
+import Button from '../../../components/ui/Button';
 import NextLink from '../../../components/NextLink';
 
 type Sede = { id: number; nombre: string; direccion: string };
@@ -17,8 +21,8 @@ const sidebarLinks = [
 
 function BackToDashboardButton() {
   return (
-    <div style={{ marginBottom: 24 }}>
-      <NextLink href="/admin" style={{ display: 'inline-flex', alignItems: 'center', gap: 8, color: '#2563eb', fontWeight: 500 }}>
+  <div className={sedesStyles.backWrapper}>
+  <NextLink href="/admin" className={sedesStyles.backLink}>
         <svg width="20" height="20" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" d="M15 19l-7-7 7-7"/></svg>
         Volver al Dashboard
       </NextLink>
@@ -46,6 +50,8 @@ export default function AdminSedesPage() {
       })
       .catch(() => setLoading(false));
   }, []);
+
+  const delayedOpen = useDelayedOpen(loading);
 
   const validateField = (name: string, value: string) => {
     let error = '';
@@ -156,16 +162,16 @@ export default function AdminSedesPage() {
     <ProtectedRoute allowedRoles={["ADMIN"]}>
       <div className={styles.dashboardContainer}>
         <aside className={styles.sidebar}>
-          <div style={{ display: 'flex', alignItems: 'center', marginBottom: '3rem' }}>
+          <div className={sedesStyles.brand}>
             <img src="/favicon.ico" alt="Admin" className={styles.avatar} />
             <span className={styles.logo}>AulaUnida</span>
           </div>
           <nav className={styles.menu}>
-            <ul style={{ listStyle: 'none', padding: 0, margin: 0 }}>
+            <ul className={sedesStyles.menuList}>
               {sidebarLinks.map(link => (
                 <li key={link.label}>
                   <NextLink href={link.href} className={`${styles.menuItem} ${link.active ? styles.menuItemActive : ''}`}>
-                    <link.icon style={{ width: 24, height: 24, marginRight: 16 }} />
+                    <link.icon className={sedesStyles.linkIcon} />
                     {link.label}
                   </NextLink>
                 </li>
@@ -179,11 +185,11 @@ export default function AdminSedesPage() {
           <div className={styles.activityCard}>
             <h2 className={styles.activityTitle}>{editingId ? 'Editar Sede' : 'Crear Sede'}</h2>
             <form
-              style={{ display: 'flex', gap: 16, marginBottom: 24, background: '#232734', borderRadius: 12, padding: 24, boxShadow: '0 2px 8px rgba(0,0,0,0.10)' }}
+              className={sedesStyles.formContainer}
               onSubmit={handleSubmit}
             >
-              <div style={{ display: 'flex', flexDirection: 'column', flex: 1 }}>
-                <label htmlFor="nombre" style={{ color: '#fff', fontWeight: 500, marginBottom: 4 }}>Nombre de la sede</label>
+              <div className={`${sedesStyles.formGroup} ${sedesStyles['flex1']}`}>
+                <label htmlFor="nombre" className={sedesStyles.label}>Nombre de la sede</label>
                 <input
                   id="nombre"
                   name="nombre"
@@ -192,14 +198,12 @@ export default function AdminSedesPage() {
                   disabled={creating}
                   autoComplete="off"
                   placeholder="Ej: Sede Central"
-                  style={{ marginBottom: 2, background: '#181A1B', color: '#fff', border: '1.5px solid #232527', borderRadius: 6, padding: '10px 14px', fontSize: 16, outline: 'none', boxShadow: 'none' }}
-                  onFocus={e => e.currentTarget.style.border = '1.5px solid #22c55e'}
-                  onBlur={e => e.currentTarget.style.border = '1.5px solid #232527'}
+                  className={sedesStyles.input}
                 />
                 {fieldErrors.nombre && <span style={{ color: '#f87171', fontSize: 13 }}>{fieldErrors.nombre}</span>}
               </div>
-              <div style={{ display: 'flex', flexDirection: 'column', flex: 2 }}>
-                <label htmlFor="direccion" style={{ color: '#fff', fontWeight: 500, marginBottom: 4 }}>Dirección</label>
+              <div className={`${sedesStyles.formGroup} ${sedesStyles['flex2']}`}>
+                <label htmlFor="direccion" className={sedesStyles.label}>Dirección</label>
                 <input
                   id="direccion"
                   name="direccion"
@@ -208,14 +212,12 @@ export default function AdminSedesPage() {
                   disabled={creating}
                   autoComplete="off"
                   placeholder="Ej: Calle 123 #45-67"
-                  style={{ marginBottom: 2, background: '#181A1B', color: '#fff', border: '1.5px solid #232527', borderRadius: 6, padding: '10px 14px', fontSize: 16, outline: 'none', boxShadow: 'none' }}
-                  onFocus={e => e.currentTarget.style.border = '1.5px solid #22c55e'}
-                  onBlur={e => e.currentTarget.style.border = '1.5px solid #232527'}
+                  className={sedesStyles.input}
                 />
                 {fieldErrors.direccion && <span style={{ color: '#f87171', fontSize: 13 }}>{fieldErrors.direccion}</span>}
               </div>
               <button
-                style={{ background: creating ? '#2563eb99' : '#2563eb', color: '#fff', borderRadius: 6, padding: '10px 24px', fontWeight: 700, border: 'none', cursor: creating ? 'not-allowed' : 'pointer', marginTop: 24, minWidth: 120 }}
+                className={`${sedesStyles.buttonPrimary} ${creating ? sedesStyles.disabled : ''}`}
                 type="submit"
                 disabled={creating || !!fieldErrors.nombre || !!fieldErrors.direccion || !form.nombre.trim() || !form.direccion.trim()}
                 aria-disabled={creating || !!fieldErrors.nombre || !!fieldErrors.direccion || !form.nombre.trim() || !form.direccion.trim()}
@@ -225,7 +227,7 @@ export default function AdminSedesPage() {
               {editingId && (
                 <button
                   type="button"
-                  style={{ background: '#888', color: '#fff', borderRadius: 6, padding: '10px 24px', fontWeight: 700, border: 'none', marginTop: 24, minWidth: 120 }}
+                  className={sedesStyles.buttonCancel}
                   onClick={() => { setEditingId(null); setForm({ nombre: '', direccion: '' }); setError(''); setSuccess(''); }}
                   disabled={creating}
                   aria-disabled={creating}
@@ -235,12 +237,12 @@ export default function AdminSedesPage() {
               )}
             </form>
             {error && <div style={{ color: '#f87171', marginBottom: 12, fontWeight: 500 }}>{error}</div>}
-            {success && <div style={{ color: '#22c55e', marginBottom: 12, fontWeight: 500 }}>{success}</div>}
+            {success && <div className={sedesStyles.successMsg}>{success}</div>}
           </div>
           <div className={styles.activityCard}>
             <h2 className={styles.activityTitle}>Listado de Sedes</h2>
             {loading ? (
-              <div style={{ padding: '2rem', textAlign: 'center', color: '#B0B3B8' }}>Cargando sedes...</div>
+              <LoadingModal open={delayedOpen} message="Cargando sedes..." />
             ) : (
               <table className={styles.activityTable}>
                 <thead>
@@ -252,15 +254,17 @@ export default function AdminSedesPage() {
                 </thead>
                 <tbody>
                   {sedes.length === 0 ? (
-                    <tr><td colSpan={3} style={{ padding: '2rem', textAlign: 'center', color: '#B0B3B8' }}>Sin sedes registradas</td></tr>
+                    <tr><td colSpan={3} className={sedesStyles.emptyRow}>Sin sedes registradas</td></tr>
                   ) : (
                     sedes.map((s, idx) => (
                       <tr key={s.id || idx}>
                         <td className={styles.activityUser}>{s.nombre}</td>
                         <td className={styles.activityAction}>{s.direccion}</td>
                         <td className={styles.activityAction}>
-                          <button style={{ color: '#2563eb', marginRight: 8 }} onClick={() => handleEdit(s)}>Editar</button>
-                          <button style={{ color: '#dc2626' }} onClick={() => handleDelete(s.id)}>Eliminar</button>
+                          <div className={sedesStyles.tableActionCell}>
+                            <Button className={sedesStyles.actionPrimary} variant="ghost" onClick={() => handleEdit(s)}>Editar</Button>
+                            <Button className={sedesStyles.actionDelete} onClick={() => handleDelete(s.id)}>Eliminar</Button>
+                          </div>
                         </td>
                       </tr>
                     ))

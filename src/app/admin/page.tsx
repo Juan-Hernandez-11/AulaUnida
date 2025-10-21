@@ -3,8 +3,13 @@ import ProtectedRoute from '../../components/ProtectedRoute';
 import { useAuth } from '../../context/authContext';
 import { UserCircleIcon, BookOpenIcon, CalendarIcon, UsersIcon, ClipboardIcon, AcademicCapIcon, ChartBarIcon, MegaphoneIcon, Cog6ToothIcon, QuestionMarkCircleIcon } from '@heroicons/react/24/outline';
 import NextLink from '../../components/NextLink';
+import Button from '../../components/ui/Button';
+import TriangleIcon from '../../components/icons/TriangleIcon';
 import { useEffect, useState } from 'react';
+import LoadingModal from '../../components/ui/LoadingModal';
+import useDelayedOpen from '../../hooks/useDelayedOpen';
 import styles from '../../styles/admin-dashboard.module.css';
+import adminIndexStyles from '../../styles/admin-index.module.css';
 
 const metricsLabels = [
   { label: 'Usuarios Activos', key: 'usuariosActivos' },
@@ -45,28 +50,30 @@ export default function AdminDashboardPage() {
       .catch(() => setLoading(false));
   }, []);
 
+  const delayedOpen = useDelayedOpen(loading);
+
   return (
     <ProtectedRoute allowedRoles={["ADMIN"]}>
   <div className={styles.dashboardContainer}>
         {/* Sidebar */}
         <aside className={styles.sidebar}>
-          <div style={{ display: 'flex', alignItems: 'center', marginBottom: '3rem' }}>
+          <div className={adminIndexStyles.brand}>
             <img src="https://randomuser.me/api/portraits/women/44.jpg" alt="Admin" className={styles.avatar} />
             <span className={styles.logo}>AulaUnida</span>
           </div>
           <nav className={styles.menu}>
-            <ul style={{ listStyle: 'none', padding: 0, margin: 0 }}>
+            <ul className={adminIndexStyles.menuList}>
               {sidebarLinks.map((link, idx) => (
                 <li key={link.label}>
                   <NextLink href={link.href} className={styles.menuItem}>
-                    <link.icon style={{ width: 24, height: 24, marginRight: 16 }} />
+                    <link.icon className={adminIndexStyles.linkIcon} />
                     {link.label}
                   </NextLink>
                 </li>
               ))}
             </ul>
           </nav>
-          <button onClick={logout} className={styles.logoutBtn}><span style={{ marginRight: 8 }}>⎋</span> Cerrar sesión</button>
+          <Button variant="ghost" onClick={logout}><TriangleIcon /> Cerrar sesión</Button>
         </aside>
 
         {/* Main content */}
@@ -76,9 +83,7 @@ export default function AdminDashboardPage() {
 
           {/* Loader y datos reales */}
           {loading ? (
-            <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '10rem' }}>
-              <span style={{ color: '#B0B3B8', fontSize: '1.125rem' }}>Cargando datos...</span>
-            </div>
+            <LoadingModal open={delayedOpen} message="Cargando datos..." />
           ) : (
             <>
               {/* Métricas */}
@@ -94,7 +99,7 @@ export default function AdminDashboardPage() {
               {/* Actividad reciente */}
               <div className={styles.activityCard}>
                 <h2 className={styles.activityTitle}>Actividad Reciente</h2>
-                <div style={{ overflowX: 'auto' }}>
+                <div className={adminIndexStyles.tableOverflow}>
                   <table className={styles.activityTable}>
                     <thead>
                       <tr>
@@ -105,7 +110,7 @@ export default function AdminDashboardPage() {
                     </thead>
                     <tbody>
                       {activity.length === 0 ? (
-                        <tr><td colSpan={3} style={{ padding: '2rem', textAlign: 'center', color: '#B0B3B8' }}>Sin actividad reciente</td></tr>
+                        <tr><td colSpan={3} className={adminIndexStyles.emptyRow}>Sin actividad reciente</td></tr>
                       ) : (
                         activity.map((a, idx) => (
                           <tr key={idx}>

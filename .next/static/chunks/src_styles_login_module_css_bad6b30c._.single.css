@@ -1,0 +1,102 @@
+/* [project]/src/styles/login.module.css [app-client] (css) */
+.login-module__4pxX9G__login-bg {
+  background: #181a20;
+  flex-direction: column;
+  min-height: 100vh;
+  display: flex;
+}
+
+.login-module__4pxX9G__login-header {
+  color: #fff;
+  letter-spacing: .5px;
+  align-items: center;
+  padding: 32px 0 24px 48px;
+  font-size: 1.5rem;
+  font-weight: 700;
+  display: flex;
+}
+
+.login-module__4pxX9G__login-header .login-module__4pxX9G__logo {
+  background: #2f8;
+  border-radius: 50%;
+  width: 18px;
+  height: 18px;
+  margin-right: 12px;
+  display: inline-block;
+}
+
+.login-module__4pxX9G__login-center {
+  flex-direction: column;
+  flex: 1;
+  justify-content: center;
+  align-items: center;
+  display: flex;
+}
+
+.login-module__4pxX9G__login-card {
+  background: #232734;
+  border: 1px solid #232b3a;
+  border-radius: 16px;
+  min-width: 340px;
+  max-width: 90vw;
+  margin-bottom: 32px;
+  padding: 40px 32px 32px;
+  box-shadow: 0 2px 16px rgba(0, 0, 0, .133);
+}
+
+.login-module__4pxX9G__login-title {
+  color: #fff;
+  text-align: center;
+  margin-bottom: 24px;
+  font-size: 2rem;
+  font-weight: 800;
+}
+
+.login-module__4pxX9G__login-form {
+  flex-direction: column;
+  gap: 18px;
+  display: flex;
+}
+
+.login-module__4pxX9G__login-form input {
+  color: #fff;
+  background: #232b3a;
+  border: none;
+  border-radius: 8px;
+  outline: none;
+  margin-bottom: 0;
+  padding: 14px 16px;
+  font-size: 1rem;
+}
+
+.login-module__4pxX9G__login-form input::placeholder {
+  color: #7a7e8a;
+}
+
+.login-module__4pxX9G__login-form button {
+  color: #181a20;
+  cursor: pointer;
+  background: #2f8;
+  border: none;
+  border-radius: 8px;
+  padding: 14px 0;
+  font-size: 1.1rem;
+  font-weight: 700;
+  transition: background .2s;
+}
+
+.login-module__4pxX9G__login-form button:hover {
+  background: #1be06e;
+}
+
+.login-module__4pxX9G__login-error {
+  color: #ff4d4f;
+  text-align: center;
+  background: #2a1a1a;
+  border-radius: 6px;
+  margin-top: 8px;
+  padding: 8px 12px;
+  font-size: .98rem;
+}
+
+/*# sourceMappingURL=src_styles_login_module_css_bad6b30c._.single.css.map*/

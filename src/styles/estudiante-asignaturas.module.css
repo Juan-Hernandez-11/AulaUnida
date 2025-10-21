@@ -1,0 +1,13 @@
+.container { max-width: 1000px; margin: 40px auto; padding: 24px; color: #fff; }
+.title { font-size: 22px; margin-bottom: 12px; }
+.empty { color: #bbb; }
+.grid { display:grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 16px; margin-top: 12px }
+.card { background:#1b1b1b; padding:12px; border-radius:10px }
+.cardHeader { display:flex; justify-content:space-between; align-items:center; margin-bottom:8px }
+.matTitle { font-weight:700 }
+.matAverage { color:#bfc6c9 }
+.cardBody { display:flex; flex-direction:column; gap:6px }
+.noteRow { display:flex; justify-content:space-between; padding:6px 8px; background:#232323; border-radius:6px }
+.notePeriod { color:#bfc6c9 }
+.noteValue { font-weight:700 }
+.smallButton { padding:8px 12px; border-radius:6px; cursor:pointer; background:#111; color:#fff; border:1px solid rgba(255,255,255,0.04) }

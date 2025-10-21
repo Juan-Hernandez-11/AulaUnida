@@ -1,17 +1,20 @@
 "use client";
 
 import { useState, ChangeEvent, FormEvent, useEffect, useRef } from 'react';
+import LoadingModal from '../../../../src/components/ui/LoadingModal';
+import useDelayedOpen from '../../../../src/hooks/useDelayedOpen';
 import ProtectedRoute from '../../../components/ProtectedRoute';
 import styles from '../../../styles/admin-dashboard.module.css';
 import formStyles from '../../../styles/admin-asignaturas-form.module.css';
 import { UserCircleIcon, AcademicCapIcon, ClipboardIcon, BookOpenIcon } from '@heroicons/react/24/outline';
 import NextLink from '../../../components/NextLink';
+import Button from '../../../components/ui/Button';
 
 // Botón de volver reutilizable
 function BackToDashboardButton() {
   return (
     <div style={{ marginBottom: 24 }}>
-      <NextLink href="/admin" style={{ display: 'inline-flex', alignItems: 'center', gap: 8, color: '#2563eb', fontWeight: 500 }}>
+  <NextLink href="/admin" style={{ display: 'inline-flex', alignItems: 'center', gap: 8, color: 'var(--color-primary)', fontWeight: 500 }}>
         <svg width="20" height="20" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" d="M15 19l-7-7 7-7"/></svg>
         Volver al Dashboard
       </NextLink>
@@ -59,6 +62,7 @@ export default function AdminAsignaturasPage() {
   const [grados, setGrados] = useState<Grado[]>([]);
   const [docentes, setDocentes] = useState<Docente[]>([]);
   const [loading, setLoading] = useState(true);
+  const delayedOpen = useDelayedOpen(loading);
   const [form, setForm] = useState<{ nombre: string; area: string; codigo: string; gradoIds: string[]; asignaciones: Asignacion[] }>({ nombre: '', area: '', codigo: '', gradoIds: [], asignaciones: [] });
   const [editingId, setEditingId] = useState<number | null>(null);
   const [creating, setCreating] = useState(false);
@@ -389,7 +393,7 @@ export default function AdminAsignaturasPage() {
             <h2 className={styles.activityTitle}>Listado de Asignaturas</h2>
             {success && <div style={{ color: 'green', marginBottom: 12 }}>{success}</div>}
             {loading ? (
-              <div style={{ padding: '2rem', textAlign: 'center', color: '#B0B3B8' }}>Cargando asignaturas...</div>
+              <LoadingModal open={delayedOpen} message="Cargando asignaturas..." />
             ) : (
               <table className={styles.activityTable} ref={tableRef}>
                 <thead>
@@ -425,7 +429,7 @@ export default function AdminAsignaturasPage() {
                           ) : '-'}
                         </td>
                         <td className={styles.activityAction}>
-                          <button style={{ color: '#2563eb', marginRight: 8 }} onClick={() => handleEdit(a)}>Editar</button>
+                          <Button style={{ color: 'var(--color-primary)', marginRight: 8 }} variant="ghost" onClick={() => handleEdit(a)}>Editar</Button>
                           <button style={{ color: '#dc2626' }} onClick={() => handleDelete(a.id)}>Eliminar</button>
                         </td>
                       </tr>

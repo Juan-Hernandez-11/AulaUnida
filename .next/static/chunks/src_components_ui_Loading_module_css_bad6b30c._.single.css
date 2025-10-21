@@ -1,0 +1,30 @@
+/* [project]/src/components/ui/Loading.module.css [app-client] (css) */
+.Loading-module__2aO0xG__loadingRoot {
+  justify-content: center;
+  align-items: center;
+  gap: 12px;
+  padding: 2rem;
+  display: flex;
+}
+
+.Loading-module__2aO0xG__spinner {
+  border: 4px solid rgba(0, 0, 0, .08);
+  border-top-color: var(--color-primary, #10b981);
+  border-radius: 50%;
+  width: 36px;
+  height: 36px;
+  animation: 1s linear infinite Loading-module__2aO0xG__spin;
+}
+
+@keyframes Loading-module__2aO0xG__spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.Loading-module__2aO0xG__text {
+  color: var(--color-primary, #10b981);
+  font-weight: 600;
+}
+
+/*# sourceMappingURL=src_components_ui_Loading_module_css_bad6b30c._.single.css.map*/

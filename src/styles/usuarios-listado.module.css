@@ -1,0 +1,8 @@
+.container { padding: 32px; }
+.title { font-size: 28px; font-weight: 700; margin-bottom: 24px; color: #fff; }
+.table { width: 100%; border-collapse: collapse; background: #18181b; color: #fff; }
+.th { padding: 12px; border-bottom: 1px solid #333; text-align: left; }
+.td { padding: 12px; }
+.emptyCell { color: #B0B3B8; text-align: center; }
+.actionPrimary { color: var(--color-primary); text-decoration: underline; margin-right: 12px; }
+.actionDelete { color: #dc2626; text-decoration: underline; background: none; border: none; cursor: pointer; }

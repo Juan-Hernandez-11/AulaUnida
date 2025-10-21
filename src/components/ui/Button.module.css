@@ -1,0 +1,21 @@
+.primary {
+  background: var(--color-primary);
+  color: #071117;
+  border: none;
+  padding: 8px 12px;
+  border-radius: 8px;
+  cursor: pointer;
+  display:inline-flex; align-items:center; justify-content:center; gap:8px;
+}
+
+.ghost {
+  background: transparent;
+  color: var(--color-white);
+  border: 1px solid rgba(255,255,255,0.06);
+  padding: 8px 12px;
+  border-radius: 8px;
+  cursor: pointer;
+  display:inline-flex; align-items:center; justify-content:center; gap:8px;
+}
+
+.icon { display:inline-flex; width:18px; height:18px; align-items:center; justify-content:center }

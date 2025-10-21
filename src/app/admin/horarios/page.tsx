@@ -354,7 +354,7 @@ export default function AdminHorariosPage() {
               </div>
             )}
             {error && <div style={{ color: '#dc2626', marginTop: 16 }}>{error}</div>}
-            {saving && <div style={{ color: '#2563eb', marginTop: 16 }}>Guardando...</div>}
+            {saving && <div style={{ color: 'var(--color-primary)', marginTop: 16 }}>Guardando...</div>}
             {loading && <div style={{ color: '#888', marginTop: 16 }}>Cargando horario...</div>}
           </div>
         </main>

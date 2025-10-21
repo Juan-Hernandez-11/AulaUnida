@@ -8,11 +8,14 @@ import formStyles from '../../../styles/admin-user-form.module.css';
 import { UserCircleIcon, AcademicCapIcon, ClipboardIcon } from '@heroicons/react/24/outline';
 import NextLink from '../../../components/NextLink';
 
+import Button from '../../../components/ui/Button';
+import TriangleIcon from '../../../components/icons/TriangleIcon';
+
 // Botón de volver reutilizable
 function BackToDashboardButton() {
   return (
-    <div style={{ marginBottom: 24 }}>
-      <NextLink href="/admin" style={{ display: 'inline-flex', alignItems: 'center', gap: 8, color: '#2563eb', fontWeight: 500 }}>
+  <div style={{ marginBottom: 24 }}>
+  <NextLink href="/admin" style={{ display: 'inline-flex', alignItems: 'center', gap: 8, color: 'var(--color-primary)', fontWeight: 500 }}>
         <svg width="20" height="20" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" d="M15 19l-7-7 7-7"/></svg>
         Volver al Dashboard
       </NextLink>
@@ -395,14 +398,12 @@ export default function AdminUsuariosPage() {
                 )}
               </div>
               <div className="col-span-1 md:col-span-3 flex gap-2 mt-2">
-                <button className={formStyles.adminFormButton + ' flex-1'} type="submit" disabled={creating || Object.values(fieldErrors).some(Boolean)}>
-                  {creating ? (editingId ? 'Guardando...' : 'Guardando...') : (editingId ? 'Guardar cambios' : 'Guardar')}
-                </button>
-                {editingId && (
-                  <button type="button" className={formStyles.adminFormButton + ' flex-1'} style={{ background: '#888', color: '#fff' }} onClick={() => { setEditingId(null); setForm({ name: '', email: '', role: 'admin', documentType: '', documentNumber: '', birthDate: '', phone: '', address: '', gender: '', photoUrl: '' }); setError(''); }} disabled={creating}>
-                    Cancelar
-                  </button>
-                )}
+                <Button variant="primary" className={formStyles.adminFormButton + ' flex-1'} type="submit" disabled={creating || Object.values(fieldErrors).some(Boolean)}>
+                  {creating ? 'Creando...' : (editingId ? 'Guardar' : 'Crear usuario')}
+                </Button>
+                <Button variant="ghost" type="button" className={formStyles.adminFormButton + ' flex-1'} style={{ background: '#888', color: '#fff' }} onClick={() => { setEditingId(null); setForm({ name: '', email: '', role: 'admin', documentType: '', documentNumber: '', birthDate: '', phone: '', address: '', gender: '', photoUrl: '' }); setError(''); }} disabled={creating}>
+                  Cancelar
+                </Button>
               </div>
             </form>
             {error && <div style={{ color: 'red', marginTop: 12 }}>{error}</div>}

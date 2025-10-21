@@ -1,0 +1,30 @@
+/* [project]/src/styles/estudiante-horario.module.css [app-client] (css) */
+.estudiante-horario-module__8jdFiq__container {
+  color: #fff;
+  background: #232527;
+  border-radius: 12px;
+  max-width: 900px;
+  margin: 40px auto;
+  padding: 24px;
+}
+
+.estudiante-horario-module__8jdFiq__title {
+  margin-bottom: 12px;
+  font-size: 22px;
+}
+
+.estudiante-horario-module__8jdFiq__empty {
+  color: #bbb;
+}
+
+.estudiante-horario-module__8jdFiq__table {
+  border-collapse: collapse;
+  width: 100%;
+}
+
+.estudiante-horario-module__8jdFiq__table th, .estudiante-horario-module__8jdFiq__table td {
+  border-bottom: 1px solid rgba(255, 255, 255, .06);
+  padding: 8px 12px;
+}
+
+/*# sourceMappingURL=src_styles_estudiante-horario_module_39cb8509.css.map*/

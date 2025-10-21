@@ -1,8 +1,8 @@
 /* [project]/src/styles/admin-horarios.module.css [app-client] (css) */
 .admin-horarios-module__y66LRG__selectModern {
   color: #fff;
+  border: 2.5px solid var(--color-primary);
   background: #232527;
-  border: 2.5px solid #2563eb;
   border-radius: 8px;
   outline: none;
   margin-bottom: 0;
@@ -15,8 +15,8 @@
 }
 
 .admin-horarios-module__y66LRG__selectModern:focus {
-  border: 2.5px solid #1d4ed8;
-  box-shadow: 0 0 0 2px rgba(37, 99, 235, .267);
+  border: 2.5px solid var(--color-primary);
+  box-shadow: 0 0 0 2px rgba(16, 185, 129, .267);
 }
 
 .admin-horarios-module__y66LRG__horarioContainer {
@@ -30,10 +30,10 @@
 .admin-horarios-module__y66LRG__horarioGrid {
   border-collapse: separate;
   border-spacing: 0;
+  border: 2.5px solid var(--color-primary);
   -webkit-backdrop-filter: blur(1.5px);
   backdrop-filter: blur(1.5px);
   background: linear-gradient(120deg, #232527 80%, #1d2433 100%);
-  border: 2.5px solid #2563eb;
   border-radius: 18px;
   width: 100%;
   overflow: hidden;
@@ -43,10 +43,10 @@
 .admin-horarios-module__y66LRG__horarioHeader {
   color: #fff;
   text-align: center;
+  border-bottom: 2.5px solid var(--color-primary);
   letter-spacing: .7px;
   z-index: 2;
   background: #232527;
-  border-bottom: 2.5px solid #2563eb;
   padding: 14px 0 12px;
   font-size: 17px;
   font-weight: 700;
@@ -57,9 +57,9 @@
 }
 
 .admin-horarios-module__y66LRG__horarioCell {
+  border-right: 1.5px solid var(--color-primary);
+  border-bottom: 1.5px solid var(--color-primary);
   background: #232527;
-  border-bottom: 1.5px solid #2563eb;
-  border-right: 1.5px solid #2563eb;
   min-height: 48px;
   transition: background .18s, box-shadow .18s;
   position: relative;
@@ -81,12 +81,12 @@
 }
 
 .admin-horarios-module__y66LRG__materiaDraggable {
+  background: var(--color-primary);
   color: #fff;
   cursor: grab;
   -webkit-user-select: none;
   -moz-user-select: none;
   user-select: none;
-  background: #2563eb;
   border: 1.5px solid #1d4ed8;
   border-radius: 7px;
   margin: 6px 0;
@@ -103,15 +103,15 @@
 
 .admin-horarios-module__y66LRG__horarioCellDroppable {
   z-index: 1;
-  outline: 2.5px solid rgba(37, 99, 235, .333);
-  box-shadow: 0 0 0 2.5px rgba(37, 99, 235, .6);
+  outline: 2.5px solid rgba(16, 185, 129, .333);
+  box-shadow: 0 0 0 2.5px rgba(16, 185, 129, .6);
   background: #22305a !important;
 }
 
 .admin-horarios-module__y66LRG__horarioMateria {
   color: #fff;
-  background: linear-gradient(120deg, #1d2433 80%, rgba(37, 99, 235, .133) 100%);
-  border: 2px solid #2563eb;
+  border: 2px solid var(--color-primary);
+  background: linear-gradient(120deg, #1d2433 80%, rgba(16, 185, 129, .133) 100%);
   border-radius: 10px;
   align-items: center;
   gap: 10px;
@@ -123,7 +123,7 @@
   animation: .4s cubic-bezier(.4, 1.4, .6, 1) both admin-horarios-module__y66LRG__fadeInBlock;
   display: flex;
   position: relative;
-  box-shadow: 0 4px 16px rgba(37, 99, 235, .2), 0 2px 8px rgba(0, 0, 0, .267);
+  box-shadow: 0 4px 16px rgba(16, 185, 129, .2), 0 2px 8px rgba(0, 0, 0, .267);
 }
 
 @keyframes admin-horarios-module__y66LRG__fadeInBlock {

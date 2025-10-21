@@ -1,6 +1,10 @@
 import { useEffect, useState, ChangeEvent, FormEvent } from 'react';
+import Loading from '../ui/Loading';
+import LoadingModal from '../ui/LoadingModal';
 import ProtectedRoute from '../ProtectedRoute';
 import NextLink from '../NextLink';
+import Button from '../ui/Button';
+import TriangleIcon from '../icons/TriangleIcon';
 import { UserCircleIcon, AcademicCapIcon, ClipboardIcon, BookOpenIcon } from '@heroicons/react/24/outline';
 
 const sidebarLinks = [
@@ -11,20 +15,24 @@ const sidebarLinks = [
 ];
 
 interface Grado { id: number; nombre: string; seccion: string; }
+interface Docente { id: number; name: string }
+
 interface Materia {
   id: number;
   nombre: string;
   area: string;
   codigo: string;
-  gradoId: number;
+  gradoId?: number;
   grado?: Grado;
+  materiaGrados?: { grado: Grado; docentes?: Docente[] }[];
 }
 
 export default function MateriasAdminPage() {
   const [materias, setMaterias] = useState<Materia[]>([]);
   const [grados, setGrados] = useState<Grado[]>([]);
+  const [docentes, setDocentes] = useState<Docente[]>([]);
   const [loading, setLoading] = useState(true);
-  const [form, setForm] = useState({ nombre: '', area: '', codigo: '', gradoId: '' });
+  const [form, setForm] = useState({ nombre: '', area: '', codigo: '', gradoIds: [] as string[], asignaciones: [] as { gradoId: number; docenteId: number }[] });
   const [editingId, setEditingId] = useState<number | null>(null);
   const [creating, setCreating] = useState(false);
   const [error, setError] = useState('');
@@ -35,9 +43,11 @@ export default function MateriasAdminPage() {
     Promise.all([
       fetch('/api/admin/materias').then(r => r.json()),
       fetch('/api/admin/grados').then(r => r.json()),
-    ]).then(([materias, grados]) => {
+      fetch('/api/admin/docentes').then(r => r.json()),
+    ]).then(([materias, grados, docentes]) => {
       setMaterias(materias);
       setGrados(grados);
+      if (Array.isArray(docentes)) setDocentes(docentes);
       setLoading(false);
     }).catch(() => setLoading(false));
   }, []);
@@ -49,9 +59,15 @@ export default function MateriasAdminPage() {
   };
 
   const handleChange = (e: ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
-    const { name, value } = e.target;
-    setForm({ ...form, [name]: value });
-    setFieldErrors(prev => ({ ...prev, [name]: validateField(name, value) }));
+    const { name, value, multiple, options } = e.target as HTMLSelectElement;
+    if (multiple) {
+      const values = Array.from(options).filter(o => o.selected).map(o => o.value);
+      setForm({ ...form, [name]: values });
+      setFieldErrors(prev => ({ ...prev, [name]: validateField(name, values.join(',')) }));
+    } else {
+      setForm({ ...form, [name]: value });
+      setFieldErrors(prev => ({ ...prev, [name]: validateField(name, value) }));
+    }
   };
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
@@ -62,7 +78,7 @@ export default function MateriasAdminPage() {
       nombre: validateField('nombre', form.nombre),
       area: validateField('area', form.area),
       codigo: validateField('codigo', form.codigo),
-      gradoId: validateField('gradoId', form.gradoId),
+      gradoIds: validateField('gradoIds', (form as any).gradoIds ? (form as any).gradoIds.join(',') : ''),
     };
     setFieldErrors(newErrors);
     if (Object.values(newErrors).some(Boolean)) {
@@ -71,11 +87,18 @@ export default function MateriasAdminPage() {
       return;
     }
     try {
+      const payloadBase = {
+        nombre: form.nombre,
+        area: form.area,
+        codigo: form.codigo,
+        gradoIds: (form as any).gradoIds ? (form as any).gradoIds.map((g: string) => Number(g)) : [] as number[],
+        asignaciones: (form as any).asignaciones || [],
+      };
       if (editingId) {
         const res = await fetch('/api/admin/materias', {
           method: 'PUT',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ ...form, id: editingId, gradoId: Number(form.gradoId) }),
+          body: JSON.stringify({ id: editingId, ...payloadBase }),
         });
         if (!res.ok) {
           const data = await res.json();
@@ -83,14 +106,14 @@ export default function MateriasAdminPage() {
         } else {
           const updated = await res.json();
           setMaterias(prev => prev.map(m => m.id === updated.id ? updated : m));
-          setForm({ nombre: '', area: '', codigo: '', gradoId: '' });
+          setForm({ nombre: '', area: '', codigo: '', gradoIds: [], asignaciones: [] });
           setEditingId(null);
         }
       } else {
         const res = await fetch('/api/admin/materias', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ ...form, gradoId: Number(form.gradoId) }),
+          body: JSON.stringify(payloadBase),
         });
         if (!res.ok) {
           const data = await res.json();
@@ -98,7 +121,7 @@ export default function MateriasAdminPage() {
         } else {
           const nueva = await res.json();
           setMaterias(prev => [...prev, nueva]);
-          setForm({ nombre: '', area: '', codigo: '', gradoId: '' });
+          setForm({ nombre: '', area: '', codigo: '', gradoIds: [], asignaciones: [] });
         }
       }
     } catch {
@@ -127,11 +150,16 @@ export default function MateriasAdminPage() {
   };
 
   const handleEdit = (materia: Materia) => {
+    const gradoIds = (materia.materiaGrados || []).map(mg => String(mg.grado.id));
+    const asignaciones = (materia.materiaGrados || [])
+      .filter(mg => Array.isArray(mg.docentes) && mg.docentes.length > 0)
+      .map(mg => ({ gradoId: mg.grado.id, docenteId: (mg.docentes as any)[0].id }));
     setForm({
       nombre: materia.nombre,
       area: materia.area,
       codigo: materia.codigo,
-      gradoId: materia.gradoId.toString(),
+      gradoIds,
+      asignaciones,
     });
     setEditingId(materia.id);
     setError('');
@@ -170,7 +198,7 @@ export default function MateriasAdminPage() {
                   className="border border-gray-300 p-2 rounded focus:outline-none focus:ring-2 focus:ring-blue-400"
                   placeholder="Nombre de la materia"
                   name="nombre"
-                  value={form.nombre}
+                  value={(form as any).nombre}
                   onChange={handleChange}
                   disabled={creating}
                   autoComplete="off"
@@ -182,7 +210,7 @@ export default function MateriasAdminPage() {
                   className="border border-gray-300 p-2 rounded focus:outline-none focus:ring-2 focus:ring-blue-400"
                   placeholder="Área"
                   name="area"
-                  value={form.area}
+                  value={(form as any).area}
                   onChange={handleChange}
                   disabled={creating}
                   autoComplete="off"
@@ -194,7 +222,7 @@ export default function MateriasAdminPage() {
                   className="border border-gray-300 p-2 rounded focus:outline-none focus:ring-2 focus:ring-blue-400"
                   placeholder="Código"
                   name="codigo"
-                  value={form.codigo}
+                  value={(form as any).codigo}
                   onChange={handleChange}
                   disabled={creating}
                   autoComplete="off"
@@ -202,28 +230,61 @@ export default function MateriasAdminPage() {
                 {fieldErrors.codigo && <span className="text-red-500 text-xs mt-1">{fieldErrors.codigo}</span>}
               </div>
               <div className="flex flex-col flex-1">
+                <label className="sr-only">Grados</label>
                 <select
+                  id="gradoIds"
+                  multiple
                   className="border border-gray-300 p-2 rounded focus:outline-none focus:ring-2 focus:ring-blue-400"
-                  name="gradoId"
-                  value={form.gradoId}
+                  name="gradoIds"
+                  value={(form as any).gradoIds}
                   onChange={handleChange}
                   disabled={creating}
                 >
-                  <option value="">Selecciona un grado</option>
                   {grados.map(g => (
                     <option key={g.id} value={g.id}>{g.nombre} - {g.seccion}</option>
                   ))}
                 </select>
-                {fieldErrors.gradoId && <span className="text-red-500 text-xs mt-1">{fieldErrors.gradoId}</span>}
+                {fieldErrors.gradoIds && <span className="text-red-500 text-xs mt-1">{fieldErrors.gradoIds}</span>}
               </div>
-              <div className="flex flex-col gap-2 justify-end">
-                <button className="bg-blue-600 hover:bg-blue-700 text-white rounded px-4 py-2 font-semibold transition-colors disabled:opacity-60" type="submit" disabled={creating || Object.values(fieldErrors).some(Boolean)}>
+
+              {/* Docente por grado */}
+              <div className="w-full mt-4">
+                <label className="block text-sm font-medium text-gray-700">Docente por grado</label>
+                {(form as any).gradoIds.length === 0 ? (
+                  <div style={{ color: '#888', fontSize: 14 }}>Selecciona al menos un grado</div>
+                ) : (
+                  (form as any).gradoIds.map((gradoId: string) => (
+                    <div key={gradoId} style={{ marginBottom: 8 }}>
+                      <span style={{ fontWeight: 500 }}>{grados.find(g => String(g.id) === gradoId)?.nombre} {grados.find(g => String(g.id) === gradoId)?.seccion}</span>
+                      <select
+                        className="border border-gray-300 p-2 rounded ml-2"
+                        value={(form as any).asignaciones.find((a: any) => a.gradoId === Number(gradoId))?.docenteId || ''}
+                        onChange={e => {
+                          const docenteId = e.target.value;
+                          setForm(prev => {
+                            const asignaciones = prev.asignaciones.filter(a => a.gradoId !== Number(gradoId));
+                            if (docenteId) asignaciones.push({ gradoId: Number(gradoId), docenteId: Number(docenteId) });
+                            return { ...prev, asignaciones };
+                          });
+                        }}
+                        disabled={creating}
+                      >
+                        <option value="">Sin docente asignado</option>
+                        {docentes.map(d => <option key={d.id} value={d.id}>{d.name}</option>)}
+                      </select>
+                    </div>
+                  ))
+                )}
+              </div>
+
+              <div className="flex flex-col gap-2 justify-end mt-4">
+                <Button variant="primary" type="submit" disabled={creating || Object.values(fieldErrors).some(Boolean)}>
                   {creating ? (editingId ? 'Guardando...' : 'Guardando...') : (editingId ? 'Guardar cambios' : 'Guardar')}
-                </button>
+                </Button>
                 {editingId && (
-                  <button type="button" className="bg-gray-400 hover:bg-gray-500 text-white rounded px-4 py-2 font-semibold transition-colors" onClick={() => { setEditingId(null); setForm({ nombre: '', area: '', codigo: '', gradoId: '' }); setError(''); }} disabled={creating}>
+                  <Button variant="ghost" type="button" onClick={() => { setEditingId(null); setForm({ nombre: '', area: '', codigo: '', gradoIds: [], asignaciones: [] }); setError(''); }} disabled={creating}>
                     Cancelar
-                  </button>
+                  </Button>
                 )}
               </div>
             </form>
@@ -232,7 +293,7 @@ export default function MateriasAdminPage() {
           <div className="bg-white rounded-lg shadow p-6">
             <h2 className="text-lg font-semibold mb-4 text-blue-700">Listado de Materias/Asignaturas</h2>
             {loading ? (
-              <div className="py-8 text-center text-gray-400">Cargando materias...</div>
+              <LoadingModal open={true} message="Cargando materias..." />
             ) : (
               <div className="overflow-x-auto">
                 <table className="min-w-full border border-gray-200 rounded-lg">
@@ -256,8 +317,8 @@ export default function MateriasAdminPage() {
                           <td className="px-4 py-2 text-gray-700">{m.codigo}</td>
                           <td className="px-4 py-2 text-gray-700">{grados.find(g => g.id === m.gradoId)?.nombre} - {grados.find(g => g.id === m.gradoId)?.seccion}</td>
                           <td className="px-4 py-2">
-                            <button className="text-blue-600 hover:underline mr-4 font-medium" onClick={() => handleEdit(m)}>Editar</button>
-                            <button className="text-red-600 hover:underline font-medium" onClick={() => handleDelete(m.id)}>Eliminar</button>
+                            <Button variant="ghost" onClick={() => handleEdit(m)} className="mr-4">Editar</Button>
+                            <Button variant="ghost" onClick={() => handleDelete(m.id)} className="text-red-600">Eliminar</Button>
                           </td>
                         </tr>
                       ))

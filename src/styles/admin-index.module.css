@@ -1,0 +1,23 @@
+.brand {
+  display: flex;
+  align-items: center;
+  margin-bottom: 3rem;
+}
+.menuList {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+.linkIcon {
+  width: 24px;
+  height: 24px;
+  margin-right: 16px;
+}
+.tableOverflow {
+  overflow-x: auto;
+}
+.emptyRow {
+  padding: 2rem;
+  text-align: center;
+  color: #B0B3B8;
+}

@@ -1,7 +1,7 @@
 .selectModern {
   background: #232527;
   color: #fff;
-  border: 2.5px solid #2563eb;
+  border: 2.5px solid var(--color-primary);
   border-radius: 8px;
   padding: 10px 16px;
   font-size: 16px;
@@ -13,8 +13,8 @@
   transition: border 0.2s, box-shadow 0.2s;
 }
 .selectModern:focus {
-  border: 2.5px solid #1d4ed8;
-  box-shadow: 0 0 0 2px #2563eb44;
+  border: 2.5px solid var(--color-primary);
+  box-shadow: 0 0 0 2px #10b98144;
 }
 /* Estilos para la grilla de horarios y drag & drop */
 .horarioContainer {
@@ -31,7 +31,7 @@
   background: linear-gradient(120deg, #232527 80%, #1d2433 100%);
   border-collapse: separate;
   border-spacing: 0;
-  border: 2.5px solid #2563eb;
+  border: 2.5px solid var(--color-primary);
   box-shadow: 0 6px 32px #0006;
   backdrop-filter: blur(1.5px);
 }
@@ -41,7 +41,7 @@
   font-weight: 700;
   text-align: center;
   padding: 14px 0 12px 0;
-  border-bottom: 2.5px solid #2563eb;
+  border-bottom: 2.5px solid var(--color-primary);
   font-size: 17px;
   letter-spacing: 0.7px;
   position: sticky;
@@ -51,8 +51,8 @@
 }
 .horarioCell {
   min-height: 48px;
-  border-right: 1.5px solid #2563eb;
-  border-bottom: 1.5px solid #2563eb;
+  border-right: 1.5px solid var(--color-primary);
+  border-bottom: 1.5px solid var(--color-primary);
   background: #232527;
   position: relative;
   transition: background 0.18s, box-shadow 0.18s;
@@ -71,7 +71,7 @@
   border-bottom: 2px solid #232527;
 }
 .materiaDraggable {
-  background: #2563eb;
+  background: var(--color-primary);
   color: #fff;
   border-radius: 7px;
   padding: 8px 12px;
@@ -89,22 +89,22 @@
 }
 .horarioCellDroppable {
   background: #22305a !important;
-  box-shadow: 0 0 0 2.5px #2563eb99;
-  outline: 2.5px solid #2563eb55;
+  box-shadow: 0 0 0 2.5px #10b98199;
+  outline: 2.5px solid #10b98155;
   z-index: 1;
 }
 .horarioMateria {
   display: flex;
   align-items: center;
   gap: 10px;
-  background: linear-gradient(120deg, #1d2433 80%, #2563eb22 100%);
+  background: linear-gradient(120deg, #1d2433 80%, #10b98122 100%);
   border-radius: 10px;
   padding: 10px 18px 10px 14px;
   font-size: 15px;
   color: #fff;
   margin: 6px 0;
-  border: 2px solid #2563eb;
-  box-shadow: 0 4px 16px #2563eb33, 0 2px 8px #0004;
+  border: 2px solid var(--color-primary);
+  box-shadow: 0 4px 16px #10b98133, 0 2px 8px #0004;
   font-weight: 600;
   position: relative;
   animation: fadeInBlock 0.4s cubic-bezier(.4,1.4,.6,1) both;

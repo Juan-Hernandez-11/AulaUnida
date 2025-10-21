@@ -4,6 +4,8 @@ import { useEffect, useState } from "react";
 import { useAuth } from '../../../context/authContext';
 import { useRouter } from 'next/navigation';
 import styles from '../../../styles/admin-horarios.module.css';
+import Button from '../../../components/ui/Button';
+import TriangleIcon from '../../../components/icons/TriangleIcon';
 
 export default function DocenteNotasPage() {
   const [asignaciones, setAsignaciones] = useState<any[]>([]);
@@ -111,9 +113,9 @@ export default function DocenteNotasPage() {
 
   return (
     <div className={styles.horarioContainer} style={{ maxWidth: 900, margin: '40px auto' }}>
-      <button onClick={() => router.back()} style={{ marginBottom: 18, background: '#232527', color: '#fff', border: 'none', borderRadius: 8, padding: '8px 18px', fontWeight: 600, cursor: 'pointer' }}>
-        ← Volver
-      </button>
+      <div style={{ marginBottom: 18 }}>
+        <Button variant="ghost" onClick={() => router.back()} icon={<TriangleIcon />}>Volver</Button>
+      </div>
       <h2 style={{ fontWeight: 700, fontSize: 26, marginBottom: 24, color: '#fff' }}>Asignación de Notas</h2>
       <div style={{ display: 'flex', gap: 16, marginBottom: 24 }}>
         <select className={styles.selectModern} onChange={handleSelect} defaultValue={-1}>
@@ -158,7 +160,7 @@ export default function DocenteNotasPage() {
                       width: 80,
                       padding: '7px 10px',
                       borderRadius: 7,
-                      border: '2px solid #2563eb',
+                      border: '2px solid var(--color-primary)',
                       background: '#181A1B',
                       color: '#fff',
                       fontWeight: 600,
@@ -174,23 +176,13 @@ export default function DocenteNotasPage() {
         </table>
       )}
       <div style={{ display: 'flex', gap: 16, marginTop: 28 }}>
-        <button
+        <Button
+          variant="primary"
           onClick={handleGuardar}
           disabled={saving || !periodoId || estudiantes.length === 0 || Object.keys(notas).length === 0}
-          style={{
-            background: '#2563eb',
-            color: '#fff',
-            border: '2px solid #1d4ed8',
-            borderRadius: 8,
-            padding: '10px 32px',
-            fontWeight: 700,
-            fontSize: 17,
-            boxShadow: '0 2px 8px #2563eb44',
-            cursor: saving ? 'not-allowed' : 'pointer',
-            opacity: saving ? 0.7 : 1,
-            marginTop: 8
-          }}
-        >{saving ? 'Guardando...' : 'Guardar Notas'}</button>
+        >
+          {saving ? 'Guardando...' : 'Guardar Notas'}
+        </Button>
         {msg && <span style={{ color: msg.startsWith('Error') ? '#dc2626' : '#22c55e', fontWeight: 600, fontSize: 16 }}>{msg}</span>}
       </div>
     </div>

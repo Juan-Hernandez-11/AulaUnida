@@ -5,11 +5,12 @@ import ProtectedRoute from "../../../../components/ProtectedRoute";
 import styles from "../../../../styles/admin-dashboard.module.css";
 import formStyles from "../../../../styles/admin-user-form.module.css";
 import NextLink from "../../../../components/NextLink";
+import Button from "../../../../components/ui/Button";
 
 function BackToDashboardButton() {
   return (
     <div style={{ marginBottom: 24 }}>
-      <NextLink href="/admin" style={{ display: 'inline-flex', alignItems: 'center', gap: 8, color: '#2563eb', fontWeight: 500 }}>
+  <NextLink href="/admin" style={{ display: 'inline-flex', alignItems: 'center', gap: 8, color: 'var(--color-primary)', fontWeight: 500 }}>
         <svg width="20" height="20" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" d="M15 19l-7-7 7-7"/></svg>
         Volver al Dashboard
       </NextLink>
@@ -151,7 +152,7 @@ export default function ListadoUsuariosPage() {
                           </button>
                         </td>
                         <td>
-                          <button onClick={() => handleEdit(user)} style={{ color: '#2563eb', textDecoration: 'underline', marginRight: 12 }}>Editar</button>
+                          <Button onClick={() => handleEdit(user)} style={{ color: 'var(--color-primary)', textDecoration: 'underline', marginRight: 12 }} variant="ghost">Editar</Button>
                           <button onClick={() => handleDelete(user)} style={{ color: '#dc2626', textDecoration: 'underline' }}>Eliminar</button>
                         </td>
                       </tr>

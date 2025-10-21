@@ -1,0 +1,196 @@
+/* [project]/src/styles/admin-horarios.module.css [app-client] (css) */
+.admin-horarios-module__y66LRG__selectModern {
+  color: #fff;
+  border: 2.5px solid var(--color-primary);
+  background: #232527;
+  border-radius: 8px;
+  outline: none;
+  margin-bottom: 0;
+  margin-right: 12px;
+  padding: 10px 16px;
+  font-size: 16px;
+  font-weight: 600;
+  transition: border .2s, box-shadow .2s;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, .133);
+}
+
+.admin-horarios-module__y66LRG__selectModern:focus {
+  border: 2.5px solid var(--color-primary);
+  box-shadow: 0 0 0 2px rgba(16, 185, 129, .267);
+}
+
+.admin-horarios-module__y66LRG__horarioContainer {
+  background: #181a1b;
+  border-radius: 14px;
+  margin-bottom: 2rem;
+  padding: 2rem;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, .2);
+}
+
+.admin-horarios-module__y66LRG__horarioGrid {
+  border-collapse: separate;
+  border-spacing: 0;
+  border: 2.5px solid var(--color-primary);
+  -webkit-backdrop-filter: blur(1.5px);
+  backdrop-filter: blur(1.5px);
+  background: linear-gradient(120deg, #232527 80%, #1d2433 100%);
+  border-radius: 18px;
+  width: 100%;
+  overflow: hidden;
+  box-shadow: 0 6px 32px rgba(0, 0, 0, .4);
+}
+
+.admin-horarios-module__y66LRG__horarioHeader {
+  color: #fff;
+  text-align: center;
+  border-bottom: 2.5px solid var(--color-primary);
+  letter-spacing: .7px;
+  z-index: 2;
+  background: #232527;
+  padding: 14px 0 12px;
+  font-size: 17px;
+  font-weight: 700;
+  position: -webkit-sticky;
+  position: sticky;
+  top: 0;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, .133);
+}
+
+.admin-horarios-module__y66LRG__horarioCell {
+  border-right: 1.5px solid var(--color-primary);
+  border-bottom: 1.5px solid var(--color-primary);
+  background: #232527;
+  min-height: 48px;
+  transition: background .18s, box-shadow .18s;
+  position: relative;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, .133);
+}
+
+.admin-horarios-module__y66LRG__horarioCell:last-child {
+  border-right: none;
+}
+
+.admin-horarios-module__y66LRG__horarioRowLabel {
+  color: #fff;
+  text-align: right;
+  background: #181a1b;
+  border-bottom: 2px solid #232527;
+  padding: 10px 14px;
+  font-size: 15px;
+  font-weight: 600;
+}
+
+.admin-horarios-module__y66LRG__materiaDraggable {
+  background: var(--color-primary);
+  color: #fff;
+  cursor: grab;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  user-select: none;
+  border: 1.5px solid #1d4ed8;
+  border-radius: 7px;
+  margin: 6px 0;
+  padding: 8px 12px;
+  font-size: 15px;
+  font-weight: 600;
+  transition: background .2s;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, .2);
+}
+
+.admin-horarios-module__y66LRG__materiaDraggable:active {
+  background: #1d4ed8;
+}
+
+.admin-horarios-module__y66LRG__horarioCellDroppable {
+  z-index: 1;
+  outline: 2.5px solid rgba(16, 185, 129, .333);
+  box-shadow: 0 0 0 2.5px rgba(16, 185, 129, .6);
+  background: #22305a !important;
+}
+
+.admin-horarios-module__y66LRG__horarioMateria {
+  color: #fff;
+  border: 2px solid var(--color-primary);
+  background: linear-gradient(120deg, #1d2433 80%, rgba(16, 185, 129, .133) 100%);
+  border-radius: 10px;
+  align-items: center;
+  gap: 10px;
+  margin: 6px 0;
+  padding: 10px 18px 10px 14px;
+  font-size: 15px;
+  font-weight: 600;
+  transition: box-shadow .18s, border .18s;
+  animation: .4s cubic-bezier(.4, 1.4, .6, 1) both admin-horarios-module__y66LRG__fadeInBlock;
+  display: flex;
+  position: relative;
+  box-shadow: 0 4px 16px rgba(16, 185, 129, .2), 0 2px 8px rgba(0, 0, 0, .267);
+}
+
+@keyframes admin-horarios-module__y66LRG__fadeInBlock {
+  0% {
+    opacity: 0;
+    transform: scale(.95)translateY(10px);
+  }
+
+  100% {
+    opacity: 1;
+    transform: scale(1)translateY(0);
+  }
+}
+
+.admin-horarios-module__y66LRG__horarioMateria .admin-horarios-module__y66LRG__removeBtn {
+  color: #fff;
+  cursor: pointer;
+  opacity: .85;
+  background: #dc2626;
+  border: none;
+  border-radius: 5px;
+  margin-left: auto;
+  padding: 2px 8px;
+  font-size: 15px;
+  transition: background .18s, color .18s;
+  box-shadow: 0 2px 8px rgba(220, 38, 38, .333);
+}
+
+.admin-horarios-module__y66LRG__horarioMateria .admin-horarios-module__y66LRG__removeBtn:hover {
+  color: #fff;
+  opacity: 1;
+  background: #b91c1c;
+}
+
+/* [project]/src/components/ui/Button.module.css [app-client] (css) */
+.Button-module__8RiFmG__primary {
+  background: var(--color-primary);
+  color: #071117;
+  cursor: pointer;
+  border: none;
+  border-radius: 8px;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 12px;
+  display: inline-flex;
+}
+
+.Button-module__8RiFmG__ghost {
+  color: var(--color-white);
+  cursor: pointer;
+  background: none;
+  border: 1px solid rgba(255, 255, 255, .06);
+  border-radius: 8px;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 12px;
+  display: inline-flex;
+}
+
+.Button-module__8RiFmG__icon {
+  justify-content: center;
+  align-items: center;
+  width: 18px;
+  height: 18px;
+  display: inline-flex;
+}
+
+/*# sourceMappingURL=src_b67aa66e._.css.map*/

@@ -2,6 +2,8 @@
 import React, { useState, useEffect, ChangeEvent } from 'react';
 import ProtectedRoute from '../ProtectedRoute';
 import NextLink from '../NextLink';
+import Button from '../ui/Button';
+import TriangleIcon from '../icons/TriangleIcon';
 import { UserCircleIcon, AcademicCapIcon, ClipboardIcon } from '@heroicons/react/24/outline';
 
 interface Grado {
@@ -21,16 +23,16 @@ const sidebarLinks = [
   { label: 'Matrícula', icon: ClipboardIcon, href: '/admin/matricula', active: true },
 ];
 
-function BackToDashboardButton() {
-  return (
-    <div className="mb-6">
-      <NextLink href="/admin" className="inline-flex items-center gap-2 text-blue-600 font-medium hover:underline">
-        <svg width="20" height="20" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" d="M15 19l-7-7 7-7"/></svg>
+  function BackToDashboardButton() {
+    return (
+      <div className="mb-6">
+        <NextLink href="/admin" className="inline-flex items-center gap-2 text-blue-600 font-medium hover:underline">
+          <TriangleIcon />
         Volver al Dashboard
-      </NextLink>
-    </div>
-  );
-}
+        </NextLink>
+      </div>
+    );
+  }
 
 export default function MatriculaAdminPage() {
   const [grados, setGrados] = useState<Grado[]>([]);
@@ -196,7 +198,7 @@ export default function MatriculaAdminPage() {
                               <td className="px-4 py-2 font-medium text-gray-800">{e.name}</td>
                               <td className="px-4 py-2 text-gray-700">{e.email}</td>
                               <td className="px-4 py-2">
-                                <button className="text-red-600 hover:underline font-medium" onClick={() => handleEliminar(e.id)}>Eliminar</button>
+                                <Button variant="ghost" onClick={() => handleEliminar(e.id)} className="text-red-600">Eliminar</Button>
                               </td>
                             </tr>
                           ))
@@ -216,8 +218,8 @@ export default function MatriculaAdminPage() {
                     </select>
                     {fieldErrors.estudianteId && <span className="text-red-500 text-xs mt-1">{fieldErrors.estudianteId}</span>}
                   </div>
-                  <button
-                    className="bg-green-600 hover:bg-green-700 text-white rounded px-4 py-2 font-semibold transition-colors"
+                  <Button
+                    variant="primary"
                     onClick={() => {
                       if (!selectedEstudiante) {
                         setFieldErrors(prev => ({ ...prev, estudianteId: 'Debes seleccionar un estudiante.' }));
@@ -229,7 +231,7 @@ export default function MatriculaAdminPage() {
                     disabled={loading || !selectedEstudiante || !!fieldErrors.estudianteId}
                   >
                     Matricular
-                  </button>
+                  </Button>
                 </div>
               </>
             )}

@@ -1,0 +1,33 @@
+:root {
+  --color-primary: #10b981; /* verde app */
+  --color-bg: #0f0f0f; /* negro oscuro */
+  --color-surface: #1b1b1b;
+  --color-muted: #bfc6c9;
+  --color-white: #ffffff;
+  --radius-md: 10px;
+}
+
+body {
+  background: var(--color-bg);
+  color: var(--color-white);
+  font-family: 'Urbanist', system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial;
+}
+
+/* boton global */
+.btn-primary {
+  background: var(--color-primary);
+  color: #071117;
+  border: none;
+  padding: 8px 12px;
+  border-radius: var(--radius-md);
+  cursor: pointer;
+}
+
+.btn-ghost {
+  background: transparent;
+  color: var(--color-white);
+  border: 1px solid rgba(255,255,255,0.06);
+  padding: 8px 12px;
+  border-radius: var(--radius-md);
+  cursor: pointer;
+}

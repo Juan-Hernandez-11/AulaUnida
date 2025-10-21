@@ -1,0 +1,35 @@
+/* [project]/src/styles/theme.css [app-client] (css) */
+:root {
+  --color-primary: #10b981;
+  --color-bg: #0f0f0f;
+  --color-surface: #1b1b1b;
+  --color-muted: #bfc6c9;
+  --color-white: #fff;
+  --radius-md: 10px;
+}
+
+body {
+  background: var(--color-bg);
+  color: var(--color-white);
+  font-family: Urbanist, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Noto Sans, Ubuntu, Cantarell, Helvetica Neue, Arial;
+}
+
+.btn-primary {
+  background: var(--color-primary);
+  color: #071117;
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  border: none;
+  padding: 8px 12px;
+}
+
+.btn-ghost {
+  color: var(--color-white);
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  background: none;
+  border: 1px solid rgba(255, 255, 255, .06);
+  padding: 8px 12px;
+}
+
+/*# sourceMappingURL=src_styles_theme_css_bad6b30c._.single.css.map*/

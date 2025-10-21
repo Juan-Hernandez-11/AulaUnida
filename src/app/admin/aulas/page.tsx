@@ -5,6 +5,7 @@ import ProtectedRoute from '../../../components/ProtectedRoute';
 import styles from '../../../styles/admin-dashboard.module.css';
 import { UserCircleIcon, AcademicCapIcon, ClipboardIcon } from '@heroicons/react/24/outline';
 import NextLink from '../../../components/NextLink';
+import Button from '../../../components/ui/Button';
 
 type Aula = { id: number; codigo: string; nombre: string; sedeId: number; sede: { nombre: string } };
 type Sede = { id: number; nombre: string };
@@ -19,8 +20,8 @@ const sidebarLinks = [
 
 function BackToDashboardButton() {
   return (
-    <div style={{ marginBottom: 24 }}>
-      <NextLink href="/admin" style={{ display: 'inline-flex', alignItems: 'center', gap: 8, color: '#2563eb', fontWeight: 500 }}>
+  <div style={{ marginBottom: 24 }}>
+  <NextLink href="/admin" style={{ display: 'inline-flex', alignItems: 'center', gap: 8, color: 'var(--color-primary)', fontWeight: 500 }}>
         <svg width="20" height="20" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" d="M15 19l-7-7 7-7"/></svg>
         Volver al Dashboard
       </NextLink>
@@ -182,8 +183,8 @@ export default function AdminAulasPage() {
           </nav>
         </aside>
         <main className={styles.mainContent}>
-          <div style={{ marginBottom: 24 }}>
-            <NextLink href="/admin" style={{ display: 'inline-flex', alignItems: 'center', gap: 8, color: '#2563eb', fontWeight: 500 }}>
+      <div style={{ marginBottom: 24 }}>
+      <NextLink href="/admin" style={{ display: 'inline-flex', alignItems: 'center', gap: 8, color: 'var(--color-primary)', fontWeight: 500 }}>
               <svg width="20" height="20" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" d="M15 19l-7-7 7-7"/></svg>
               Volver al Dashboard
             </NextLink>
@@ -247,7 +248,7 @@ export default function AdminAulasPage() {
                 {fieldErrors.sedeId && <span style={{ color: '#f87171', fontSize: 13 }}>{fieldErrors.sedeId}</span>}
               </div>
               <button
-                style={{ background: creating ? '#2563eb99' : '#2563eb', color: '#fff', borderRadius: 6, padding: '10px 24px', fontWeight: 700, border: 'none', cursor: creating ? 'not-allowed' : 'pointer', marginTop: 24, minWidth: 120 }}
+                style={{ background: creating ? '#10b98199' : 'var(--color-primary)', color: '#fff', borderRadius: 6, padding: '10px 24px', fontWeight: 700, border: 'none', cursor: creating ? 'not-allowed' : 'pointer', marginTop: 24, minWidth: 120 }}
                 type="submit"
                 disabled={creating || !!fieldErrors.codigo || !!fieldErrors.nombre || !!fieldErrors.sedeId || !form.codigo.trim() || !form.nombre.trim() || !form.sedeId.trim()}
                 aria-disabled={creating || !!fieldErrors.codigo || !!fieldErrors.nombre || !!fieldErrors.sedeId || !form.codigo.trim() || !form.nombre.trim() || !form.sedeId.trim()}
@@ -293,8 +294,8 @@ export default function AdminAulasPage() {
                         <td className={styles.activityAction}>{a.nombre}</td>
                         <td className={styles.activityAction}>{a.sede?.nombre || ''}</td>
                         <td className={styles.activityAction}>
-                          <button style={{ color: '#2563eb', marginRight: 8 }} onClick={() => handleEdit(a)}>Editar</button>
-                          <button style={{ color: '#dc2626' }} onClick={() => handleDelete(a.id)}>Eliminar</button>
+                          <Button style={{ color: 'var(--color-primary)', marginRight: 8 }} onClick={() => handleEdit(a)}>Editar</Button>
+                          <Button style={{ color: '#dc2626' }} onClick={() => handleDelete(a.id)}>Eliminar</Button>
                         </td>
                       </tr>
                     ))

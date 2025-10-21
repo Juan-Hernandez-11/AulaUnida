@@ -1,16 +1,20 @@
 "use client";
 
 import { useEffect, useState, ChangeEvent, FormEvent } from 'react';
+import LoadingModal from '@/components/ui/LoadingModal';
+import useDelayedOpen from '@/hooks/useDelayedOpen';
 import ProtectedRoute from '../../../components/ProtectedRoute';
 import styles from '../../../styles/admin-dashboard.module.css';
+import gradosStyles from '../../../styles/grados.module.css';
 import { UserCircleIcon, AcademicCapIcon, ClipboardIcon } from '@heroicons/react/24/outline';
 import NextLink from '../../../components/NextLink';
+import Button from '../../../components/ui/Button';
 
 // Botón de volver reutilizable
 function BackToDashboardButton() {
   return (
-    <div style={{ marginBottom: 24 }}>
-      <NextLink href="/admin" style={{ display: 'inline-flex', alignItems: 'center', gap: 8, color: '#2563eb', fontWeight: 500 }}>
+    <div className={gradosStyles.backWrapper}>
+  <NextLink href="/admin" className={gradosStyles.backLink}>
         <svg width="20" height="20" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" d="M15 19l-7-7 7-7"/></svg>
         Volver al Dashboard
       </NextLink>
@@ -212,16 +216,16 @@ export default function AdminGradosPage() {
       <div className={styles.dashboardContainer}>
         {/* Sidebar de navegación admin */}
         <aside className={styles.sidebar}>
-          <div style={{ display: 'flex', alignItems: 'center', marginBottom: '3rem' }}>
+          <div className={gradosStyles.brand}>
             <img src="/favicon.ico" alt="Admin" className={styles.avatar} />
             <span className={styles.logo}>AulaUnida</span>
           </div>
           <nav className={styles.menu}>
-            <ul style={{ listStyle: 'none', padding: 0, margin: 0 }}>
+            <ul className={gradosStyles.menuList}>
               {sidebarLinks.map(link => (
                 <li key={link.label}>
                   <NextLink href={link.href} className={`${styles.menuItem} ${link.active ? styles.menuItemActive : ''}`}>
-                    <link.icon style={{ width: 24, height: 24, marginRight: 16 }} />
+                    <link.icon className={gradosStyles.linkIcon} />
                     {link.label}
                   </NextLink>
                 </li>
@@ -237,19 +241,11 @@ export default function AdminGradosPage() {
             <h2 className={styles.activityTitle}>{editingId ? 'Editar Grado' : 'Crear Grado'}</h2>
             {/* Formulario de creación/edición de grado */}
             <form
-              style={{
-                display: 'flex',
-                gap: 16,
-                marginBottom: 24,
-                background: '#232734',
-                borderRadius: 12,
-                padding: 24,
-                boxShadow: '0 2px 8px rgba(0,0,0,0.10)'
-              }}
+              className={gradosStyles.formContainer}
               onSubmit={handleSubmit}
             >
-              <div style={{ display: 'flex', flexDirection: 'column', flex: 1 }}>
-                <label htmlFor="nombre" style={{ color: '#fff', fontWeight: 500, marginBottom: 4 }}>Nombre del grado</label>
+              <div className={`${gradosStyles.formGroup} ${gradosStyles.flex1}`}>
+                <label htmlFor="nombre" className={gradosStyles.label}>Nombre del grado</label>
                 <input
                   id="nombre"
                   name="nombre"
@@ -258,24 +254,12 @@ export default function AdminGradosPage() {
                   disabled={creating}
                   autoComplete="off"
                   placeholder="Ej: 1° Básico"
-                  style={{
-                    marginBottom: 2,
-                    background: '#181A1B',
-                    color: '#fff',
-                    border: '1.5px solid #232527',
-                    borderRadius: 6,
-                    padding: '10px 14px',
-                    fontSize: 16,
-                    outline: 'none',
-                    boxShadow: 'none',
-                  }}
-                  onFocus={e => e.currentTarget.style.border = '1.5px solid #22c55e'}
-                  onBlur={e => e.currentTarget.style.border = '1.5px solid #232527'}
+                  className={gradosStyles.input}
                 />
                 {fieldErrors.nombre && <span style={{ color: '#f87171', fontSize: 13 }}>{fieldErrors.nombre}</span>}
               </div>
-              <div style={{ display: 'flex', flexDirection: 'column', flex: 1 }}>
-                <label htmlFor="seccion" style={{ color: '#fff', fontWeight: 500, marginBottom: 4 }}>Sección</label>
+              <div className={`${gradosStyles.formGroup} ${gradosStyles.flex1}`}>
+                <label htmlFor="seccion" className={gradosStyles.label}>Sección</label>
                 <input
                   id="seccion"
                   name="seccion"
@@ -284,41 +268,19 @@ export default function AdminGradosPage() {
                   disabled={creating}
                   autoComplete="off"
                   placeholder="Ej: A"
-                  style={{
-                    marginBottom: 2,
-                    background: '#181A1B',
-                    color: '#fff',
-                    border: '1.5px solid #232527',
-                    borderRadius: 6,
-                    padding: '10px 14px',
-                    fontSize: 16,
-                    outline: 'none',
-                    boxShadow: 'none',
-                  }}
-                  onFocus={e => e.currentTarget.style.border = '1.5px solid #22c55e'}
-                  onBlur={e => e.currentTarget.style.border = '1.5px solid #232527'}
+                  className={gradosStyles.input}
                 />
                 {fieldErrors.seccion && <span style={{ color: '#f87171', fontSize: 13 }}>{fieldErrors.seccion}</span>}
               </div>
-              <div style={{ display: 'flex', flexDirection: 'column', flex: 1 }}>
-                <label htmlFor="sedeId" style={{ color: '#fff', fontWeight: 500, marginBottom: 4 }}>Sede</label>
+              <div className={`${gradosStyles.formGroup} ${gradosStyles.flex1}`}>
+                <label htmlFor="sedeId" className={gradosStyles.label}>Sede</label>
                 <select
                   id="sedeId"
                   name="sedeId"
                   value={form.sedeId}
                   onChange={handleChange}
                   disabled={creating}
-                  style={{
-                    marginBottom: 2,
-                    background: '#181A1B',
-                    color: '#fff',
-                    border: '1.5px solid #232527',
-                    borderRadius: 6,
-                    padding: '10px 14px',
-                    fontSize: 16,
-                    outline: 'none',
-                    boxShadow: 'none',
-                  }}
+                  className={gradosStyles.select}
                 >
                   <option value="">Selecciona sede</option>
                   {sedes.map(s => (
@@ -327,25 +289,15 @@ export default function AdminGradosPage() {
                 </select>
                 {fieldErrors.sedeId && <span style={{ color: '#f87171', fontSize: 13 }}>{fieldErrors.sedeId}</span>}
               </div>
-              <div style={{ display: 'flex', flexDirection: 'column', flex: 1 }}>
-                <label htmlFor="cicloId" style={{ color: '#fff', fontWeight: 500, marginBottom: 4 }}>Ciclo</label>
+              <div className={`${gradosStyles.formGroup} ${gradosStyles.flex1}`}>
+                <label htmlFor="cicloId" className={gradosStyles.label}>Ciclo</label>
                 <select
                   id="cicloId"
                   name="cicloId"
                   value={form.cicloId}
                   onChange={handleChange}
                   disabled={creating}
-                  style={{
-                    marginBottom: 2,
-                    background: '#181A1B',
-                    color: '#fff',
-                    border: '1.5px solid #232527',
-                    borderRadius: 6,
-                    padding: '10px 14px',
-                    fontSize: 16,
-                    outline: 'none',
-                    boxShadow: 'none',
-                  }}
+                  className={gradosStyles.select}
                 >
                   <option value="">Selecciona ciclo</option>
                   {ciclos.map(c => (
@@ -354,25 +306,15 @@ export default function AdminGradosPage() {
                 </select>
                 {fieldErrors.cicloId && <span style={{ color: '#f87171', fontSize: 13 }}>{fieldErrors.cicloId}</span>}
               </div>
-              <div style={{ display: 'flex', flexDirection: 'column', flex: 1 }}>
-                <label htmlFor="aulaId" style={{ color: '#fff', fontWeight: 500, marginBottom: 4 }}>Aula (opcional)</label>
+              <div className={`${gradosStyles.formGroup} ${gradosStyles.flex1}`}>
+                <label htmlFor="aulaId" className={gradosStyles.label}>Aula (opcional)</label>
                 <select
                   id="aulaId"
                   name="aulaId"
                   value={form.aulaId}
                   onChange={handleChange}
                   disabled={creating}
-                  style={{
-                    marginBottom: 2,
-                    background: '#181A1B',
-                    color: '#fff',
-                    border: '1.5px solid #232527',
-                    borderRadius: 6,
-                    padding: '10px 14px',
-                    fontSize: 16,
-                    outline: 'none',
-                    boxShadow: 'none',
-                  }}
+                  className={gradosStyles.select}
                 >
                   <option value="">Sin aula asignada</option>
                   {aulas.map(a => (
@@ -381,17 +323,7 @@ export default function AdminGradosPage() {
                 </select>
               </div>
               <button
-                style={{
-                  background: creating ? '#2563eb99' : '#2563eb',
-                  color: '#fff',
-                  borderRadius: 6,
-                  padding: '10px 24px',
-                  fontWeight: 700,
-                  border: 'none',
-                  cursor: creating ? 'not-allowed' : 'pointer',
-                  marginTop: 24,
-                  minWidth: 120
-                }}
+                className={`${gradosStyles.buttonPrimary} ${creating ? 'disabled' : ''}`}
                 type="submit"
                 disabled={creating || !!fieldErrors.nombre || !!fieldErrors.seccion || !!fieldErrors.sedeId || !!fieldErrors.cicloId || !form.nombre.trim() || !form.seccion.trim()}
                 aria-disabled={creating || !!fieldErrors.nombre || !!fieldErrors.seccion || !!fieldErrors.sedeId || !!fieldErrors.cicloId || !form.nombre.trim() || !form.seccion.trim()}
@@ -401,16 +333,7 @@ export default function AdminGradosPage() {
               {editingId && (
                 <button
                   type="button"
-                  style={{
-                    background: '#888',
-                    color: '#fff',
-                    borderRadius: 6,
-                    padding: '10px 24px',
-                    fontWeight: 700,
-                    border: 'none',
-                    marginTop: 24,
-                    minWidth: 120
-                  }}
+                  className={gradosStyles.buttonCancel}
                   onClick={() => { setEditingId(null); setForm({ nombre: '', seccion: '', sedeId: '', cicloId: '', aulaId: '' }); setError(''); setSuccess(''); }}
                   disabled={creating}
                   aria-disabled={creating}
@@ -420,13 +343,13 @@ export default function AdminGradosPage() {
               )}
             </form>
             {/* Mensajes de error y éxito solo si hay error o éxito real */}
-            {error && <div style={{ color: '#f87171', marginBottom: 12, fontWeight: 500 }}>{error}</div>}
-            {success && <div style={{ color: '#22c55e', marginBottom: 12, fontWeight: 500 }}>{success}</div>}
+            {error && <div className={gradosStyles.errorMsg}>{error}</div>}
+            {success && <div className={gradosStyles.successMsg}>{success}</div>}
           </div>
           <div className={styles.activityCard}>
             <h2 className={styles.activityTitle}>Listado de Grados y Secciones</h2>
             {loading ? (
-              <div style={{ padding: '2rem', textAlign: 'center', color: '#B0B3B8' }}>Cargando grados...</div>
+              <LoadingModal open={useDelayedOpen(loading)} message="Cargando grados..." />
             ) : (
               <table className={styles.activityTable}>
                 <thead>
@@ -438,15 +361,17 @@ export default function AdminGradosPage() {
                 </thead>
                 <tbody>
                   {grados.length === 0 ? (
-                    <tr><td colSpan={3} style={{ padding: '2rem', textAlign: 'center', color: '#B0B3B8' }}>Sin grados registrados</td></tr>
+                    <tr><td colSpan={3} className={gradosStyles.emptyRow}>Sin grados registrados</td></tr>
                   ) : (
                     grados.map((g, idx) => (
                       <tr key={g.id || idx}>
                         <td className={styles.activityUser}>{g.nombre}</td>
                         <td className={styles.activityAction}>{g.seccion}</td>
                         <td className={styles.activityAction}>
-                          <button style={{ color: '#2563eb', marginRight: 8 }} onClick={() => handleEdit(g)}>Editar</button>
-                          <button style={{ color: '#dc2626' }} onClick={() => handleDelete(g.id)}>Eliminar</button>
+                          <div className={gradosStyles.tableActionCell}>
+                            <Button className={gradosStyles.actionPrimary} variant="ghost" onClick={() => handleEdit(g)}>Editar</Button>
+                            <button className={gradosStyles.actionDelete} onClick={() => handleDelete(g.id)}>Eliminar</button>
+                          </div>
                         </td>
                       </tr>
                     ))

@@ -1,0 +1,6 @@
+{
+  "version": 3,
+  "sources": [],
+  "sections": [
+    {"offset": {"line": 1, "column": 0}, "map": {"version":3,"sources":["turbopack:///[project]/src/styles/estudiante-asignaturas.module.css"],"sourcesContent":[".container { max-width: 1000px; margin: 40px auto; padding: 24px; color: #fff; }\r\n.title { font-size: 22px; margin-bottom: 12px; }\r\n.empty { color: #bbb; }\r\n.grid { display:grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 16px; margin-top: 12px }\r\n.card { background:#1b1b1b; padding:12px; border-radius:10px }\r\n.cardHeader { display:flex; justify-content:space-between; align-items:center; margin-bottom:8px }\r\n.matTitle { font-weight:700 }\r\n.matAverage { color:#bfc6c9 }\r\n.cardBody { display:flex; flex-direction:column; gap:6px }\r\n.noteRow { display:flex; justify-content:space-between; padding:6px 8px; background:#232323; border-radius:6px }\r\n.notePeriod { color:#bfc6c9 }\r\n.noteValue { font-weight:700 }\r\n.smallButton { padding:8px 12px; border-radius:6px; cursor:pointer; background:#111; color:#fff; border:1px solid rgba(255,255,255,0.04) }\r\n"],"names":[],"mappings":"AAAA;;;;;;;AACA;;;;;AACA;;;;AACA;;;;;;;AACA;;;;;;AACA;;;;;;;AACA;;;;AACA;;;;AACA;;;;;;AACA;;;;;;;;AACA;;;;AACA;;;;AACA"}}]
+}

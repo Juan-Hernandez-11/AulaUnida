@@ -9,7 +9,7 @@ import NextLink from '../../../components/NextLink';
 function BackToDashboardButton() {
   return (
     <div style={{ marginBottom: 24 }}>
-      <NextLink href="/admin" style={{ display: 'inline-flex', alignItems: 'center', gap: 8, color: '#2563eb', fontWeight: 500 }}>
+  <NextLink href="/admin" style={{ display: 'inline-flex', alignItems: 'center', gap: 8, color: 'var(--color-primary)', fontWeight: 500 }}>
         <svg width="20" height="20" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" d="M15 19l-7-7 7-7"/></svg>
         Volver al Dashboard
       </NextLink>
@@ -201,7 +201,7 @@ export default function AdminMatriculaPage() {
                   <span style={{ color: '#22c55e', fontWeight: 500 }}>{grados.find(g => String(g.id) === gradoId)?.nombre} {grados.find(g => String(g.id) === gradoId)?.seccion}</span>
                   <span style={{ color: '#b0b3b8', fontWeight: 400 }}>Matriculados: <b>{matriculados.length}</b></span>
                   <button
-                    style={{ marginLeft: 'auto', background: '#2563eb', color: '#fff', borderRadius: 6, padding: '6px 16px', fontWeight: 500, border: 'none', cursor: refreshing ? 'not-allowed' : 'pointer' }}
+                    style={{ marginLeft: 'auto', background: 'var(--color-primary)', color: '#fff', borderRadius: 6, padding: '6px 16px', fontWeight: 500, border: 'none', cursor: refreshing ? 'not-allowed' : 'pointer' }}
                     onClick={() => { setRefreshing(true); fetchMatriculados(); }}
                     disabled={refreshing}
                   >

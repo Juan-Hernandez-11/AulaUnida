@@ -1,0 +1,112 @@
+/* [project]/src/styles/estudiante-asignaturas.module.css [app-client] (css) */
+.estudiante-asignaturas-module__CZPePW__container {
+  color: #fff;
+  max-width: 1000px;
+  margin: 40px auto;
+  padding: 24px;
+}
+
+.estudiante-asignaturas-module__CZPePW__title {
+  margin-bottom: 12px;
+  font-size: 22px;
+}
+
+.estudiante-asignaturas-module__CZPePW__empty {
+  color: #bbb;
+}
+
+.estudiante-asignaturas-module__CZPePW__grid {
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: 16px;
+  margin-top: 12px;
+  display: grid;
+}
+
+.estudiante-asignaturas-module__CZPePW__card {
+  background: #1b1b1b;
+  border-radius: 10px;
+  padding: 12px;
+}
+
+.estudiante-asignaturas-module__CZPePW__cardHeader {
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 8px;
+  display: flex;
+}
+
+.estudiante-asignaturas-module__CZPePW__matTitle {
+  font-weight: 700;
+}
+
+.estudiante-asignaturas-module__CZPePW__matAverage {
+  color: #bfc6c9;
+}
+
+.estudiante-asignaturas-module__CZPePW__cardBody {
+  flex-direction: column;
+  gap: 6px;
+  display: flex;
+}
+
+.estudiante-asignaturas-module__CZPePW__noteRow {
+  background: #232323;
+  border-radius: 6px;
+  justify-content: space-between;
+  padding: 6px 8px;
+  display: flex;
+}
+
+.estudiante-asignaturas-module__CZPePW__notePeriod {
+  color: #bfc6c9;
+}
+
+.estudiante-asignaturas-module__CZPePW__noteValue {
+  font-weight: 700;
+}
+
+.estudiante-asignaturas-module__CZPePW__smallButton {
+  cursor: pointer;
+  color: #fff;
+  background: #111;
+  border: 1px solid rgba(255, 255, 255, .04);
+  border-radius: 6px;
+  padding: 8px 12px;
+}
+
+/* [project]/src/components/ui/Button.module.css [app-client] (css) */
+.Button-module__8RiFmG__primary {
+  background: var(--color-primary);
+  color: #071117;
+  cursor: pointer;
+  border: none;
+  border-radius: 8px;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 12px;
+  display: inline-flex;
+}
+
+.Button-module__8RiFmG__ghost {
+  color: var(--color-white);
+  cursor: pointer;
+  background: none;
+  border: 1px solid rgba(255, 255, 255, .06);
+  border-radius: 8px;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 12px;
+  display: inline-flex;
+}
+
+.Button-module__8RiFmG__icon {
+  justify-content: center;
+  align-items: center;
+  width: 18px;
+  height: 18px;
+  display: inline-flex;
+}
+
+/*# sourceMappingURL=src_fc249da2._.css.map*/

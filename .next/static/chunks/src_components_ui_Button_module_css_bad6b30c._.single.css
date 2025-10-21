@@ -1,0 +1,36 @@
+/* [project]/src/components/ui/Button.module.css [app-client] (css) */
+.Button-module__8RiFmG__primary {
+  background: var(--color-primary);
+  color: #071117;
+  cursor: pointer;
+  border: none;
+  border-radius: 8px;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 12px;
+  display: inline-flex;
+}
+
+.Button-module__8RiFmG__ghost {
+  color: var(--color-white);
+  cursor: pointer;
+  background: none;
+  border: 1px solid rgba(255, 255, 255, .06);
+  border-radius: 8px;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 12px;
+  display: inline-flex;
+}
+
+.Button-module__8RiFmG__icon {
+  justify-content: center;
+  align-items: center;
+  width: 18px;
+  height: 18px;
+  display: inline-flex;
+}
+
+/*# sourceMappingURL=src_components_ui_Button_module_css_bad6b30c._.single.css.map*/

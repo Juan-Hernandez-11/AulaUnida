@@ -1,0 +1,30 @@
+/* [project]/src/styles/admin-index.module.css [app-client] (css) */
+.admin-index-module__TW5rVG__brand {
+  align-items: center;
+  margin-bottom: 3rem;
+  display: flex;
+}
+
+.admin-index-module__TW5rVG__menuList {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.admin-index-module__TW5rVG__linkIcon {
+  width: 24px;
+  height: 24px;
+  margin-right: 16px;
+}
+
+.admin-index-module__TW5rVG__tableOverflow {
+  overflow-x: auto;
+}
+
+.admin-index-module__TW5rVG__emptyRow {
+  text-align: center;
+  color: #b0b3b8;
+  padding: 2rem;
+}
+
+/*# sourceMappingURL=src_styles_admin-index_module_css_bad6b30c._.single.css.map*/

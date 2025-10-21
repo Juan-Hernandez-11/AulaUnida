@@ -1,5 +1,6 @@
 
 import "bootstrap/dist/css/bootstrap.min.css";
+import "../styles/theme.css";
 import "../styles/landingpage.css";
 import "../styles/urbanist.css";
 import "../app/api/config";

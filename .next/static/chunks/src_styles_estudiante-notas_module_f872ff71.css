@@ -1,0 +1,39 @@
+/* [project]/src/styles/estudiante-notas.module.css [app-client] (css) */
+.estudiante-notas-module__OWwLgG__container {
+  color: #fff;
+  background: #232527;
+  border-radius: 12px;
+  max-width: 900px;
+  margin: 40px auto;
+  padding: 24px;
+}
+
+.estudiante-notas-module__OWwLgG__title {
+  margin-bottom: 12px;
+  font-size: 22px;
+}
+
+.estudiante-notas-module__OWwLgG__empty {
+  color: #bbb;
+}
+
+.estudiante-notas-module__OWwLgG__table {
+  border-collapse: collapse;
+  width: 100%;
+}
+
+.estudiante-notas-module__OWwLgG__table th, .estudiante-notas-module__OWwLgG__table td {
+  border-bottom: 1px solid rgba(255, 255, 255, .06);
+  padding: 8px 12px;
+}
+
+.estudiante-notas-module__OWwLgG__smallButton {
+  cursor: pointer;
+  color: #fff;
+  background: #111;
+  border: 1px solid rgba(255, 255, 255, .04);
+  border-radius: 6px;
+  padding: 8px 12px;
+}
+
+/*# sourceMappingURL=src_styles_estudiante-notas_module_f872ff71.css.map*/

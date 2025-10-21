@@ -1,7 +1,9 @@
 "use client";
 import { useEffect, useState, ChangeEvent, FormEvent } from 'react';
 import ProtectedRoute from '../../../components/ProtectedRoute';
-import styles from '../../../styles/admin-dashboard.module.css';
+import styles from '../../../styles/admin-ciclos.module.css';
+import Button from '../../../components/ui/Button';
+import TriangleIcon from '../../../components/icons/TriangleIcon';
 import { UserCircleIcon, AcademicCapIcon, ClipboardIcon, CalendarIcon } from '@heroicons/react/24/outline';
 import NextLink from '../../../components/NextLink';
 
@@ -16,8 +18,8 @@ const sidebarLinks = [
 
 function BackToDashboardButton() {
   return (
-    <div style={{ marginBottom: 24 }}>
-      <NextLink href="/admin" style={{ display: 'inline-flex', alignItems: 'center', gap: 8, color: '#2563eb', fontWeight: 500 }}>
+  <div style={{ marginBottom: 24 }}>
+  <NextLink href="/admin" style={{ display: 'inline-flex', alignItems: 'center', gap: 8, color: 'var(--color-primary)', fontWeight: 500 }}>
         <svg width="20" height="20" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" d="M15 19l-7-7 7-7"/></svg>
         Volver al Dashboard
       </NextLink>
@@ -182,77 +184,80 @@ export default function AdminCiclosPage() {
           <div className={styles.activityCard}>
             <h2 className={styles.activityTitle}>{editingId ? 'Editar Ciclo' : 'Crear Ciclo'}</h2>
             <form
-              style={{ display: 'flex', gap: 16, marginBottom: 24, background: '#232734', borderRadius: 12, padding: 24, boxShadow: '0 2px 8px rgba(0,0,0,0.10)' }}
+              style={{ display: 'flex', flexDirection: 'column', gap: 16, marginBottom: 24, background: '#232734', borderRadius: 12, padding: 24, boxShadow: '0 2px 8px rgba(0,0,0,0.10)' }}
               onSubmit={handleSubmit}
             >
-              <div style={{ display: 'flex', flexDirection: 'column', flex: 2 }}>
-                <label htmlFor="nombre" style={{ color: '#fff', fontWeight: 500, marginBottom: 4 }}>Nombre del ciclo</label>
-                <input
-                  id="nombre"
-                  name="nombre"
-                  value={form.nombre}
-                  onChange={handleChange}
-                  disabled={creating}
-                  autoComplete="off"
-                  placeholder="Ej: 2025-A"
-                  style={{ marginBottom: 2, background: '#181A1B', color: '#fff', border: '1.5px solid #232527', borderRadius: 6, padding: '10px 14px', fontSize: 16, outline: 'none', boxShadow: 'none' }}
-                  onFocus={e => e.currentTarget.style.border = '1.5px solid #22c55e'}
-                  onBlur={e => e.currentTarget.style.border = '1.5px solid #232527'}
-                />
-                {fieldErrors.nombre && <span style={{ color: '#f87171', fontSize: 13 }}>{fieldErrors.nombre}</span>}
+              <div style={{ display: 'flex', gap: 16 }}>
+                <div style={{ display: 'flex', flexDirection: 'column', flex: 2 }}>
+                  <label htmlFor="nombre" style={{ color: '#fff', fontWeight: 500, marginBottom: 4 }}>Nombre del ciclo</label>
+                  <input
+                    id="nombre"
+                    name="nombre"
+                    value={form.nombre}
+                    onChange={handleChange}
+                    disabled={creating}
+                    autoComplete="off"
+                    placeholder="Ej: 2025-A"
+                    style={{ marginBottom: 2, background: '#181A1B', color: '#fff', border: '1.5px solid #232527', borderRadius: 6, padding: '10px 14px', fontSize: 16, outline: 'none', boxShadow: 'none' }}
+                    onFocus={e => e.currentTarget.style.border = '1.5px solid #22c55e'}
+                    onBlur={e => e.currentTarget.style.border = '1.5px solid #232527'}
+                  />
+                  {fieldErrors.nombre && <span style={{ color: '#f87171', fontSize: 13 }}>{fieldErrors.nombre}</span>}
+                </div>
+                <div style={{ display: 'flex', flexDirection: 'column', flex: 1 }}>
+                  <label htmlFor="fechaInicio" style={{ color: '#fff', fontWeight: 500, marginBottom: 4 }}>Fecha de inicio</label>
+                  <input
+                    id="fechaInicio"
+                    name="fechaInicio"
+                    type="date"
+                    value={form.fechaInicio}
+                    onChange={handleChange}
+                    disabled={creating}
+                    style={{ marginBottom: 2, background: '#181A1B', color: '#fff', border: '1.5px solid #232527', borderRadius: 6, padding: '10px 14px', fontSize: 16, outline: 'none', boxShadow: 'none' }}
+                    onFocus={e => e.currentTarget.style.border = '1.5px solid #22c55e'}
+                    onBlur={e => e.currentTarget.style.border = '1.5px solid #232527'}
+                  />
+                  {fieldErrors.fechaInicio && <span style={{ color: '#f87171', fontSize: 13 }}>{fieldErrors.fechaInicio}</span>}
+                </div>
+                <div style={{ display: 'flex', flexDirection: 'column', flex: 1 }}>
+                  <label htmlFor="fechaFin" style={{ color: '#fff', fontWeight: 500, marginBottom: 4 }}>Fecha de fin</label>
+                  <input
+                    id="fechaFin"
+                    name="fechaFin"
+                    type="date"
+                    value={form.fechaFin}
+                    onChange={handleChange}
+                    disabled={creating}
+                    style={{ marginBottom: 2, background: '#181A1B', color: '#fff', border: '1.5px solid #232527', borderRadius: 6, padding: '10px 14px', fontSize: 16, outline: 'none', boxShadow: 'none' }}
+                    onFocus={e => e.currentTarget.style.border = '1.5px solid #22c55e'}
+                    onBlur={e => e.currentTarget.style.border = '1.5px solid #232527'}
+                  />
+                  {fieldErrors.fechaFin && <span style={{ color: '#f87171', fontSize: 13 }}>{fieldErrors.fechaFin}</span>}
+                </div>
               </div>
-              <div style={{ display: 'flex', flexDirection: 'column', flex: 1 }}>
-                <label htmlFor="fechaInicio" style={{ color: '#fff', fontWeight: 500, marginBottom: 4 }}>Fecha de inicio</label>
-                <input
-                  id="fechaInicio"
-                  name="fechaInicio"
-                  type="date"
-                  value={form.fechaInicio}
-                  onChange={handleChange}
-                  disabled={creating}
-                  style={{ marginBottom: 2, background: '#181A1B', color: '#fff', border: '1.5px solid #232527', borderRadius: 6, padding: '10px 14px', fontSize: 16, outline: 'none', boxShadow: 'none' }}
-                  onFocus={e => e.currentTarget.style.border = '1.5px solid #22c55e'}
-                  onBlur={e => e.currentTarget.style.border = '1.5px solid #232527'}
-                />
-                {fieldErrors.fechaInicio && <span style={{ color: '#f87171', fontSize: 13 }}>{fieldErrors.fechaInicio}</span>}
-              </div>
-              <div style={{ display: 'flex', flexDirection: 'column', flex: 1 }}>
-                <label htmlFor="fechaFin" style={{ color: '#fff', fontWeight: 500, marginBottom: 4 }}>Fecha de fin</label>
-                <input
-                  id="fechaFin"
-                  name="fechaFin"
-                  type="date"
-                  value={form.fechaFin}
-                  onChange={handleChange}
-                  disabled={creating}
-                  style={{ marginBottom: 2, background: '#181A1B', color: '#fff', border: '1.5px solid #232527', borderRadius: 6, padding: '10px 14px', fontSize: 16, outline: 'none', boxShadow: 'none' }}
-                  onFocus={e => e.currentTarget.style.border = '1.5px solid #22c55e'}
-                  onBlur={e => e.currentTarget.style.border = '1.5px solid #232527'}
-                />
-                {fieldErrors.fechaFin && <span style={{ color: '#f87171', fontSize: 13 }}>{fieldErrors.fechaFin}</span>}
-              </div>
-              <button
-                style={{ background: creating ? '#2563eb99' : '#2563eb', color: '#fff', borderRadius: 6, padding: '10px 24px', fontWeight: 700, border: 'none', cursor: creating ? 'not-allowed' : 'pointer', marginTop: 24, minWidth: 120 }}
-                type="submit"
-                disabled={creating || !!fieldErrors.nombre || !!fieldErrors.fechaInicio || !!fieldErrors.fechaFin || !form.nombre.trim() || !form.fechaInicio.trim() || !form.fechaFin.trim()}
-                aria-disabled={creating || !!fieldErrors.nombre || !!fieldErrors.fechaInicio || !!fieldErrors.fechaFin || !form.nombre.trim() || !form.fechaInicio.trim() || !form.fechaFin.trim()}
-              >
-                {creating ? (editingId ? 'Guardando...' : 'Guardando...') : (editingId ? 'Guardar cambios' : 'Guardar')}
-              </button>
-              {editingId && (
-                <button
-                  type="button"
-                  style={{ background: '#888', color: '#fff', borderRadius: 6, padding: '10px 24px', fontWeight: 700, border: 'none', marginTop: 24, minWidth: 120 }}
-                  onClick={() => { setEditingId(null); setForm({ nombre: '', fechaInicio: '', fechaFin: '' }); setError(''); setSuccess(''); }}
-                  disabled={creating}
-                  aria-disabled={creating}
+
+              <div style={{ display: 'flex', gap: 12, marginTop: 8 }}>
+                <Button
+                  variant="primary"
+                  type="submit"
+                  style={{ background: creating ? '#2563eb99' : '#2563eb', color: '#fff', borderRadius: 6, padding: '10px 24px', fontWeight: 700, border: 'none', cursor: creating ? 'not-allowed' : 'pointer', minWidth: 120 }}
+                  disabled={creating || !!fieldErrors.nombre || !!fieldErrors.fechaInicio || !!fieldErrors.fechaFin || !form.nombre.trim() || !form.fechaInicio.trim() || !form.fechaFin.trim()}
                 >
-                  Cancelar
-                </button>
-              )}
+                  {creating ? (editingId ? 'Guardando...' : 'Guardando...') : (editingId ? 'Guardar cambios' : 'Guardar')}
+                </Button>
+                {editingId && (
+                  <Button
+                    variant="ghost"
+                    type="button"
+                    style={{ background: '#888', color: '#fff', borderRadius: 6, padding: '10px 24px', fontWeight: 700, border: 'none', minWidth: 120 }}
+                    onClick={() => { setEditingId(null); setForm({ nombre: '', fechaInicio: '', fechaFin: '' }); setError(''); setSuccess(''); }}
+                    disabled={creating}
+                  >
+                    Cancelar
+                  </Button>
+                )}
+              </div>
             </form>
-            {error && <div style={{ color: '#f87171', marginBottom: 12, fontWeight: 500 }}>{error}</div>}
-            {success && <div style={{ color: '#22c55e', marginBottom: 12, fontWeight: 500 }}>{success}</div>}
           </div>
           <div className={styles.activityCard}>
             <h2 className={styles.activityTitle}>Listado de Ciclos Lectivos</h2>
@@ -280,8 +285,8 @@ export default function AdminCiclosPage() {
                         <td className={styles.activityAction}>{c.fechaFin.split('T')[0]}</td>
                         <td className={styles.activityAction}>{c.cerrado ? 'Sí' : 'No'}</td>
                         <td className={styles.activityAction}>
-                          <button style={{ color: '#2563eb', marginRight: 8 }} onClick={() => handleEdit(c)}>Editar</button>
-                          <button style={{ color: '#dc2626' }} onClick={() => handleDelete(c.id)}>Eliminar</button>
+                    <Button style={{ color: 'var(--color-primary)', marginRight: 8 }} variant="ghost" onClick={() => handleEdit(c)}>Editar</Button>
+                    <Button style={{ color: '#dc2626' }} onClick={() => handleDelete(c.id)}>Eliminar</Button>
                         </td>
                       </tr>
                     ))

@@ -2,6 +2,8 @@
 import styles from '../../styles/admin-dashboard.module.css';
 import { useAuth } from '../../context/authContext';
 import { useRouter } from 'next/navigation';
+import Button from '../../components/ui/Button';
+import TriangleIcon from '../../components/icons/TriangleIcon';
 
 export default function DocenteDashboard() {
   const { logout } = useAuth();
@@ -27,9 +29,9 @@ export default function DocenteDashboard() {
             </li>
           </ul>
         </nav>
-        <button onClick={handleLogout} className={styles.logoutBtn} style={{marginTop: '2.5rem'}}>
-          <span style={{ marginRight: 8 }}>⎋</span> Cerrar sesión
-        </button>
+        <div style={{marginTop:'2.5rem'}}>
+          <Button variant="ghost" onClick={handleLogout}><TriangleIcon /> Cerrar sesión</Button>
+        </div>
       </aside>
 
       {/* Main content */}

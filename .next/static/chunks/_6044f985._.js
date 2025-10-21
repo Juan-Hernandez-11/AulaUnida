@@ -191,7 +191,7 @@ function BackToDashboardButton() {
                 display: 'inline-flex',
                 alignItems: 'center',
                 gap: 8,
-                color: '#2563eb',
+                color: 'var(--color-primary)',
                 fontWeight: 500
             },
             children: [
@@ -221,7 +221,7 @@ function BackToDashboardButton() {
         }, void 0, true, {
             fileName: "[project]/src/app/admin/matricula/page.tsx",
             lineNumber: 12,
-            columnNumber: 7
+            columnNumber: 3
         }, this)
     }, void 0, false, {
         fileName: "[project]/src/app/admin/matricula/page.tsx",
@@ -639,7 +639,7 @@ function AdminMatriculaPage() {
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
                                                     style: {
                                                         marginLeft: 'auto',
-                                                        background: '#2563eb',
+                                                        background: 'var(--color-primary)',
                                                         color: '#fff',
                                                         borderRadius: 6,
                                                         padding: '6px 16px',

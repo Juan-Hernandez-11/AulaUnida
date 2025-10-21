@@ -7,6 +7,8 @@ import { useAuth } from "../../context/authContext";
 import { useUserRole } from "../../hooks/useUserRole";
 import { useRouter } from "next/navigation";
 import styles from "../../styles/login.module.css";
+import Button from '../../components/ui/Button';
+import TriangleIcon from '../../components/icons/TriangleIcon';
 
 export default function LoginPage() {
   const [email, setEmail] = useState("");
@@ -76,20 +78,13 @@ export default function LoginPage() {
               required
               autoComplete="current-password"
             />
-            <button type="submit">Ingresar</button>
+            <Button type="submit" variant="primary">Ingresar</Button>
             {error && <div className={styles["login-error"]}>{error}</div>}
           </form>
           {/* Botón para volver a la página principal */}
-          <button
-            type="button"
-            className={styles["login-back-btn"]}
-            onClick={() => router.push("/")}
-            style={{ marginTop: "1.5rem", background: "none", color: "#fff", border: "1px solid #fff", borderRadius: "6px", padding: "0.5rem 1.2rem", cursor: "pointer", fontSize: "1rem", transition: "background 0.2s, color 0.2s" }}
-            onMouseOver={e => { (e.target as HTMLButtonElement).style.background = "#fff"; (e.target as HTMLButtonElement).style.color = "#222"; }}
-            onMouseOut={e => { (e.target as HTMLButtonElement).style.background = "none"; (e.target as HTMLButtonElement).style.color = "#fff"; }}
-          >
-            Volver a la página principal
-          </button>
+          <div style={{ marginTop: '1.5rem' }}>
+            <Button variant="ghost" onClick={() => router.push('/') } icon={<TriangleIcon />}>Volver a la página principal</Button>
+          </div>
         </div>
       </div>
     </div>

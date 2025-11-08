@@ -1,10 +1,24 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  output: 'standalone',
+  // Vercel optimized configuration
   experimental: {
-    // Enable standalone output for Docker
-    outputFileTracingRoot: process.cwd(),
+    // Enable Turbopack for faster builds
+    turbo: {
+      rules: {
+        '*.svg': {
+          loaders: ['@svgr/webpack'],
+          as: '*.js',
+        },
+      },
+    },
   },
+  // Docker configuration (for professor demo)
+  ...(process.env.NODE_ENV === 'production' && process.env.DOCKER === 'true' ? {
+    output: 'standalone',
+    experimental: {
+      outputFileTracingRoot: process.cwd(),
+    },
+  } : {}),
 };
 
 export default nextConfig;

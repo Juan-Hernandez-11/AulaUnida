@@ -1,8 +1,9 @@
-version: '3.8'
 services:
+  # Base de Datos PostgreSQL
   db:
-    image: postgres:15
-    restart: always
+    image: postgres:15-alpine
+    container_name: aulaunida_db
+    restart: unless-stopped
     environment:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: postgres
@@ -11,28 +12,47 @@ services:
       - "5432:5432"
     volumes:
       - db_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres -d aulaunida"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
 
+  # Aplicación Next.js
   app:
-    build: .
+    build: 
+      context: .
+      dockerfile: Dockerfile
+    container_name: aulaunida_app
+    restart: unless-stopped
     depends_on:
-      - db
+      db:
+        condition: service_healthy
     environment:
-      DATABASE_URL: "postgresql://postgres:Jd080904@host.docker.internal:5432/db_aulaunida?schema=public"
-      NEXT_PUBLIC_API_KEY_FIREBASE: AIzaSyBwIoJmTpxDk1k7Oe74Msru0Vv_TbEL5fo
-      NEXT_PUBLIC_AUTHDOMAIN: aulaunida-58506.firebaseapp.com
-      NEXT_PUBLIC_PROJECTID: aulaunida-58506
-      NEXT_PUBLIC_STORAGEBUCKET: aulaunida-58506.firebasestorage.app
-      NEXT_PUBLIC_MESSAGINGSENDERID: 109632574576
-      NEXT_PUBLIC_APPID: 1:109632574576:web:3b1e2f0
-      NEXT_PUBLIC_MEASUREMENTID: G-80F5JCMZQD
+      # Database
+      DATABASE_URL: "postgresql://postgres:postgres@db:5432/aulaunida?schema=public"
+      
+      # Next.js
+      NODE_ENV: production
+      
+      # Firebase (tus credenciales actuales)
+      NEXT_PUBLIC_FIREBASE_API_KEY: AIzaSyBwIoJmTpxDk1k7Oe74Msru0Vv_TbEL5fo
+      NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN: aulaunida-58506.firebaseapp.com
+      NEXT_PUBLIC_FIREBASE_PROJECT_ID: aulaunida-58506
+      NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET: aulaunida-58506.firebasestorage.app
+      NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID: 109632574576
+      NEXT_PUBLIC_FIREBASE_APP_ID: 1:109632574576:web:3b1e2f0
+      NEXT_PUBLIC_FIREBASE_MEASUREMENT_ID: G-80F5JCMZQD
       FIREBASE_PROJECT_ID: aulaunida-58506
       FIREBASE_CLIENT_EMAIL: firebase-adminsdk-fbsvc@aulaunida-58506.iam.gserviceaccount.com
     ports:
       - "3000:3000"
-    volumes:
-      - .:/app
-      - /app/node_modules
-    command: npm run dev
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:3000/api/health", "||", "exit", "1"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 60s
 
 volumes:
   db_data:

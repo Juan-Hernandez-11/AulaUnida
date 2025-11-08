@@ -1,24 +1,37 @@
-# Imagen base oficial de Node.js
-FROM node:18
+# Dockerfile simple para AulaUnida
+FROM node:20-alpine
 
-# Directorio de trabajo
 WORKDIR /app
 
-# Copia archivos de dependencias
+# Install system dependencies
+RUN apk add --no-cache libc6-compat curl
+
+# Copy package files
 COPY package*.json ./
-COPY prisma ./prisma
+COPY prisma ./prisma/
 
-# Instala dependencias
-RUN npm install
+# Install dependencies
+RUN npm ci
 
-# Copia el resto del código
+# Copy source code
 COPY . .
 
-# Genera el cliente de Prisma
+# Generate Prisma client
 RUN npx prisma generate
 
-# Expone el puerto de Next.js
+# Build application
+RUN npm run build
+
+# Create startup script inline
+RUN echo '#!/bin/sh\n\
+set -e\n\
+echo "🚀 Starting AulaUnida..."\n\
+sleep 5\n\
+echo "🔄 Running Prisma migrations..."\n\
+npx prisma db push --skip-generate || echo "Migration failed, continuing..."\n\
+echo "✅ Starting Next.js server..."\n\
+exec npm start' > /app/start.sh && chmod +x /app/start.sh
+
 EXPOSE 3000
 
-# Comando para desarrollo (puedes cambiar a 'npm run build && npm start' para producción)
-CMD ["npm", "run", "dev"]
+CMD ["/app/start.sh"]

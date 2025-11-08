@@ -1,20 +1,5 @@
 {
   "app": {
-    "[project]/src/app/_not-found/page": [],
-    "[project]/src/app/admin/asignaturas/page": [],
-    "[project]/src/app/admin/grados/page": [],
-    "[project]/src/app/admin/page": [],
-    "[project]/src/app/admin/reportes/page": [],
-    "[project]/src/app/admin/sedes/page": [],
-    "[project]/src/app/admin/usuarios/listado/page": [],
-    "[project]/src/app/admin/usuarios/page": [],
-    "[project]/src/app/docente/notas/page": [],
-    "[project]/src/app/docente/page": [],
-    "[project]/src/app/estudiante/asignaturas/page": [],
-    "[project]/src/app/estudiante/boletin/page": [],
-    "[project]/src/app/estudiante/notas/page": [],
-    "[project]/src/app/estudiante/page": [],
-    "[project]/src/app/login/page": [],
     "[project]/src/app/page": []
   },
   "appUsingSizeAdjust": false,

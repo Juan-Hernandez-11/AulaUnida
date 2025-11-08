@@ -167,6 +167,12 @@ type RouteHandlerConfig<Route extends AppRouteHandlerRoutes = AppRouteHandlerRou
   handler satisfies AppPageConfig<"/admin/usuarios">
 }
 
+// Validate ../../src/app/docente/horarios/page.tsx
+{
+  const handler = {} as typeof import("../../src/app/docente/horarios/page.js")
+  handler satisfies AppPageConfig<"/docente/horarios">
+}
+
 // Validate ../../src/app/docente/notas/page.tsx
 {
   const handler = {} as typeof import("../../src/app/docente/notas/page.js")
@@ -315,6 +321,18 @@ type RouteHandlerConfig<Route extends AppRouteHandlerRoutes = AppRouteHandlerRou
 {
   const handler = {} as typeof import("../../src/app/api/docente/estudiantes/route.js")
   handler satisfies RouteHandlerConfig<"/api/docente/estudiantes">
+}
+
+// Validate ../../src/app/api/docente/horarios/route.ts
+{
+  const handler = {} as typeof import("../../src/app/api/docente/horarios/route.js")
+  handler satisfies RouteHandlerConfig<"/api/docente/horarios">
+}
+
+// Validate ../../src/app/api/docente/info/route.ts
+{
+  const handler = {} as typeof import("../../src/app/api/docente/info/route.js")
+  handler satisfies RouteHandlerConfig<"/api/docente/info">
 }
 
 // Validate ../../src/app/api/docente/notas/route.ts

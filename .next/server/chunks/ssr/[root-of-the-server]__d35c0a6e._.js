@@ -196,6 +196,7 @@ __turbopack_context__.v({
   "activityTitle": "admin-dashboard-module__5BnUYq__activityTitle",
   "activityUser": "admin-dashboard-module__5BnUYq__activityUser",
   "avatar": "admin-dashboard-module__5BnUYq__avatar",
+  "card": "admin-dashboard-module__5BnUYq__card",
   "dashboardContainer": "admin-dashboard-module__5BnUYq__dashboardContainer",
   "logo": "admin-dashboard-module__5BnUYq__logo",
   "logoutBtn": "admin-dashboard-module__5BnUYq__logoutBtn",
@@ -207,7 +208,11 @@ __turbopack_context__.v({
   "metricLabel": "admin-dashboard-module__5BnUYq__metricLabel",
   "metricValue": "admin-dashboard-module__5BnUYq__metricValue",
   "metricsGrid": "admin-dashboard-module__5BnUYq__metricsGrid",
+  "primaryBtn": "admin-dashboard-module__5BnUYq__primaryBtn",
+  "quickAccessBtn": "admin-dashboard-module__5BnUYq__quickAccessBtn",
+  "quickAccessCard": "admin-dashboard-module__5BnUYq__quickAccessCard",
   "sidebar": "admin-dashboard-module__5BnUYq__sidebar",
+  "spin": "admin-dashboard-module__5BnUYq__spin",
   "subtitle": "admin-dashboard-module__5BnUYq__subtitle",
   "title": "admin-dashboard-module__5BnUYq__title",
 });
@@ -372,8 +377,8 @@ function ListadoUsuariosPage() {
         });
     }, []);
     const handleEdit = (user)=>{
-        // Aquí puedes redirigir o abrir modal de edición
-        alert(`Editar usuario: ${user.name}`);
+        // Redirigir a la página de usuarios con el ID para editar
+        window.location.href = `/admin/usuarios?edit=${user.id}`;
     };
     const handleToggleActive = async (user)=>{
         try {

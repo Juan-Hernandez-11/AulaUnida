@@ -1,0 +1,139 @@
+/* [project]/src/styles/sedes.module.css [app-client] (css) */
+.sedes-module__G7jk0G__backWrapper {
+  margin-bottom: 24px;
+}
+
+.sedes-module__G7jk0G__backLink {
+  color: var(--color-primary);
+  align-items: center;
+  gap: 8px;
+  font-weight: 500;
+  text-decoration: none;
+  display: inline-flex;
+}
+
+.sedes-module__G7jk0G__brand {
+  align-items: center;
+  margin-bottom: 3rem;
+  display: flex;
+}
+
+.sedes-module__G7jk0G__menuList {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.sedes-module__G7jk0G__linkIcon {
+  width: 24px;
+  height: 24px;
+  margin-right: 16px;
+}
+
+.sedes-module__G7jk0G__formContainer {
+  background: #232734;
+  border-radius: 12px;
+  gap: 16px;
+  margin-bottom: 24px;
+  padding: 24px;
+  display: flex;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, .1);
+}
+
+.sedes-module__G7jk0G__formGroup {
+  flex-direction: column;
+  display: flex;
+}
+
+.sedes-module__G7jk0G__formGroup.sedes-module__G7jk0G__flex1 {
+  flex: 1;
+}
+
+.sedes-module__G7jk0G__formGroup.sedes-module__G7jk0G__flex2 {
+  flex: 2;
+}
+
+.sedes-module__G7jk0G__label {
+  color: #fff;
+  margin-bottom: 4px;
+  font-weight: 500;
+}
+
+.sedes-module__G7jk0G__input {
+  color: #fff;
+  box-shadow: none;
+  background: #181a1b;
+  border: 1.5px solid #232527;
+  border-radius: 6px;
+  outline: none;
+  margin-bottom: 2px;
+  padding: 10px 14px;
+  font-size: 16px;
+}
+
+.sedes-module__G7jk0G__input:focus {
+  border-color: #22c55e;
+}
+
+.sedes-module__G7jk0G__buttonPrimary {
+  color: #fff;
+  cursor: pointer;
+  background: #2563eb;
+  border: none;
+  border-radius: 6px;
+  min-width: 120px;
+  margin-top: 24px;
+  padding: 10px 24px;
+  font-weight: 700;
+}
+
+.sedes-module__G7jk0G__buttonPrimary.sedes-module__G7jk0G__disabled {
+  cursor: not-allowed;
+  background: rgba(37, 99, 235, .6);
+}
+
+.sedes-module__G7jk0G__buttonCancel {
+  color: #fff;
+  background: #888;
+  border: none;
+  border-radius: 6px;
+  min-width: 120px;
+  margin-top: 24px;
+  padding: 10px 24px;
+  font-weight: 700;
+}
+
+.sedes-module__G7jk0G__errorMsg {
+  color: #f87171;
+  margin-bottom: 12px;
+  font-weight: 500;
+}
+
+.sedes-module__G7jk0G__successMsg {
+  color: #22c55e;
+  margin-bottom: 12px;
+  font-weight: 500;
+}
+
+.sedes-module__G7jk0G__emptyRow {
+  text-align: center;
+  color: #b0b3b8;
+  padding: 2rem;
+}
+
+.sedes-module__G7jk0G__actionPrimary {
+  color: var(--color-primary);
+  margin-right: 8px;
+}
+
+.sedes-module__G7jk0G__actionDelete {
+  color: #dc2626;
+}
+
+.sedes-module__G7jk0G__tableActionCell {
+  align-items: center;
+  gap: 8px;
+  display: flex;
+}
+
+/*# sourceMappingURL=src_styles_sedes_module_css_bad6b30c._.single.css.map*/

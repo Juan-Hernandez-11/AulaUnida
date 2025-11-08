@@ -1,7 +1,0 @@
-{
-  "version": 3,
-  "sources": [],
-  "sections": [
-    {"offset": {"line": 3, "column": 0}, "map": {"version":3,"sources":[],"names":[],"mappings":"","debugId":null}},
-    {"offset": {"line": 55, "column": 0}, "map": {"version":3,"sources":["file:///C:/Users/juant/Documents/proyectoCUN/aulaunida/src/app/api/admin/estudiantes/route.ts"],"sourcesContent":["import { NextResponse } from 'next/server';\r\nimport { PrismaClient } from '@prisma/client';\r\n\r\nconst prisma = new PrismaClient();\r\n\r\n// GET: Devuelve todos los estudiantes (usuarios con rol 'STUDENT')\r\nexport async function GET() {\r\n  try {\r\n    const estudiantes = await prisma.user.findMany({\r\n      where: { role: 'STUDENT' },\r\n      select: { id: true, name: true, email: true },\r\n      orderBy: { name: 'asc' },\r\n    });\r\n    return NextResponse.json(estudiantes);\r\n  } catch (error) {\r\n    return NextResponse.json({ error: 'Error al obtener estudiantes' }, { status: 500 });\r\n  }\r\n}\r\n"],"names":[],"mappings":";;;;AAAA;AACA;;;AAEA,MAAM,SAAS,IAAI,6IAAY;AAGxB,eAAe;IACpB,IAAI;QACF,MAAM,cAAc,MAAM,OAAO,IAAI,CAAC,QAAQ,CAAC;YAC7C,OAAO;gBAAE,MAAM;YAAU;YACzB,QAAQ;gBAAE,IAAI;gBAAM,MAAM;gBAAM,OAAO;YAAK;YAC5C,SAAS;gBAAE,MAAM;YAAM;QACzB;QACA,OAAO,gJAAY,CAAC,IAAI,CAAC;IAC3B,EAAE,OAAO,OAAO;QACd,OAAO,gJAAY,CAAC,IAAI,CAAC;YAAE,OAAO;QAA+B,GAAG;YAAE,QAAQ;QAAI;IACpF;AACF","debugId":null}}]
-}

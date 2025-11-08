@@ -1,6 +1,0 @@
-{
-  "version": 3,
-  "sources": [],
-  "sections": [
-    {"offset": {"line": 1, "column": 0}, "map": {"version":3,"sources":["file:///C:/Users/juant/Documents/proyectoCUN/aulaunida/src/styles/estudiante-horario.module.css"],"sourcesContent":[".container {\r\n  max-width: 900px;\r\n  margin: 40px auto;\r\n  background: #232527;\r\n  border-radius: 12px;\r\n  padding: 24px;\r\n  color: #fff;\r\n}\r\n.title {\r\n  font-size: 22px;\r\n  margin-bottom: 12px;\r\n}\r\n.empty { color: #bbb; }\r\n.table { width: 100%; border-collapse: collapse; }\r\n.table th, .table td { padding: 8px 12px; border-bottom: 1px solid rgba(255,255,255,0.06); }\r\n"],"names":[],"mappings":"AAAA;;;;;;;;;AAQA;;;;;AAIA;;;;AACA;;;;;AACA","debugId":null}}]
-}

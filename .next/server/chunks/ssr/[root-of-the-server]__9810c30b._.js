@@ -223,6 +223,7 @@ __turbopack_context__.v({
   "activityTitle": "admin-dashboard-module__5BnUYq__activityTitle",
   "activityUser": "admin-dashboard-module__5BnUYq__activityUser",
   "avatar": "admin-dashboard-module__5BnUYq__avatar",
+  "card": "admin-dashboard-module__5BnUYq__card",
   "dashboardContainer": "admin-dashboard-module__5BnUYq__dashboardContainer",
   "logo": "admin-dashboard-module__5BnUYq__logo",
   "logoutBtn": "admin-dashboard-module__5BnUYq__logoutBtn",
@@ -234,7 +235,11 @@ __turbopack_context__.v({
   "metricLabel": "admin-dashboard-module__5BnUYq__metricLabel",
   "metricValue": "admin-dashboard-module__5BnUYq__metricValue",
   "metricsGrid": "admin-dashboard-module__5BnUYq__metricsGrid",
+  "primaryBtn": "admin-dashboard-module__5BnUYq__primaryBtn",
+  "quickAccessBtn": "admin-dashboard-module__5BnUYq__quickAccessBtn",
+  "quickAccessCard": "admin-dashboard-module__5BnUYq__quickAccessCard",
   "sidebar": "admin-dashboard-module__5BnUYq__sidebar",
+  "spin": "admin-dashboard-module__5BnUYq__spin",
   "subtitle": "admin-dashboard-module__5BnUYq__subtitle",
   "title": "admin-dashboard-module__5BnUYq__title",
 });
@@ -540,6 +545,18 @@ function AdminAsignaturasPage() {
             };
         });
     };
+    // Función para asignar el mismo docente a todos los grados
+    const asignarMismoDocente = (docenteId)=>{
+        if (!docenteId || form.gradoIds.length === 0) return;
+        const nuevasAsignaciones = form.gradoIds.map((gradoId)=>({
+                gradoId: Number(gradoId),
+                docenteId: Number(docenteId)
+            }));
+        setForm((prev)=>({
+                ...prev,
+                asignaciones: nuevasAsignaciones
+            }));
+    };
     const handleSubmit = async (e)=>{
         e.preventDefault();
         setCreating(true);
@@ -663,6 +680,8 @@ function AdminAsignaturasPage() {
         });
         setEditingId(asig.id);
         setError('');
+        setSuccess('');
+        setFieldErrors({}); // Limpiar errores de validación
     };
     // Cargar grados al montar el componente
     (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useEffect"])(()=>{
@@ -695,7 +714,7 @@ function AdminAsignaturasPage() {
                                     className: __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$styles$2f$admin$2d$dashboard$2e$module$2e$css__$5b$app$2d$ssr$5d$__$28$css__module$29$__["default"].avatar
                                 }, void 0, false, {
                                     fileName: "[project]/src/app/admin/asignaturas/page.tsx",
-                                    lineNumber: 270,
+                                    lineNumber: 284,
                                     columnNumber: 13
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -703,13 +722,13 @@ function AdminAsignaturasPage() {
                                     children: "AulaUnida"
                                 }, void 0, false, {
                                     fileName: "[project]/src/app/admin/asignaturas/page.tsx",
-                                    lineNumber: 271,
+                                    lineNumber: 285,
                                     columnNumber: 13
                                 }, this)
                             ]
                         }, void 0, true, {
                             fileName: "[project]/src/app/admin/asignaturas/page.tsx",
-                            lineNumber: 269,
+                            lineNumber: 283,
                             columnNumber: 11
                         }, this),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("nav", {
@@ -733,35 +752,35 @@ function AdminAsignaturasPage() {
                                                     }
                                                 }, void 0, false, {
                                                     fileName: "[project]/src/app/admin/asignaturas/page.tsx",
-                                                    lineNumber: 278,
+                                                    lineNumber: 292,
                                                     columnNumber: 21
                                                 }, this),
                                                 link.label
                                             ]
                                         }, void 0, true, {
                                             fileName: "[project]/src/app/admin/asignaturas/page.tsx",
-                                            lineNumber: 277,
+                                            lineNumber: 291,
                                             columnNumber: 19
                                         }, this)
                                     }, link.label, false, {
                                         fileName: "[project]/src/app/admin/asignaturas/page.tsx",
-                                        lineNumber: 276,
+                                        lineNumber: 290,
                                         columnNumber: 17
                                     }, this))
                             }, void 0, false, {
                                 fileName: "[project]/src/app/admin/asignaturas/page.tsx",
-                                lineNumber: 274,
+                                lineNumber: 288,
                                 columnNumber: 13
                             }, this)
                         }, void 0, false, {
                             fileName: "[project]/src/app/admin/asignaturas/page.tsx",
-                            lineNumber: 273,
+                            lineNumber: 287,
                             columnNumber: 11
                         }, this)
                     ]
                 }, void 0, true, {
                     fileName: "[project]/src/app/admin/asignaturas/page.tsx",
-                    lineNumber: 268,
+                    lineNumber: 282,
                     columnNumber: 9
                 }, this),
                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("main", {
@@ -769,7 +788,7 @@ function AdminAsignaturasPage() {
                     children: [
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(BackToDashboardButton, {}, void 0, false, {
                             fileName: "[project]/src/app/admin/asignaturas/page.tsx",
-                            lineNumber: 288,
+                            lineNumber: 302,
                             columnNumber: 11
                         }, this),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("h1", {
@@ -777,7 +796,7 @@ function AdminAsignaturasPage() {
                             children: "Gestión de Asignaturas"
                         }, void 0, false, {
                             fileName: "[project]/src/app/admin/asignaturas/page.tsx",
-                            lineNumber: 289,
+                            lineNumber: 303,
                             columnNumber: 11
                         }, this),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -785,11 +804,23 @@ function AdminAsignaturasPage() {
                             children: [
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("h2", {
                                     className: __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$styles$2f$admin$2d$dashboard$2e$module$2e$css__$5b$app$2d$ssr$5d$__$28$css__module$29$__["default"].activityTitle,
-                                    children: editingId ? 'Editar Asignatura' : 'Crear Asignatura'
+                                    children: editingId ? `Editar Asignatura: ${form.nombre}` : 'Crear Nueva Asignatura'
                                 }, void 0, false, {
                                     fileName: "[project]/src/app/admin/asignaturas/page.tsx",
-                                    lineNumber: 291,
+                                    lineNumber: 305,
                                     columnNumber: 13
+                                }, this),
+                                editingId && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
+                                    style: {
+                                        color: '#64748B',
+                                        marginBottom: '1rem',
+                                        fontSize: '14px'
+                                    },
+                                    children: "Puedes agregar o quitar grados, y cambiar la asignación de docentes para esta asignatura."
+                                }, void 0, false, {
+                                    fileName: "[project]/src/app/admin/asignaturas/page.tsx",
+                                    lineNumber: 312,
+                                    columnNumber: 15
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("form", {
                                     className: __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$styles$2f$admin$2d$asignaturas$2d$form$2e$module$2e$css__$5b$app$2d$ssr$5d$__$28$css__module$29$__["default"].formBox,
@@ -804,7 +835,7 @@ function AdminAsignaturasPage() {
                                                     children: "Nombre"
                                                 }, void 0, false, {
                                                     fileName: "[project]/src/app/admin/asignaturas/page.tsx",
-                                                    lineNumber: 294,
+                                                    lineNumber: 318,
                                                     columnNumber: 17
                                                 }, this),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
@@ -818,7 +849,7 @@ function AdminAsignaturasPage() {
                                                     autoComplete: "off"
                                                 }, void 0, false, {
                                                     fileName: "[project]/src/app/admin/asignaturas/page.tsx",
-                                                    lineNumber: 295,
+                                                    lineNumber: 319,
                                                     columnNumber: 17
                                                 }, this),
                                                 fieldErrors.nombre && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -826,13 +857,13 @@ function AdminAsignaturasPage() {
                                                     children: fieldErrors.nombre
                                                 }, void 0, false, {
                                                     fileName: "[project]/src/app/admin/asignaturas/page.tsx",
-                                                    lineNumber: 305,
+                                                    lineNumber: 329,
                                                     columnNumber: 40
                                                 }, this)
                                             ]
                                         }, void 0, true, {
                                             fileName: "[project]/src/app/admin/asignaturas/page.tsx",
-                                            lineNumber: 293,
+                                            lineNumber: 317,
                                             columnNumber: 15
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -844,7 +875,7 @@ function AdminAsignaturasPage() {
                                                     children: "Área"
                                                 }, void 0, false, {
                                                     fileName: "[project]/src/app/admin/asignaturas/page.tsx",
-                                                    lineNumber: 308,
+                                                    lineNumber: 332,
                                                     columnNumber: 17
                                                 }, this),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
@@ -858,7 +889,7 @@ function AdminAsignaturasPage() {
                                                     autoComplete: "off"
                                                 }, void 0, false, {
                                                     fileName: "[project]/src/app/admin/asignaturas/page.tsx",
-                                                    lineNumber: 309,
+                                                    lineNumber: 333,
                                                     columnNumber: 17
                                                 }, this),
                                                 fieldErrors.area && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -866,13 +897,13 @@ function AdminAsignaturasPage() {
                                                     children: fieldErrors.area
                                                 }, void 0, false, {
                                                     fileName: "[project]/src/app/admin/asignaturas/page.tsx",
-                                                    lineNumber: 319,
+                                                    lineNumber: 343,
                                                     columnNumber: 38
                                                 }, this)
                                             ]
                                         }, void 0, true, {
                                             fileName: "[project]/src/app/admin/asignaturas/page.tsx",
-                                            lineNumber: 307,
+                                            lineNumber: 331,
                                             columnNumber: 15
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -884,7 +915,7 @@ function AdminAsignaturasPage() {
                                                     children: "Código"
                                                 }, void 0, false, {
                                                     fileName: "[project]/src/app/admin/asignaturas/page.tsx",
-                                                    lineNumber: 322,
+                                                    lineNumber: 346,
                                                     columnNumber: 17
                                                 }, this),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
@@ -898,7 +929,7 @@ function AdminAsignaturasPage() {
                                                     autoComplete: "off"
                                                 }, void 0, false, {
                                                     fileName: "[project]/src/app/admin/asignaturas/page.tsx",
-                                                    lineNumber: 323,
+                                                    lineNumber: 347,
                                                     columnNumber: 17
                                                 }, this),
                                                 fieldErrors.codigo && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -906,13 +937,13 @@ function AdminAsignaturasPage() {
                                                     children: fieldErrors.codigo
                                                 }, void 0, false, {
                                                     fileName: "[project]/src/app/admin/asignaturas/page.tsx",
-                                                    lineNumber: 333,
+                                                    lineNumber: 357,
                                                     columnNumber: 40
                                                 }, this)
                                             ]
                                         }, void 0, true, {
                                             fileName: "[project]/src/app/admin/asignaturas/page.tsx",
-                                            lineNumber: 321,
+                                            lineNumber: 345,
                                             columnNumber: 15
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -921,11 +952,41 @@ function AdminAsignaturasPage() {
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("label", {
                                                     htmlFor: "gradoIds",
                                                     className: __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$styles$2f$admin$2d$asignaturas$2d$form$2e$module$2e$css__$5b$app$2d$ssr$5d$__$28$css__module$29$__["default"].label,
-                                                    children: "Grados"
+                                                    children: [
+                                                        "Grados",
+                                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
+                                                            style: {
+                                                                fontSize: '12px',
+                                                                color: '#64748B',
+                                                                marginLeft: '8px'
+                                                            },
+                                                            children: "(Mantén Ctrl presionado para seleccionar múltiples grados)"
+                                                        }, void 0, false, {
+                                                            fileName: "[project]/src/app/admin/asignaturas/page.tsx",
+                                                            lineNumber: 362,
+                                                            columnNumber: 19
+                                                        }, this)
+                                                    ]
+                                                }, void 0, true, {
+                                                    fileName: "[project]/src/app/admin/asignaturas/page.tsx",
+                                                    lineNumber: 360,
+                                                    columnNumber: 17
+                                                }, this),
+                                                editingId && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                                    style: {
+                                                        fontSize: '12px',
+                                                        color: '#0ea5e9',
+                                                        marginBottom: '8px',
+                                                        padding: '8px 12px',
+                                                        backgroundColor: '#0f172a',
+                                                        borderRadius: '4px',
+                                                        border: '1px solid #1e40af'
+                                                    },
+                                                    children: "Modo edición: Puedes agregar o quitar grados. Los grados actuales se mantendrán a menos que los deselecciones."
                                                 }, void 0, false, {
                                                     fileName: "[project]/src/app/admin/asignaturas/page.tsx",
-                                                    lineNumber: 336,
-                                                    columnNumber: 17
+                                                    lineNumber: 367,
+                                                    columnNumber: 19
                                                 }, this),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("select", {
                                                     id: "gradoIds",
@@ -935,13 +996,16 @@ function AdminAsignaturasPage() {
                                                     value: form.gradoIds,
                                                     onChange: handleChange,
                                                     disabled: creating,
+                                                    style: {
+                                                        minHeight: '100px'
+                                                    },
                                                     children: grados.length === 0 ? /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("option", {
                                                         value: "",
                                                         disabled: true,
                                                         children: "No hay grados disponibles"
                                                     }, void 0, false, {
                                                         fileName: "[project]/src/app/admin/asignaturas/page.tsx",
-                                                        lineNumber: 347,
+                                                        lineNumber: 390,
                                                         columnNumber: 21
                                                     }, this) : grados.map((g)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("option", {
                                                             value: g.id,
@@ -952,26 +1016,45 @@ function AdminAsignaturasPage() {
                                                             ]
                                                         }, g.id, true, {
                                                             fileName: "[project]/src/app/admin/asignaturas/page.tsx",
-                                                            lineNumber: 349,
+                                                            lineNumber: 392,
                                                             columnNumber: 37
                                                         }, this))
                                                 }, void 0, false, {
                                                     fileName: "[project]/src/app/admin/asignaturas/page.tsx",
-                                                    lineNumber: 337,
+                                                    lineNumber: 379,
                                                     columnNumber: 17
+                                                }, this),
+                                                form.gradoIds.length > 0 && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                                    style: {
+                                                        fontSize: '12px',
+                                                        color: '#22c55e',
+                                                        marginTop: '4px'
+                                                    },
+                                                    children: [
+                                                        form.gradoIds.length,
+                                                        " grado(s) seleccionado(s): ",
+                                                        form.gradoIds.map((id)=>{
+                                                            const grado = grados.find((g)=>String(g.id) === id);
+                                                            return grado ? `${grado.nombre} ${grado.seccion}` : '';
+                                                        }).join(', ')
+                                                    ]
+                                                }, void 0, true, {
+                                                    fileName: "[project]/src/app/admin/asignaturas/page.tsx",
+                                                    lineNumber: 396,
+                                                    columnNumber: 19
                                                 }, this),
                                                 fieldErrors.gradoIds && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
                                                     className: __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$styles$2f$admin$2d$asignaturas$2d$form$2e$module$2e$css__$5b$app$2d$ssr$5d$__$28$css__module$29$__["default"].error,
                                                     children: fieldErrors.gradoIds
                                                 }, void 0, false, {
                                                     fileName: "[project]/src/app/admin/asignaturas/page.tsx",
-                                                    lineNumber: 352,
+                                                    lineNumber: 405,
                                                     columnNumber: 42
                                                 }, this)
                                             ]
                                         }, void 0, true, {
                                             fileName: "[project]/src/app/admin/asignaturas/page.tsx",
-                                            lineNumber: 335,
+                                            lineNumber: 359,
                                             columnNumber: 15
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -979,79 +1062,218 @@ function AdminAsignaturasPage() {
                                             children: [
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("label", {
                                                     className: __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$styles$2f$admin$2d$asignaturas$2d$form$2e$module$2e$css__$5b$app$2d$ssr$5d$__$28$css__module$29$__["default"].label,
-                                                    children: "Docente por grado"
-                                                }, void 0, false, {
+                                                    children: [
+                                                        "Docente por grado",
+                                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
+                                                            style: {
+                                                                fontSize: '12px',
+                                                                color: '#64748B',
+                                                                marginLeft: '8px'
+                                                            },
+                                                            children: "(Puedes asignar el mismo docente a múltiples grados)"
+                                                        }, void 0, false, {
+                                                            fileName: "[project]/src/app/admin/asignaturas/page.tsx",
+                                                            lineNumber: 410,
+                                                            columnNumber: 19
+                                                        }, this)
+                                                    ]
+                                                }, void 0, true, {
                                                     fileName: "[project]/src/app/admin/asignaturas/page.tsx",
-                                                    lineNumber: 355,
+                                                    lineNumber: 408,
                                                     columnNumber: 17
                                                 }, this),
                                                 form.gradoIds.length === 0 ? /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                                                     style: {
-                                                        color: '#888',
-                                                        fontSize: 14
+                                                        color: '#64748B',
+                                                        fontSize: 14,
+                                                        padding: '12px',
+                                                        border: '1px dashed #374151',
+                                                        borderRadius: '6px',
+                                                        textAlign: 'center'
                                                     },
-                                                    children: "Selecciona al menos un grado"
+                                                    children: "Primero selecciona uno o más grados arriba"
                                                 }, void 0, false, {
                                                     fileName: "[project]/src/app/admin/asignaturas/page.tsx",
-                                                    lineNumber: 357,
+                                                    lineNumber: 415,
                                                     columnNumber: 19
-                                                }, this) : form.gradoIds.map((gradoId)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                                        style: {
-                                                            marginBottom: 8
-                                                        },
-                                                        children: [
-                                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
+                                                }, this) : /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                                    style: {
+                                                        display: 'flex',
+                                                        flexDirection: 'column',
+                                                        gap: '12px'
+                                                    },
+                                                    children: [
+                                                        form.gradoIds.length > 1 && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                                            style: {
+                                                                padding: '12px',
+                                                                backgroundColor: '#0f172a',
+                                                                borderRadius: '6px',
+                                                                border: '1px solid #1e40af'
+                                                            },
+                                                            children: [
+                                                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                                                    style: {
+                                                                        fontSize: '14px',
+                                                                        color: '#0ea5e9',
+                                                                        marginBottom: '8px',
+                                                                        fontWeight: 500
+                                                                    },
+                                                                    children: [
+                                                                        "Asignación Rápida: Mismo docente para todos los grados",
+                                                                        editingId && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
+                                                                            style: {
+                                                                                marginLeft: '8px',
+                                                                                fontSize: '12px'
+                                                                            },
+                                                                            children: "(incluye grados nuevos)"
+                                                                        }, void 0, false, {
+                                                                            fileName: "[project]/src/app/admin/asignaturas/page.tsx",
+                                                                            lineNumber: 430,
+                                                                            columnNumber: 41
+                                                                        }, this)
+                                                                    ]
+                                                                }, void 0, true, {
+                                                                    fileName: "[project]/src/app/admin/asignaturas/page.tsx",
+                                                                    lineNumber: 428,
+                                                                    columnNumber: 25
+                                                                }, this),
+                                                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                                                    style: {
+                                                                        display: 'flex',
+                                                                        gap: '8px',
+                                                                        alignItems: 'center'
+                                                                    },
+                                                                    children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("select", {
+                                                                        className: __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$styles$2f$admin$2d$asignaturas$2d$form$2e$module$2e$css__$5b$app$2d$ssr$5d$__$28$css__module$29$__["default"].select,
+                                                                        onChange: (e)=>asignarMismoDocente(e.target.value),
+                                                                        disabled: creating,
+                                                                        style: {
+                                                                            flex: 1
+                                                                        },
+                                                                        children: [
+                                                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("option", {
+                                                                                value: "",
+                                                                                children: "Seleccionar docente para todos..."
+                                                                            }, void 0, false, {
+                                                                                fileName: "[project]/src/app/admin/asignaturas/page.tsx",
+                                                                                lineNumber: 439,
+                                                                                columnNumber: 29
+                                                                            }, this),
+                                                                            docentes.map((d)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("option", {
+                                                                                    value: d.id,
+                                                                                    children: d.name
+                                                                                }, d.id, false, {
+                                                                                    fileName: "[project]/src/app/admin/asignaturas/page.tsx",
+                                                                                    lineNumber: 440,
+                                                                                    columnNumber: 48
+                                                                                }, this))
+                                                                        ]
+                                                                    }, void 0, true, {
+                                                                        fileName: "[project]/src/app/admin/asignaturas/page.tsx",
+                                                                        lineNumber: 433,
+                                                                        columnNumber: 27
+                                                                    }, this)
+                                                                }, void 0, false, {
+                                                                    fileName: "[project]/src/app/admin/asignaturas/page.tsx",
+                                                                    lineNumber: 432,
+                                                                    columnNumber: 25
+                                                                }, this)
+                                                            ]
+                                                        }, void 0, true, {
+                                                            fileName: "[project]/src/app/admin/asignaturas/page.tsx",
+                                                            lineNumber: 422,
+                                                            columnNumber: 23
+                                                        }, this),
+                                                        form.gradoIds.map((gradoId)=>{
+                                                            const grado = grados.find((g)=>String(g.id) === gradoId);
+                                                            return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                                                                 style: {
-                                                                    fontWeight: 500
+                                                                    padding: '12px',
+                                                                    backgroundColor: '#1E293B',
+                                                                    borderRadius: '6px',
+                                                                    border: '1px solid #334155'
                                                                 },
                                                                 children: [
-                                                                    grados.find((g)=>String(g.id) === gradoId)?.nombre,
-                                                                    " ",
-                                                                    grados.find((g)=>String(g.id) === gradoId)?.seccion
-                                                                ]
-                                                            }, void 0, true, {
-                                                                fileName: "[project]/src/app/admin/asignaturas/page.tsx",
-                                                                lineNumber: 361,
-                                                                columnNumber: 23
-                                                            }, this),
-                                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("select", {
-                                                                className: __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$styles$2f$admin$2d$asignaturas$2d$form$2e$module$2e$css__$5b$app$2d$ssr$5d$__$28$css__module$29$__["default"].select,
-                                                                value: form.asignaciones.find((a)=>a.gradoId === Number(gradoId))?.docenteId || '',
-                                                                onChange: (e)=>handleDocenteChange(Number(gradoId), e.target.value),
-                                                                disabled: creating,
-                                                                children: [
-                                                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("option", {
-                                                                        value: "",
-                                                                        children: "Sin docente asignado"
-                                                                    }, void 0, false, {
+                                                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                                                        style: {
+                                                                            fontWeight: 600,
+                                                                            color: '#22c55e',
+                                                                            marginBottom: '8px',
+                                                                            fontSize: '14px'
+                                                                        },
+                                                                        children: [
+                                                                            grado?.nombre,
+                                                                            " ",
+                                                                            grado?.seccion
+                                                                        ]
+                                                                    }, void 0, true, {
                                                                         fileName: "[project]/src/app/admin/asignaturas/page.tsx",
-                                                                        lineNumber: 368,
-                                                                        columnNumber: 25
+                                                                        lineNumber: 455,
+                                                                        columnNumber: 27
                                                                     }, this),
-                                                                    docentes.map((d)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("option", {
-                                                                            value: d.id,
-                                                                            children: d.name
-                                                                        }, d.id, false, {
-                                                                            fileName: "[project]/src/app/admin/asignaturas/page.tsx",
-                                                                            lineNumber: 369,
-                                                                            columnNumber: 44
-                                                                        }, this))
+                                                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("select", {
+                                                                        className: __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$styles$2f$admin$2d$asignaturas$2d$form$2e$module$2e$css__$5b$app$2d$ssr$5d$__$28$css__module$29$__["default"].select,
+                                                                        value: form.asignaciones.find((a)=>a.gradoId === Number(gradoId))?.docenteId || '',
+                                                                        onChange: (e)=>handleDocenteChange(Number(gradoId), e.target.value),
+                                                                        disabled: creating,
+                                                                        style: {
+                                                                            marginTop: 0
+                                                                        },
+                                                                        children: [
+                                                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("option", {
+                                                                                value: "",
+                                                                                children: "Seleccionar docente..."
+                                                                            }, void 0, false, {
+                                                                                fileName: "[project]/src/app/admin/asignaturas/page.tsx",
+                                                                                lineNumber: 470,
+                                                                                columnNumber: 29
+                                                                            }, this),
+                                                                            docentes.map((d)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("option", {
+                                                                                    value: d.id,
+                                                                                    children: d.name
+                                                                                }, d.id, false, {
+                                                                                    fileName: "[project]/src/app/admin/asignaturas/page.tsx",
+                                                                                    lineNumber: 471,
+                                                                                    columnNumber: 48
+                                                                                }, this))
+                                                                        ]
+                                                                    }, void 0, true, {
+                                                                        fileName: "[project]/src/app/admin/asignaturas/page.tsx",
+                                                                        lineNumber: 463,
+                                                                        columnNumber: 27
+                                                                    }, this)
                                                                 ]
-                                                            }, void 0, true, {
+                                                            }, gradoId, true, {
                                                                 fileName: "[project]/src/app/admin/asignaturas/page.tsx",
-                                                                lineNumber: 362,
-                                                                columnNumber: 23
-                                                            }, this)
-                                                        ]
-                                                    }, gradoId, true, {
-                                                        fileName: "[project]/src/app/admin/asignaturas/page.tsx",
-                                                        lineNumber: 360,
-                                                        columnNumber: 21
-                                                    }, this))
+                                                                lineNumber: 449,
+                                                                columnNumber: 25
+                                                            }, this);
+                                                        }),
+                                                        form.gradoIds.length > 1 && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                                            style: {
+                                                                fontSize: '12px',
+                                                                color: '#0ea5e9',
+                                                                padding: '8px 12px',
+                                                                backgroundColor: '#0f172a',
+                                                                borderRadius: '4px',
+                                                                border: '1px solid #1e40af'
+                                                            },
+                                                            children: "Tip: Puedes seleccionar el mismo docente para todos los grados si quieres que dé la misma materia en múltiples cursos"
+                                                        }, void 0, false, {
+                                                            fileName: "[project]/src/app/admin/asignaturas/page.tsx",
+                                                            lineNumber: 477,
+                                                            columnNumber: 23
+                                                        }, this)
+                                                    ]
+                                                }, void 0, true, {
+                                                    fileName: "[project]/src/app/admin/asignaturas/page.tsx",
+                                                    lineNumber: 419,
+                                                    columnNumber: 19
+                                                }, this)
                                             ]
                                         }, void 0, true, {
                                             fileName: "[project]/src/app/admin/asignaturas/page.tsx",
-                                            lineNumber: 354,
+                                            lineNumber: 407,
                                             columnNumber: 15
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1061,15 +1283,24 @@ function AdminAsignaturasPage() {
                                                     type: "submit",
                                                     className: __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$styles$2f$admin$2d$asignaturas$2d$form$2e$module$2e$css__$5b$app$2d$ssr$5d$__$28$css__module$29$__["default"].saveButton,
                                                     disabled: creating || !!fieldErrors.nombre || !!fieldErrors.area || !!fieldErrors.codigo || !!fieldErrors.gradoIds,
-                                                    children: creating ? editingId ? 'Guardando...' : 'Guardando...' : editingId ? 'Guardar cambios' : 'Guardar'
+                                                    children: creating ? editingId ? 'Guardando cambios...' : 'Creando asignatura...' : editingId ? 'Actualizar asignatura' : 'Crear asignatura'
                                                 }, void 0, false, {
                                                     fileName: "[project]/src/app/admin/asignaturas/page.tsx",
-                                                    lineNumber: 376,
+                                                    lineNumber: 492,
                                                     columnNumber: 17
                                                 }, this),
                                                 editingId && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
                                                     type: "button",
-                                                    className: "bg-gray-400 text-white rounded p-2",
+                                                    style: {
+                                                        background: '#64748B',
+                                                        color: 'white',
+                                                        borderRadius: '6px',
+                                                        padding: '10px 24px',
+                                                        border: 'none',
+                                                        cursor: 'pointer',
+                                                        marginLeft: '12px',
+                                                        fontSize: '16px'
+                                                    },
                                                     onClick: ()=>{
                                                         setEditingId(null);
                                                         setForm({
@@ -1080,24 +1311,26 @@ function AdminAsignaturasPage() {
                                                             asignaciones: []
                                                         });
                                                         setError('');
+                                                        setSuccess('');
+                                                        setFieldErrors({});
                                                     },
                                                     disabled: creating,
-                                                    children: "Cancelar"
+                                                    children: "Cancelar edición"
                                                 }, void 0, false, {
                                                     fileName: "[project]/src/app/admin/asignaturas/page.tsx",
-                                                    lineNumber: 384,
+                                                    lineNumber: 503,
                                                     columnNumber: 19
                                                 }, this)
                                             ]
                                         }, void 0, true, {
                                             fileName: "[project]/src/app/admin/asignaturas/page.tsx",
-                                            lineNumber: 375,
+                                            lineNumber: 491,
                                             columnNumber: 15
                                         }, this)
                                     ]
                                 }, void 0, true, {
                                     fileName: "[project]/src/app/admin/asignaturas/page.tsx",
-                                    lineNumber: 292,
+                                    lineNumber: 316,
                                     columnNumber: 13
                                 }, this),
                                 error && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1108,13 +1341,13 @@ function AdminAsignaturasPage() {
                                     children: error
                                 }, void 0, false, {
                                     fileName: "[project]/src/app/admin/asignaturas/page.tsx",
-                                    lineNumber: 390,
+                                    lineNumber: 529,
                                     columnNumber: 23
                                 }, this)
                             ]
                         }, void 0, true, {
                             fileName: "[project]/src/app/admin/asignaturas/page.tsx",
-                            lineNumber: 290,
+                            lineNumber: 304,
                             columnNumber: 11
                         }, this),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1125,7 +1358,7 @@ function AdminAsignaturasPage() {
                                     children: "Listado de Asignaturas"
                                 }, void 0, false, {
                                     fileName: "[project]/src/app/admin/asignaturas/page.tsx",
-                                    lineNumber: 393,
+                                    lineNumber: 532,
                                     columnNumber: 13
                                 }, this),
                                 success && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1136,7 +1369,7 @@ function AdminAsignaturasPage() {
                                     children: success
                                 }, void 0, false, {
                                     fileName: "[project]/src/app/admin/asignaturas/page.tsx",
-                                    lineNumber: 394,
+                                    lineNumber: 533,
                                     columnNumber: 25
                                 }, this),
                                 loading ? /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$ui$2f$LoadingModal$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["default"], {
@@ -1144,7 +1377,7 @@ function AdminAsignaturasPage() {
                                     message: "Cargando asignaturas..."
                                 }, void 0, false, {
                                     fileName: "[project]/src/app/admin/asignaturas/page.tsx",
-                                    lineNumber: 396,
+                                    lineNumber: 535,
                                     columnNumber: 15
                                 }, this) : /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("table", {
                                     className: __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$styles$2f$admin$2d$dashboard$2e$module$2e$css__$5b$app$2d$ssr$5d$__$28$css__module$29$__["default"].activityTable,
@@ -1157,53 +1390,53 @@ function AdminAsignaturasPage() {
                                                         children: "Nombre"
                                                     }, void 0, false, {
                                                         fileName: "[project]/src/app/admin/asignaturas/page.tsx",
-                                                        lineNumber: 401,
+                                                        lineNumber: 540,
                                                         columnNumber: 21
                                                     }, this),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("th", {
                                                         children: "Área"
                                                     }, void 0, false, {
                                                         fileName: "[project]/src/app/admin/asignaturas/page.tsx",
-                                                        lineNumber: 402,
+                                                        lineNumber: 541,
                                                         columnNumber: 21
                                                     }, this),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("th", {
                                                         children: "Código"
                                                     }, void 0, false, {
                                                         fileName: "[project]/src/app/admin/asignaturas/page.tsx",
-                                                        lineNumber: 403,
+                                                        lineNumber: 542,
                                                         columnNumber: 21
                                                     }, this),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("th", {
                                                         children: "Grado"
                                                     }, void 0, false, {
                                                         fileName: "[project]/src/app/admin/asignaturas/page.tsx",
-                                                        lineNumber: 404,
+                                                        lineNumber: 543,
                                                         columnNumber: 21
                                                     }, this),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("th", {
                                                         children: "Docente"
                                                     }, void 0, false, {
                                                         fileName: "[project]/src/app/admin/asignaturas/page.tsx",
-                                                        lineNumber: 405,
+                                                        lineNumber: 544,
                                                         columnNumber: 21
                                                     }, this),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("th", {
                                                         children: "Acciones"
                                                     }, void 0, false, {
                                                         fileName: "[project]/src/app/admin/asignaturas/page.tsx",
-                                                        lineNumber: 406,
+                                                        lineNumber: 545,
                                                         columnNumber: 21
                                                     }, this)
                                                 ]
                                             }, void 0, true, {
                                                 fileName: "[project]/src/app/admin/asignaturas/page.tsx",
-                                                lineNumber: 400,
+                                                lineNumber: 539,
                                                 columnNumber: 19
                                             }, this)
                                         }, void 0, false, {
                                             fileName: "[project]/src/app/admin/asignaturas/page.tsx",
-                                            lineNumber: 399,
+                                            lineNumber: 538,
                                             columnNumber: 17
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("tbody", {
@@ -1218,12 +1451,12 @@ function AdminAsignaturasPage() {
                                                     children: "Sin asignaturas registradas"
                                                 }, void 0, false, {
                                                     fileName: "[project]/src/app/admin/asignaturas/page.tsx",
-                                                    lineNumber: 411,
+                                                    lineNumber: 550,
                                                     columnNumber: 25
                                                 }, this)
                                             }, void 0, false, {
                                                 fileName: "[project]/src/app/admin/asignaturas/page.tsx",
-                                                lineNumber: 411,
+                                                lineNumber: 550,
                                                 columnNumber: 21
                                             }, this) : asignaturas.map((a, idx)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("tr", {
                                                     style: lastCreatedId === a.id ? {
@@ -1236,7 +1469,7 @@ function AdminAsignaturasPage() {
                                                             children: a.nombre
                                                         }, void 0, false, {
                                                             fileName: "[project]/src/app/admin/asignaturas/page.tsx",
-                                                            lineNumber: 415,
+                                                            lineNumber: 554,
                                                             columnNumber: 25
                                                         }, this),
                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("td", {
@@ -1244,7 +1477,7 @@ function AdminAsignaturasPage() {
                                                             children: a.area
                                                         }, void 0, false, {
                                                             fileName: "[project]/src/app/admin/asignaturas/page.tsx",
-                                                            lineNumber: 416,
+                                                            lineNumber: 555,
                                                             columnNumber: 25
                                                         }, this),
                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("td", {
@@ -1252,7 +1485,7 @@ function AdminAsignaturasPage() {
                                                             children: a.codigo
                                                         }, void 0, false, {
                                                             fileName: "[project]/src/app/admin/asignaturas/page.tsx",
-                                                            lineNumber: 417,
+                                                            lineNumber: 556,
                                                             columnNumber: 25
                                                         }, this),
                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("td", {
@@ -1274,7 +1507,7 @@ function AdminAsignaturasPage() {
                                                                                 ]
                                                                             }, void 0, true, {
                                                                                 fileName: "[project]/src/app/admin/asignaturas/page.tsx",
-                                                                                lineNumber: 423,
+                                                                                lineNumber: 562,
                                                                                 columnNumber: 35
                                                                             }, this),
                                                                             " ",
@@ -1285,23 +1518,23 @@ function AdminAsignaturasPage() {
                                                                                 children: "Sin docente"
                                                                             }, void 0, false, {
                                                                                 fileName: "[project]/src/app/admin/asignaturas/page.tsx",
-                                                                                lineNumber: 425,
+                                                                                lineNumber: 564,
                                                                                 columnNumber: 39
                                                                             }, this)
                                                                         ]
                                                                     }, g.id, true, {
                                                                         fileName: "[project]/src/app/admin/asignaturas/page.tsx",
-                                                                        lineNumber: 422,
+                                                                        lineNumber: 561,
                                                                         columnNumber: 33
                                                                     }, this))
                                                             }, void 0, false, {
                                                                 fileName: "[project]/src/app/admin/asignaturas/page.tsx",
-                                                                lineNumber: 420,
+                                                                lineNumber: 559,
                                                                 columnNumber: 29
                                                             }, this) : '-'
                                                         }, void 0, false, {
                                                             fileName: "[project]/src/app/admin/asignaturas/page.tsx",
-                                                            lineNumber: 418,
+                                                            lineNumber: 557,
                                                             columnNumber: 25
                                                         }, this),
                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("td", {
@@ -1317,7 +1550,7 @@ function AdminAsignaturasPage() {
                                                                     children: "Editar"
                                                                 }, void 0, false, {
                                                                     fileName: "[project]/src/app/admin/asignaturas/page.tsx",
-                                                                    lineNumber: 432,
+                                                                    lineNumber: 571,
                                                                     columnNumber: 27
                                                                 }, this),
                                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
@@ -1328,53 +1561,53 @@ function AdminAsignaturasPage() {
                                                                     children: "Eliminar"
                                                                 }, void 0, false, {
                                                                     fileName: "[project]/src/app/admin/asignaturas/page.tsx",
-                                                                    lineNumber: 433,
+                                                                    lineNumber: 572,
                                                                     columnNumber: 27
                                                                 }, this)
                                                             ]
                                                         }, void 0, true, {
                                                             fileName: "[project]/src/app/admin/asignaturas/page.tsx",
-                                                            lineNumber: 431,
+                                                            lineNumber: 570,
                                                             columnNumber: 25
                                                         }, this)
                                                     ]
                                                 }, a.id || idx, true, {
                                                     fileName: "[project]/src/app/admin/asignaturas/page.tsx",
-                                                    lineNumber: 414,
+                                                    lineNumber: 553,
                                                     columnNumber: 23
                                                 }, this))
                                         }, void 0, false, {
                                             fileName: "[project]/src/app/admin/asignaturas/page.tsx",
-                                            lineNumber: 409,
+                                            lineNumber: 548,
                                             columnNumber: 17
                                         }, this)
                                     ]
                                 }, void 0, true, {
                                     fileName: "[project]/src/app/admin/asignaturas/page.tsx",
-                                    lineNumber: 398,
+                                    lineNumber: 537,
                                     columnNumber: 15
                                 }, this)
                             ]
                         }, void 0, true, {
                             fileName: "[project]/src/app/admin/asignaturas/page.tsx",
-                            lineNumber: 392,
+                            lineNumber: 531,
                             columnNumber: 11
                         }, this)
                     ]
                 }, void 0, true, {
                     fileName: "[project]/src/app/admin/asignaturas/page.tsx",
-                    lineNumber: 287,
+                    lineNumber: 301,
                     columnNumber: 9
                 }, this)
             ]
         }, void 0, true, {
             fileName: "[project]/src/app/admin/asignaturas/page.tsx",
-            lineNumber: 266,
+            lineNumber: 280,
             columnNumber: 7
         }, this)
     }, void 0, false, {
         fileName: "[project]/src/app/admin/asignaturas/page.tsx",
-        lineNumber: 265,
+        lineNumber: 279,
         columnNumber: 3
     }, this);
 }

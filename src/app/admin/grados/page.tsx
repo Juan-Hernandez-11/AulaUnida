@@ -61,6 +61,9 @@ export default function AdminGradosPage() {
   const [success, setSuccess] = useState('');
   // Estado para errores de validación en tiempo real
   const [fieldErrors, setFieldErrors] = useState<{ nombre?: string; seccion?: string; sedeId?: string; cicloId?: string; aulaId?: string }>({});
+  
+  // Hook para el loading modal (debe estar en el nivel superior)
+  const delayedOpen = useDelayedOpen(loading);
 
   useEffect(() => {
     setLoading(true);
@@ -349,7 +352,7 @@ export default function AdminGradosPage() {
           <div className={styles.activityCard}>
             <h2 className={styles.activityTitle}>Listado de Grados y Secciones</h2>
             {loading ? (
-              <LoadingModal open={useDelayedOpen(loading)} message="Cargando grados..." />
+              <LoadingModal open={delayedOpen} message="Cargando grados..." />
             ) : (
               <table className={styles.activityTable}>
                 <thead>

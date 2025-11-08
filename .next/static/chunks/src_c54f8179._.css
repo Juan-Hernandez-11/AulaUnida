@@ -1,0 +1,375 @@
+/* [project]/src/styles/estudiante-dashboard.module.css [app-client] (css) */
+.estudiante-dashboard-module__weNdnq__dashboardContainer {
+  color: #f8fafc;
+  background: #0f172a;
+  min-height: 100vh;
+  font-family: Inter, Segoe UI, Arial, sans-serif;
+  display: flex;
+}
+
+.estudiante-dashboard-module__weNdnq__sidebar {
+  background: #1e293b;
+  border-right: 1px solid #334155;
+  flex-direction: column;
+  width: 18rem;
+  min-height: 100vh;
+  padding: 2rem;
+  display: flex;
+}
+
+.estudiante-dashboard-module__weNdnq__avatar {
+  object-fit: cover;
+  border: 4px solid #22c55e;
+  border-radius: 9999px;
+  width: 4rem;
+  height: 4rem;
+  margin-right: 1rem;
+  box-shadow: 0 2px 8px rgba(34, 197, 94, .3);
+}
+
+.estudiante-dashboard-module__weNdnq__logo {
+  letter-spacing: -.02em;
+  color: #4ade80;
+  font-size: 2rem;
+  font-weight: 800;
+}
+
+.estudiante-dashboard-module__weNdnq__menu {
+  flex: 1;
+  margin-top: 1rem;
+}
+
+.estudiante-dashboard-module__weNdnq__menuItem {
+  color: #cbd5e1;
+  border-radius: .75rem;
+  align-items: center;
+  margin-bottom: .5rem;
+  padding: .875rem 1rem;
+  font-weight: 500;
+  text-decoration: none;
+  transition: all .2s;
+  display: flex;
+}
+
+.estudiante-dashboard-module__weNdnq__menuItem:hover {
+  color: #f8fafc;
+  background: #334155;
+  transform: translateX(4px);
+}
+
+.estudiante-dashboard-module__weNdnq__menuItemActive {
+  background: linear-gradient(135deg, #22c55e, #10b981);
+  box-shadow: 0 4px 12px rgba(34, 197, 94, .3);
+  color: #fff !important;
+}
+
+.estudiante-dashboard-module__weNdnq__logoutBtn {
+  color: #fca5a5;
+  cursor: pointer;
+  background: rgba(239, 68, 68, .1);
+  border: 1px solid rgba(239, 68, 68, .3);
+  border-radius: .75rem;
+  justify-content: center;
+  align-items: center;
+  margin-top: auto;
+  padding: .75rem 1rem;
+  font-weight: 500;
+  transition: all .2s;
+  display: flex;
+}
+
+.estudiante-dashboard-module__weNdnq__logoutBtn:hover {
+  color: #ef4444;
+  background: rgba(239, 68, 68, .2);
+  border-color: rgba(239, 68, 68, .5);
+}
+
+.estudiante-dashboard-module__weNdnq__mainContent {
+  background: #0f172a;
+  flex: 1;
+  padding: 2rem 3rem;
+  overflow-y: auto;
+}
+
+.estudiante-dashboard-module__weNdnq__title {
+  -webkit-text-fill-color: transparent;
+  color: #f8fafc;
+  background: linear-gradient(135deg, #4ade80, #22c55e);
+  -webkit-background-clip: text;
+  background-clip: text;
+  margin-bottom: .5rem;
+  font-size: 2.5rem;
+  font-weight: 800;
+}
+
+.estudiante-dashboard-module__weNdnq__subtitle {
+  color: #cbd5e1;
+  margin-bottom: 2rem;
+  font-size: 1.125rem;
+}
+
+.estudiante-dashboard-module__weNdnq__gridContainer {
+  grid-template-columns: 2fr 1fr;
+  gap: 2rem;
+  margin-top: 2rem;
+  display: grid;
+}
+
+.estudiante-dashboard-module__weNdnq__activityCard {
+  background: #1e293b;
+  border: 1px solid #334155;
+  border-radius: 1rem;
+  padding: 2rem;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, .3);
+}
+
+.estudiante-dashboard-module__weNdnq__activityTitle {
+  color: #f8fafc;
+  margin-bottom: 1.5rem;
+  font-size: 1.5rem;
+  font-weight: 700;
+}
+
+.estudiante-dashboard-module__weNdnq__taskItem {
+  background: #334155;
+  border: 1px solid #334155;
+  border-radius: 12px;
+  align-items: center;
+  margin-bottom: .75rem;
+  padding: 1rem;
+  transition: all .2s;
+  display: flex;
+}
+
+.estudiante-dashboard-module__weNdnq__taskItem:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(34, 197, 94, .1);
+}
+
+.estudiante-dashboard-module__weNdnq__taskIcon {
+  background: #22c55e;
+  border-radius: 8px;
+  justify-content: center;
+  align-items: center;
+  width: 40px;
+  height: 40px;
+  margin-right: 1rem;
+  font-size: 1.25rem;
+  display: flex;
+}
+
+.estudiante-dashboard-module__weNdnq__taskContent {
+  flex: 1;
+}
+
+.estudiante-dashboard-module__weNdnq__taskTitle {
+  color: #f8fafc;
+  margin-bottom: .25rem;
+  font-weight: 600;
+}
+
+.estudiante-dashboard-module__weNdnq__taskSubtitle {
+  color: #cbd5e1;
+  font-size: .875rem;
+}
+
+.estudiante-dashboard-module__weNdnq__taskStatus {
+  color: #fbbf24;
+  font-size: .875rem;
+  font-weight: 500;
+}
+
+.estudiante-dashboard-module__weNdnq__classItem {
+  background: #334155;
+  border: 1px solid #334155;
+  border-radius: 12px;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: .75rem;
+  padding: 1rem;
+  transition: all .2s;
+  display: flex;
+}
+
+.estudiante-dashboard-module__weNdnq__classItem:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(34, 197, 94, .1);
+}
+
+.estudiante-dashboard-module__weNdnq__classContent {
+  align-items: center;
+  display: flex;
+}
+
+.estudiante-dashboard-module__weNdnq__classTitle {
+  color: #f8fafc;
+  margin-bottom: .25rem;
+  font-weight: 600;
+}
+
+.estudiante-dashboard-module__weNdnq__classSubtitle {
+  color: #cbd5e1;
+  font-size: .875rem;
+}
+
+.estudiante-dashboard-module__weNdnq__classTime {
+  color: #f8fafc;
+  font-size: .875rem;
+  font-weight: 500;
+}
+
+.estudiante-dashboard-module__weNdnq__notificationItem {
+  align-items: flex-start;
+  margin-bottom: .75rem;
+  padding: 1rem;
+  transition: all .2s;
+  display: flex;
+}
+
+.estudiante-dashboard-module__weNdnq__notificationItem:hover {
+  background: rgba(34, 197, 94, .05);
+  border-radius: 8px;
+}
+
+.estudiante-dashboard-module__weNdnq__notificationDot {
+  border-radius: 50%;
+  width: 8px;
+  height: 8px;
+  margin-top: .5rem;
+  margin-right: 1rem;
+}
+
+.estudiante-dashboard-module__weNdnq__notificationContent {
+  flex: 1;
+}
+
+.estudiante-dashboard-module__weNdnq__notificationTitle {
+  color: #f8fafc;
+  margin-bottom: .25rem;
+  font-weight: 600;
+}
+
+.estudiante-dashboard-module__weNdnq__notificationSubtitle {
+  color: #cbd5e1;
+  font-size: .875rem;
+}
+
+.estudiante-dashboard-module__weNdnq__emptyState {
+  color: #94a3b8;
+  text-align: center;
+  padding: 2rem;
+  font-style: italic;
+}
+
+.estudiante-dashboard-module__weNdnq__loadingContainer {
+  color: #f8fafc;
+  background: #0f172a;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  display: flex;
+}
+
+@media (max-width: 1024px) {
+  .estudiante-dashboard-module__weNdnq__gridContainer {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+
+  .estudiante-dashboard-module__weNdnq__mainContent {
+    padding: 1.5rem 2rem;
+  }
+
+  .estudiante-dashboard-module__weNdnq__sidebar {
+    width: 16rem;
+    padding: 1.5rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .estudiante-dashboard-module__weNdnq__dashboardContainer {
+    flex-direction: column;
+  }
+
+  .estudiante-dashboard-module__weNdnq__sidebar {
+    border-bottom: 1px solid #334155;
+    border-right: none;
+    width: 100%;
+    min-height: auto;
+  }
+
+  .estudiante-dashboard-module__weNdnq__mainContent {
+    padding: 1rem;
+  }
+
+  .estudiante-dashboard-module__weNdnq__title {
+    font-size: 2rem;
+  }
+}
+
+/* [project]/src/components/ui/LoadingModal.module.css [app-client] (css) */
+.LoadingModal-module__WP8uBG__overlay {
+  z-index: 9999;
+  background: rgba(0, 0, 0, .45);
+  justify-content: center;
+  align-items: center;
+  display: flex;
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+}
+
+.LoadingModal-module__WP8uBG__panel {
+  background: #fff;
+  border-radius: 12px;
+  align-items: center;
+  gap: 16px;
+  padding: 20px 28px;
+  display: flex;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, .25);
+}
+
+.LoadingModal-module__WP8uBG__srOnly {
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  position: absolute;
+  overflow: hidden;
+}
+
+/* [project]/src/components/ui/Loading.module.css [app-client] (css) */
+.Loading-module__2aO0xG__loadingRoot {
+  justify-content: center;
+  align-items: center;
+  gap: 12px;
+  padding: 2rem;
+  display: flex;
+}
+
+.Loading-module__2aO0xG__spinner {
+  border: 4px solid rgba(0, 0, 0, .08);
+  border-top-color: var(--color-primary, #10b981);
+  border-radius: 50%;
+  width: 36px;
+  height: 36px;
+  animation: 1s linear infinite Loading-module__2aO0xG__spin;
+}
+
+@keyframes Loading-module__2aO0xG__spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.Loading-module__2aO0xG__text {
+  color: var(--color-primary, #10b981);
+  font-weight: 600;
+}
+
+/*# sourceMappingURL=src_c54f8179._.css.map*/

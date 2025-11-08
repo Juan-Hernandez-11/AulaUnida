@@ -1,0 +1,402 @@
+/* [project]/src/styles/landing/AboutSection.module.css [app-client] (css) */
+.AboutSection-module__5hrtSW__aboutSection {
+  background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+  padding: 6rem 0;
+  position: relative;
+  overflow: hidden;
+}
+
+.AboutSection-module__5hrtSW__aboutSection:before {
+  content: "";
+  pointer-events: none;
+  background: radial-gradient(circle at 20% 80%, rgba(34, 197, 94, .1) 0%, rgba(0, 0, 0, 0) 50%), radial-gradient(circle at 80% 20%, rgba(59, 130, 246, .08) 0%, rgba(0, 0, 0, 0) 50%);
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+}
+
+.AboutSection-module__5hrtSW__container {
+  z-index: 1;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 2rem;
+  position: relative;
+}
+
+.AboutSection-module__5hrtSW__sectionHeader {
+  text-align: center;
+  margin-bottom: 4rem;
+}
+
+.AboutSection-module__5hrtSW__sectionTitle {
+  color: #fff;
+  -webkit-text-fill-color: transparent;
+  background: linear-gradient(135deg, #fff 0%, #e2e8f0 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  margin-bottom: 1rem;
+  font-size: 3rem;
+  font-weight: 700;
+  animation: .8s ease-out AboutSection-module__5hrtSW__slideInUp;
+}
+
+.AboutSection-module__5hrtSW__sectionSubtitle {
+  color: #94a3b8;
+  max-width: 600px;
+  margin: 0 auto;
+  font-size: 1.25rem;
+  line-height: 1.6;
+  animation: .8s ease-out .2s both AboutSection-module__5hrtSW__slideInUp;
+}
+
+.AboutSection-module__5hrtSW__aboutGrid {
+  grid-template-columns: 1fr 1fr;
+  align-items: center;
+  gap: 4rem;
+  margin-bottom: 4rem;
+  display: grid;
+}
+
+.AboutSection-module__5hrtSW__aboutContent {
+  animation: .8s ease-out .4s both AboutSection-module__5hrtSW__slideInUp;
+}
+
+.AboutSection-module__5hrtSW__aboutTitle {
+  color: #fff;
+  margin-bottom: 1.5rem;
+  font-size: 2rem;
+  font-weight: 600;
+}
+
+.AboutSection-module__5hrtSW__aboutDescription {
+  color: #cbd5e1;
+  margin-bottom: 2rem;
+  font-size: 1.125rem;
+  line-height: 1.7;
+}
+
+.AboutSection-module__5hrtSW__featureList {
+  flex-direction: column;
+  gap: 1.5rem;
+  display: flex;
+}
+
+.AboutSection-module__5hrtSW__featureItem {
+  align-items: flex-start;
+  gap: 1rem;
+  display: flex;
+}
+
+.AboutSection-module__5hrtSW__featureIcon {
+  color: #fff;
+  background: linear-gradient(135deg, #22c55e, #16a34a);
+  border-radius: 12px;
+  flex-shrink: 0;
+  justify-content: center;
+  align-items: center;
+  width: 48px;
+  height: 48px;
+  display: flex;
+  box-shadow: 0 4px 12px rgba(34, 197, 94, .3);
+}
+
+.AboutSection-module__5hrtSW__featureItem h4 {
+  color: #fff;
+  margin-bottom: .5rem;
+  font-size: 1.125rem;
+  font-weight: 600;
+}
+
+.AboutSection-module__5hrtSW__featureItem p {
+  color: #94a3b8;
+  line-height: 1.5;
+}
+
+.AboutSection-module__5hrtSW__aboutVisual {
+  animation: .8s ease-out .6s both AboutSection-module__5hrtSW__slideInUp;
+}
+
+.AboutSection-module__5hrtSW__statsGrid {
+  grid-template-columns: 1fr 1fr;
+  gap: 1.5rem;
+  margin-bottom: 2rem;
+  display: grid;
+}
+
+.AboutSection-module__5hrtSW__statCard {
+  text-align: center;
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
+  background: rgba(30, 41, 59, .8);
+  border: 1px solid rgba(51, 65, 85, .8);
+  border-radius: 12px;
+  padding: 1.5rem;
+  transition: all .3s;
+}
+
+.AboutSection-module__5hrtSW__statCard:hover {
+  border-color: rgba(34, 197, 94, .5);
+  transform: translateY(-4px);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, .3);
+}
+
+.AboutSection-module__5hrtSW__statNumber {
+  color: #22c55e;
+  margin-bottom: .5rem;
+  font-size: 2rem;
+  font-weight: 700;
+}
+
+.AboutSection-module__5hrtSW__statLabel {
+  color: #94a3b8;
+  font-size: .875rem;
+  font-weight: 500;
+}
+
+.AboutSection-module__5hrtSW__visualDecoration {
+  justify-content: center;
+  display: flex;
+}
+
+.AboutSection-module__5hrtSW__decorationCard {
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
+  background: rgba(30, 41, 59, .9);
+  border: 1px solid rgba(51, 65, 85, .8);
+  border-radius: 12px;
+  width: 100%;
+  max-width: 300px;
+  padding: 1.5rem;
+  animation: 6s ease-in-out infinite AboutSection-module__5hrtSW__float;
+}
+
+.AboutSection-module__5hrtSW__cardHeader {
+  border-bottom: 1px solid rgba(51, 65, 85, .5);
+  align-items: center;
+  gap: .75rem;
+  margin-bottom: 1rem;
+  padding-bottom: .75rem;
+  display: flex;
+}
+
+.AboutSection-module__5hrtSW__cardDots {
+  gap: .25rem;
+  display: flex;
+}
+
+.AboutSection-module__5hrtSW__cardDots span {
+  background: #64748b;
+  border-radius: 50%;
+  width: 8px;
+  height: 8px;
+}
+
+.AboutSection-module__5hrtSW__cardDots span:first-child {
+  background: #ef4444;
+}
+
+.AboutSection-module__5hrtSW__cardDots span:nth-child(2) {
+  background: #f59e0b;
+}
+
+.AboutSection-module__5hrtSW__cardDots span:last-child {
+  background: #22c55e;
+}
+
+.AboutSection-module__5hrtSW__cardTitle {
+  color: #e2e8f0;
+  font-size: .875rem;
+  font-weight: 500;
+}
+
+.AboutSection-module__5hrtSW__cardContent {
+  flex-direction: column;
+  gap: .75rem;
+  display: flex;
+}
+
+.AboutSection-module__5hrtSW__progressBar {
+  background: rgba(51, 65, 85, .5);
+  border-radius: 4px;
+  height: 8px;
+  overflow: hidden;
+}
+
+.AboutSection-module__5hrtSW__progressFill {
+  background: linear-gradient(90deg, #22c55e, #16a34a);
+  border-radius: 4px;
+  height: 100%;
+  animation: 2s ease-out AboutSection-module__5hrtSW__progressAnimation;
+}
+
+.AboutSection-module__5hrtSW__institutionalInfo {
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
+  background: rgba(30, 41, 59, .5);
+  border: 1px solid rgba(51, 65, 85, .3);
+  border-radius: 16px;
+  grid-template-columns: auto 1fr;
+  align-items: center;
+  gap: 2rem;
+  padding: 2rem;
+  animation: .8s ease-out .8s both AboutSection-module__5hrtSW__slideInUp;
+  display: grid;
+}
+
+.AboutSection-module__5hrtSW__logoSection {
+  align-items: center;
+  display: flex;
+}
+
+.AboutSection-module__5hrtSW__institutionalLogo {
+  align-items: center;
+  gap: 1rem;
+  display: flex;
+}
+
+.AboutSection-module__5hrtSW__logoIcon {
+  color: #fff;
+  background: linear-gradient(135deg, #22c55e, #16a34a);
+  border-radius: 12px;
+  justify-content: center;
+  align-items: center;
+  width: 60px;
+  height: 60px;
+  font-size: 1.5rem;
+  font-weight: 700;
+  display: flex;
+  box-shadow: 0 4px 12px rgba(34, 197, 94, .3);
+}
+
+.AboutSection-module__5hrtSW__logoText h4 {
+  color: #fff;
+  margin-bottom: .25rem;
+  font-size: 1.25rem;
+  font-weight: 600;
+}
+
+.AboutSection-module__5hrtSW__logoText p {
+  color: #94a3b8;
+  font-size: .875rem;
+}
+
+.AboutSection-module__5hrtSW__infoText {
+  color: #cbd5e1;
+  line-height: 1.6;
+}
+
+@keyframes AboutSection-module__5hrtSW__slideInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes AboutSection-module__5hrtSW__float {
+  0%, 100% {
+    transform: translateY(0);
+  }
+
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+@keyframes AboutSection-module__5hrtSW__progressAnimation {
+  from {
+    width: 0%;
+  }
+
+  to {
+    width: inherit;
+  }
+}
+
+@media (max-width: 1024px) {
+  .AboutSection-module__5hrtSW__aboutGrid {
+    text-align: center;
+    grid-template-columns: 1fr;
+    gap: 3rem;
+  }
+
+  .AboutSection-module__5hrtSW__aboutContent {
+    order: 2;
+  }
+
+  .AboutSection-module__5hrtSW__aboutVisual {
+    order: 1;
+  }
+
+  .AboutSection-module__5hrtSW__statsGrid {
+    max-width: 400px;
+    margin: 0 auto 2rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .AboutSection-module__5hrtSW__aboutSection {
+    padding: 4rem 0;
+  }
+
+  .AboutSection-module__5hrtSW__container {
+    padding: 0 1rem;
+  }
+
+  .AboutSection-module__5hrtSW__sectionTitle {
+    font-size: 2.5rem;
+  }
+
+  .AboutSection-module__5hrtSW__sectionSubtitle {
+    font-size: 1.125rem;
+  }
+
+  .AboutSection-module__5hrtSW__aboutTitle {
+    font-size: 1.75rem;
+  }
+
+  .AboutSection-module__5hrtSW__aboutDescription {
+    font-size: 1rem;
+  }
+
+  .AboutSection-module__5hrtSW__statsGrid {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+
+  .AboutSection-module__5hrtSW__institutionalInfo {
+    text-align: center;
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+
+  .AboutSection-module__5hrtSW__featureItem {
+    text-align: left;
+  }
+}
+
+@media (max-width: 480px) {
+  .AboutSection-module__5hrtSW__sectionTitle {
+    font-size: 2rem;
+  }
+
+  .AboutSection-module__5hrtSW__aboutTitle {
+    font-size: 1.5rem;
+  }
+
+  .AboutSection-module__5hrtSW__statCard {
+    padding: 1rem;
+  }
+
+  .AboutSection-module__5hrtSW__statNumber {
+    font-size: 1.5rem;
+  }
+}
+
+/*# sourceMappingURL=src_styles_landing_AboutSection_module_css_bad6b30c._.single.css.map*/

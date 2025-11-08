@@ -1,0 +1,152 @@
+/* [project]/src/styles/grados.module.css [app-client] (css) */
+.grados-module__c_iWYa__backWrapper {
+  margin-bottom: 24px;
+}
+
+.grados-module__c_iWYa__backLink {
+  color: var(--color-primary);
+  align-items: center;
+  gap: 8px;
+  font-weight: 500;
+  text-decoration: none;
+  display: inline-flex;
+}
+
+.grados-module__c_iWYa__brand {
+  align-items: center;
+  margin-bottom: 3rem;
+  display: flex;
+}
+
+.grados-module__c_iWYa__menuList {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.grados-module__c_iWYa__linkIcon {
+  width: 24px;
+  height: 24px;
+  margin-right: 16px;
+}
+
+.grados-module__c_iWYa__formContainer {
+  background: #232734;
+  border-radius: 12px;
+  gap: 16px;
+  margin-bottom: 24px;
+  padding: 24px;
+  display: flex;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, .1);
+}
+
+.grados-module__c_iWYa__formGroup {
+  flex-direction: column;
+  display: flex;
+}
+
+.grados-module__c_iWYa__flex1 {
+  flex: 1;
+}
+
+.grados-module__c_iWYa__label {
+  color: #fff;
+  margin-bottom: 4px;
+  font-weight: 500;
+}
+
+.grados-module__c_iWYa__input {
+  color: #fff;
+  box-shadow: none;
+  background: #181a1b;
+  border: 1.5px solid #232527;
+  border-radius: 6px;
+  outline: none;
+  margin-bottom: 2px;
+  padding: 10px 14px;
+  font-size: 16px;
+}
+
+.grados-module__c_iWYa__input:focus {
+  border-color: #22c55e;
+}
+
+.grados-module__c_iWYa__select {
+  color: #fff;
+  box-shadow: none;
+  background: #181a1b;
+  border: 1.5px solid #232527;
+  border-radius: 6px;
+  outline: none;
+  margin-bottom: 2px;
+  padding: 10px 14px;
+  font-size: 16px;
+}
+
+.grados-module__c_iWYa__buttonPrimary {
+  background: var(--color-primary);
+  color: #fff;
+  cursor: pointer;
+  border: none;
+  border-radius: 6px;
+  min-width: 120px;
+  margin-top: 24px;
+  padding: 10px 24px;
+  font-weight: 700;
+}
+
+.grados-module__c_iWYa__buttonPrimary.grados-module__c_iWYa__disabled {
+  cursor: not-allowed;
+  background: rgba(16, 185, 129, .6);
+}
+
+.grados-module__c_iWYa__buttonCancel {
+  color: #fff;
+  background: #888;
+  border: none;
+  border-radius: 6px;
+  min-width: 120px;
+  margin-top: 24px;
+  padding: 10px 24px;
+  font-weight: 700;
+}
+
+.grados-module__c_iWYa__errorMsg {
+  color: #f87171;
+  margin-bottom: 12px;
+  font-weight: 500;
+}
+
+.grados-module__c_iWYa__successMsg {
+  color: #22c55e;
+  margin-bottom: 12px;
+  font-weight: 500;
+}
+
+.grados-module__c_iWYa__emptyRow {
+  text-align: center;
+  color: #b0b3b8;
+  padding: 2rem;
+}
+
+.grados-module__c_iWYa__tableActionCell {
+  align-items: center;
+  gap: 8px;
+  display: flex;
+}
+
+.grados-module__c_iWYa__actionPrimary {
+  color: var(--color-primary);
+  margin-right: 8px;
+  text-decoration: underline;
+}
+
+.grados-module__c_iWYa__actionDelete {
+  color: #dc2626;
+  cursor: pointer;
+  background: none;
+  border: none;
+  text-decoration: underline;
+}
+
+/*# sourceMappingURL=src_styles_grados_module_css_bad6b30c._.single.css.map*/

@@ -53,8 +53,8 @@ export default function ListadoUsuariosPage() {
   }, []);
 
   const handleEdit = (user: User) => {
-    // Aquí puedes redirigir o abrir modal de edición
-    alert(`Editar usuario: ${user.name}`);
+    // Redirigir a la página de usuarios con el ID para editar
+    window.location.href = `/admin/usuarios?edit=${user.id}`;
   };
 
   const handleToggleActive = async (user: User) => {

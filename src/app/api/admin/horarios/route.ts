@@ -44,6 +44,11 @@ export async function POST(req: NextRequest) {
       horaFin: horaFin,
       aulaId: aulaId || null,
     },
+    include: {
+      materia: true,
+      docente: { select: { id: true, name: true } },
+      aula: true,
+    },
   });
   return NextResponse.json(horario);
 }

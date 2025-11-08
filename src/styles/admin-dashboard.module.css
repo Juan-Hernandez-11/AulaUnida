@@ -1,20 +1,34 @@
 /* admin-dashboard.module.css */
 
+:root {
+  --green-primary: #22c55e;
+  --green-secondary: #16a34a;
+  --green-light: #4ade80;
+  --green-dark: #15803d;
+  --green-accent: #10b981;
+  --bg-dark: #0f172a;
+  --bg-card: #1e293b;
+  --bg-hover: #334155;
+  --text-primary: #f8fafc;
+  --text-secondary: #cbd5e1;
+  --text-muted: #94a3b8;
+}
+
 .dashboardContainer {
   display: flex;
   min-height: 100vh;
-  background: #181A1B;
-  color: #fff;
+  background: var(--bg-dark);
+  color: var(--text-primary);
   font-family: 'Inter', 'Segoe UI', Arial, sans-serif;
 }
 
 .sidebar {
   width: 18rem;
-  background: #181A1B;
+  background: var(--bg-card);
   display: flex;
   flex-direction: column;
   padding: 2rem;
-  border-right: 1px solid #232527;
+  border-right: 1px solid var(--bg-hover);
   min-height: 100vh;
 }
 
@@ -23,16 +37,16 @@
   height: 4rem;
   border-radius: 9999px;
   margin-right: 1rem;
-  border: 4px solid #fff;
+  border: 4px solid var(--green-primary);
   object-fit: cover;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.12);
+  box-shadow: 0 2px 8px rgba(34, 197, 94, 0.3);
 }
 
 .logo {
   font-size: 2rem;
   font-weight: 800;
   letter-spacing: -0.02em;
-  color: #fff;
+  color: var(--green-light);
 }
 
 .menu {
@@ -47,25 +61,26 @@
   border-radius: 0.75rem;
   font-size: 1rem;
   font-weight: 600;
-  color: #B0B3B8;
+  color: var(--text-muted);
   transition: background 0.2s, color 0.2s;
   margin-bottom: 0.25rem;
   cursor: pointer;
+  text-decoration: none;
 }
 .menuItemActive {
-  background: #22c55e;
-  color: #fff;
-  box-shadow: 0 2px 8px rgba(34,197,94,0.08);
+  background: linear-gradient(135deg, var(--green-primary), var(--green-secondary));
+  color: var(--text-primary);
+  box-shadow: 0 4px 12px rgba(34, 197, 94, 0.25);
 }
 .menuItem:hover {
-  background: #232527;
-  color: #fff;
+  background: var(--bg-hover);
+  color: var(--text-primary);
 }
 
 .logoutBtn {
   margin-top: 2.5rem;
-  background: #232527;
-  color: #B0B3B8;
+  background: var(--bg-hover);
+  color: var(--text-secondary);
   padding: 0.75rem;
   border-radius: 0.75rem;
   font-weight: 600;
@@ -73,16 +88,18 @@
   align-items: center;
   justify-content: center;
   transition: background 0.2s, color 0.2s;
+  border: none;
+  cursor: pointer;
 }
 .logoutBtn:hover {
   background: #dc2626;
-  color: #fff;
+  color: var(--text-primary);
 }
 
 .mainContent {
   flex: 1;
   padding: 4rem;
-  background: #181A1B;
+  background: var(--bg-dark);
   min-height: 100vh;
 }
 
@@ -90,12 +107,12 @@
   font-size: 3rem;
   font-weight: 800;
   margin-bottom: 0.75rem;
-  color: #fff;
+  color: var(--text-primary);
   line-height: 1.1;
 }
 
 .subtitle {
-  color: #B0B3B8;
+  color: var(--text-secondary);
   margin-bottom: 3rem;
   font-size: 1.125rem;
 }
@@ -108,17 +125,22 @@
 }
 
 .metricCard {
-  background: #232527;
-  border: 1px solid #313338;
+  background: var(--bg-card);
+  border: 1px solid var(--bg-hover);
   border-radius: 1.5rem;
   padding: 3rem 2rem;
   display: flex;
   flex-direction: column;
   align-items: center;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+.metricCard:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(34, 197, 94, 0.15);
 }
 .metricLabel {
-  color: #B0B3B8;
+  color: var(--text-secondary);
   font-size: 1.125rem;
   font-weight: 600;
   margin-bottom: 0.5rem;
@@ -126,22 +148,22 @@
 .metricValue {
   font-size: 3rem;
   font-weight: 800;
-  color: #22c55e;
+  color: var(--green-light);
   letter-spacing: -0.02em;
 }
 
 .activityCard {
-  background: #232527;
-  border: 1px solid #313338;
+  background: var(--bg-card);
+  border: 1px solid var(--bg-hover);
   border-radius: 1.5rem;
   padding: 2.5rem;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
 }
 .activityTitle {
   font-size: 2rem;
   font-weight: 800;
   margin-bottom: 2rem;
-  color: #fff;
+  color: var(--text-primary);
 }
 .activityTable {
   width: 100%;
@@ -149,23 +171,102 @@
   border-collapse: collapse;
 }
 .activityTable th {
-  color: #B0B3B8;
+  color: var(--text-secondary);
   font-size: 1rem;
   font-weight: 700;
   padding: 1rem 1.5rem;
-  border-bottom: 1px solid #313338;
+  border-bottom: 1px solid var(--bg-hover);
 }
 .activityTable td {
   padding: 1rem 1.5rem;
-  border-bottom: 1px solid #232527;
+  border-bottom: 1px solid var(--bg-hover);
 }
 .activityTable tr:last-child td {
   border-bottom: none;
 }
 .activityUser {
   font-weight: 700;
-  color: #fff;
+  color: var(--text-primary);
 }
+
+/* Cards and Quick Access Buttons */
+.card {
+  background: var(--bg-card);
+  border: 1px solid var(--bg-hover);
+  border-radius: 1.25rem;
+  padding: 1.5rem;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(34, 197, 94, 0.15);
+}
+
+.quickAccessBtn {
+  background: linear-gradient(135deg, var(--green-primary), var(--green-secondary));
+  color: var(--text-primary);
+  border: none;
+  border-radius: 0.75rem;
+  padding: 1.25rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 12px rgba(34, 197, 94, 0.25);
+}
+
+.quickAccessBtn:hover {
+  background: linear-gradient(135deg, var(--green-light), var(--green-primary));
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(34, 197, 94, 0.35);
+}
+
+.primaryBtn {
+  background: linear-gradient(135deg, var(--green-primary), var(--green-secondary));
+  color: var(--text-primary);
+  border: none;
+  border-radius: 0.5rem;
+  padding: 0.75rem 1.5rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  box-shadow: 0 2px 8px rgba(34, 197, 94, 0.2);
+}
+
+.primaryBtn:hover {
+  background: linear-gradient(135deg, var(--green-light), var(--green-primary));
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(34, 197, 94, 0.3);
+}
+
+.quickAccessCard {
+  background: var(--bg-card);
+  border: 1px solid var(--bg-hover);
+  border-radius: 1rem;
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  color: var(--text-primary);
+  transition: all 0.2s ease;
+  cursor: pointer;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+}
+
+.quickAccessCard:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(34, 197, 94, 0.15);
+  border-color: var(--green-primary);
+}
+
 .activityAction, .activityDate {
   color: #B0B3B8;
+}
+
+/* Animación para spinner de carga */
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
 }

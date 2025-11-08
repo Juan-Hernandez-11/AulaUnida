@@ -69,7 +69,10 @@ export default function AdminHorariosPage() {
       setLoading(true);
       fetch(`/api/admin/horarios?gradoId=${selectedGrado}&cicloId=${selectedCiclo}`)
         .then(r => r.json())
-        .then(data => setHorario(data))
+        .then(data => {
+          console.log('Horarios cargados:', data); // Debug temporal
+          setHorario(data);
+        })
         .finally(() => setLoading(false));
     } else {
       setHorario([]);
@@ -275,8 +278,41 @@ export default function AdminHorariosPage() {
                               >
                                 {bloque ? (
                                   <div className={horarioStyles.horarioMateria} style={{ height: 44 * getBlockRowSpan(bloque) }}>
-                                    {bloque.materia?.nombre || 'Materia'}
-                                    <button className="removeBtn" onClick={e => { e.preventDefault(); removeHorario(bloque.id); }} title="Eliminar">✕</button>
+                                    <div style={{ 
+                                      display: 'flex', 
+                                      flexDirection: 'column', 
+                                      flex: 1,
+                                      lineHeight: '1.2'
+                                    }}>
+                                      <div style={{ fontWeight: 700, fontSize: '14px' }}>
+                                        {bloque.materia?.nombre || 'Sin nombre'}
+                                      </div>
+                                      <div style={{ fontSize: '12px', opacity: 0.8, marginTop: '2px' }}>
+                                        {bloque.docente?.name || 'Sin docente'}
+                                      </div>
+                                      {bloque.aula && (
+                                        <div style={{ fontSize: '11px', opacity: 0.7, marginTop: '1px' }}>
+                                          📍 {bloque.aula.codigo}
+                                        </div>
+                                      )}
+                                    </div>
+                                    <button 
+                                      className="removeBtn" 
+                                      onClick={e => { e.preventDefault(); removeHorario(bloque.id); }} 
+                                      title="Eliminar"
+                                      style={{
+                                        background: '#dc2626',
+                                        border: 'none',
+                                        color: 'white',
+                                        borderRadius: '4px',
+                                        padding: '2px 6px',
+                                        fontSize: '12px',
+                                        cursor: 'pointer',
+                                        marginLeft: '8px'
+                                      }}
+                                    >
+                                      ✕
+                                    </button>
                                   </div>
                                 ) : null}
                               </td>
@@ -305,7 +341,19 @@ export default function AdminHorariosPage() {
                       flexDirection: 'column',
                       alignItems: 'stretch',
                     }}>
-                      <div style={{ fontWeight: 700, fontSize: 20, marginBottom: 18, color: '#fff' }}>Asignar materia</div>
+                      <div style={{ fontWeight: 700, fontSize: 20, marginBottom: 8, color: '#fff' }}>Asignar materia</div>
+                      {pendingMateria && (
+                        <div style={{ 
+                          background: '#2563eb', 
+                          padding: '8px 12px', 
+                          borderRadius: '6px', 
+                          marginBottom: '18px',
+                          fontSize: '14px',
+                          fontWeight: 600
+                        }}>
+                          📚 {pendingMateria.nombre}
+                        </div>
+                      )}
                       <label style={{ marginBottom: 12 }}>
                         Día:
                         <select value={selectedDia} onChange={e => setSelectedDia(e.target.value)} style={{ marginLeft: 8, padding: 6, borderRadius: 6 }}>

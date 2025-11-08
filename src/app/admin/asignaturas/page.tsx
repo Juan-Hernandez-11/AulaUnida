@@ -141,6 +141,18 @@ export default function AdminAsignaturasPage() {
     });
   };
 
+  // Función para asignar el mismo docente a todos los grados
+  const asignarMismoDocente = (docenteId: string) => {
+    if (!docenteId || form.gradoIds.length === 0) return;
+    
+    const nuevasAsignaciones = form.gradoIds.map(gradoId => ({
+      gradoId: Number(gradoId),
+      docenteId: Number(docenteId)
+    }));
+    
+    setForm(prev => ({ ...prev, asignaciones: nuevasAsignaciones }));
+  };
+
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setCreating(true);
@@ -244,6 +256,8 @@ export default function AdminAsignaturasPage() {
     });
     setEditingId(asig.id);
     setError('');
+    setSuccess('');
+    setFieldErrors({}); // Limpiar errores de validación
   };
 
   // Cargar grados al montar el componente
@@ -284,7 +298,17 @@ export default function AdminAsignaturasPage() {
           <BackToDashboardButton />
           <h1 className={styles.title}>Gestión de Asignaturas</h1>
           <div className={styles.activityCard}>
-            <h2 className={styles.activityTitle}>{editingId ? 'Editar Asignatura' : 'Crear Asignatura'}</h2>
+            <h2 className={styles.activityTitle}>
+              {editingId 
+                ? `Editar Asignatura: ${form.nombre}` 
+                : 'Crear Nueva Asignatura'
+              }
+            </h2>
+            {editingId && (
+              <p style={{ color: '#64748B', marginBottom: '1rem', fontSize: '14px' }}>
+                Puedes agregar o quitar grados, y cambiar la asignación de docentes para esta asignatura.
+              </p>
+            )}
             <form className={formStyles.formBox} onSubmit={handleSubmit}>
               <div className={formStyles.field}>
                 <label htmlFor="nombre" className={formStyles.label}>Nombre</label>
@@ -329,7 +353,25 @@ export default function AdminAsignaturasPage() {
                 {fieldErrors.codigo && <span className={formStyles.error}>{fieldErrors.codigo}</span>}
               </div>
               <div className={formStyles.field}>
-                <label htmlFor="gradoIds" className={formStyles.label}>Grados</label>
+                <label htmlFor="gradoIds" className={formStyles.label}>
+                  Grados 
+                  <span style={{ fontSize: '12px', color: '#64748B', marginLeft: '8px' }}>
+                    (Mantén Ctrl presionado para seleccionar múltiples grados)
+                  </span>
+                </label>
+                {editingId && (
+                  <div style={{ 
+                    fontSize: '12px', 
+                    color: '#0ea5e9', 
+                    marginBottom: '8px',
+                    padding: '8px 12px',
+                    backgroundColor: '#0f172a',
+                    borderRadius: '4px',
+                    border: '1px solid #1e40af'
+                  }}>
+                    Modo edición: Puedes agregar o quitar grados. Los grados actuales se mantendrán a menos que los deselecciones.
+                  </div>
+                )}
                 <select
                   id="gradoIds"
                   multiple
@@ -338,6 +380,7 @@ export default function AdminAsignaturasPage() {
                   value={form.gradoIds}
                   onChange={handleChange}
                   disabled={creating}
+                  style={{ minHeight: '100px' }}
                 >
                   {grados.length === 0 ? (
                     <option value="" disabled>No hay grados disponibles</option>
@@ -345,27 +388,100 @@ export default function AdminAsignaturasPage() {
                     grados.map(g => <option key={g.id} value={g.id}>{g.nombre} {g.seccion}</option>)
                   )}
                 </select>
+                {form.gradoIds.length > 0 && (
+                  <div style={{ fontSize: '12px', color: '#22c55e', marginTop: '4px' }}>
+                    {form.gradoIds.length} grado(s) seleccionado(s): {
+                      form.gradoIds.map(id => {
+                        const grado = grados.find(g => String(g.id) === id);
+                        return grado ? `${grado.nombre} ${grado.seccion}` : '';
+                      }).join(', ')
+                    }
+                  </div>
+                )}
                 {fieldErrors.gradoIds && <span className={formStyles.error}>{fieldErrors.gradoIds}</span>}
               </div>
               <div className={formStyles.field}>
-                <label className={formStyles.label}>Docente por grado</label>
+                <label className={formStyles.label}>
+                  Docente por grado
+                  <span style={{ fontSize: '12px', color: '#64748B', marginLeft: '8px' }}>
+                    (Puedes asignar el mismo docente a múltiples grados)
+                  </span>
+                </label>
                 {form.gradoIds.length === 0 ? (
-                  <div style={{ color: '#888', fontSize: 14 }}>Selecciona al menos un grado</div>
+                  <div style={{ color: '#64748B', fontSize: 14, padding: '12px', border: '1px dashed #374151', borderRadius: '6px', textAlign: 'center' }}>
+                    Primero selecciona uno o más grados arriba
+                  </div>
                 ) : (
-                  form.gradoIds.map(gradoId => (
-                    <div key={gradoId} style={{ marginBottom: 8 }}>
-                      <span style={{ fontWeight: 500 }}>{grados.find(g => String(g.id) === gradoId)?.nombre} {grados.find(g => String(g.id) === gradoId)?.seccion}</span>
-                      <select
-                        className={formStyles.select}
-                        value={form.asignaciones.find(a => a.gradoId === Number(gradoId))?.docenteId || ''}
-                        onChange={e => handleDocenteChange(Number(gradoId), e.target.value)}
-                        disabled={creating}
-                      >
-                        <option value="">Sin docente asignado</option>
-                        {docentes.map(d => <option key={d.id} value={d.id}>{d.name}</option>)}
-                      </select>
-                    </div>
-                  ))
+                  <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
+                    {/* Botón de asignación rápida */}
+                    {form.gradoIds.length > 1 && (
+                      <div style={{ 
+                        padding: '12px', 
+                        backgroundColor: '#0f172a', 
+                        borderRadius: '6px',
+                        border: '1px solid #1e40af'
+                      }}>
+                        <div style={{ fontSize: '14px', color: '#0ea5e9', marginBottom: '8px', fontWeight: 500 }}>
+                          Asignación Rápida: Mismo docente para todos los grados
+                          {editingId && <span style={{ marginLeft: '8px', fontSize: '12px' }}>(incluye grados nuevos)</span>}
+                        </div>
+                        <div style={{ display: 'flex', gap: '8px', alignItems: 'center' }}>
+                          <select
+                            className={formStyles.select}
+                            onChange={e => asignarMismoDocente(e.target.value)}
+                            disabled={creating}
+                            style={{ flex: 1 }}
+                          >
+                            <option value="">Seleccionar docente para todos...</option>
+                            {docentes.map(d => <option key={d.id} value={d.id}>{d.name}</option>)}
+                          </select>
+                        </div>
+                      </div>
+                    )}
+                    
+                    {form.gradoIds.map(gradoId => {
+                      const grado = grados.find(g => String(g.id) === gradoId);
+                      return (
+                        <div key={gradoId} style={{ 
+                          padding: '12px', 
+                          backgroundColor: '#1E293B', 
+                          borderRadius: '6px',
+                          border: '1px solid #334155'
+                        }}>
+                          <div style={{ 
+                            fontWeight: 600, 
+                            color: '#22c55e', 
+                            marginBottom: '8px',
+                            fontSize: '14px'
+                          }}>
+                            {grado?.nombre} {grado?.seccion}
+                          </div>
+                          <select
+                            className={formStyles.select}
+                            value={form.asignaciones.find(a => a.gradoId === Number(gradoId))?.docenteId || ''}
+                            onChange={e => handleDocenteChange(Number(gradoId), e.target.value)}
+                            disabled={creating}
+                            style={{ marginTop: 0 }}
+                          >
+                            <option value="">Seleccionar docente...</option>
+                            {docentes.map(d => <option key={d.id} value={d.id}>{d.name}</option>)}
+                          </select>
+                        </div>
+                      );
+                    })}
+                    {form.gradoIds.length > 1 && (
+                      <div style={{ 
+                        fontSize: '12px', 
+                        color: '#0ea5e9', 
+                        padding: '8px 12px',
+                        backgroundColor: '#0f172a',
+                        borderRadius: '4px',
+                        border: '1px solid #1e40af'
+                      }}>
+                        Tip: Puedes seleccionar el mismo docente para todos los grados si quieres que dé la misma materia en múltiples cursos
+                      </div>
+                    )}
+                  </div>
                 )}
               </div>
               <div className={formStyles.buttonBox}>
@@ -374,11 +490,34 @@ export default function AdminAsignaturasPage() {
                   className={formStyles.saveButton}
                   disabled={creating || !!fieldErrors.nombre || !!fieldErrors.area || !!fieldErrors.codigo || !!fieldErrors.gradoIds}
                 >
-                  {creating ? (editingId ? 'Guardando...' : 'Guardando...') : (editingId ? 'Guardar cambios' : 'Guardar')}
+                  {creating 
+                    ? (editingId ? 'Guardando cambios...' : 'Creando asignatura...') 
+                    : (editingId ? 'Actualizar asignatura' : 'Crear asignatura')
+                  }
                 </button>
                 {editingId && (
-                  <button type="button" className="bg-gray-400 text-white rounded p-2" onClick={() => { setEditingId(null); setForm({ nombre: '', area: '', codigo: '', gradoIds: [], asignaciones: [] }); setError(''); }} disabled={creating}>
-                    Cancelar
+                  <button 
+                    type="button" 
+                    style={{
+                      background: '#64748B',
+                      color: 'white',
+                      borderRadius: '6px',
+                      padding: '10px 24px',
+                      border: 'none',
+                      cursor: 'pointer',
+                      marginLeft: '12px',
+                      fontSize: '16px'
+                    }}
+                    onClick={() => { 
+                      setEditingId(null); 
+                      setForm({ nombre: '', area: '', codigo: '', gradoIds: [], asignaciones: [] }); 
+                      setError(''); 
+                      setSuccess('');
+                      setFieldErrors({});
+                    }} 
+                    disabled={creating}
+                  >
+                    Cancelar edición
                   </button>
                 )}
               </div>

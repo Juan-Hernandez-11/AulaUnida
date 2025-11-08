@@ -1,7 +1,7 @@
 "use client";
 
-import React, { useState } from 'react';
-import { usePathname } from 'next/navigation';
+import React, { useState, useEffect } from 'react';
+import { usePathname, useSearchParams } from 'next/navigation';
 import ProtectedRoute from '../../../components/ProtectedRoute';
 import styles from '../../../styles/admin-dashboard.module.css';
 import formStyles from '../../../styles/admin-user-form.module.css';
@@ -59,12 +59,15 @@ export default function AdminUsuariosPage() {
     photoUrl: ''
   });
   const pathname = usePathname();
+  const searchParams = useSearchParams();
   //    firebaseUid: '', // Solo para edición, no para creación
   const [photoFile, setPhotoFile] = useState<File | null>(null);
   const [photoPreview, setPhotoPreview] = useState<string | null>(null);
   const [editingId, setEditingId] = useState<number | null>(null);
   const [creating, setCreating] = useState(false);
   const [error, setError] = useState('');
+  const [success, setSuccess] = useState('');
+  
   // Estado para errores de validación en tiempo real
   const [fieldErrors, setFieldErrors] = useState<{
     name?: string;
@@ -78,6 +81,35 @@ export default function AdminUsuariosPage() {
     gender?: string;
     photoUrl?: string;
   }>({});
+
+  // Cargar usuarios al montar el componente
+  useEffect(() => {
+    const loadUsers = async () => {
+      try {
+        const res = await fetch('/api/admin/usuarios');
+        if (res.ok) {
+          const data = await res.json();
+          setUsers(data);
+        }
+      } catch (error) {
+        console.error('Error cargando usuarios:', error);
+      }
+      setLoading(false);
+    };
+    
+    loadUsers();
+  }, []);
+
+  // Manejar edición por URL
+  useEffect(() => {
+    const editId = searchParams.get('edit');
+    if (editId && users.length > 0) {
+      const userToEdit = users.find(u => u.id === parseInt(editId));
+      if (userToEdit) {
+        handleEdit(userToEdit);
+      }
+    }
+  }, [searchParams, users]);
 
   // Obtener usuarios al cargar
   // Cargar usuarios manualmente cuando sea necesario (ejemplo: con un botón o tras crear/editar)
@@ -167,14 +199,29 @@ export default function AdminUsuariosPage() {
     }
     try {
       if (editingId) {
+        // Editar usuario existente
         const res = await fetch('/api/admin/usuarios', {
           method: 'PUT',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ id: editingId, name: form.name, email: form.email, role: form.role }),
+          body: JSON.stringify({ 
+            id: editingId, 
+            name: form.name, 
+            email: form.email, 
+            role: form.role,
+            documentType: form.documentType,
+            documentNumber: form.documentNumber,
+            birthDate: form.birthDate,
+            phone: form.phone,
+            address: form.address,
+            gender: form.gender,
+            photoUrl: form.photoUrl
+          }),
         });
+        
         if (!res.ok) {
           const data = await res.json();
           setError(data.error || 'Error al editar usuario');
+          setSuccess('');
         } else {
           const updatedUser = await res.json();
           setUsers(prev => prev.map(u => u.id === updatedUser.id ? updatedUser : u));
@@ -191,8 +238,11 @@ export default function AdminUsuariosPage() {
             photoUrl: ''
           });
           setEditingId(null);
+          setSuccess('Usuario actualizado correctamente');
+          setError('');
         }
       } else {
+        // Crear nuevo usuario
         const res = await fetch('/api/admin/usuarios', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
@@ -201,6 +251,7 @@ export default function AdminUsuariosPage() {
         if (!res.ok) {
           const data = await res.json();
           setError(data.error || 'Error al crear usuario');
+          setSuccess('');
         } else {
           const newUser = await res.json();
           setUsers(prev => [...prev, newUser]);
@@ -216,10 +267,13 @@ export default function AdminUsuariosPage() {
             gender: '',
             photoUrl: ''
           });
+          setSuccess('Usuario creado correctamente');
+          setError('');
         }
       }
     } catch (err) {
       setError('Error de red');
+      setSuccess('');
     }
     setCreating(false);
   };
@@ -260,6 +314,13 @@ export default function AdminUsuariosPage() {
     });
     setEditingId(user.id);
     setError('');
+    setSuccess('');
+    setFieldErrors({});
+    
+    // Limpiar URL para evitar re-edición accidental
+    if (window.history.replaceState) {
+      window.history.replaceState({}, '', '/admin/usuarios');
+    }
   };
 
   return (
@@ -287,9 +348,49 @@ export default function AdminUsuariosPage() {
         {/* Main Content */}
         <main className={styles.mainContent}>
           <BackToDashboardButton />
-          <h1 className={styles.title}>Gestión de Usuarios</h1>
+          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1.5rem' }}>
+            <h1 className={styles.title}>Gestión de Usuarios</h1>
+            <NextLink 
+              href="/admin/usuarios/listado"
+              style={{
+                background: '#22c55e',
+                color: 'white',
+                padding: '10px 20px',
+                borderRadius: '6px',
+                textDecoration: 'none',
+                fontWeight: 500,
+                display: 'inline-flex',
+                alignItems: 'center',
+                gap: '8px'
+              }}
+            >
+              Ver listado de usuarios
+            </NextLink>
+          </div>
           <div className={styles.activityCard}>
-            <h2 className={styles.activityTitle}>{editingId ? 'Editar Usuario' : 'Crear Usuario'}</h2>
+            <h2 className={styles.activityTitle}>
+              {editingId 
+                ? `Editar Usuario: ${form.name || 'Cargando...'}`
+                : 'Crear Nuevo Usuario'
+              }
+            </h2>
+            {editingId && (
+              <p style={{ color: '#64748B', marginBottom: '1rem', fontSize: '14px' }}>
+                Modifica los campos que desees actualizar para este usuario.
+              </p>
+            )}
+            {success && (
+              <div style={{ 
+                color: '#22c55e', 
+                marginBottom: '1rem', 
+                padding: '8px 12px',
+                backgroundColor: '#0f172a',
+                borderRadius: '4px',
+                border: '1px solid #22c55e'
+              }}>
+                {success}
+              </div>
+            )}
             <form className="grid grid-cols-1 gap-6 bg-[#232734] p-8 rounded-xl shadow-lg"
               style={{
                 display: 'grid',
@@ -395,12 +496,42 @@ export default function AdminUsuariosPage() {
                 )}
               </div>
               <div className="col-span-1 md:col-span-3 flex gap-2 mt-2">
-                <button className={formStyles.adminFormButton + ' flex-1'} type="submit" disabled={creating || Object.values(fieldErrors).some(Boolean)}>
-                  {creating ? (editingId ? 'Guardando...' : 'Guardando...') : (editingId ? 'Guardar cambios' : 'Guardar')}
+                <button
+                  className={formStyles.adminFormButton + ' flex-1'}
+                  type="submit"
+                  disabled={creating || Object.values(fieldErrors).some(Boolean)}
+                >
+                  {creating 
+                    ? (editingId ? 'Actualizando usuario...' : 'Creando usuario...') 
+                    : (editingId ? 'Actualizar usuario' : 'Crear usuario')
+                  }
                 </button>
                 {editingId && (
-                  <button type="button" className={formStyles.adminFormButton + ' flex-1'} style={{ background: '#888', color: '#fff' }} onClick={() => { setEditingId(null); setForm({ name: '', email: '', role: 'admin', documentType: '', documentNumber: '', birthDate: '', phone: '', address: '', gender: '', photoUrl: '' }); setError(''); }} disabled={creating}>
-                    Cancelar
+                  <button 
+                    type="button" 
+                    className={formStyles.adminFormButton + ' flex-1'} 
+                    style={{ background: '#64748B', color: '#fff' }} 
+                    onClick={() => { 
+                      setEditingId(null); 
+                      setForm({ 
+                        name: '', 
+                        email: '', 
+                        role: 'admin', 
+                        documentType: '', 
+                        documentNumber: '', 
+                        birthDate: '', 
+                        phone: '', 
+                        address: '', 
+                        gender: '', 
+                        photoUrl: '' 
+                      }); 
+                      setError(''); 
+                      setSuccess('');
+                      setFieldErrors({});
+                    }} 
+                    disabled={creating}
+                  >
+                    Cancelar edición
                   </button>
                 )}
               </div>

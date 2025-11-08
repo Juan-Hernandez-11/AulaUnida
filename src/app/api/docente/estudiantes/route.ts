@@ -46,9 +46,64 @@ export async function GET(req: NextRequest) {
     // Buscar estudiantes matriculados en el grado
     const estudiantes = await prisma.gradoEstudiante.findMany({
       where: { gradoId },
-      include: { estudiante: true },
+      include: { 
+        estudiante: {
+          include: {
+            notasMateriaPeriodo: {
+              where: { materiaId },
+              include: {
+                periodo: true
+              }
+            }
+          }
+        }
+      },
     });
-    return NextResponse.json(estudiantes.map((e: any) => e.estudiante));
+
+    // Calcular promedio acumulado para cada estudiante
+    const estudiantesConPromedio = estudiantes.map((ge: any) => {
+      const estudiante = ge.estudiante;
+      const todasLasNotas = estudiante.notasMateriaPeriodo;
+      
+      // Agrupar notas por período
+      const notasPorPeriodo = todasLasNotas.reduce((acc: any, nota: any) => {
+        if (!acc[nota.periodo.id]) {
+          acc[nota.periodo.id] = {
+            periodo: nota.periodo,
+            notas: []
+          };
+        }
+        acc[nota.periodo.id].notas.push(nota);
+        return acc;
+      }, {});
+
+      // Calcular promedio por período y luego promedio general
+      let sumaPromediosPeriodos = 0;
+      let periodosConNotas = 0;
+
+      Object.values(notasPorPeriodo).forEach((periodoData: any) => {
+        const notasDelPeriodo = periodoData.notas;
+        if (notasDelPeriodo.length > 0) {
+          const promedioPeriodo = notasDelPeriodo.reduce((sum: number, nota: any) => sum + nota.valor, 0) / notasDelPeriodo.length;
+          sumaPromediosPeriodos += promedioPeriodo;
+          periodosConNotas++;
+        }
+      });
+
+      const promedioGeneral = periodosConNotas > 0 ? sumaPromediosPeriodos / periodosConNotas : 0;
+      
+      return {
+        id: estudiante.id,
+        name: estudiante.name,
+        email: estudiante.email,
+        notasPorPeriodo: notasPorPeriodo,
+        promedio: Number(promedioGeneral.toFixed(2)),
+        totalNotas: todasLasNotas.length,
+        periodosConNotas: periodosConNotas
+      };
+    });
+
+    return NextResponse.json(estudiantesConPromedio);
   } catch (error) {
     return NextResponse.json({ error: 'No autorizado (token inválido)' }, { status: 401 });
   }

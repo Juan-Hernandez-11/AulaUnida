@@ -1,7 +1,21 @@
+:root {
+  --green-primary: #22c55e;
+  --green-secondary: #16a34a;
+  --green-light: #4ade80;
+  --green-dark: #15803d;
+  --green-accent: #10b981;
+  --bg-dark: #0f172a;
+  --bg-card: #1e293b;
+  --bg-hover: #334155;
+  --text-primary: #f8fafc;
+  --text-secondary: #cbd5e1;
+  --text-muted: #94a3b8;
+}
+
 .selectModern {
-  background: #232527;
-  color: #fff;
-  border: 2.5px solid #2563eb;
+  background: var(--bg-card);
+  color: var(--text-primary);
+  border: 2.5px solid var(--green-primary);
   border-radius: 8px;
   padding: 10px 16px;
   font-size: 16px;
@@ -9,102 +23,104 @@
   outline: none;
   margin-right: 12px;
   margin-bottom: 0;
-  box-shadow: 0 2px 8px #0002;
+  box-shadow: 0 2px 8px rgba(34, 197, 94, 0.1);
   transition: border 0.2s, box-shadow 0.2s;
 }
 .selectModern:focus {
-  border: 2.5px solid #1d4ed8;
-  box-shadow: 0 0 0 2px #2563eb44;
+  border: 2.5px solid var(--green-light);
+  box-shadow: 0 0 0 2px rgba(34, 197, 94, 0.25);
 }
 /* Estilos para la grilla de horarios y drag & drop */
 .horarioContainer {
-  background: #181A1B;
+  background: var(--bg-card);
   border-radius: 14px;
-  box-shadow: 0 2px 12px #0003;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
   padding: 2rem;
   margin-bottom: 2rem;
+  border: 1px solid var(--bg-hover);
 }
 .horarioGrid {
   width: 100%;
   border-radius: 18px;
   overflow: hidden;
-  background: linear-gradient(120deg, #232527 80%, #1d2433 100%);
+  background: linear-gradient(120deg, var(--bg-hover) 80%, var(--bg-card) 100%);
   border-collapse: separate;
   border-spacing: 0;
-  border: 2.5px solid #2563eb;
-  box-shadow: 0 6px 32px #0006;
+  border: 2.5px solid var(--green-primary);
+  box-shadow: 0 6px 32px rgba(0, 0, 0, 0.15);
   backdrop-filter: blur(1.5px);
 }
 .horarioHeader {
-  background: #232527;
-  color: #fff;
+  background: var(--bg-hover);
+  color: var(--text-primary);
   font-weight: 700;
   text-align: center;
   padding: 14px 0 12px 0;
-  border-bottom: 2.5px solid #2563eb;
+  border-bottom: 2.5px solid var(--green-primary);
   font-size: 17px;
   letter-spacing: 0.7px;
   position: sticky;
   top: 0;
   z-index: 2;
-  box-shadow: 0 2px 8px #0002;
+  box-shadow: 0 2px 8px rgba(34, 197, 94, 0.1);
 }
 .horarioCell {
   min-height: 48px;
-  border-right: 1.5px solid #2563eb;
-  border-bottom: 1.5px solid #2563eb;
-  background: #232527;
+  border-right: 1.5px solid var(--green-primary);
+  border-bottom: 1.5px solid var(--green-primary);
+  background: var(--bg-hover);
   position: relative;
   transition: background 0.18s, box-shadow 0.18s;
-  box-shadow: 0 1px 4px #0002;
+  box-shadow: 0 1px 4px rgba(34, 197, 94, 0.1);
 }
 .horarioCell:last-child {
   border-right: none;
 }
 .horarioRowLabel {
-  background: #181A1B;
-  color: #fff;
+  background: var(--bg-dark);
+  color: var(--text-primary);
   font-size: 15px;
   font-weight: 600;
   text-align: right;
   padding: 10px 14px;
-  border-bottom: 2px solid #232527;
+  border-bottom: 2px solid var(--bg-hover);
 }
 .materiaDraggable {
-  background: #2563eb;
-  color: #fff;
+  background: linear-gradient(135deg, var(--green-primary), var(--green-secondary));
+  color: var(--text-primary);
   border-radius: 7px;
   padding: 8px 12px;
   margin: 6px 0;
   font-size: 15px;
   font-weight: 600;
   cursor: grab;
-  box-shadow: 0 2px 8px #0003;
+  box-shadow: 0 2px 8px rgba(34, 197, 94, 0.15);
   user-select: none;
-  transition: background 0.2s;
-  border: 1.5px solid #1d4ed8;
+  transition: all 0.2s ease;
+  border: 1.5px solid var(--green-dark);
 }
 .materiaDraggable:active {
-  background: #1d4ed8;
+  background: linear-gradient(135deg, var(--green-light), var(--green-primary));
+  transform: scale(0.98);
 }
 .horarioCellDroppable {
-  background: #22305a !important;
-  box-shadow: 0 0 0 2.5px #2563eb99;
-  outline: 2.5px solid #2563eb55;
+  background: rgba(34, 197, 94, 0.1) !important;
+  box-shadow: 0 0 0 2.5px rgba(34, 197, 94, 0.6);
+  outline: 2.5px solid rgba(34, 197, 94, 0.3);
   z-index: 1;
 }
 .horarioMateria {
   display: flex;
   align-items: center;
   gap: 10px;
-  background: linear-gradient(120deg, #1d2433 80%, #2563eb22 100%);
+  background: linear-gradient(120deg, var(--bg-card) 80%, rgba(34, 197, 94, 0.1) 100%);
   border-radius: 10px;
   padding: 10px 18px 10px 14px;
   font-size: 15px;
-  color: #fff;
+  color: var(--text-primary);
   margin: 6px 0;
-  border: 2px solid #2563eb;
-  box-shadow: 0 4px 16px #2563eb33, 0 2px 8px #0004;
+  border: 2px solid var(--green-primary);
+  box-shadow: 0 4px 16px rgba(34, 197, 94, 0.2), 0 2px 8px rgba(0, 0, 0, 0.1);
   font-weight: 600;
   position: relative;
   animation: fadeInBlock 0.4s cubic-bezier(.4,1.4,.6,1) both;

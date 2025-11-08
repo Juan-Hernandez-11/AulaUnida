@@ -246,12 +246,15 @@ model NotaMateriaPeriodo {
   estudianteId Int
   materiaId    Int
   periodoId    Int
+  numeroNota   Int      // 1, 2, o 3 para identificar cuál de las 3 notas es
   valor        Float
+  descripcion  String?  // Opcional: descripción de qué evalúa esta nota
+  fechaCreacion DateTime @default(now())
   estudiante   User     @relation(fields: [estudianteId], references: [id])
   materia      Materia  @relation(fields: [materiaId], references: [id])
   periodo      Periodo  @relation(fields: [periodoId], references: [id])
 
-  @@unique([estudianteId, materiaId, periodoId])
+  @@unique([estudianteId, materiaId, periodoId, numeroNota])
 }
 
 model MateriaGrado {

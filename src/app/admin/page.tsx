@@ -1,7 +1,7 @@
 "use client";
 import ProtectedRoute from '../../components/ProtectedRoute';
 import { useAuth } from '../../context/authContext';
-import { UserCircleIcon, BookOpenIcon, CalendarIcon, UsersIcon, ClipboardIcon, AcademicCapIcon, ChartBarIcon, MegaphoneIcon, Cog6ToothIcon, QuestionMarkCircleIcon } from '@heroicons/react/24/outline';
+import { UserCircleIcon, BookOpenIcon, CalendarIcon, UsersIcon, ClipboardIcon, AcademicCapIcon, ChartBarIcon, MegaphoneIcon, Cog6ToothIcon, QuestionMarkCircleIcon, BuildingOfficeIcon } from '@heroicons/react/24/outline';
 import NextLink from '../../components/NextLink';
 import { useEffect, useState } from 'react';
 import styles from '../../styles/admin-dashboard.module.css';
@@ -16,6 +16,7 @@ const sidebarLinks = [
   { label: 'Gestión de Usuarios', icon: UsersIcon, href: '/admin/usuarios' },
   { label: 'Grados/Secciones', icon: AcademicCapIcon, href: '/admin/grados' },
   { label: 'Asignaturas', icon: BookOpenIcon, href: '/admin/asignaturas' },
+  { label: 'Sedes', icon: BuildingOfficeIcon, href: '/admin/sedes' },
   { label: 'Horarios', icon: CalendarIcon, href: '/admin/horarios' },
   { label: 'Matrícula', icon: ClipboardIcon, href: '/admin/matricula' },
   { label: 'Ciclos Lectivos', icon: CalendarIcon, href: '/admin/ciclos' },

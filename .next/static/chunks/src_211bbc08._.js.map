@@ -1,7 +1,0 @@
-{
-  "version": 3,
-  "sources": [],
-  "sections": [
-    {"offset": {"line": 4, "column": 0}, "map": {"version":3,"sources":["file:///C:/Users/juant/Documents/proyectoCUN/aulaunida/src/app/api/config.tsx"],"sourcesContent":["export const firebaseConfig = {\r\n  apiKey: process.env.NEXT_PUBLIC_API_KEY_FIREBASE,\r\n  authDomain: process.env.NEXT_PUBLIC_AUTHDOMAIN,\r\n  projectId: process.env.NEXT_PUBLIC_PROJECTID,\r\n  storageBucket: process.env.NEXT_PUBLIC_STORAGEBUCKET,\r\n  messagingSenderId: process.env.NEXT_PUBLIC_MESSAGINGSENDERID,\r\n  appId: process.env.NEXT_PUBLIC_APPID,\r\n  measurementId: process.env.NEXT_PUBLIC_MEASUREMENTID,\r\n};\r\n\r\n\r\n"],"names":[],"mappings":";;;;AACU;AADH,MAAM,iBAAiB;IAC5B,MAAM;IACN,UAAU;IACV,SAAS;IACT,aAAa;IACb,iBAAiB;IACjB,KAAK;IACL,aAAa;AACf","debugId":null}},
-    {"offset": {"line": 25, "column": 0}, "map": {"version":3,"sources":["file:///C:/Users/juant/Documents/proyectoCUN/aulaunida/src/lib/firebaseClient.ts"],"sourcesContent":["'use client';\r\nimport { initializeApp, getApps, getApp, FirebaseApp } from \"firebase/app\";\r\nimport { firebaseConfig } from \"../app/api/config\";\r\n\r\n// Inicializa y exporta la instancia de la app de Firebase\r\nlet app: FirebaseApp;\r\nif (!getApps().length) {\r\n  app = initializeApp(firebaseConfig);\r\n} else {\r\n  app = getApp();\r\n}\r\n\r\nexport { app };"],"names":[],"mappings":";;;;AACA;AAAA;AACA;AAFA;;;AAIA,0DAA0D;AAC1D,IAAI;AACJ,IAAI,CAAC,IAAA,8KAAO,IAAG,MAAM,EAAE;IACrB,MAAM,IAAA,oLAAa,EAAC,iJAAc;AACpC,OAAO;IACL,MAAM,IAAA,6KAAM;AACd","debugId":null}}]
-}

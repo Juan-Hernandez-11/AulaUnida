@@ -1,5 +1,6 @@
 import { NextResponse } from 'next/server';
-import { PrismaClient, Prisma } from '@prisma/client';
+import { PrismaClient } from '@prisma/client';
+import { PrismaClientKnownRequestError } from '@prisma/client/runtime/library';
 
 const prisma = new PrismaClient();
 
@@ -43,7 +44,7 @@ export async function POST(request: Request) {
     });
     return NextResponse.json(aula);
   } catch (error: any) {
-    if (error instanceof Prisma.PrismaClientKnownRequestError) {
+    if (error instanceof PrismaClientKnownRequestError) {
       return NextResponse.json({ error: 'Error de base de datos: ' + error.message }, { status: 500 });
     }
     return NextResponse.json({ error: 'Error al crear aula' }, { status: 500 });
@@ -84,7 +85,7 @@ export async function PUT(request: Request) {
     });
     return NextResponse.json(aula);
   } catch (error: any) {
-    if (error instanceof Prisma.PrismaClientKnownRequestError) {
+    if (error instanceof PrismaClientKnownRequestError) {
       return NextResponse.json({ error: 'Error de base de datos: ' + error.message }, { status: 500 });
     }
     return NextResponse.json({ error: 'Error al editar aula' }, { status: 500 });
@@ -101,7 +102,7 @@ export async function DELETE(request: Request) {
     await prisma.aula.delete({ where: { id: Number(id) } });
     return NextResponse.json({ success: true });
   } catch (error: any) {
-    if (error instanceof Prisma.PrismaClientKnownRequestError) {
+    if (error instanceof PrismaClientKnownRequestError) {
       if (error.code === 'P2025') {
         return NextResponse.json({ error: 'El aula no existe o ya fue eliminada' }, { status: 404 });
       }

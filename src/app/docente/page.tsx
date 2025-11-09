@@ -1,4 +1,6 @@
 "use client";
+
+import Image from 'next/image';
 import { useAuth } from '../../context/authContext';
 import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
@@ -67,7 +69,7 @@ export default function DocenteDashboard() {
       {/* Sidebar */}
       <aside className={styles.sidebar}>
         <div style={{ display: 'flex', alignItems: 'center', marginBottom: '3rem' }}>
-          <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="Docente" className={styles.avatar} />
+          <Image src="https://randomuser.me/api/portraits/men/32.jpg" alt="Docente" className={styles.avatar} width={32} height={32} />
           <span className={styles.logo}>AulaUnida</span>
         </div>
         <nav className={styles.menu}>

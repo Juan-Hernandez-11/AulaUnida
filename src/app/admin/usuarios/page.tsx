@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState, useEffect } from 'react';
+import Image from 'next/image';
 import { usePathname, useSearchParams } from 'next/navigation';
 import ProtectedRoute from '../../../components/ProtectedRoute';
 import styles from '../../../styles/admin-dashboard.module.css';
@@ -332,7 +333,7 @@ export default function AdminUsuariosPage() {
         {/* Sidebar */}
         <aside className={styles.sidebar}>
           <div style={{ display: 'flex', alignItems: 'center', marginBottom: '3rem' }}>
-            <img src="/favicon.ico" alt="Admin" className={styles.avatar} />
+            <Image src="/favicon.ico" alt="AulaUnida Admin" className={styles.avatar} width={32} height={32} />
             <span className={styles.logo}>AulaUnida</span>
           </div>
           <nav className={styles.menu}>
@@ -488,7 +489,7 @@ export default function AdminUsuariosPage() {
                   <label className={formStyles.adminFormLabel}>Foto de perfil</label>
                   <input type="file" accept="image/*" name="photo" onChange={handleChange} disabled={creating} className={formStyles.adminFormInput} />
                   {photoPreview && (
-                    <img src={photoPreview} alt="Preview" className={formStyles.adminFormPhotoPreview} />
+                    <Image src={photoPreview} alt="Vista previa foto de perfil" className={formStyles.adminFormPhotoPreview} width={100} height={100} />
                   )}
                 </div>
                 {editingId && (

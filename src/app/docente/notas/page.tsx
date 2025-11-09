@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState, useCallback, useMemo, memo } from "react";
+import Image from 'next/image';
 import { useAuth } from '../../../context/authContext';
 import { useRouter } from 'next/navigation';
 import { CalendarIcon, BookOpenIcon, HomeIcon } from '@heroicons/react/24/outline';
@@ -455,7 +456,7 @@ export default function DocenteNotasPage() {
       {/* Sidebar */}
       <aside className={styles.sidebar}>
         <div style={{ display: 'flex', alignItems: 'center', marginBottom: '3rem' }}>
-          <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="Docente" className={styles.avatar} />
+          <Image src="https://randomuser.me/api/portraits/men/32.jpg" alt="Docente" className={styles.avatar} width={32} height={32} />
           <span className={styles.logo}>AulaUnida</span>
         </div>
         <nav className={styles.menu}>

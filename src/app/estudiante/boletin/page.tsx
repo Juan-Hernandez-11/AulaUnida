@@ -109,7 +109,7 @@ export default function BoletinPage() {
             • Si encuentras algún error en la información, contacta a la coordinación académica.
           </p>
           <p style={{ margin: 0 }}>
-            • El archivo se descarga automáticamente al hacer clic en "Descargar Boletín".
+            • El archivo se descarga automáticamente al hacer clic en &quot;Descargar Boletín&quot;.
           </p>
         </div>
       </div>

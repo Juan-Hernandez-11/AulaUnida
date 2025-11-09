@@ -32,7 +32,7 @@ export async function GET(request: Request) {
 
       const notas = await prisma.notaMateriaPeriodo.findMany({ where: { estudianteId, materiaId, periodoId }, select: { valor: true } });
       if (!notas.length) return NextResponse.json({ promedio: null, cantidad: 0 });
-      const suma = notas.reduce((acc, n) => acc + n.valor, 0);
+      const suma = notas.reduce((acc: number, n: any) => acc + n.valor, 0);
       const promedio = suma / notas.length;
       return NextResponse.json({ promedio, cantidad: notas.length });
     }

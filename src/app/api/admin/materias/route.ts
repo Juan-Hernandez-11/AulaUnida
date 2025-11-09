@@ -33,7 +33,7 @@ export async function GET(request: Request) {
 // POST: Crear materia y vincular grados
 export async function POST(request: Request) {
   const admin = await requireAdmin(request);
-  if ('error' in admin) return admin;
+  if ('error' in admin) return NextResponse.json(admin, { status: 403 });
   const data = await request.json();
   const { nombre, area, codigo, gradoIds } = data || {};
   if (
@@ -78,7 +78,7 @@ export async function POST(request: Request) {
 // PUT: Editar materia y sus grados
 export async function PUT(request: Request) {
   const admin = await requireAdmin(request);
-  if ('error' in admin) return admin;
+  if ('error' in admin) return NextResponse.json(admin, { status: 403 });
   const data = await request.json();
   const { id, nombre, area, codigo, gradoIds } = data || {};
   if (
@@ -132,7 +132,7 @@ export async function PUT(request: Request) {
 // DELETE: Eliminar materia y sus relaciones
 export async function DELETE(request: Request) {
   const admin = await requireAdmin(request);
-  if ('error' in admin) return admin;
+  if ('error' in admin) return NextResponse.json(admin, { status: 403 });
   const data = await request.json();
   const { id } = data || {};
   if (typeof id !== 'number' || isNaN(id)) {

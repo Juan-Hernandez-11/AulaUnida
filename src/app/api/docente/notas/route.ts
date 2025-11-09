@@ -48,10 +48,11 @@ export async function POST(req: NextRequest) {
       if (!estudianteId || typeof valor !== 'number') continue;
       await prisma.notaMateriaPeriodo.upsert({
         where: {
-          estudianteId_materiaId_periodoId: {
+          estudianteId_materiaId_periodoId_numeroNota: {
             estudianteId,
             materiaId,
             periodoId,
+            numeroNota: 1, // Asumiendo que es la primera nota por defecto
           },
         },
         update: { valor },
@@ -59,6 +60,7 @@ export async function POST(req: NextRequest) {
           estudianteId,
           materiaId,
           periodoId,
+          numeroNota: 1, // Asumiendo que es la primera nota por defecto
           valor,
         },
       });

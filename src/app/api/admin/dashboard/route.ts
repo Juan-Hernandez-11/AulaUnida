@@ -30,7 +30,7 @@ export async function GET() {
       usuariosActivos,
       gradosRegistrados,
       anunciosRecientes,
-      actividad: actividad.map(a => ({
+      actividad: actividad.map((a: any) => ({
         user: a.usuario?.name || '-',
         action: a.cambio,
         date: a.fecha.toISOString().split('T')[0],

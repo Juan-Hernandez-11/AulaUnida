@@ -40,7 +40,7 @@ export async function POST(request: Request) {
     typeof nombre !== 'string' || !nombre.trim() ||
     typeof area !== 'string' || !area.trim() ||
     typeof codigo !== 'string' || !codigo.trim() ||
-    !Array.isArray(gradoIds) || gradoIds.length === 0 || gradoIds.some(id => typeof id !== 'number' || isNaN(id))
+    !Array.isArray(gradoIds) || gradoIds.length === 0 || gradoIds.some((id: any) => typeof id !== 'number' || isNaN(id))
   ) {
     return NextResponse.json({ error: 'Faltan campos obligatorios o tipos incorrectos' }, { status: 400 });
   }
@@ -61,7 +61,7 @@ export async function POST(request: Request) {
         area: area.trim(),
         codigo: codigo.trim(),
         materiaGrados: {
-          create: gradoIds.map(gradoId => ({ grado: { connect: { id: gradoId } } }))
+          create: gradoIds.map((gradoId: any) => ({ grado: { connect: { id: gradoId } } }))
         }
       },
       include: { materiaGrados: { include: { grado: true } } }
@@ -86,7 +86,7 @@ export async function PUT(request: Request) {
     typeof nombre !== 'string' || !nombre.trim() ||
     typeof area !== 'string' || !area.trim() ||
     typeof codigo !== 'string' || !codigo.trim() ||
-    !Array.isArray(gradoIds) || gradoIds.length === 0 || gradoIds.some(id => typeof id !== 'number' || isNaN(id))
+    !Array.isArray(gradoIds) || gradoIds.length === 0 || gradoIds.some((id: any) => typeof id !== 'number' || isNaN(id))
   ) {
     return NextResponse.json({ error: 'Faltan campos obligatorios o tipos incorrectos' }, { status: 400 });
   }
@@ -113,7 +113,7 @@ export async function PUT(request: Request) {
     // Sincroniza grados
     await prisma.materiaGrado.deleteMany({ where: { materiaId: id } });
     await prisma.materiaGrado.createMany({
-      data: gradoIds.map(gradoId => ({ materiaId: id, gradoId })),
+      data: gradoIds.map((gradoId: any) => ({ materiaId: id, gradoId })),
       skipDuplicates: true
     });
     const materiaActualizada = await prisma.materia.findUnique({

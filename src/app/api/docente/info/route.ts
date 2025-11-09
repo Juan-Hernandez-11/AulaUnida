@@ -56,8 +56,8 @@ export async function GET(request: NextRequest) {
       }
     });
 
-    const gradosUnicos = new Set(materiaGradoDocentes.map(mgd => mgd.materiaGrado.gradoId));
-    const materiasUnicas = new Set(materiaGradoDocentes.map(mgd => mgd.materiaGrado.materiaId));
+    const gradosUnicos = new Set(materiaGradoDocentes.map((mgd: any) => mgd.materiaGrado.gradoId));
+    const materiasUnicas = new Set(materiaGradoDocentes.map((mgd: any) => mgd.materiaGrado.materiaId));
 
     const resumen = {
       totalAsignaciones: materiaGradoDocentes.length,

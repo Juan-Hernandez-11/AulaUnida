@@ -71,7 +71,7 @@ export async function GET(request: NextRequest) {
     });
 
     // Filtrar solo horarios de ciclos activos
-    const horariosActivos = horarios.filter(h => !h.ciclo.cerrado);
+    const horariosActivos = horarios.filter((h: any) => !h.ciclo.cerrado);
 
     return NextResponse.json(horariosActivos);
 

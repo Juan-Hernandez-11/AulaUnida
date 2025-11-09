@@ -37,7 +37,7 @@ export async function GET(req: NextRequest) {
       },
     });
     // Formatear para frontend
-    const resultado = asignaciones.map(a => ({
+    const resultado = asignaciones.map((a: any) => ({
       id: a.id,
       materiaGradoId: a.materiaGradoId,
       materiaId: a.materiaGrado.materiaId,

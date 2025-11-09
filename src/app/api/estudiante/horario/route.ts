@@ -16,7 +16,7 @@ export async function GET(request: Request) {
     const horarios = await prisma.horario.findMany({ where: { gradoId: gradoEst.gradoId }, include: { materia: true, aula: true } });
 
     // Mapear a estructura simple
-    const result = horarios.map(h => ({ dia: h.dia, hora: `${h.horaInicio} - ${h.horaFin}`, materia: h.materia.nombre, aula: h.aula?.nombre || '' }));
+    const result = horarios.map((h: any) => ({ dia: h.dia, hora: `${h.horaInicio} - ${h.horaFin}`, materia: h.materia.nombre, aula: h.aula?.nombre || '' }));
 
     return NextResponse.json(result);
   } catch (error) {

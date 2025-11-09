@@ -140,7 +140,7 @@ export async function PUT(request: Request) {
     // Asignar docentes por grado y periodo
     if (Array.isArray(asignaciones)) {
       for (const asig of asignaciones) {
-        const mg = nuevosMG.find(mg => mg.gradoId === asig.gradoId);
+        const mg = nuevosMG.find((mg: any) => mg.gradoId === asig.gradoId);
         if (mg) {
           await prisma.materiaGradoDocente.create({
             data: {

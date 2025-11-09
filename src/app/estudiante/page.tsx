@@ -1,5 +1,6 @@
 "use client";
 
+import Image from 'next/image';
 import BoletinPDF from "./boletin/BoletinPDF";
 import { useAuth } from "../../context/authContext";
 import styles from "../../styles/estudiante-dashboard.module.css";
@@ -71,7 +72,7 @@ export default function EstudianteDashboard() {
     <div className={styles.dashboardContainer}>
       <aside className={styles.sidebar}>
         <div style={{ display: 'flex', alignItems: 'center', marginBottom: '3rem' }}>
-          <img src="/favicon.ico" className={styles.avatar} />
+          <Image src="/favicon.ico" alt="AulaUnida Logo" className={styles.avatar} width={32} height={32} />
           <span className={styles.logo}>AulaUnida</span>
         </div>
         <nav className={styles.menu}>

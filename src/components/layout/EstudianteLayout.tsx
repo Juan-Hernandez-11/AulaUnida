@@ -1,6 +1,7 @@
 "use client";
 
 import Link from 'next/link';
+import Image from 'next/image';
 import { useRouter, usePathname } from 'next/navigation';
 import { useAuth } from '../../context/authContext';
 import styles from '../../styles/estudiante-dashboard.module.css';
@@ -88,7 +89,7 @@ export default function EstudianteLayout({ children, title, subtitle }: Estudian
     <div className={styles.dashboardContainer}>
       <aside className={styles.sidebar}>
         <div style={{ display: 'flex', alignItems: 'center', marginBottom: '3rem' }}>
-          <img src="/favicon.ico" className={styles.avatar} alt="AulaUnida" />
+          <Image src="/favicon.ico" className={styles.avatar} alt="AulaUnida Logo" width={32} height={32} />
           <span className={styles.logo}>AulaUnida</span>
         </div>
         

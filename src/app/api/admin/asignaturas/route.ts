@@ -76,7 +76,7 @@ export async function POST(request: Request) {
     if (Array.isArray(asignaciones)) {
       for (const asig of asignaciones) {
         // Buscar el id de MateriaGrado para el grado
-        const mg = materia.materiaGrados.find(mg => mg.grado.id === asig.gradoId);
+        const mg = materia.materiaGrados.find((mg: any) => mg.grado.id === asig.gradoId);
         if (mg) {
           await prisma.materiaGradoDocente.create({
             data: {

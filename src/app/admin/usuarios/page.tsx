@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, Suspense } from 'react';
 import Image from 'next/image';
 import { usePathname, useSearchParams } from 'next/navigation';
 import ProtectedRoute from '../../../components/ProtectedRoute';
@@ -48,6 +48,16 @@ const sidebarLinks = [
 ];
 
 export default function AdminUsuariosPage() {
+  return (
+    <ProtectedRoute allowedRoles={["ADMIN"]}>
+      <Suspense fallback={<div>Loading...</div>}>
+        <AdminUsuariosContent />
+      </Suspense>
+    </ProtectedRoute>
+  );
+}
+
+function AdminUsuariosContent() {
   const [users, setUsers] = useState<User[]>([]);
   const [loading, setLoading] = useState(true);
   const [form, setForm] = useState({
@@ -328,7 +338,6 @@ export default function AdminUsuariosPage() {
   };
 
   return (
-    <ProtectedRoute allowedRoles={["ADMIN"]}>
       <div className={styles.dashboardContainer}>
         {/* Sidebar */}
         <aside className={styles.sidebar}>
@@ -545,6 +554,5 @@ export default function AdminUsuariosPage() {
           {/* El listado de usuarios ahora está en /admin/usuarios/listado */}
         </main>
       </div>
-    </ProtectedRoute>
   );
 }

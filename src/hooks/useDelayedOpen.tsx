@@ -1,3 +1,5 @@
+'use client';
+
 import { useEffect, useState } from 'react';
 
 // Hook que abre con delay para evitar parpadeos en cargas rápidas

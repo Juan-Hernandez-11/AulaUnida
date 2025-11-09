@@ -1,3 +1,5 @@
+'use client';
+
 import { useEffect, useState, ChangeEvent, FormEvent } from 'react';
 import styles from '@/styles/admin-docentes.module.css';
 

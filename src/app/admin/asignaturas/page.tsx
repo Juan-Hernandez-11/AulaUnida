@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, ChangeEvent, FormEvent, useEffect, useRef } from 'react';
+import Image from 'next/image';
 import LoadingModal from '../../../../src/components/ui/LoadingModal';
 import useDelayedOpen from '../../../../src/hooks/useDelayedOpen';
 import ProtectedRoute from '../../../components/ProtectedRoute';
@@ -281,7 +282,7 @@ export default function AdminAsignaturasPage() {
         {/* Sidebar de navegación admin */}
         <aside className={styles.sidebar}>
           <div style={{ display: 'flex', alignItems: 'center', marginBottom: '3rem' }}>
-            <img src="/favicon.ico" alt="Admin" className={styles.avatar} />
+            <Image src="/favicon.ico" alt="Admin" className={styles.avatar} width={32} height={32} />
             <span className={styles.logo}>AulaUnida</span>
           </div>
           <nav className={styles.menu}>

@@ -4,8 +4,9 @@ import { PrismaClient } from '@prisma/client';
 const prisma = new PrismaClient();
 
 // GET: Lista todas las asignaciones de un docente
-export async function GET(request: Request, { params }: { params: { id: string } }) {
-  const docenteId = Number(params.id);
+export async function GET(request: Request, { params }: { params: Promise<{ id: string }> }) {
+  const resolvedParams = await params;
+  const docenteId = Number(resolvedParams.id);
   if (isNaN(docenteId)) return NextResponse.json({ error: 'ID inválido' }, { status: 400 });
   try {
     const asignaciones = await prisma.materiaGradoDocente.findMany({
@@ -27,8 +28,9 @@ export async function GET(request: Request, { params }: { params: { id: string }
 }
 
 // POST: Crear una nueva asignación (materia, grado, periodo)
-export async function POST(request: Request, { params }: { params: { id: string } }) {
-  const docenteId = Number(params.id);
+export async function POST(request: Request, { params }: { params: Promise<{ id: string }> }) {
+  const resolvedParams = await params;
+  const docenteId = Number(resolvedParams.id);
   if (isNaN(docenteId)) return NextResponse.json({ error: 'ID inválido' }, { status: 400 });
   try {
     const { materiaId, gradoId, periodoId } = await request.json();
@@ -59,8 +61,9 @@ export async function POST(request: Request, { params }: { params: { id: string 
 }
 
 // DELETE: Eliminar una asignación
-export async function DELETE(request: Request, { params }: { params: { id: string } }) {
-  const docenteId = Number(params.id);
+export async function DELETE(request: Request, { params }: { params: Promise<{ id: string }> }) {
+  const resolvedParams = await params;
+  const docenteId = Number(resolvedParams.id);
   if (isNaN(docenteId)) return NextResponse.json({ error: 'ID inválido' }, { status: 400 });
   try {
     const { materiaGradoDocenteId } = await request.json();

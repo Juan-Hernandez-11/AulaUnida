@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState, ChangeEvent, FormEvent } from 'react';
+import Image from 'next/image';
 import LoadingModal from '@/components/ui/LoadingModal';
 import useDelayedOpen from '@/hooks/useDelayedOpen';
 import ProtectedRoute from '../../../components/ProtectedRoute';
@@ -163,7 +164,7 @@ export default function AdminSedesPage() {
       <div className={styles.dashboardContainer}>
         <aside className={styles.sidebar}>
           <div className={sedesStyles.brand}>
-            <img src="/favicon.ico" alt="Admin" className={styles.avatar} />
+            <Image src="/favicon.ico" alt="AulaUnida Admin" className={styles.avatar} width={32} height={32} />
             <span className={styles.logo}>AulaUnida</span>
           </div>
           <nav className={styles.menu}>

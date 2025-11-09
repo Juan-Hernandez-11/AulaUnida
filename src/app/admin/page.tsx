@@ -1,4 +1,6 @@
 "use client";
+
+import Image from 'next/image';
 import ProtectedRoute from '../../components/ProtectedRoute';
 import { useAuth } from '../../context/authContext';
 import { UserCircleIcon, BookOpenIcon, CalendarIcon, UsersIcon, ClipboardIcon, AcademicCapIcon, ChartBarIcon, MegaphoneIcon, Cog6ToothIcon, QuestionMarkCircleIcon, BuildingOfficeIcon } from '@heroicons/react/24/outline';
@@ -59,7 +61,7 @@ export default function AdminDashboardPage() {
         {/* Sidebar */}
         <aside className={styles.sidebar}>
           <div className={adminIndexStyles.brand}>
-            <img src="https://randomuser.me/api/portraits/women/44.jpg" alt="Admin" className={styles.avatar} />
+            <Image src="https://randomuser.me/api/portraits/women/44.jpg" alt="Administrador" className={styles.avatar} width={32} height={32} />
             <span className={styles.logo}>AulaUnida</span>
           </div>
           <nav className={styles.menu}>

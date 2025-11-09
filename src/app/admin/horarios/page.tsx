@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState, useRef } from 'react';
+import Image from 'next/image';
 import ProtectedRoute from '../../../components/ProtectedRoute';
 import styles from '../../../styles/admin-dashboard.module.css';
 import horarioStyles from '../../../styles/admin-horarios.module.css';
@@ -199,7 +200,7 @@ export default function AdminHorariosPage() {
       <div className={styles.dashboardContainer}>
         <aside className={styles.sidebar}>
           <div style={{ display: 'flex', alignItems: 'center', marginBottom: '3rem' }}>
-            <img src="/favicon.ico" alt="Admin" className={styles.avatar} />
+            <Image src="/favicon.ico" alt="Admin" className={styles.avatar} width={32} height={32} />
             <span className={styles.logo}>AulaUnida</span>
           </div>
           <nav className={styles.menu}>

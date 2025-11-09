@@ -1,5 +1,6 @@
 "use client";
 import { useEffect, useState, ChangeEvent, FormEvent } from 'react';
+import Image from 'next/image';
 import ProtectedRoute from '../../../components/ProtectedRoute';
 import styles from '../../../styles/admin-ciclos.module.css';
 import Button from '../../../components/ui/Button';
@@ -162,7 +163,7 @@ export default function AdminCiclosPage() {
       <div className={styles.dashboardContainer}>
         <aside className={styles.sidebar}>
           <div style={{ display: 'flex', alignItems: 'center', marginBottom: '3rem' }}>
-            <img src="/favicon.ico" alt="Admin" className={styles.avatar} />
+            <Image src="/favicon.ico" alt="Admin" className={styles.avatar} width={32} height={32} />
             <span className={styles.logo}>AulaUnida</span>
           </div>
           <nav className={styles.menu}>

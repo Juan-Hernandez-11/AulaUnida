@@ -1,23 +1,3 @@
-// GET /api/admin/usuarios/estudiantes: Devuelve solo los usuarios con rol STUDENT
-export async function GET_STUDENTS(request: Request) {
-  const admin = await requireAdmin(request);
-  if ('error' in admin) return admin;
-  try {
-    const students = await prisma.user.findMany({
-      where: { role: 'STUDENT' },
-      select: {
-        id: true,
-        name: true,
-        email: true,
-        role: true,
-      },
-      orderBy: { id: 'asc' },
-    });
-    return NextResponse.json(students);
-  } catch (error) {
-    return NextResponse.json({ error: 'Error al obtener estudiantes' }, { status: 500 });
-  }
-}
 import { NextResponse } from 'next/server';
 import { PrismaClient } from '@prisma/client';
 import { requireAdmin } from '@/lib/requireAdmin';

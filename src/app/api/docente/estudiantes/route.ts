@@ -63,17 +63,21 @@ export async function GET(req: NextRequest) {
     // Calcular promedio acumulado para cada estudiante
     const estudiantesConPromedio = estudiantes.map((ge: any) => {
       const estudiante = ge.estudiante;
-      const todasLasNotas = estudiante.notasMateriaPeriodo;
-      
-      // Agrupar notas por período
+
+      // Asegurarnos de tener un array de notas
+      const todasLasNotas = Array.isArray(estudiante.notasMateriaPeriodo) ? estudiante.notasMateriaPeriodo : [];
+
+      // Agrupar notas por período — proteger contra periodo nulo
       const notasPorPeriodo = todasLasNotas.reduce((acc: any, nota: any) => {
-        if (!acc[nota.periodo.id]) {
-          acc[nota.periodo.id] = {
-            periodo: nota.periodo,
+        // usar nota.periodo?.id o fallback a nota.periodoId si existe, sino una clave 'sin_periodo'
+        const key = nota.periodo?.id ?? nota.periodoId ?? 'sin_periodo';
+        if (!acc[key]) {
+          acc[key] = {
+            periodo: nota.periodo ?? null,
             notas: []
           };
         }
-        acc[nota.periodo.id].notas.push(nota);
+        acc[key].notas.push(nota);
         return acc;
       }, {});
 
@@ -82,16 +86,16 @@ export async function GET(req: NextRequest) {
       let periodosConNotas = 0;
 
       Object.values(notasPorPeriodo).forEach((periodoData: any) => {
-        const notasDelPeriodo = periodoData.notas;
+        const notasDelPeriodo = Array.isArray(periodoData.notas) ? periodoData.notas : [];
         if (notasDelPeriodo.length > 0) {
-          const promedioPeriodo = notasDelPeriodo.reduce((sum: number, nota: any) => sum + nota.valor, 0) / notasDelPeriodo.length;
+          const promedioPeriodo = notasDelPeriodo.reduce((sum: number, nota: any) => sum + (nota.valor ?? 0), 0) / notasDelPeriodo.length;
           sumaPromediosPeriodos += promedioPeriodo;
           periodosConNotas++;
         }
       });
 
       const promedioGeneral = periodosConNotas > 0 ? sumaPromediosPeriodos / periodosConNotas : 0;
-      
+
       return {
         id: estudiante.id,
         name: estudiante.name,
@@ -104,7 +108,8 @@ export async function GET(req: NextRequest) {
     });
 
     return NextResponse.json(estudiantesConPromedio);
-  } catch (error) {
-    return NextResponse.json({ error: 'No autorizado (token inválido)' }, { status: 401 });
+  } catch (error: any) {
+    console.error('ERROR /api/docente/estudiantes:', { message: error?.message, stack: error?.stack, name: error?.name });
+    return NextResponse.json({ error: 'Error al obtener estudiantes' }, { status: 500 });
   }
 }

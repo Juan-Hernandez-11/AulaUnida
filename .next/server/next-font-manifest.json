@@ -1,5 +1,8 @@
 {
   "app": {
+    "[project]/src/app/_not-found/page": [],
+    "[project]/src/app/estudiante/page": [],
+    "[project]/src/app/login/page": [],
     "[project]/src/app/page": []
   },
   "appUsingSizeAdjust": false,

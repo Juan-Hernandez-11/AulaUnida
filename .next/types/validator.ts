@@ -359,6 +359,12 @@ type RouteHandlerConfig<Route extends AppRouteHandlerRoutes = AppRouteHandlerRou
   handler satisfies RouteHandlerConfig<"/api/estudiante/notas">
 }
 
+// Validate ../../src/app/api/health/route.ts
+{
+  const handler = {} as typeof import("../../src/app/api/health/route.js")
+  handler satisfies RouteHandlerConfig<"/api/health">
+}
+
 // Validate ../../src/app/api/me/route.ts
 {
   const handler = {} as typeof import("../../src/app/api/me/route.js")

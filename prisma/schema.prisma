@@ -254,7 +254,7 @@ model NotaMateriaPeriodo {
   materia      Materia  @relation(fields: [materiaId], references: [id])
   periodo      Periodo  @relation(fields: [periodoId], references: [id])
 
-  @@unique([estudianteId, materiaId, periodoId, numeroNota], name: "estudiante_materia_periodo_numero_uniq")
+  @@unique([estudianteId, materiaId, periodoId, numeroNota])
 }
 
 model MateriaGrado {

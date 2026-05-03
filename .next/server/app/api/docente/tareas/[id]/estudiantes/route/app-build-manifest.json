@@ -3,10 +3,10 @@
     "/api/docente/tareas/[id]/estudiantes/route": [
       "static/chunks/aaea1e64ef7e0faa.js",
       "static/chunks/91adb7bdb9870c6a.js",
-      "static/chunks/63dba52cde864d84.js",
+      "static/chunks/7fd964e6e7d66713.js",
       "static/chunks/ad485e1ef0aa584e.js",
-      "static/chunks/c05ce38db5b0e7cc.js",
-      "static/chunks/turbopack-76dbe1b3abcde477.js"
+      "static/chunks/720c005531d1e262.js",
+      "static/chunks/turbopack-ad09bce9b9697bf7.js"
     ]
   }
 }

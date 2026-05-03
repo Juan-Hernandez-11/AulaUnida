@@ -1,23 +1,19 @@
 {
   "pages": {
     "/docente/tareas/[id]/page": [
-      "static/chunks/node_modules_next_dist_8db7fb1f._.js",
-      "static/chunks/src_app_favicon_ico_mjs_665f80b3._.js",
-      "static/chunks/src_styles_04769fe5._.css",
-      "static/chunks/_07815229._.js",
-      "static/chunks/src_app_layout_tsx_6486c105._.js",
-      "static/chunks/node_modules_next_dist_client_components_builtin_global-error_06ae32ef.js",
-      "static/chunks/_6a87d9aa._.js",
-      "static/chunks/src_styles_admin-dashboard_module_856f0c01.css",
-      "static/chunks/src_app_docente_tareas_[id]_page_tsx_06ae32ef._.js",
-      "static/chunks/[turbopack]_browser_dev_hmr-client_hmr-client_ts_cda503f2._.js",
-      "static/chunks/node_modules_next_dist_compiled_react-dom_1e674e59._.js",
-      "static/chunks/node_modules_next_dist_compiled_next-devtools_index_a9cb0712.js",
-      "static/chunks/node_modules_next_dist_compiled_5150ccfd._.js",
-      "static/chunks/node_modules_next_dist_client_cf1d9188._.js",
-      "static/chunks/node_modules_next_dist_b0daae9a._.js",
-      "static/chunks/_a0ff3932._.js",
-      "static/chunks/turbopack-_26de125e._.js"
+      "static/chunks/ff1a16fafef87110.js",
+      "static/chunks/86771a8ff814d196.js",
+      "static/chunks/b8b9df935bfa6e14.css",
+      "static/chunks/f77219ba44d1890c.css",
+      "static/chunks/5f2925e19c2e192d.js",
+      "static/chunks/40ac43d1ae3dfc89.js",
+      "static/chunks/2c6d190ef0c65cc6.css",
+      "static/chunks/aaea1e64ef7e0faa.js",
+      "static/chunks/91adb7bdb9870c6a.js",
+      "static/chunks/63dba52cde864d84.js",
+      "static/chunks/ad485e1ef0aa584e.js",
+      "static/chunks/c05ce38db5b0e7cc.js",
+      "static/chunks/turbopack-76dbe1b3abcde477.js"
     ]
   }
 }

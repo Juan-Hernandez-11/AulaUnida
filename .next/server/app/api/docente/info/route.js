@@ -1,6 +1,6 @@
 var R=require("../../../../chunks/[turbopack]_runtime.js")("server/app/api/docente/info/route.js")
-R.c("server/chunks/node_modules_c75f7578._.js")
-R.c("server/chunks/[root-of-the-server]__1c29a3ba._.js")
-R.m("[project]/.next-internal/server/app/api/docente/info/route/actions.js [app-rsc] (server actions loader, ecmascript)")
-R.m("[project]/node_modules/next/dist/esm/build/templates/app-route.js { INNER_APP_ROUTE => \"[project]/src/app/api/docente/info/route.ts [app-route] (ecmascript)\" } [app-route] (ecmascript)")
-module.exports=R.m("[project]/node_modules/next/dist/esm/build/templates/app-route.js { INNER_APP_ROUTE => \"[project]/src/app/api/docente/info/route.ts [app-route] (ecmascript)\" } [app-route] (ecmascript)").exports
+R.c("server/chunks/[root-of-the-server]__b7ba1e88._.js")
+R.c("server/chunks/[root-of-the-server]__62cef26f._.js")
+R.m(9991)
+R.m(30630)
+module.exports=R.m(30630).exports

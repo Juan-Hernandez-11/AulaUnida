@@ -1,0 +1,12 @@
+{
+  "pages": {
+    "/api/admin/asignaturas/promedios/route": [
+      "static/chunks/aaea1e64ef7e0faa.js",
+      "static/chunks/91adb7bdb9870c6a.js",
+      "static/chunks/63dba52cde864d84.js",
+      "static/chunks/ad485e1ef0aa584e.js",
+      "static/chunks/c05ce38db5b0e7cc.js",
+      "static/chunks/turbopack-76dbe1b3abcde477.js"
+    ]
+  }
+}

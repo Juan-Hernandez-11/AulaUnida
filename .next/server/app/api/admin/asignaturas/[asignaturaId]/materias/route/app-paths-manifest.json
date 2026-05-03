@@ -1,0 +1,3 @@
+{
+  "/api/admin/asignaturas/[asignaturaId]/materias/route": "app/api/admin/asignaturas/[asignaturaId]/materias/route.js"
+}

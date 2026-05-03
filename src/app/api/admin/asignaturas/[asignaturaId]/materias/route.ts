@@ -9,10 +9,11 @@ const prisma = new PrismaClient();
  */
 export async function GET(
   req: NextRequest,
-  { params }: { params: { asignaturaId: string } }
+  { params }: { params: Promise<{ asignaturaId: string }> }
 ) {
   try {
-    const asignaturaId = Number(params.asignaturaId);
+    const { asignaturaId: asignaturaIdStr } = await params;
+    const asignaturaId = Number(asignaturaIdStr);
 
     const asignatura = await prisma.asignatura.findUnique({
       where: { id: asignaturaId },
@@ -46,10 +47,11 @@ export async function GET(
  */
 export async function PUT(
   req: NextRequest,
-  { params }: { params: { asignaturaId: string } }
+  { params }: { params: Promise<{ asignaturaId: string }> }
 ) {
   try {
-    const asignaturaId = Number(params.asignaturaId);
+    const { asignaturaId: asignaturaIdStr } = await params;
+    const asignaturaId = Number(asignaturaIdStr);
     const { materiaIds } = await req.json();
 
     if (!Array.isArray(materiaIds)) {
@@ -97,10 +99,11 @@ export async function PUT(
  */
 export async function POST(
   req: NextRequest,
-  { params }: { params: { asignaturaId: string } }
+  { params }: { params: Promise<{ asignaturaId: string }> }
 ) {
   try {
-    const asignaturaId = Number(params.asignaturaId);
+    const { asignaturaId: asignaturaIdStr } = await params;
+    const asignaturaId = Number(asignaturaIdStr);
     const { materiaId } = await req.json();
 
     if (!materiaId) {

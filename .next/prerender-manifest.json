@@ -30,6 +30,30 @@
         "x-next-revalidate-tag-token"
       ]
     },
+    "/admin/backup": {
+      "experimentalBypassFor": [
+        {
+          "type": "header",
+          "key": "next-action"
+        },
+        {
+          "type": "header",
+          "key": "content-type",
+          "value": "multipart/form-data;.*"
+        }
+      ],
+      "initialRevalidateSeconds": false,
+      "srcRoute": "/admin/backup",
+      "dataRoute": "/admin/backup.rsc",
+      "allowHeader": [
+        "host",
+        "x-matched-path",
+        "x-prerender-revalidate",
+        "x-prerender-revalidate-if-generated",
+        "x-next-revalidated-tags",
+        "x-next-revalidate-tag-token"
+      ]
+    },
     "/_not-found": {
       "initialStatus": 404,
       "experimentalBypassFor": [
@@ -55,7 +79,7 @@
         "x-next-revalidate-tag-token"
       ]
     },
-    "/admin/backup": {
+    "/admin/asignaturas": {
       "experimentalBypassFor": [
         {
           "type": "header",
@@ -68,8 +92,8 @@
         }
       ],
       "initialRevalidateSeconds": false,
-      "srcRoute": "/admin/backup",
-      "dataRoute": "/admin/backup.rsc",
+      "srcRoute": "/admin/asignaturas",
+      "dataRoute": "/admin/asignaturas.rsc",
       "allowHeader": [
         "host",
         "x-matched-path",
@@ -79,7 +103,7 @@
         "x-next-revalidate-tag-token"
       ]
     },
-    "/admin/dashboard": {
+    "/admin/configuracion": {
       "experimentalBypassFor": [
         {
           "type": "header",
@@ -92,80 +116,8 @@
         }
       ],
       "initialRevalidateSeconds": false,
-      "srcRoute": "/admin/dashboard",
-      "dataRoute": "/admin/dashboard.rsc",
-      "allowHeader": [
-        "host",
-        "x-matched-path",
-        "x-prerender-revalidate",
-        "x-prerender-revalidate-if-generated",
-        "x-next-revalidated-tags",
-        "x-next-revalidate-tag-token"
-      ]
-    },
-    "/admin/bitacora": {
-      "experimentalBypassFor": [
-        {
-          "type": "header",
-          "key": "next-action"
-        },
-        {
-          "type": "header",
-          "key": "content-type",
-          "value": "multipart/form-data;.*"
-        }
-      ],
-      "initialRevalidateSeconds": false,
-      "srcRoute": "/admin/bitacora",
-      "dataRoute": "/admin/bitacora.rsc",
-      "allowHeader": [
-        "host",
-        "x-matched-path",
-        "x-prerender-revalidate",
-        "x-prerender-revalidate-if-generated",
-        "x-next-revalidated-tags",
-        "x-next-revalidate-tag-token"
-      ]
-    },
-    "/admin/docentes": {
-      "experimentalBypassFor": [
-        {
-          "type": "header",
-          "key": "next-action"
-        },
-        {
-          "type": "header",
-          "key": "content-type",
-          "value": "multipart/form-data;.*"
-        }
-      ],
-      "initialRevalidateSeconds": false,
-      "srcRoute": "/admin/docentes",
-      "dataRoute": "/admin/docentes.rsc",
-      "allowHeader": [
-        "host",
-        "x-matched-path",
-        "x-prerender-revalidate",
-        "x-prerender-revalidate-if-generated",
-        "x-next-revalidated-tags",
-        "x-next-revalidate-tag-token"
-      ]
-    },
-    "/admin/horarios": {
-      "experimentalBypassFor": [
-        {
-          "type": "header",
-          "key": "next-action"
-        },
-        {
-          "type": "header",
-          "key": "content-type",
-          "value": "multipart/form-data;.*"
-        }
-      ],
-      "initialRevalidateSeconds": false,
-      "srcRoute": "/admin/horarios",
-      "dataRoute": "/admin/horarios.rsc",
+      "srcRoute": "/admin/configuracion",
+      "dataRoute": "/admin/configuracion.rsc",
       "allowHeader": [
         "host",
         "x-matched-path",
@@ -199,7 +151,7 @@
         "x-next-revalidate-tag-token"
       ]
     },
-    "/admin/asignatura-materias": {
+    "/admin/bitacora": {
       "experimentalBypassFor": [
         {
           "type": "header",
@@ -212,8 +164,8 @@
         }
       ],
       "initialRevalidateSeconds": false,
-      "srcRoute": "/admin/asignatura-materias",
-      "dataRoute": "/admin/asignatura-materias.rsc",
+      "srcRoute": "/admin/bitacora",
+      "dataRoute": "/admin/bitacora.rsc",
       "allowHeader": [
         "host",
         "x-matched-path",
@@ -223,7 +175,7 @@
         "x-next-revalidate-tag-token"
       ]
     },
-    "/admin/anuncios": {
+    "/admin/dashboard": {
       "experimentalBypassFor": [
         {
           "type": "header",
@@ -236,8 +188,8 @@
         }
       ],
       "initialRevalidateSeconds": false,
-      "srcRoute": "/admin/anuncios",
-      "dataRoute": "/admin/anuncios.rsc",
+      "srcRoute": "/admin/dashboard",
+      "dataRoute": "/admin/dashboard.rsc",
       "allowHeader": [
         "host",
         "x-matched-path",
@@ -247,7 +199,7 @@
         "x-next-revalidate-tag-token"
       ]
     },
-    "/admin/materias": {
+    "/admin/docentes": {
       "experimentalBypassFor": [
         {
           "type": "header",
@@ -260,8 +212,8 @@
         }
       ],
       "initialRevalidateSeconds": false,
-      "srcRoute": "/admin/materias",
-      "dataRoute": "/admin/materias.rsc",
+      "srcRoute": "/admin/docentes",
+      "dataRoute": "/admin/docentes.rsc",
       "allowHeader": [
         "host",
         "x-matched-path",
@@ -286,6 +238,30 @@
       "initialRevalidateSeconds": false,
       "srcRoute": "/admin/grados",
       "dataRoute": "/admin/grados.rsc",
+      "allowHeader": [
+        "host",
+        "x-matched-path",
+        "x-prerender-revalidate",
+        "x-prerender-revalidate-if-generated",
+        "x-next-revalidated-tags",
+        "x-next-revalidate-tag-token"
+      ]
+    },
+    "/admin/materias": {
+      "experimentalBypassFor": [
+        {
+          "type": "header",
+          "key": "next-action"
+        },
+        {
+          "type": "header",
+          "key": "content-type",
+          "value": "multipart/form-data;.*"
+        }
+      ],
+      "initialRevalidateSeconds": false,
+      "srcRoute": "/admin/materias",
+      "dataRoute": "/admin/materias.rsc",
       "allowHeader": [
         "host",
         "x-matched-path",
@@ -343,30 +319,6 @@
         "x-next-revalidate-tag-token"
       ]
     },
-    "/admin/aulas": {
-      "experimentalBypassFor": [
-        {
-          "type": "header",
-          "key": "next-action"
-        },
-        {
-          "type": "header",
-          "key": "content-type",
-          "value": "multipart/form-data;.*"
-        }
-      ],
-      "initialRevalidateSeconds": false,
-      "srcRoute": "/admin/aulas",
-      "dataRoute": "/admin/aulas.rsc",
-      "allowHeader": [
-        "host",
-        "x-matched-path",
-        "x-prerender-revalidate",
-        "x-prerender-revalidate-if-generated",
-        "x-next-revalidated-tags",
-        "x-next-revalidate-tag-token"
-      ]
-    },
     "/admin/promocion": {
       "experimentalBypassFor": [
         {
@@ -382,30 +334,6 @@
       "initialRevalidateSeconds": false,
       "srcRoute": "/admin/promocion",
       "dataRoute": "/admin/promocion.rsc",
-      "allowHeader": [
-        "host",
-        "x-matched-path",
-        "x-prerender-revalidate",
-        "x-prerender-revalidate-if-generated",
-        "x-next-revalidated-tags",
-        "x-next-revalidate-tag-token"
-      ]
-    },
-    "/admin/mensajes": {
-      "experimentalBypassFor": [
-        {
-          "type": "header",
-          "key": "next-action"
-        },
-        {
-          "type": "header",
-          "key": "content-type",
-          "value": "multipart/form-data;.*"
-        }
-      ],
-      "initialRevalidateSeconds": false,
-      "srcRoute": "/admin/mensajes",
-      "dataRoute": "/admin/mensajes.rsc",
       "allowHeader": [
         "host",
         "x-matched-path",
@@ -463,54 +391,6 @@
         "x-next-revalidate-tag-token"
       ]
     },
-    "/admin/usuarios/listado": {
-      "experimentalBypassFor": [
-        {
-          "type": "header",
-          "key": "next-action"
-        },
-        {
-          "type": "header",
-          "key": "content-type",
-          "value": "multipart/form-data;.*"
-        }
-      ],
-      "initialRevalidateSeconds": false,
-      "srcRoute": "/admin/usuarios/listado",
-      "dataRoute": "/admin/usuarios/listado.rsc",
-      "allowHeader": [
-        "host",
-        "x-matched-path",
-        "x-prerender-revalidate",
-        "x-prerender-revalidate-if-generated",
-        "x-next-revalidated-tags",
-        "x-next-revalidate-tag-token"
-      ]
-    },
-    "/docente/horarios": {
-      "experimentalBypassFor": [
-        {
-          "type": "header",
-          "key": "next-action"
-        },
-        {
-          "type": "header",
-          "key": "content-type",
-          "value": "multipart/form-data;.*"
-        }
-      ],
-      "initialRevalidateSeconds": false,
-      "srcRoute": "/docente/horarios",
-      "dataRoute": "/docente/horarios.rsc",
-      "allowHeader": [
-        "host",
-        "x-matched-path",
-        "x-prerender-revalidate",
-        "x-prerender-revalidate-if-generated",
-        "x-next-revalidated-tags",
-        "x-next-revalidate-tag-token"
-      ]
-    },
     "/docente/asistencia": {
       "experimentalBypassFor": [
         {
@@ -535,7 +415,7 @@
         "x-next-revalidate-tag-token"
       ]
     },
-    "/admin/configuracion": {
+    "/admin/usuarios/listado": {
       "experimentalBypassFor": [
         {
           "type": "header",
@@ -548,8 +428,8 @@
         }
       ],
       "initialRevalidateSeconds": false,
-      "srcRoute": "/admin/configuracion",
-      "dataRoute": "/admin/configuracion.rsc",
+      "srcRoute": "/admin/usuarios/listado",
+      "dataRoute": "/admin/usuarios/listado.rsc",
       "allowHeader": [
         "host",
         "x-matched-path",
@@ -559,7 +439,7 @@
         "x-next-revalidate-tag-token"
       ]
     },
-    "/docente": {
+    "/admin/mensajes": {
       "experimentalBypassFor": [
         {
           "type": "header",
@@ -572,32 +452,8 @@
         }
       ],
       "initialRevalidateSeconds": false,
-      "srcRoute": "/docente",
-      "dataRoute": "/docente.rsc",
-      "allowHeader": [
-        "host",
-        "x-matched-path",
-        "x-prerender-revalidate",
-        "x-prerender-revalidate-if-generated",
-        "x-next-revalidated-tags",
-        "x-next-revalidate-tag-token"
-      ]
-    },
-    "/admin/ciclos": {
-      "experimentalBypassFor": [
-        {
-          "type": "header",
-          "key": "next-action"
-        },
-        {
-          "type": "header",
-          "key": "content-type",
-          "value": "multipart/form-data;.*"
-        }
-      ],
-      "initialRevalidateSeconds": false,
-      "srcRoute": "/admin/ciclos",
-      "dataRoute": "/admin/ciclos.rsc",
+      "srcRoute": "/admin/mensajes",
+      "dataRoute": "/admin/mensajes.rsc",
       "allowHeader": [
         "host",
         "x-matched-path",
@@ -631,6 +487,54 @@
         "x-next-revalidate-tag-token"
       ]
     },
+    "/docente/horarios": {
+      "experimentalBypassFor": [
+        {
+          "type": "header",
+          "key": "next-action"
+        },
+        {
+          "type": "header",
+          "key": "content-type",
+          "value": "multipart/form-data;.*"
+        }
+      ],
+      "initialRevalidateSeconds": false,
+      "srcRoute": "/docente/horarios",
+      "dataRoute": "/docente/horarios.rsc",
+      "allowHeader": [
+        "host",
+        "x-matched-path",
+        "x-prerender-revalidate",
+        "x-prerender-revalidate-if-generated",
+        "x-next-revalidated-tags",
+        "x-next-revalidate-tag-token"
+      ]
+    },
+    "/docente": {
+      "experimentalBypassFor": [
+        {
+          "type": "header",
+          "key": "next-action"
+        },
+        {
+          "type": "header",
+          "key": "content-type",
+          "value": "multipart/form-data;.*"
+        }
+      ],
+      "initialRevalidateSeconds": false,
+      "srcRoute": "/docente",
+      "dataRoute": "/docente.rsc",
+      "allowHeader": [
+        "host",
+        "x-matched-path",
+        "x-prerender-revalidate",
+        "x-prerender-revalidate-if-generated",
+        "x-next-revalidated-tags",
+        "x-next-revalidate-tag-token"
+      ]
+    },
     "/docente/tareas": {
       "experimentalBypassFor": [
         {
@@ -646,30 +550,6 @@
       "initialRevalidateSeconds": false,
       "srcRoute": "/docente/tareas",
       "dataRoute": "/docente/tareas.rsc",
-      "allowHeader": [
-        "host",
-        "x-matched-path",
-        "x-prerender-revalidate",
-        "x-prerender-revalidate-if-generated",
-        "x-next-revalidated-tags",
-        "x-next-revalidate-tag-token"
-      ]
-    },
-    "/estudiante/asistencia": {
-      "experimentalBypassFor": [
-        {
-          "type": "header",
-          "key": "next-action"
-        },
-        {
-          "type": "header",
-          "key": "content-type",
-          "value": "multipart/form-data;.*"
-        }
-      ],
-      "initialRevalidateSeconds": false,
-      "srcRoute": "/estudiante/asistencia",
-      "dataRoute": "/estudiante/asistencia.rsc",
       "allowHeader": [
         "host",
         "x-matched-path",
@@ -703,7 +583,7 @@
         "x-next-revalidate-tag-token"
       ]
     },
-    "/admin/asignaturas": {
+    "/estudiante/horario": {
       "experimentalBypassFor": [
         {
           "type": "header",
@@ -716,8 +596,32 @@
         }
       ],
       "initialRevalidateSeconds": false,
-      "srcRoute": "/admin/asignaturas",
-      "dataRoute": "/admin/asignaturas.rsc",
+      "srcRoute": "/estudiante/horario",
+      "dataRoute": "/estudiante/horario.rsc",
+      "allowHeader": [
+        "host",
+        "x-matched-path",
+        "x-prerender-revalidate",
+        "x-prerender-revalidate-if-generated",
+        "x-next-revalidated-tags",
+        "x-next-revalidate-tag-token"
+      ]
+    },
+    "/estudiante/asistencia": {
+      "experimentalBypassFor": [
+        {
+          "type": "header",
+          "key": "next-action"
+        },
+        {
+          "type": "header",
+          "key": "content-type",
+          "value": "multipart/form-data;.*"
+        }
+      ],
+      "initialRevalidateSeconds": false,
+      "srcRoute": "/estudiante/asistencia",
+      "dataRoute": "/estudiante/asistencia.rsc",
       "allowHeader": [
         "host",
         "x-matched-path",
@@ -751,30 +655,6 @@
         "x-next-revalidate-tag-token"
       ]
     },
-    "/estudiante/horario": {
-      "experimentalBypassFor": [
-        {
-          "type": "header",
-          "key": "next-action"
-        },
-        {
-          "type": "header",
-          "key": "content-type",
-          "value": "multipart/form-data;.*"
-        }
-      ],
-      "initialRevalidateSeconds": false,
-      "srcRoute": "/estudiante/horario",
-      "dataRoute": "/estudiante/horario.rsc",
-      "allowHeader": [
-        "host",
-        "x-matched-path",
-        "x-prerender-revalidate",
-        "x-prerender-revalidate-if-generated",
-        "x-next-revalidated-tags",
-        "x-next-revalidate-tag-token"
-      ]
-    },
     "/estudiante/notas": {
       "experimentalBypassFor": [
         {
@@ -790,6 +670,30 @@
       "initialRevalidateSeconds": false,
       "srcRoute": "/estudiante/notas",
       "dataRoute": "/estudiante/notas.rsc",
+      "allowHeader": [
+        "host",
+        "x-matched-path",
+        "x-prerender-revalidate",
+        "x-prerender-revalidate-if-generated",
+        "x-next-revalidated-tags",
+        "x-next-revalidate-tag-token"
+      ]
+    },
+    "/estudiante": {
+      "experimentalBypassFor": [
+        {
+          "type": "header",
+          "key": "next-action"
+        },
+        {
+          "type": "header",
+          "key": "content-type",
+          "value": "multipart/form-data;.*"
+        }
+      ],
+      "initialRevalidateSeconds": false,
+      "srcRoute": "/estudiante",
+      "dataRoute": "/estudiante.rsc",
       "allowHeader": [
         "host",
         "x-matched-path",
@@ -847,6 +751,30 @@
         "x-next-revalidate-tag-token"
       ]
     },
+    "/admin/usuarios": {
+      "experimentalBypassFor": [
+        {
+          "type": "header",
+          "key": "next-action"
+        },
+        {
+          "type": "header",
+          "key": "content-type",
+          "value": "multipart/form-data;.*"
+        }
+      ],
+      "initialRevalidateSeconds": false,
+      "srcRoute": "/admin/usuarios",
+      "dataRoute": "/admin/usuarios.rsc",
+      "allowHeader": [
+        "host",
+        "x-matched-path",
+        "x-prerender-revalidate",
+        "x-prerender-revalidate-if-generated",
+        "x-next-revalidated-tags",
+        "x-next-revalidate-tag-token"
+      ]
+    },
     "/": {
       "experimentalBypassFor": [
         {
@@ -871,7 +799,7 @@
         "x-next-revalidate-tag-token"
       ]
     },
-    "/estudiante": {
+    "/admin/asignatura-materias": {
       "experimentalBypassFor": [
         {
           "type": "header",
@@ -884,8 +812,8 @@
         }
       ],
       "initialRevalidateSeconds": false,
-      "srcRoute": "/estudiante",
-      "dataRoute": "/estudiante.rsc",
+      "srcRoute": "/admin/asignatura-materias",
+      "dataRoute": "/admin/asignatura-materias.rsc",
       "allowHeader": [
         "host",
         "x-matched-path",
@@ -895,7 +823,7 @@
         "x-next-revalidate-tag-token"
       ]
     },
-    "/admin/usuarios": {
+    "/admin/aulas": {
       "experimentalBypassFor": [
         {
           "type": "header",
@@ -908,8 +836,80 @@
         }
       ],
       "initialRevalidateSeconds": false,
-      "srcRoute": "/admin/usuarios",
-      "dataRoute": "/admin/usuarios.rsc",
+      "srcRoute": "/admin/aulas",
+      "dataRoute": "/admin/aulas.rsc",
+      "allowHeader": [
+        "host",
+        "x-matched-path",
+        "x-prerender-revalidate",
+        "x-prerender-revalidate-if-generated",
+        "x-next-revalidated-tags",
+        "x-next-revalidate-tag-token"
+      ]
+    },
+    "/admin/anuncios": {
+      "experimentalBypassFor": [
+        {
+          "type": "header",
+          "key": "next-action"
+        },
+        {
+          "type": "header",
+          "key": "content-type",
+          "value": "multipart/form-data;.*"
+        }
+      ],
+      "initialRevalidateSeconds": false,
+      "srcRoute": "/admin/anuncios",
+      "dataRoute": "/admin/anuncios.rsc",
+      "allowHeader": [
+        "host",
+        "x-matched-path",
+        "x-prerender-revalidate",
+        "x-prerender-revalidate-if-generated",
+        "x-next-revalidated-tags",
+        "x-next-revalidate-tag-token"
+      ]
+    },
+    "/admin/horarios": {
+      "experimentalBypassFor": [
+        {
+          "type": "header",
+          "key": "next-action"
+        },
+        {
+          "type": "header",
+          "key": "content-type",
+          "value": "multipart/form-data;.*"
+        }
+      ],
+      "initialRevalidateSeconds": false,
+      "srcRoute": "/admin/horarios",
+      "dataRoute": "/admin/horarios.rsc",
+      "allowHeader": [
+        "host",
+        "x-matched-path",
+        "x-prerender-revalidate",
+        "x-prerender-revalidate-if-generated",
+        "x-next-revalidated-tags",
+        "x-next-revalidate-tag-token"
+      ]
+    },
+    "/admin/ciclos": {
+      "experimentalBypassFor": [
+        {
+          "type": "header",
+          "key": "next-action"
+        },
+        {
+          "type": "header",
+          "key": "content-type",
+          "value": "multipart/form-data;.*"
+        }
+      ],
+      "initialRevalidateSeconds": false,
+      "srcRoute": "/admin/ciclos",
+      "dataRoute": "/admin/ciclos.rsc",
       "allowHeader": [
         "host",
         "x-matched-path",

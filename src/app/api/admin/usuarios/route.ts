@@ -27,7 +27,7 @@ const prisma = new PrismaClient();
 // PUT: Edita un usuario existente. Body: { id, name, email, role, documentType, documentNumber, birthDate, phone, address, gender, photoUrl }
 export async function PUT(request: Request) {
   const admin = await requireAdmin(request);
-  if ('error' in admin) return admin;
+  if (admin instanceof NextResponse) return admin;
   try {
     const body = await request.json();
     const {
@@ -153,7 +153,7 @@ export async function PUT(request: Request) {
 // DELETE: Elimina un usuario. Body: { id }
 export async function DELETE(request: Request) {
   const admin = await requireAdmin(request);
-  if ('error' in admin) return admin;
+  if (admin instanceof NextResponse) return admin;
   try {
     const body = await request.json();
     const { id } = body;
@@ -170,7 +170,7 @@ export async function DELETE(request: Request) {
 // GET: Devuelve todos los usuarios (id, name, email, role)
 export async function GET(request: Request) {
   const admin = await requireAdmin(request);
-  if ('error' in admin) return admin;
+  if (admin instanceof NextResponse) return admin;
   try {
     const users = await prisma.user.findMany({
       select: {
@@ -193,7 +193,7 @@ import { getAuth } from 'firebase-admin/auth';
 
 export async function POST(request: Request) {
   const admin = await requireAdmin(request);
-  if ('error' in admin) return admin;
+  if (admin instanceof NextResponse) return admin;
   try {
     const body = await request.json();
     const {

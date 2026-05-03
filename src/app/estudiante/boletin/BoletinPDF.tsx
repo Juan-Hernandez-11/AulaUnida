@@ -220,6 +220,82 @@ export default function BoletinPDF({ estudianteId, estudianteUid, cicloId }: { e
         doc.setTextColor(secondaryColor[0], secondaryColor[1], secondaryColor[2]);
       });
 
+      // TABLA DE PROMEDIOS DE ASIGNATURAS (si existen)
+      if (data.promediosAsignatura && data.promediosAsignatura.length > 0) {
+        currentY += 5;
+
+        // Título de la sección
+        doc.setFillColor(primaryColor[0], primaryColor[1], primaryColor[2]);
+        doc.rect(15, currentY - 5, pageWidth - 30, 12, 'F');
+        doc.setTextColor(255, 255, 255);
+        doc.setFontSize(12);
+        doc.setFont("helvetica", "bold");
+        doc.text("PROMEDIOS POR ASIGNATURA AGRUPADA", 20, currentY + 2);
+
+        currentY += 15;
+
+        // Headers de la tabla de asignaturas
+        doc.setFillColor(226, 232, 240);
+        doc.rect(15, currentY - 5, pageWidth - 30, 10, 'F');
+        
+        doc.setTextColor(secondaryColor[0], secondaryColor[1], secondaryColor[2]);
+        doc.setFontSize(10);
+        doc.setFont("helvetica", "bold");
+        doc.text("ASIGNATURA", 20, currentY);
+        doc.text("MATERIAS", 90, currentY);
+        doc.text("PROMEDIO", 140, currentY);
+        doc.text("ESTADO", 170, currentY);
+
+        currentY += 10;
+
+        // Datos de las asignaturas
+        doc.setFont("helvetica", "normal");
+        data.promediosAsignatura.forEach((asig: any, index: number) => {
+          // Alternar colores de fila
+          if (index % 2 === 0) {
+            doc.setFillColor(248, 250, 252);
+            doc.rect(15, currentY - 5, pageWidth - 30, 8, 'F');
+          }
+
+          doc.setTextColor(secondaryColor[0], secondaryColor[1], secondaryColor[2]);
+          doc.text(asig.asignatura.nombre, 20, currentY);
+          
+          // Materias que componen la asignatura
+          const materiasList = asig.materias.map((m: any) => m.nombre).join(", ");
+          doc.setFontSize(8);
+          doc.text(materiasList.substring(0, 45), 90, currentY);
+          doc.setFontSize(10);
+          
+          // Promedio de la asignatura
+          const promedioAsig = asig.promedio || 0;
+          if (promedioAsig >= 3.5) {
+            doc.setTextColor(34, 197, 94); // Verde
+          } else if (promedioAsig >= 3.0) {
+            doc.setTextColor(251, 191, 36); // Amarillo
+          } else {
+            doc.setTextColor(239, 68, 68); // Rojo
+          }
+          doc.setFont("helvetica", "bold");
+          doc.text(String(promedioAsig), 140, currentY);
+
+          // Estado
+          doc.setFont("helvetica", "normal");
+          if (promedioAsig >= 3.5) {
+            doc.setTextColor(34, 197, 94);
+            doc.text("EXCELENTE", 170, currentY);
+          } else if (promedioAsig >= 3.0) {
+            doc.setTextColor(251, 191, 36);
+            doc.text("APROBADO", 170, currentY);
+          } else {
+            doc.setTextColor(239, 68, 68);
+            doc.text("REPROBADO", 170, currentY);
+          }
+
+          currentY += 8;
+          doc.setTextColor(secondaryColor[0], secondaryColor[1], secondaryColor[2]);
+        });
+      }
+
       // RESUMEN ACADÉMICO
       currentY += 15;
 

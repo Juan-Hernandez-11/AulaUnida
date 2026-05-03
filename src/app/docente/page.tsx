@@ -2,15 +2,33 @@
 import { useAuth } from '../../context/authContext';
 import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
-import { CalendarIcon, BookOpenIcon, HomeIcon } from '@heroicons/react/24/outline';
+import { CalendarIcon, BookOpenIcon, HomeIcon, CheckCircleIcon, UserGroupIcon, AcademicCapIcon } from '@heroicons/react/24/outline';
 import NextLink from '../../components/NextLink';
 import styles from '../../styles/admin-dashboard.module.css';
+import { BarChart, Bar, LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer, Cell } from 'recharts';
 
 const sidebarLinks = [
   { label: 'Dashboard', icon: HomeIcon, href: '/docente' },
+  { label: 'Mis Tareas', icon: CheckCircleIcon, href: '/docente/tareas' },
+  { label: 'Asistencia', icon: UserGroupIcon, href: '/docente/asistencia' },
   { label: 'Mi Horario', icon: CalendarIcon, href: '/docente/horarios' },
   { label: 'Asignar Notas', icon: BookOpenIcon, href: '/docente/notas' },
 ];
+
+// Paleta de colores
+const COLORS = {
+  primary: '#10b981',
+  secondary: '#06b6d4',
+  accent: '#f59e0b',
+  danger: '#ef4444',
+  success: '#10b981',
+  bg: '#0f0f0f',
+  surface: '#1b1b1b',
+  text: '#ffffff',
+  textMuted: '#9ca3af',
+};
+
+const CHART_COLORS = ['#10b981', '#06b6d4', '#f59e0b', '#8b5cf6'];
 
 export default function DocenteDashboard() {
   const { logout, user } = useAuth();
@@ -26,7 +44,6 @@ export default function DocenteDashboard() {
   useEffect(() => {
     if (!user) return;
     
-    // Cargar información del docente
     const loadDocenteInfo = async () => {
       try {
         const idToken = await user.getIdToken();
@@ -56,10 +73,25 @@ export default function DocenteDashboard() {
     router.push('/login');
   };
 
+  // Datos simulados para gráficos
+  const tareasData = [
+    { name: 'Ene', entregadas: 8, pendientes: 3 },
+    { name: 'Feb', entregadas: 12, pendientes: 2 },
+    { name: 'Mar', entregadas: 10, pendientes: 4 },
+    { name: 'Abr', entregadas: 14, pendientes: 1 },
+  ];
+
   const metricsLabels = [
-    { label: 'Total Asignaciones', key: 'totalAsignaciones' },
-    { label: 'Grados Activos', key: 'gradosActivos' },
-    { label: 'Materias Asignadas', key: 'materiasAsignadas' },
+    { label: 'Total Asignaciones', key: 'totalAsignaciones', icon: '📋', color: COLORS.primary },
+    { label: 'Grados Activos', key: 'gradosActivos', icon: '🎓', color: COLORS.secondary },
+    { label: 'Materias Asignadas', key: 'materiasAsignadas', icon: '📚', color: COLORS.accent },
+  ];
+
+  const quickAccessLinks = [
+    { label: 'Mis Tareas', icon: CheckCircleIcon, href: '/docente/tareas', description: 'Crear y gestionar tareas' },
+    { label: 'Registrar Asistencia', icon: UserGroupIcon, href: '/docente/asistencia', description: 'Marcar asistencia diaria' },
+    { label: 'Ver Horario', icon: CalendarIcon, href: '/docente/horarios', description: 'Consulta tu horario' },
+    { label: 'Asignar Notas', icon: BookOpenIcon, href: '/docente/notas', description: 'Gestiona calificaciones' },
   ];
 
   return (
@@ -70,6 +102,55 @@ export default function DocenteDashboard() {
           <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="Docente" className={styles.avatar} />
           <span className={styles.logo}>AulaUnida</span>
         </div>
+
+        {/* User Info Section */}
+        <div style={{
+          backgroundColor: '#06b6d420',
+          border: '1px solid #06b6d430',
+          borderRadius: '0.75rem',
+          padding: '0.75rem',
+          marginBottom: '2rem',
+          display: 'flex',
+          alignItems: 'center',
+          gap: '0.75rem',
+          transition: 'all 0.3s ease'
+        }}>
+          <div style={{
+            width: '48px',
+            height: '48px',
+            borderRadius: '50%',
+            backgroundColor: '#06b6d4',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            color: '#ffffff',
+            fontWeight: 700,
+            fontSize: '1.25rem',
+            flexShrink: 0,
+            border: '2px solid #06b6d440'
+          }}>
+            {user?.displayName?.charAt(0)?.toUpperCase() || '👨‍🏫'}
+          </div>
+          <div style={{flex: 1, minWidth: 0}}>
+            <p style={{margin: 0, fontWeight: 700, fontSize: '0.95rem', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap'}}>
+              {user?.displayName || 'Usuario'}
+            </p>
+            <div style={{
+              display: 'inline-block',
+              backgroundColor: '#06b6d4',
+              color: '#ffffff',
+              padding: '0.2rem 0.5rem',
+              borderRadius: '0.25rem',
+              fontSize: '0.7rem',
+              fontWeight: 700,
+              textTransform: 'uppercase',
+              marginTop: '0.25rem'
+            }}>
+              👨‍🏫 Docente
+            </div>
+          </div>
+        </div>
+
         <nav className={styles.menu}>
           <ul style={{ listStyle: 'none', padding: 0, margin: 0 }}>
             {sidebarLinks.map((link, idx) => (
@@ -96,38 +177,128 @@ export default function DocenteDashboard() {
           <p className={styles.subtitle}>Bienvenido, aquí tienes un resumen de tus asignaciones.</p>
         )}
 
-        {/* Loader y datos reales */}
         {loading ? (
           <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '10rem' }}>
-            <span style={{ color: '#B0B3B8', fontSize: '1.125rem' }}>Cargando datos...</span>
+            <span style={{ color: COLORS.textMuted, fontSize: '1.125rem' }}>Cargando datos...</span>
           </div>
         ) : (
           <>
-            {/* Métricas */}
-            <div className={styles.metricsGrid}>
+            {/* Métricas mejoradas */}
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '1.5rem', marginBottom: '2rem' }}>
               {metricsLabels.map((m) => (
-                <div key={m.label} className={styles.metricCard}>
-                  <span className={styles.metricLabel}>{m.label}</span>
-                  <span className={styles.metricValue}>{resumen ? resumen[m.key as keyof typeof resumen] : '-'}</span>
+                <div
+                  key={m.label}
+                  style={{
+                    background: `linear-gradient(135deg, ${COLORS.surface} 0%, rgba(16, 185, 129, 0.05) 100%)`,
+                    border: `1px solid rgba(16, 185, 129, 0.2)`,
+                    padding: '1.5rem',
+                    borderRadius: '0.75rem',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'space-between',
+                    transition: 'all 0.3s ease',
+                    cursor: 'pointer',
+                  }}
+                  onMouseEnter={(e) => {
+                    e.currentTarget.style.transform = 'translateY(-4px)';
+                    e.currentTarget.style.borderColor = m.color;
+                    e.currentTarget.style.boxShadow = `0 4px 12px rgba(16, 185, 129, 0.15)`;
+                  }}
+                  onMouseLeave={(e) => {
+                    e.currentTarget.style.transform = 'none';
+                    e.currentTarget.style.borderColor = `rgba(16, 185, 129, 0.2)`;
+                    e.currentTarget.style.boxShadow = 'none';
+                  }}
+                >
+                  <div>
+                    <p style={{ margin: 0, color: COLORS.textMuted, fontSize: '0.875rem', fontWeight: 500 }}>
+                      {m.label}
+                    </p>
+                    <p style={{ margin: '0.5rem 0 0 0', color: m.color, fontSize: '2rem', fontWeight: 'bold' }}>
+                      {resumen ? resumen[m.key as keyof typeof resumen] : '-'}
+                    </p>
+                  </div>
+                  <span style={{ fontSize: '3rem' }}>{m.icon}</span>
                 </div>
               ))}
             </div>
 
+            {/* Gráficos */}
+            <div style={{ marginBottom: '2rem' }}>
+              <div
+                style={{
+                  background: COLORS.surface,
+                  border: `1px solid rgba(16, 185, 129, 0.1)`,
+                  padding: '1.5rem',
+                  borderRadius: '0.75rem',
+                }}
+              >
+                <h2 style={{ margin: '0 0 1rem 0', color: COLORS.text, fontSize: '1.1rem', fontWeight: 'bold' }}>
+                  Entregas de Tareas (Últimos Meses)
+                </h2>
+                <ResponsiveContainer width="100%" height={300}>
+                  <BarChart data={tareasData}>
+                    <CartesianGrid strokeDasharray="3 3" stroke={`rgba(16, 185, 129, 0.1)`} />
+                    <XAxis dataKey="name" stroke={COLORS.textMuted} />
+                    <YAxis stroke={COLORS.textMuted} />
+                    <Tooltip
+                      contentStyle={{ backgroundColor: COLORS.surface, border: `1px solid ${COLORS.primary}`, borderRadius: '0.5rem' }}
+                      labelStyle={{ color: COLORS.text }}
+                    />
+                    <Legend />
+                    <Bar dataKey="entregadas" fill={COLORS.success} name="Entregadas" />
+                    <Bar dataKey="pendientes" fill={COLORS.accent} name="Pendientes" />
+                  </BarChart>
+                </ResponsiveContainer>
+              </div>
+            </div>
+
             {/* Accesos rápidos */}
-            <div className={styles.activityCard}>
-              <h2 className={styles.activityTitle}>Accesos Rápidos</h2>
-              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '1rem' }}>
-                <NextLink href="/docente/horarios" className={styles.quickAccessCard} style={{ textDecoration: 'none' }}>
-                  <CalendarIcon style={{ width: 32, height: 32, marginBottom: '0.5rem' }} />
-                  <h3 style={{ margin: '0 0 0.5rem 0', fontSize: '1.125rem', fontWeight: 600 }}>Ver Mi Horario</h3>
-                  <p style={{ margin: 0, color: '#9CA3AF', fontSize: '0.875rem' }}>Consulta tu horario de clases</p>
-                </NextLink>
-                
-                <NextLink href="/docente/notas" className={styles.quickAccessCard} style={{ textDecoration: 'none' }}>
-                  <BookOpenIcon style={{ width: 32, height: 32, marginBottom: '0.5rem' }} />
-                  <h3 style={{ margin: '0 0 0.5rem 0', fontSize: '1.125rem', fontWeight: 600 }}>Asignar Notas</h3>
-                  <p style={{ margin: 0, color: '#9CA3AF', fontSize: '0.875rem' }}>Gestiona las calificaciones de tus estudiantes</p>
-                </NextLink>
+            <div>
+              <h2 style={{ margin: '0 0 1rem 0', color: COLORS.text, fontSize: '1.1rem', fontWeight: 'bold' }}>
+                Accesos Rápidos
+              </h2>
+              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))', gap: '1.5rem' }}>
+                {quickAccessLinks.map((link) => (
+                  <NextLink
+                    key={link.label}
+                    href={link.href}
+                    style={{
+                      textDecoration: 'none',
+                      background: COLORS.surface,
+                      border: `1px solid rgba(16, 185, 129, 0.2)`,
+                      padding: '1.5rem',
+                      borderRadius: '0.75rem',
+                      display: 'flex',
+                      flexDirection: 'column',
+                      alignItems: 'flex-start',
+                      transition: 'all 0.3s ease',
+                      cursor: 'pointer',
+                    }}
+                    onMouseEnter={(e) => {
+                      const el = e.currentTarget as HTMLAnchorElement;
+                      el.style.transform = 'translateY(-4px)';
+                      el.style.borderColor = COLORS.primary;
+                      el.style.boxShadow = `0 4px 12px rgba(16, 185, 129, 0.15)`;
+                      el.style.background = `linear-gradient(135deg, ${COLORS.surface} 0%, rgba(16, 185, 129, 0.05) 100%)`;
+                    }}
+                    onMouseLeave={(e) => {
+                      const el = e.currentTarget as HTMLAnchorElement;
+                      el.style.transform = 'none';
+                      el.style.borderColor = `rgba(16, 185, 129, 0.2)`;
+                      el.style.boxShadow = 'none';
+                      el.style.background = COLORS.surface;
+                    }}
+                  >
+                    <link.icon style={{ width: 32, height: 32, marginBottom: '0.75rem', color: COLORS.primary }} />
+                    <h3 style={{ margin: '0 0 0.5rem 0', fontSize: '1.1rem', fontWeight: 600, color: COLORS.text }}>
+                      {link.label}
+                    </h3>
+                    <p style={{ margin: 0, color: COLORS.textMuted, fontSize: '0.875rem' }}>
+                      {link.description}
+                    </p>
+                  </NextLink>
+                ))}
               </div>
             </div>
           </>

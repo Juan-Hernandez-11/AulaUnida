@@ -1,39 +1,61 @@
 import { NextResponse } from 'next/server';
 import { PrismaClient } from '@prisma/client';
+import { requireAdmin } from '@/lib/requireAdmin';
 
 const prisma = new PrismaClient();
 
 // GET: Devuelve métricas y actividad reciente para el dashboard admin
-export async function GET() {
+export async function GET(request: Request) {
+  const admin = await requireAdmin(request);
+  if (admin instanceof NextResponse) return admin;
+  
   try {
-    // Usuarios activos
-    const usuariosActivos = await prisma.user.count({ where: { active: true } });
+    // Total de todos los usuarios
+    const totalUsuarios = await prisma.user.count();
+    
+    // Estudiantes (rol STUDENT)
+    const totalEstudiantes = await prisma.user.count({ where: { role: 'STUDENT' } });
+    
+    // Docentes (rol DOCENTE)
+    const totalDocentes = await prisma.user.count({ where: { role: 'DOCENTE' } });
+    
+    // Admins (rol ADMIN)
+    const totalAdmins = await prisma.user.count({ where: { role: 'ADMIN' } });
+    
     // Grados registrados
-    const gradosRegistrados = await prisma.grado.count();
-    // Anuncios recientes (últimos 30 días)
-    const fechaLimite = new Date();
-    fechaLimite.setDate(fechaLimite.getDate() - 30);
-  const anunciosRecientes = await prisma.anuncio.count({ where: { fecha: { gte: fechaLimite } } });
-
-    // Actividad reciente (mock: últimos 5 cambios de usuario)
-    const actividad = await prisma.cambio.findMany({
-      orderBy: { fecha: 'desc' },
+    const totalGrados = await prisma.grado.count();
+    
+    // Materias registradas
+    const totalMaterias = await prisma.materia.count();
+    
+    // Sedes registradas
+    const totalSedes = await prisma.sede.count();
+    
+    // Actividad reciente (mock: últimos 5 usuarios creados)
+    const usuariosRecientes = await prisma.user.findMany({
+      orderBy: { createdAt: 'desc' },
       take: 5,
       select: {
-        usuario: { select: { name: true } },
-        cambio: true,
-        fecha: true,
+        id: true,
+        name: true,
+        email: true,
+        role: true,
+        createdAt: true,
       },
     });
 
     return NextResponse.json({
-      usuariosActivos,
-      gradosRegistrados,
-      anunciosRecientes,
-      actividad: actividad.map(a => ({
-        user: a.usuario?.name || '-',
-        action: a.cambio,
-        date: a.fecha.toISOString().split('T')[0],
+      totalUsuarios,
+      totalEstudiantes,
+      totalDocentes,
+      totalAdmins,
+      totalGrados,
+      totalMaterias,
+      totalSedes,
+      actividad: usuariosRecientes.map(u => ({
+        user: u.name || u.email,
+        action: 'Usuario creado',
+        date: u.createdAt.toISOString().split('T')[0],
       })),
     });
   } catch (error) {

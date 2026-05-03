@@ -78,18 +78,25 @@ async function GET(request) {
                 firebaseUid
             },
             select: {
-                role: true
+                role: true,
+                id: true,
+                email: true,
+                name: true
             }
         });
         if (!user) {
+            // Retornar 200 con role: null en lugar de 404
             return __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$server$2e$js__$5b$app$2d$route$5d$__$28$ecmascript$29$__["NextResponse"].json({
-                error: 'User not found'
-            }, {
-                status: 404
+                role: null,
+                found: false
             });
         }
         return __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$server$2e$js__$5b$app$2d$route$5d$__$28$ecmascript$29$__["NextResponse"].json({
-            role: user.role
+            role: user.role,
+            found: true,
+            userId: user.id,
+            email: user.email,
+            name: user.name
         });
     } catch (error) {
         console.error('Error en /api/user-role:', error);

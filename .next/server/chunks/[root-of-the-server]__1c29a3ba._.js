@@ -193,9 +193,19 @@ async function GET(request) {
             gradosActivos: gradosUnicos.size,
             materiasAsignadas: materiasUnicas.size
         };
+        // Formatear asignaciones para el frontend
+        const asignacionesFormato = materiaGradoDocentes.map((a)=>({
+                id: a.id,
+                materiaGradoId: a.materiaGradoId,
+                materiaId: a.materiaGrado.materiaId,
+                gradoId: a.materiaGrado.gradoId,
+                materia: a.materiaGrado.materia,
+                grado: a.materiaGrado.grado
+            }));
         return __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$server$2e$js__$5b$app$2d$route$5d$__$28$ecmascript$29$__["NextResponse"].json({
             docente,
-            resumen
+            resumen,
+            asignaciones: asignacionesFormato
         });
     } catch (error) {
         console.error('Error en endpoint de información del docente:', error);

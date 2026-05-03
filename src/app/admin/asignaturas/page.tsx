@@ -6,7 +6,7 @@ import useDelayedOpen from '../../../../src/hooks/useDelayedOpen';
 import ProtectedRoute from '../../../components/ProtectedRoute';
 import styles from '../../../styles/admin-dashboard.module.css';
 import formStyles from '../../../styles/admin-asignaturas-form.module.css';
-import { UserCircleIcon, AcademicCapIcon, ClipboardIcon, BookOpenIcon } from '@heroicons/react/24/outline';
+import { UserCircleIcon, AcademicCapIcon, ClipboardIcon, BookOpenIcon, UserGroupIcon } from '@heroicons/react/24/outline';
 import NextLink from '../../../components/NextLink';
 import Button from '../../../components/ui/Button';
 
@@ -53,6 +53,7 @@ const sidebarLinks = [
   { label: 'Gestión de Usuarios', icon: UserCircleIcon, href: '/admin/usuarios' },
   { label: 'Grados/Secciones', icon: AcademicCapIcon, href: '/admin/grados' },
   { label: 'Asignaturas', icon: BookOpenIcon, href: '/admin/asignaturas', active: true },
+  { label: 'Promoción', icon: UserGroupIcon, href: '/admin/promocion' },
   { label: 'Matrícula', icon: ClipboardIcon, href: '/admin/matricula' },
 ];
 

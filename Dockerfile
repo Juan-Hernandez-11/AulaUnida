@@ -1,24 +1,42 @@
-# Imagen base oficial de Node.js
-FROM node:18
+# Build stage
+FROM node:18-alpine AS builder
 
-# Directorio de trabajo
 WORKDIR /app
 
-# Copia archivos de dependencias
+# Copia dependencias
 COPY package*.json ./
 COPY prisma ./prisma
 
 # Instala dependencias
 RUN npm install
 
-# Copia el resto del código
+# Copia código fuente
 COPY . .
 
-# Genera el cliente de Prisma
+# Genera cliente de Prisma
 RUN npx prisma generate
 
-# Expone el puerto de Next.js
+# Build de Next.js
+RUN npm run build
+
+# Production stage
+FROM node:18-alpine
+
+WORKDIR /app
+
+# Instala solo dependencias de producción
+COPY package*.json ./
+COPY prisma ./prisma
+
+RUN npm install --omit=dev
+
+# Copia archivos construidos del builder
+COPY --from=builder /app/.next ./.next
+COPY --from=builder /app/public ./public
+COPY --from=builder /app/node_modules/.prisma ./node_modules/.prisma
+
+# Expone puerto
 EXPOSE 3000
 
-# Comando para desarrollo (puedes cambiar a 'npm run build && npm start' para producción)
-CMD ["npm", "run", "dev"]
+# Ejecutar migraciones y arrancar app
+CMD ["sh", "-c", "npx prisma migrate deploy && npm start"]

@@ -48,6 +48,16 @@ export default function EstudianteLayout({ children, title, subtitle }: Estudian
       )
     },
     {
+      href: '/estudiante/tareas',
+      label: 'Mis Tareas',
+      icon: (
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M9 11L12 14L22 4" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+          <path d="M20 12.5V19C20 19.5304 19.7893 20.0391 19.4142 20.4142C19.0391 20.7893 18.5304 21 18 21H6C5.46957 21 4.96086 20.7893 4.58579 20.4142C4.21071 20.0391 4 19.5304 4 19V5C4 4.46957 4.21071 3.96086 4.58579 3.58579C4.96086 3.21071 5.46957 3 6 3H14.5" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+        </svg>
+      )
+    },
+    {
       href: '/estudiante/asignaturas',
       label: 'Asignaturas',
       icon: (
@@ -59,13 +69,22 @@ export default function EstudianteLayout({ children, title, subtitle }: Estudian
     },
     {
       href: '/estudiante/notas',
-      label: 'Notas y Asistencia',
+      label: 'Notas',
       icon: (
         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
           <path d="M16 4V10C16 10.5304 16.2107 11.0391 16.5858 11.4142C16.9609 11.7893 17.4696 12 18 12H24" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
           <path d="M18 22H6C5.46957 22 4.96086 21.7893 4.58579 21.4142C4.21071 21.0391 4 20.5304 4 20V4C4 3.46957 4.21071 2.96086 4.58579 2.58579C4.96086 2.21071 5.46957 2 6 2H16L22 8V20C22 20.5304 21.7893 21.0391 21.4142 21.4142C21.0391 21.7893 20.5304 22 20 22Z" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
           <path d="M8 13H16" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
           <path d="M8 17H16" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+        </svg>
+      )
+    },
+    {
+      href: '/estudiante/asistencia',
+      label: 'Asistencia',
+      icon: (
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M8 7V3M16 7V3M7 11H17M5 21H19C19.5304 21 20.0391 20.7893 20.4142 20.4142C20.7893 20.0391 21 19.5304 21 19V7C21 6.46957 20.7893 5.96086 20.4142 5.58579C20.0391 5.21071 19.5304 5 19 5H5C4.46957 5 3.96086 5.21071 3.58579 5.58579C3.21071 5.96086 3 6.46957 3 7V19C3 19.5304 3.21071 20.0391 3.58579 20.4142C3.96086 20.7893 4.46957 21 5 21Z" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
         </svg>
       )
     },
@@ -90,6 +109,54 @@ export default function EstudianteLayout({ children, title, subtitle }: Estudian
         <div style={{ display: 'flex', alignItems: 'center', marginBottom: '3rem' }}>
           <img src="/favicon.ico" className={styles.avatar} alt="AulaUnida" />
           <span className={styles.logo}>AulaUnida</span>
+        </div>
+
+        {/* User Info Section */}
+        <div style={{
+          backgroundColor: '#10b98120',
+          border: '1px solid #10b98130',
+          borderRadius: '0.75rem',
+          padding: '0.75rem',
+          marginBottom: '2rem',
+          display: 'flex',
+          alignItems: 'center',
+          gap: '0.75rem',
+          transition: 'all 0.3s ease'
+        }}>
+          <div style={{
+            width: '48px',
+            height: '48px',
+            borderRadius: '50%',
+            backgroundColor: '#10b981',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            color: '#ffffff',
+            fontWeight: 700,
+            fontSize: '1.25rem',
+            flexShrink: 0,
+            border: '2px solid #10b98140'
+          }}>
+            {user?.displayName?.charAt(0)?.toUpperCase() || '🎓'}
+          </div>
+          <div style={{flex: 1, minWidth: 0}}>
+            <p style={{margin: 0, fontWeight: 700, fontSize: '0.95rem', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap'}}>
+              {user?.displayName || 'Usuario'}
+            </p>
+            <div style={{
+              display: 'inline-block',
+              backgroundColor: '#10b981',
+              color: '#ffffff',
+              padding: '0.2rem 0.5rem',
+              borderRadius: '0.25rem',
+              fontSize: '0.7rem',
+              fontWeight: 700,
+              textTransform: 'uppercase',
+              marginTop: '0.25rem'
+            }}>
+              🎓 Estudiante
+            </div>
+          </div>
         </div>
         
         <nav className={styles.menu}>

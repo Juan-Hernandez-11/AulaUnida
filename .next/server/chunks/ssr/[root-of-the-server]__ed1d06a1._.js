@@ -277,6 +277,70 @@ function BoletinPDF({ estudianteId, estudianteUid, cicloId }) {
                 currentY += 8;
                 doc.setTextColor(secondaryColor[0], secondaryColor[1], secondaryColor[2]);
             });
+            // TABLA DE PROMEDIOS DE ASIGNATURAS (si existen)
+            if (data.promediosAsignatura && data.promediosAsignatura.length > 0) {
+                currentY += 5;
+                // Título de la sección
+                doc.setFillColor(primaryColor[0], primaryColor[1], primaryColor[2]);
+                doc.rect(15, currentY - 5, pageWidth - 30, 12, 'F');
+                doc.setTextColor(255, 255, 255);
+                doc.setFontSize(12);
+                doc.setFont("helvetica", "bold");
+                doc.text("PROMEDIOS POR ASIGNATURA AGRUPADA", 20, currentY + 2);
+                currentY += 15;
+                // Headers de la tabla de asignaturas
+                doc.setFillColor(226, 232, 240);
+                doc.rect(15, currentY - 5, pageWidth - 30, 10, 'F');
+                doc.setTextColor(secondaryColor[0], secondaryColor[1], secondaryColor[2]);
+                doc.setFontSize(10);
+                doc.setFont("helvetica", "bold");
+                doc.text("ASIGNATURA", 20, currentY);
+                doc.text("MATERIAS", 90, currentY);
+                doc.text("PROMEDIO", 140, currentY);
+                doc.text("ESTADO", 170, currentY);
+                currentY += 10;
+                // Datos de las asignaturas
+                doc.setFont("helvetica", "normal");
+                data.promediosAsignatura.forEach((asig, index)=>{
+                    // Alternar colores de fila
+                    if (index % 2 === 0) {
+                        doc.setFillColor(248, 250, 252);
+                        doc.rect(15, currentY - 5, pageWidth - 30, 8, 'F');
+                    }
+                    doc.setTextColor(secondaryColor[0], secondaryColor[1], secondaryColor[2]);
+                    doc.text(asig.asignatura.nombre, 20, currentY);
+                    // Materias que componen la asignatura
+                    const materiasList = asig.materias.map((m)=>m.nombre).join(", ");
+                    doc.setFontSize(8);
+                    doc.text(materiasList.substring(0, 45), 90, currentY);
+                    doc.setFontSize(10);
+                    // Promedio de la asignatura
+                    const promedioAsig = asig.promedio || 0;
+                    if (promedioAsig >= 3.5) {
+                        doc.setTextColor(34, 197, 94); // Verde
+                    } else if (promedioAsig >= 3.0) {
+                        doc.setTextColor(251, 191, 36); // Amarillo
+                    } else {
+                        doc.setTextColor(239, 68, 68); // Rojo
+                    }
+                    doc.setFont("helvetica", "bold");
+                    doc.text(String(promedioAsig), 140, currentY);
+                    // Estado
+                    doc.setFont("helvetica", "normal");
+                    if (promedioAsig >= 3.5) {
+                        doc.setTextColor(34, 197, 94);
+                        doc.text("EXCELENTE", 170, currentY);
+                    } else if (promedioAsig >= 3.0) {
+                        doc.setTextColor(251, 191, 36);
+                        doc.text("APROBADO", 170, currentY);
+                    } else {
+                        doc.setTextColor(239, 68, 68);
+                        doc.text("REPROBADO", 170, currentY);
+                    }
+                    currentY += 8;
+                    doc.setTextColor(secondaryColor[0], secondaryColor[1], secondaryColor[2]);
+                });
+            }
             // RESUMEN ACADÉMICO
             currentY += 15;
             // Calcular promedio general
@@ -359,7 +423,7 @@ function BoletinPDF({ estudianteId, estudianteUid, cicloId }) {
                             strokeLinejoin: "round"
                         }, void 0, false, {
                             fileName: "[project]/src/app/estudiante/boletin/BoletinPDF.tsx",
-                            lineNumber: 294,
+                            lineNumber: 370,
                             columnNumber: 13
                         }, this),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("path", {
@@ -370,20 +434,20 @@ function BoletinPDF({ estudianteId, estudianteUid, cicloId }) {
                             strokeLinejoin: "round"
                         }, void 0, false, {
                             fileName: "[project]/src/app/estudiante/boletin/BoletinPDF.tsx",
-                            lineNumber: 295,
+                            lineNumber: 371,
                             columnNumber: 13
                         }, this)
                     ]
                 }, void 0, true, {
                     fileName: "[project]/src/app/estudiante/boletin/BoletinPDF.tsx",
-                    lineNumber: 293,
+                    lineNumber: 369,
                     columnNumber: 11
                 }, this),
                 "Generando PDF..."
             ]
         }, void 0, true, {
             fileName: "[project]/src/app/estudiante/boletin/BoletinPDF.tsx",
-            lineNumber: 292,
+            lineNumber: 368,
             columnNumber: 9
         }, this) : /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
             style: {
@@ -407,7 +471,7 @@ function BoletinPDF({ estudianteId, estudianteUid, cicloId }) {
                             strokeLinejoin: "round"
                         }, void 0, false, {
                             fileName: "[project]/src/app/estudiante/boletin/BoletinPDF.tsx",
-                            lineNumber: 302,
+                            lineNumber: 378,
                             columnNumber: 13
                         }, this),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("path", {
@@ -418,7 +482,7 @@ function BoletinPDF({ estudianteId, estudianteUid, cicloId }) {
                             strokeLinejoin: "round"
                         }, void 0, false, {
                             fileName: "[project]/src/app/estudiante/boletin/BoletinPDF.tsx",
-                            lineNumber: 303,
+                            lineNumber: 379,
                             columnNumber: 13
                         }, this),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("path", {
@@ -429,25 +493,25 @@ function BoletinPDF({ estudianteId, estudianteUid, cicloId }) {
                             strokeLinejoin: "round"
                         }, void 0, false, {
                             fileName: "[project]/src/app/estudiante/boletin/BoletinPDF.tsx",
-                            lineNumber: 304,
+                            lineNumber: 380,
                             columnNumber: 13
                         }, this)
                     ]
                 }, void 0, true, {
                     fileName: "[project]/src/app/estudiante/boletin/BoletinPDF.tsx",
-                    lineNumber: 301,
+                    lineNumber: 377,
                     columnNumber: 11
                 }, this),
                 "Descargar Boletín PDF"
             ]
         }, void 0, true, {
             fileName: "[project]/src/app/estudiante/boletin/BoletinPDF.tsx",
-            lineNumber: 300,
+            lineNumber: 376,
             columnNumber: 9
         }, this)
     }, void 0, false, {
         fileName: "[project]/src/app/estudiante/boletin/BoletinPDF.tsx",
-        lineNumber: 290,
+        lineNumber: 366,
         columnNumber: 5
     }, this);
 }
@@ -740,8 +804,8 @@ function EstudianteLayout({ children, title, subtitle }) {
             }, this)
         },
         {
-            href: '/estudiante/asignaturas',
-            label: 'Asignaturas',
+            href: '/estudiante/tareas',
+            label: 'Mis Tareas',
             icon: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("svg", {
                 width: "16",
                 height: "16",
@@ -750,7 +814,7 @@ function EstudianteLayout({ children, title, subtitle }) {
                 xmlns: "http://www.w3.org/2000/svg",
                 children: [
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("path", {
-                        d: "M4 19.5C4 18.1193 5.11929 17 6.5 17H20",
+                        d: "M9 11L12 14L22 4",
                         stroke: "currentColor",
                         strokeWidth: "2",
                         strokeLinecap: "round",
@@ -761,7 +825,7 @@ function EstudianteLayout({ children, title, subtitle }) {
                         columnNumber: 11
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("path", {
-                        d: "M6.5 2H20V22H6.5C5.11929 22 4 20.8807 4 19.5V4.5C4 3.11929 5.11929 2 6.5 2Z",
+                        d: "M20 12.5V19C20 19.5304 19.7893 20.0391 19.4142 20.4142C19.0391 20.7893 18.5304 21 18 21H6C5.46957 21 4.96086 20.7893 4.58579 20.4142C4.21071 20.0391 4 19.5304 4 19V5C4 4.46957 4.21071 3.96086 4.58579 3.58579C4.96086 3.21071 5.46957 3 6 3H14.5",
                         stroke: "currentColor",
                         strokeWidth: "2",
                         strokeLinecap: "round",
@@ -779,8 +843,47 @@ function EstudianteLayout({ children, title, subtitle }) {
             }, this)
         },
         {
+            href: '/estudiante/asignaturas',
+            label: 'Asignaturas',
+            icon: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("svg", {
+                width: "16",
+                height: "16",
+                viewBox: "0 0 24 24",
+                fill: "none",
+                xmlns: "http://www.w3.org/2000/svg",
+                children: [
+                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("path", {
+                        d: "M4 19.5C4 18.1193 5.11929 17 6.5 17H20",
+                        stroke: "currentColor",
+                        strokeWidth: "2",
+                        strokeLinecap: "round",
+                        strokeLinejoin: "round"
+                    }, void 0, false, {
+                        fileName: "[project]/src/components/layout/EstudianteLayout.tsx",
+                        lineNumber: 65,
+                        columnNumber: 11
+                    }, this),
+                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("path", {
+                        d: "M6.5 2H20V22H6.5C5.11929 22 4 20.8807 4 19.5V4.5C4 3.11929 5.11929 2 6.5 2Z",
+                        stroke: "currentColor",
+                        strokeWidth: "2",
+                        strokeLinecap: "round",
+                        strokeLinejoin: "round"
+                    }, void 0, false, {
+                        fileName: "[project]/src/components/layout/EstudianteLayout.tsx",
+                        lineNumber: 66,
+                        columnNumber: 11
+                    }, this)
+                ]
+            }, void 0, true, {
+                fileName: "[project]/src/components/layout/EstudianteLayout.tsx",
+                lineNumber: 64,
+                columnNumber: 9
+            }, this)
+        },
+        {
             href: '/estudiante/notas',
-            label: 'Notas y Asistencia',
+            label: 'Notas',
             icon: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("svg", {
                 width: "16",
                 height: "16",
@@ -796,7 +899,7 @@ function EstudianteLayout({ children, title, subtitle }) {
                         strokeLinejoin: "round"
                     }, void 0, false, {
                         fileName: "[project]/src/components/layout/EstudianteLayout.tsx",
-                        lineNumber: 65,
+                        lineNumber: 75,
                         columnNumber: 11
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("path", {
@@ -807,7 +910,7 @@ function EstudianteLayout({ children, title, subtitle }) {
                         strokeLinejoin: "round"
                     }, void 0, false, {
                         fileName: "[project]/src/components/layout/EstudianteLayout.tsx",
-                        lineNumber: 66,
+                        lineNumber: 76,
                         columnNumber: 11
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("path", {
@@ -818,7 +921,7 @@ function EstudianteLayout({ children, title, subtitle }) {
                         strokeLinejoin: "round"
                     }, void 0, false, {
                         fileName: "[project]/src/components/layout/EstudianteLayout.tsx",
-                        lineNumber: 67,
+                        lineNumber: 77,
                         columnNumber: 11
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("path", {
@@ -829,13 +932,39 @@ function EstudianteLayout({ children, title, subtitle }) {
                         strokeLinejoin: "round"
                     }, void 0, false, {
                         fileName: "[project]/src/components/layout/EstudianteLayout.tsx",
-                        lineNumber: 68,
+                        lineNumber: 78,
                         columnNumber: 11
                     }, this)
                 ]
             }, void 0, true, {
                 fileName: "[project]/src/components/layout/EstudianteLayout.tsx",
-                lineNumber: 64,
+                lineNumber: 74,
+                columnNumber: 9
+            }, this)
+        },
+        {
+            href: '/estudiante/asistencia',
+            label: 'Asistencia',
+            icon: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("svg", {
+                width: "16",
+                height: "16",
+                viewBox: "0 0 24 24",
+                fill: "none",
+                xmlns: "http://www.w3.org/2000/svg",
+                children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("path", {
+                    d: "M8 7V3M16 7V3M7 11H17M5 21H19C19.5304 21 20.0391 20.7893 20.4142 20.4142C20.7893 20.0391 21 19.5304 21 19V7C21 6.46957 20.7893 5.96086 20.4142 5.58579C20.0391 5.21071 19.5304 5 19 5H5C4.46957 5 3.96086 5.21071 3.58579 5.58579C3.21071 5.96086 3 6.46957 3 7V19C3 19.5304 3.21071 20.0391 3.58579 20.4142C3.96086 20.7893 4.46957 21 5 21Z",
+                    stroke: "currentColor",
+                    strokeWidth: "2",
+                    strokeLinecap: "round",
+                    strokeLinejoin: "round"
+                }, void 0, false, {
+                    fileName: "[project]/src/components/layout/EstudianteLayout.tsx",
+                    lineNumber: 87,
+                    columnNumber: 11
+                }, this)
+            }, void 0, false, {
+                fileName: "[project]/src/components/layout/EstudianteLayout.tsx",
+                lineNumber: 86,
                 columnNumber: 9
             }, this)
         },
@@ -857,7 +986,7 @@ function EstudianteLayout({ children, title, subtitle }) {
                         strokeLinejoin: "round"
                     }, void 0, false, {
                         fileName: "[project]/src/components/layout/EstudianteLayout.tsx",
-                        lineNumber: 77,
+                        lineNumber: 96,
                         columnNumber: 11
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("path", {
@@ -868,7 +997,7 @@ function EstudianteLayout({ children, title, subtitle }) {
                         strokeLinejoin: "round"
                     }, void 0, false, {
                         fileName: "[project]/src/components/layout/EstudianteLayout.tsx",
-                        lineNumber: 78,
+                        lineNumber: 97,
                         columnNumber: 11
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("path", {
@@ -879,7 +1008,7 @@ function EstudianteLayout({ children, title, subtitle }) {
                         strokeLinejoin: "round"
                     }, void 0, false, {
                         fileName: "[project]/src/components/layout/EstudianteLayout.tsx",
-                        lineNumber: 79,
+                        lineNumber: 98,
                         columnNumber: 11
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("path", {
@@ -890,7 +1019,7 @@ function EstudianteLayout({ children, title, subtitle }) {
                         strokeLinejoin: "round"
                     }, void 0, false, {
                         fileName: "[project]/src/components/layout/EstudianteLayout.tsx",
-                        lineNumber: 80,
+                        lineNumber: 99,
                         columnNumber: 11
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("path", {
@@ -901,13 +1030,13 @@ function EstudianteLayout({ children, title, subtitle }) {
                         strokeLinejoin: "round"
                     }, void 0, false, {
                         fileName: "[project]/src/components/layout/EstudianteLayout.tsx",
-                        lineNumber: 81,
+                        lineNumber: 100,
                         columnNumber: 11
                     }, this)
                 ]
             }, void 0, true, {
                 fileName: "[project]/src/components/layout/EstudianteLayout.tsx",
-                lineNumber: 76,
+                lineNumber: 95,
                 columnNumber: 9
             }, this)
         }
@@ -931,7 +1060,7 @@ function EstudianteLayout({ children, title, subtitle }) {
                                 alt: "AulaUnida"
                             }, void 0, false, {
                                 fileName: "[project]/src/components/layout/EstudianteLayout.tsx",
-                                lineNumber: 91,
+                                lineNumber: 110,
                                 columnNumber: 11
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -939,13 +1068,98 @@ function EstudianteLayout({ children, title, subtitle }) {
                                 children: "AulaUnida"
                             }, void 0, false, {
                                 fileName: "[project]/src/components/layout/EstudianteLayout.tsx",
-                                lineNumber: 92,
+                                lineNumber: 111,
                                 columnNumber: 11
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "[project]/src/components/layout/EstudianteLayout.tsx",
-                        lineNumber: 90,
+                        lineNumber: 109,
+                        columnNumber: 9
+                    }, this),
+                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                        style: {
+                            backgroundColor: '#10b98120',
+                            border: '1px solid #10b98130',
+                            borderRadius: '0.75rem',
+                            padding: '0.75rem',
+                            marginBottom: '2rem',
+                            display: 'flex',
+                            alignItems: 'center',
+                            gap: '0.75rem',
+                            transition: 'all 0.3s ease'
+                        },
+                        children: [
+                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                style: {
+                                    width: '48px',
+                                    height: '48px',
+                                    borderRadius: '50%',
+                                    backgroundColor: '#10b981',
+                                    display: 'flex',
+                                    alignItems: 'center',
+                                    justifyContent: 'center',
+                                    color: '#ffffff',
+                                    fontWeight: 700,
+                                    fontSize: '1.25rem',
+                                    flexShrink: 0,
+                                    border: '2px solid #10b98140'
+                                },
+                                children: user?.displayName?.charAt(0)?.toUpperCase() || '🎓'
+                            }, void 0, false, {
+                                fileName: "[project]/src/components/layout/EstudianteLayout.tsx",
+                                lineNumber: 126,
+                                columnNumber: 11
+                            }, this),
+                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                style: {
+                                    flex: 1,
+                                    minWidth: 0
+                                },
+                                children: [
+                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
+                                        style: {
+                                            margin: 0,
+                                            fontWeight: 700,
+                                            fontSize: '0.95rem',
+                                            overflow: 'hidden',
+                                            textOverflow: 'ellipsis',
+                                            whiteSpace: 'nowrap'
+                                        },
+                                        children: user?.displayName || 'Usuario'
+                                    }, void 0, false, {
+                                        fileName: "[project]/src/components/layout/EstudianteLayout.tsx",
+                                        lineNumber: 143,
+                                        columnNumber: 13
+                                    }, this),
+                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                        style: {
+                                            display: 'inline-block',
+                                            backgroundColor: '#10b981',
+                                            color: '#ffffff',
+                                            padding: '0.2rem 0.5rem',
+                                            borderRadius: '0.25rem',
+                                            fontSize: '0.7rem',
+                                            fontWeight: 700,
+                                            textTransform: 'uppercase',
+                                            marginTop: '0.25rem'
+                                        },
+                                        children: "🎓 Estudiante"
+                                    }, void 0, false, {
+                                        fileName: "[project]/src/components/layout/EstudianteLayout.tsx",
+                                        lineNumber: 146,
+                                        columnNumber: 13
+                                    }, this)
+                                ]
+                            }, void 0, true, {
+                                fileName: "[project]/src/components/layout/EstudianteLayout.tsx",
+                                lineNumber: 142,
+                                columnNumber: 11
+                            }, this)
+                        ]
+                    }, void 0, true, {
+                        fileName: "[project]/src/components/layout/EstudianteLayout.tsx",
+                        lineNumber: 115,
                         columnNumber: 9
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("nav", {
@@ -968,29 +1182,29 @@ function EstudianteLayout({ children, title, subtitle }) {
                                                 children: item.icon
                                             }, void 0, false, {
                                                 fileName: "[project]/src/components/layout/EstudianteLayout.tsx",
-                                                lineNumber: 103,
+                                                lineNumber: 170,
                                                 columnNumber: 19
                                             }, this),
                                             item.label
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/src/components/layout/EstudianteLayout.tsx",
-                                        lineNumber: 99,
+                                        lineNumber: 166,
                                         columnNumber: 17
                                     }, this)
                                 }, item.href, false, {
                                     fileName: "[project]/src/components/layout/EstudianteLayout.tsx",
-                                    lineNumber: 98,
+                                    lineNumber: 165,
                                     columnNumber: 15
                                 }, this))
                         }, void 0, false, {
                             fileName: "[project]/src/components/layout/EstudianteLayout.tsx",
-                            lineNumber: 96,
+                            lineNumber: 163,
                             columnNumber: 11
                         }, this)
                     }, void 0, false, {
                         fileName: "[project]/src/components/layout/EstudianteLayout.tsx",
-                        lineNumber: 95,
+                        lineNumber: 162,
                         columnNumber: 9
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
@@ -1019,7 +1233,7 @@ function EstudianteLayout({ children, title, subtitle }) {
                                             strokeLinejoin: "round"
                                         }, void 0, false, {
                                             fileName: "[project]/src/components/layout/EstudianteLayout.tsx",
-                                            lineNumber: 122,
+                                            lineNumber: 189,
                                             columnNumber: 15
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("path", {
@@ -1030,7 +1244,7 @@ function EstudianteLayout({ children, title, subtitle }) {
                                             strokeLinejoin: "round"
                                         }, void 0, false, {
                                             fileName: "[project]/src/components/layout/EstudianteLayout.tsx",
-                                            lineNumber: 123,
+                                            lineNumber: 190,
                                             columnNumber: 15
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("path", {
@@ -1041,31 +1255,31 @@ function EstudianteLayout({ children, title, subtitle }) {
                                             strokeLinejoin: "round"
                                         }, void 0, false, {
                                             fileName: "[project]/src/components/layout/EstudianteLayout.tsx",
-                                            lineNumber: 124,
+                                            lineNumber: 191,
                                             columnNumber: 15
                                         }, this)
                                     ]
                                 }, void 0, true, {
                                     fileName: "[project]/src/components/layout/EstudianteLayout.tsx",
-                                    lineNumber: 121,
+                                    lineNumber: 188,
                                     columnNumber: 13
                                 }, this)
                             }, void 0, false, {
                                 fileName: "[project]/src/components/layout/EstudianteLayout.tsx",
-                                lineNumber: 120,
+                                lineNumber: 187,
                                 columnNumber: 11
                             }, this),
                             "Cerrar sesión"
                         ]
                     }, void 0, true, {
                         fileName: "[project]/src/components/layout/EstudianteLayout.tsx",
-                        lineNumber: 113,
+                        lineNumber: 180,
                         columnNumber: 9
                     }, this)
                 ]
             }, void 0, true, {
                 fileName: "[project]/src/components/layout/EstudianteLayout.tsx",
-                lineNumber: 89,
+                lineNumber: 108,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("main", {
@@ -1076,7 +1290,7 @@ function EstudianteLayout({ children, title, subtitle }) {
                         children: title
                     }, void 0, false, {
                         fileName: "[project]/src/components/layout/EstudianteLayout.tsx",
-                        lineNumber: 132,
+                        lineNumber: 199,
                         columnNumber: 9
                     }, this),
                     subtitle && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -1084,20 +1298,20 @@ function EstudianteLayout({ children, title, subtitle }) {
                         children: subtitle
                     }, void 0, false, {
                         fileName: "[project]/src/components/layout/EstudianteLayout.tsx",
-                        lineNumber: 133,
+                        lineNumber: 200,
                         columnNumber: 22
                     }, this),
                     children
                 ]
             }, void 0, true, {
                 fileName: "[project]/src/components/layout/EstudianteLayout.tsx",
-                lineNumber: 131,
+                lineNumber: 198,
                 columnNumber: 7
             }, this)
         ]
     }, void 0, true, {
         fileName: "[project]/src/components/layout/EstudianteLayout.tsx",
-        lineNumber: 88,
+        lineNumber: 107,
         columnNumber: 5
     }, this);
 }

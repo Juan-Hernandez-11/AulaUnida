@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 import { useAuth } from '../../../context/authContext';
 import { useRouter } from 'next/navigation';
-import { CalendarIcon, BookOpenIcon, HomeIcon } from '@heroicons/react/24/outline';
+import { CalendarIcon, BookOpenIcon, HomeIcon, CheckCircleIcon, UserGroupIcon } from '@heroicons/react/24/outline';
 import NextLink from '../../../components/NextLink';
 import styles from '../../../styles/admin-dashboard.module.css';
 
@@ -27,6 +27,8 @@ interface HorarioItem {
 
 const sidebarLinks = [
   { label: 'Dashboard', icon: HomeIcon, href: '/docente' },
+  { label: 'Mis Tareas', icon: CheckCircleIcon, href: '/docente/tareas' },
+  { label: 'Asistencia', icon: UserGroupIcon, href: '/docente/asistencia' },
   { label: 'Mi Horario', icon: CalendarIcon, href: '/docente/horarios' },
   { label: 'Asignar Notas', icon: BookOpenIcon, href: '/docente/notas' },
 ];
@@ -98,6 +100,55 @@ export default function DocenteHorariosPage() {
           <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="Docente" className={styles.avatar} />
           <span className={styles.logo}>AulaUnida</span>
         </div>
+
+        {/* User Info Section */}
+        <div style={{
+          backgroundColor: '#06b6d420',
+          border: '1px solid #06b6d430',
+          borderRadius: '0.75rem',
+          padding: '0.75rem',
+          marginBottom: '2rem',
+          display: 'flex',
+          alignItems: 'center',
+          gap: '0.75rem',
+          transition: 'all 0.3s ease'
+        }}>
+          <div style={{
+            width: '48px',
+            height: '48px',
+            borderRadius: '50%',
+            backgroundColor: '#06b6d4',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            color: '#ffffff',
+            fontWeight: 700,
+            fontSize: '1.25rem',
+            flexShrink: 0,
+            border: '2px solid #06b6d440'
+          }}>
+            {user?.displayName?.charAt(0)?.toUpperCase() || '👨‍🏫'}
+          </div>
+          <div style={{flex: 1, minWidth: 0}}>
+            <p style={{margin: 0, fontWeight: 700, fontSize: '0.95rem', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap'}}>
+              {user?.displayName || 'Usuario'}
+            </p>
+            <div style={{
+              display: 'inline-block',
+              backgroundColor: '#06b6d4',
+              color: '#ffffff',
+              padding: '0.2rem 0.5rem',
+              borderRadius: '0.25rem',
+              fontSize: '0.7rem',
+              fontWeight: 700,
+              textTransform: 'uppercase',
+              marginTop: '0.25rem'
+            }}>
+              👨‍🏫 Docente
+            </div>
+          </div>
+        </div>
+
         <nav className={styles.menu}>
           <ul style={{ listStyle: 'none', padding: 0, margin: 0 }}>
             {sidebarLinks.map((link, idx) => (

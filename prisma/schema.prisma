@@ -8,36 +8,39 @@ datasource db {
 }
 
 model User {
-  id                        Int               @id @default(autoincrement())
+  id                        Int                   @id @default(autoincrement())
   name                      String?
-  email                     String            @unique
-  firebaseUid               String            @unique
+  email                     String                @unique
   passwordHash              String
-  role                      Role              @default(STUDENT)
+  role                      Role                  @default(STUDENT)
   sedeId                    Int?
-  active                    Boolean           @default(true)
-  documentType              String?
-  documentNumber            String?           @unique
-  birthDate                 DateTime?
-  phone                     String?
+  active                    Boolean               @default(true)
+  createdAt                 DateTime              @default(now())
+  updatedAt                 DateTime              @updatedAt
+  firebaseUid               String                @unique
   address                   String?
+  birthDate                 DateTime?
+  documentNumber            String?               @unique
+  documentType              String?
   gender                    String?
+  phone                     String?
   photoUrl                  String?
-  createdAt                 DateTime          @default(now())
-  updatedAt                 DateTime          @updatedAt
+  maxGradoAlcanzadoId       Int?
   anuncios                  Anuncio[]
   asistencias               Asistencia[]
   boletines                 Boletin[]
   cambios                   Cambio[]
   tareasEntregadas          Entrega[]
   estudianteGrados          GradoEstudiante[]
-  horarios                  Horario[]         @relation("HorarioDocente")
-  incidenciasComoDocente    Incidencia[]      @relation("IncidenciasDocente")
-  incidenciasComoEstudiante Incidencia[]      @relation("IncidenciasEstudiante")
+  horarios                  Horario[]             @relation("HorarioDocente")
+  incidenciasComoDocente    Incidencia[]          @relation("IncidenciasDocente")
+  incidenciasComoEstudiante Incidencia[]          @relation("IncidenciasEstudiante")
   docenteMaterias           MateriaDocente[]
   materiaGradoDocentes      MateriaGradoDocente[]
-  sede                      Sede?             @relation(fields: [sedeId], references: [id])
+  notasDetalles             NotaDetalle[]         @relation("NotaDetalleEstudiante")
   notasMateriaPeriodo       NotaMateriaPeriodo[]
+  maxGradoAlcanzado         Grado?                @relation("MaxGradoAlcanzado", fields: [maxGradoAlcanzadoId], references: [id])
+  sede                      Sede?                 @relation(fields: [sedeId], references: [id])
 }
 
 model Sede {
@@ -50,19 +53,20 @@ model Sede {
 }
 
 model Grado {
-  id          Int               @id @default(autoincrement())
-  nombre      String
-  seccion     String
-  sedeId      Int
-  cicloId     Int
-  aulaId      Int?
-  createdAt   DateTime          @default(now())
-  aula        Aula?             @relation(fields: [aulaId], references: [id])
-  ciclo       Ciclo             @relation(fields: [cicloId], references: [id])
-  sede        Sede              @relation(fields: [sedeId], references: [id])
-  estudiantes GradoEstudiante[]
-  horarios    Horario[]
-  materias    MateriaGrado[]
+  id                  Int               @id @default(autoincrement())
+  nombre              String
+  seccion             String
+  sedeId              Int
+  cicloId             Int
+  aulaId              Int?
+  createdAt           DateTime          @default(now())
+  aula                Aula?             @relation(fields: [aulaId], references: [id])
+  ciclo               Ciclo             @relation(fields: [cicloId], references: [id])
+  sede                Sede              @relation(fields: [sedeId], references: [id])
+  estudiantes         GradoEstudiante[]
+  horarios            Horario[]
+  materias            MateriaGrado[]
+  estudiantesMaxGrado User[]            @relation("MaxGradoAlcanzado")
 }
 
 model Ciclo {
@@ -73,20 +77,21 @@ model Ciclo {
   cerrado     Boolean   @default(false)
   boletines   Boletin[]
   grados      Grado[]
-  periodos    Periodo[]
   horarios    Horario[]
+  periodos    Periodo[]
 }
 
 model Periodo {
-  id          Int      @id @default(autoincrement())
-  nombre      String
-  cicloId     Int
-  fechaInicio DateTime
-  fechaFin    DateTime
-  ciclo       Ciclo    @relation(fields: [cicloId], references: [id])
-  calificaciones Calificacion[]
-  notasMateriaPeriodo NotaMateriaPeriodo[]
+  id                   Int                   @id @default(autoincrement())
+  nombre               String
+  cicloId              Int
+  fechaInicio          DateTime
+  fechaFin             DateTime
+  calificaciones       Calificacion[]
   materiaGradoDocentes MateriaGradoDocente[]
+  notasDetalles        NotaDetalle[]         @relation("NotaDetallePeriodo")
+  notasMateriaPeriodo  NotaMateriaPeriodo[]
+  ciclo                Ciclo                 @relation(fields: [cicloId], references: [id])
 }
 
 model Aula {
@@ -99,20 +104,32 @@ model Aula {
   horarios Horario[]
 }
 
+model Asignatura {
+  id          Int       @id @default(autoincrement())
+  nombre      String    @unique
+  codigo      String?   @unique
+  descripcion String?
+  createdAt   DateTime  @default(now())
+  materias    Materia[]
+}
+
 model Materia {
-  id              Int              @id @default(autoincrement())
-  nombre          String
-  area            String
-  codigo          String           @unique
-  createdAt       DateTime         @default(now())
-  anuncios        Anuncio[]
-  asistencias     Asistencia[]
-  horarios        Horario[]
-  incidencias     Incidencia[]
-  docenteMaterias MateriaDocente[]
-  tareas          Tarea[]
+  id                  Int                  @id @default(autoincrement())
+  nombre              String
+  createdAt           DateTime             @default(now())
+  area                String
+  codigo              String               @unique
+  asignaturaId        Int?
+  anuncios            Anuncio[]
+  asistencias         Asistencia[]
+  horarios            Horario[]
+  incidencias         Incidencia[]
+  asignatura          Asignatura?          @relation(fields: [asignaturaId], references: [id])
+  docenteMaterias     MateriaDocente[]
+  materiaGrados       MateriaGrado[]
+  notasDetalles       NotaDetalle[]        @relation("NotaDetalleMateria")
   notasMateriaPeriodo NotaMateriaPeriodo[]
-  materiaGrados   MateriaGrado[]
+  tareas              Tarea[]
 }
 
 model MateriaDocente {
@@ -166,8 +183,8 @@ model Calificacion {
   retroalimentacion String?
   calificadaAt      DateTime @default(now())
   periodoId         Int
-  periodo           Periodo  @relation(fields: [periodoId], references: [id])
   entrega           Entrega  @relation(fields: [entregaId], references: [id])
+  periodo           Periodo  @relation(fields: [periodoId], references: [id])
 }
 
 model Asistencia {
@@ -219,16 +236,16 @@ model Horario {
   gradoId    Int
   materiaId  Int
   docenteId  Int
-  cicloId    Int
   dia        String
   horaInicio String
   horaFin    String
   aulaId     Int?
+  cicloId    Int
   aula       Aula?   @relation(fields: [aulaId], references: [id])
+  ciclo      Ciclo   @relation(fields: [cicloId], references: [id])
   docente    User    @relation("HorarioDocente", fields: [docenteId], references: [id])
   grado      Grado   @relation(fields: [gradoId], references: [id])
   materia    Materia @relation(fields: [materiaId], references: [id])
-  ciclo      Ciclo   @relation(fields: [cicloId], references: [id])
 }
 
 model Cambio {
@@ -242,40 +259,54 @@ model Cambio {
 }
 
 model NotaMateriaPeriodo {
-  id           Int      @id @default(autoincrement())
+  id           Int           @id @default(autoincrement())
   estudianteId Int
   materiaId    Int
   periodoId    Int
-  numeroNota   Int      // 1, 2, o 3 para identificar cuál de las 3 notas es
   valor        Float
-  descripcion  String?  // Opcional: descripción de qué evalúa esta nota
-  fechaCreacion DateTime @default(now())
-  estudiante   User     @relation(fields: [estudianteId], references: [id])
-  materia      Materia  @relation(fields: [materiaId], references: [id])
-  periodo      Periodo  @relation(fields: [periodoId], references: [id])
+  detalles     NotaDetalle[]
+  estudiante   User          @relation(fields: [estudianteId], references: [id])
+  materia      Materia       @relation(fields: [materiaId], references: [id])
+  periodo      Periodo       @relation(fields: [periodoId], references: [id])
 
-  @@unique([estudianteId, materiaId, periodoId, numeroNota])
+  @@unique([estudianteId, materiaId, periodoId])
+}
+
+model NotaDetalle {
+  id                   Int                 @id @default(autoincrement())
+  estudianteId         Int
+  materiaId            Int
+  periodoId            Int
+  descripcion          String
+  valor                Float
+  peso                 Float
+  fecha                DateTime            @default(now())
+  notaMateriaPeriodoId Int?
+  estudiante           User                @relation("NotaDetalleEstudiante", fields: [estudianteId], references: [id])
+  materia              Materia             @relation("NotaDetalleMateria", fields: [materiaId], references: [id])
+  notaMateriaPeriodo   NotaMateriaPeriodo? @relation(fields: [notaMateriaPeriodoId], references: [id])
+  periodo              Periodo             @relation("NotaDetallePeriodo", fields: [periodoId], references: [id])
 }
 
 model MateriaGrado {
-  id        Int     @id @default(autoincrement())
-  materiaId Int
-  gradoId   Int
-  materia   Materia @relation(fields: [materiaId], references: [id])
-  grado     Grado   @relation(fields: [gradoId], references: [id])
+  id                   Int                   @id @default(autoincrement())
+  materiaId            Int
+  gradoId              Int
+  grado                Grado                 @relation(fields: [gradoId], references: [id])
+  materia              Materia               @relation(fields: [materiaId], references: [id])
   materiaGradoDocentes MateriaGradoDocente[]
 
   @@unique([materiaId, gradoId])
 }
 
 model MateriaGradoDocente {
-  id            Int     @id @default(autoincrement())
+  id             Int          @id @default(autoincrement())
   materiaGradoId Int
-  docenteId     Int
-  periodoId     Int?
-  materiaGrado  MateriaGrado @relation(fields: [materiaGradoId], references: [id])
-  docente       User    @relation(fields: [docenteId], references: [id])
-  periodo       Periodo? @relation(fields: [periodoId], references: [id])
+  docenteId      Int
+  periodoId      Int?
+  docente        User         @relation(fields: [docenteId], references: [id])
+  materiaGrado   MateriaGrado @relation(fields: [materiaGradoId], references: [id])
+  periodo        Periodo?     @relation(fields: [periodoId], references: [id])
 
   @@unique([materiaGradoId, docenteId, periodoId])
 }

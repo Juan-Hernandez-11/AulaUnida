@@ -65,9 +65,20 @@ export async function GET(request: NextRequest) {
       materiasAsignadas: materiasUnicas.size
     };
 
+    // Formatear asignaciones para el frontend
+    const asignacionesFormato = materiaGradoDocentes.map(a => ({
+      id: a.id,
+      materiaGradoId: a.materiaGradoId,
+      materiaId: a.materiaGrado.materiaId,
+      gradoId: a.materiaGrado.gradoId,
+      materia: a.materiaGrado.materia,
+      grado: a.materiaGrado.grado,
+    }));
+
     return NextResponse.json({
       docente,
-      resumen
+      resumen,
+      asignaciones: asignacionesFormato
     });
 
   } catch (error) {

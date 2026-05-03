@@ -57,12 +57,29 @@ export async function POST(req: NextRequest) {
     if (user.role !== 'STUDENT') {
       return NextResponse.json({ error: 'Solo se pueden matricular usuarios con rol estudiante.' }, { status: 400 });
     }
-    // Verifica si ya está matriculado
+    // Verifica si ya está matriculado EN ESE GRADO
     const existe = await prisma.gradoEstudiante.findFirst({
       where: { gradoId, estudianteId },
     });
     if (existe) {
       return NextResponse.json({ error: 'El estudiante ya está matriculado en este grado.' }, { status: 409 });
+    }
+    // NUEVA VALIDACIÓN: Verifica si está matriculado en OTRO grado
+    const estaEnOtroGrado = await prisma.gradoEstudiante.findFirst({
+      where: { estudianteId, NOT: { gradoId } },
+      include: { grado: true }
+    });
+    if (estaEnOtroGrado) {
+      return NextResponse.json({ 
+        error: `El estudiante ya está matriculado en otro grado (${estaEnOtroGrado.grado.nombre}). Debe desmatricularse primero.` 
+      }, { status: 409 });
+    }
+    // NUEVA VALIDACIÓN: Verifica que no intente bajar de grado
+    if (user.maxGradoAlcanzadoId && grado.id < user.maxGradoAlcanzadoId) {
+      const maxGrado = await prisma.grado.findUnique({ where: { id: user.maxGradoAlcanzadoId } });
+      return NextResponse.json({ 
+        error: `El estudiante no puede bajar a un grado inferior al máximo alcanzado (${maxGrado?.nombre}).` 
+      }, { status: 400 });
     }
     const matricula = await prisma.gradoEstudiante.create({
       data: { gradoId, estudianteId },

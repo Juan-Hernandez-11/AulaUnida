@@ -1,11 +1,14 @@
 "use client";
 
 import React, { useEffect, useState } from "react";
+import { usePathname } from "next/navigation";
+import { useAuth } from "../../../../context/authContext";
 import ProtectedRoute from "../../../../components/ProtectedRoute";
 import styles from "../../../../styles/admin-dashboard.module.css";
 import formStyles from "../../../../styles/admin-user-form.module.css";
 import NextLink from "../../../../components/NextLink";
 import Button from "../../../../components/ui/Button";
+import { UserCircleIcon, AcademicCapIcon, ClipboardIcon, UserGroupIcon } from '@heroicons/react/24/outline';
 
 function BackToDashboardButton() {
   return (
@@ -17,6 +20,14 @@ function BackToDashboardButton() {
     </div>
   );
 }
+
+const sidebarLinks = [
+  { label: 'Crear Usuario', icon: UserCircleIcon, href: '/admin/usuarios' },
+  { label: 'Listado de usuarios', icon: UserCircleIcon, href: '/admin/usuarios/listado', active: true },
+  { label: 'Grados/Secciones', icon: AcademicCapIcon, href: '/admin/grados' },
+  { label: 'Promoción', icon: UserGroupIcon, href: '/admin/promocion' },
+  { label: 'Matrícula', icon: ClipboardIcon, href: '/admin/matricula' },
+];
 
 type User = {
   id: number;
@@ -35,60 +46,89 @@ type User = {
 };
 
 export default function ListadoUsuariosPage() {
+  const { user, loading: authLoading } = useAuth();
+  const pathname = usePathname();
   const [users, setUsers] = useState<User[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
 
   useEffect(() => {
-    fetch("/api/admin/usuarios")
-      .then(res => res.json())
-      .then(data => {
-        setUsers(data);
+    const fetchUsers = async () => {
+      if (!user) {
         setLoading(false);
-      })
-      .catch(() => {
+        return;
+      }
+      try {
+        const token = await user!.getIdToken();
+        const res = await fetch("/api/admin/usuarios", {
+          headers: { "Authorization": `Bearer ${token}` }
+        });
+        const data = await res.json();
+        if (res.ok && Array.isArray(data)) {
+          setUsers(data);
+        } else {
+          setError(data.error || "Error al cargar usuarios");
+          setUsers([]);
+        }
+      } catch (err) {
         setError("Error al cargar usuarios");
+        setUsers([]);
+      } finally {
         setLoading(false);
-      });
-  }, []);
+      }
+    };
+    fetchUsers();
+  }, [user]);
 
   const handleEdit = (user: User) => {
     // Redirigir a la página de usuarios con el ID para editar
     window.location.href = `/admin/usuarios?edit=${user.id}`;
   };
 
-  const handleToggleActive = async (user: User) => {
-    try {
-      const res = await fetch("/api/admin/usuarios", {
-        method: "PUT",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ id: user.id, active: !user.active })
-      });
-      if (res.ok) {
-        setUsers(prev => prev.map(u => u.id === user.id ? { ...u, active: !u.active } : u));
-      } else {
+  const handleToggleActive = async (userData: User) => {
+    if (!authLoading && user) {
+      try {
+        const token = await user!.getIdToken();
+        const res = await fetch("/api/admin/usuarios", {
+          method: "PUT",
+          headers: { 
+            "Content-Type": "application/json",
+            "Authorization": `Bearer ${token}`
+          },
+          body: JSON.stringify({ id: userData.id, active: !userData.active })
+        });
+        if (res.ok) {
+          setUsers(prev => prev.map(u => u.id === userData.id ? { ...u, active: !u.active } : u));
+        } else {
+          setError("No se pudo cambiar el estado");
+        }
+      } catch {
         setError("No se pudo cambiar el estado");
       }
-    } catch {
-      setError("No se pudo cambiar el estado");
     }
   };
 
-  const handleDelete = async (user: User) => {
+  const handleDelete = async (userData: User) => {
     if (!window.confirm("¿Seguro que deseas eliminar este usuario?")) return;
-    try {
-      const res = await fetch("/api/admin/usuarios", {
-        method: "DELETE",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ id: user.id })
-      });
-      if (res.ok) {
-        setUsers(prev => prev.filter(u => u.id !== user.id));
-      } else {
+    if (!authLoading && user) {
+      try {
+        const token = await user!.getIdToken();
+        const res = await fetch("/api/admin/usuarios", {
+          method: "DELETE",
+          headers: { 
+            "Content-Type": "application/json",
+            "Authorization": `Bearer ${token}`
+          },
+          body: JSON.stringify({ id: userData.id })
+        });
+        if (res.ok) {
+          setUsers(prev => prev.filter(u => u.id !== userData.id));
+        } else {
+          setError("No se pudo eliminar el usuario");
+        }
+      } catch {
         setError("No se pudo eliminar el usuario");
       }
-    } catch {
-      setError("No se pudo eliminar el usuario");
     }
   };
 
@@ -102,18 +142,14 @@ export default function ListadoUsuariosPage() {
           </div>
           <nav className={styles.menu}>
             <ul style={{ listStyle: 'none', padding: 0, margin: 0 }}>
-              <li>
-                <NextLink href="/admin/usuarios" className={styles.menuItem}>Crear Usuario</NextLink>
-              </li>
-              <li>
-                <NextLink href="/admin/usuarios/listado" className={styles.menuItem + ' ' + styles.menuItemActive}>Listado de usuarios</NextLink>
-              </li>
-              <li>
-                <NextLink href="/admin/grados" className={styles.menuItem}>Grados/Secciones</NextLink>
-              </li>
-              <li>
-                <NextLink href="/admin/matricula" className={styles.menuItem}>Matrícula</NextLink>
-              </li>
+              {sidebarLinks.map(link => (
+                <li key={link.label}>
+                  <NextLink href={link.href} className={`${styles.menuItem} ${pathname === link.href ? styles.menuItemActive : ''}`}>
+                    <link.icon style={{ width: 24, height: 24, marginRight: 16 }} />
+                    {link.label}
+                  </NextLink>
+                </li>
+              ))}
             </ul>
           </nav>
         </aside>
@@ -122,7 +158,7 @@ export default function ListadoUsuariosPage() {
           <h1 className={styles.title}>Listado de Usuarios</h1>
           <div className={styles.activityCard}>
             {error && <div style={{ color: 'red', marginBottom: 12 }}>{error}</div>}
-            {loading ? (
+            {loading || authLoading ? (
               <div style={{ color: '#B0B3B8' }}>Cargando usuarios...</div>
             ) : (
               <table className={styles.activityTable}>

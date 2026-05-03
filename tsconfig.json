@@ -1,5 +1,6 @@
 {
   "compilerOptions": {
+    "ignoreDeprecations": "5.0",
     "target": "esnext",
     "lib": [
       "dom",
@@ -14,7 +15,7 @@
     "forceConsistentCasingInFileNames": true,
     "noEmit": true,
     "module": "esnext",
-    "moduleResolution": "node",
+    "moduleResolution": "bundler",
     "resolveJsonModule": true,
     "isolatedModules": true,
     "jsx": "preserve",

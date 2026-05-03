@@ -53,6 +53,12 @@ type RouteHandlerConfig<Route extends AppRouteHandlerRoutes = AppRouteHandlerRou
   handler satisfies AppPageConfig<"/admin/anuncios">
 }
 
+// Validate ../../src/app/admin/asignatura-materias/page.tsx
+{
+  const handler = {} as typeof import("../../src/app/admin/asignatura-materias/page.js")
+  handler satisfies AppPageConfig<"/admin/asignatura-materias">
+}
+
 // Validate ../../src/app/admin/asignaturas/page.tsx
 {
   const handler = {} as typeof import("../../src/app/admin/asignaturas/page.js")
@@ -143,6 +149,12 @@ type RouteHandlerConfig<Route extends AppRouteHandlerRoutes = AppRouteHandlerRou
   handler satisfies AppPageConfig<"/admin">
 }
 
+// Validate ../../src/app/admin/promocion/page.tsx
+{
+  const handler = {} as typeof import("../../src/app/admin/promocion/page.js")
+  handler satisfies AppPageConfig<"/admin/promocion">
+}
+
 // Validate ../../src/app/admin/reportes/page.tsx
 {
   const handler = {} as typeof import("../../src/app/admin/reportes/page.js")
@@ -167,6 +179,12 @@ type RouteHandlerConfig<Route extends AppRouteHandlerRoutes = AppRouteHandlerRou
   handler satisfies AppPageConfig<"/admin/usuarios">
 }
 
+// Validate ../../src/app/docente/asistencia/page.tsx
+{
+  const handler = {} as typeof import("../../src/app/docente/asistencia/page.js")
+  handler satisfies AppPageConfig<"/docente/asistencia">
+}
+
 // Validate ../../src/app/docente/horarios/page.tsx
 {
   const handler = {} as typeof import("../../src/app/docente/horarios/page.js")
@@ -185,10 +203,28 @@ type RouteHandlerConfig<Route extends AppRouteHandlerRoutes = AppRouteHandlerRou
   handler satisfies AppPageConfig<"/docente">
 }
 
+// Validate ../../src/app/docente/tareas/[id]/page.tsx
+{
+  const handler = {} as typeof import("../../src/app/docente/tareas/[id]/page.js")
+  handler satisfies AppPageConfig<"/docente/tareas/[id]">
+}
+
+// Validate ../../src/app/docente/tareas/page.tsx
+{
+  const handler = {} as typeof import("../../src/app/docente/tareas/page.js")
+  handler satisfies AppPageConfig<"/docente/tareas">
+}
+
 // Validate ../../src/app/estudiante/asignaturas/page.tsx
 {
   const handler = {} as typeof import("../../src/app/estudiante/asignaturas/page.js")
   handler satisfies AppPageConfig<"/estudiante/asignaturas">
+}
+
+// Validate ../../src/app/estudiante/asistencia/page.tsx
+{
+  const handler = {} as typeof import("../../src/app/estudiante/asistencia/page.js")
+  handler satisfies AppPageConfig<"/estudiante/asistencia">
 }
 
 // Validate ../../src/app/estudiante/boletin/page.tsx
@@ -215,6 +251,12 @@ type RouteHandlerConfig<Route extends AppRouteHandlerRoutes = AppRouteHandlerRou
   handler satisfies AppPageConfig<"/estudiante">
 }
 
+// Validate ../../src/app/estudiante/tareas/page.tsx
+{
+  const handler = {} as typeof import("../../src/app/estudiante/tareas/page.js")
+  handler satisfies AppPageConfig<"/estudiante/tareas">
+}
+
 // Validate ../../src/app/login/page.tsx
 {
   const handler = {} as typeof import("../../src/app/login/page.js")
@@ -225,6 +267,24 @@ type RouteHandlerConfig<Route extends AppRouteHandlerRoutes = AppRouteHandlerRou
 {
   const handler = {} as typeof import("../../src/app/page.js")
   handler satisfies AppPageConfig<"/">
+}
+
+// Validate ../../src/app/api/admin/anuncios/route.ts
+{
+  const handler = {} as typeof import("../../src/app/api/admin/anuncios/route.js")
+  handler satisfies RouteHandlerConfig<"/api/admin/anuncios">
+}
+
+// Validate ../../src/app/api/admin/asignaturas/[asignaturaId]/materias/route.ts
+{
+  const handler = {} as typeof import("../../src/app/api/admin/asignaturas/[asignaturaId]/materias/route.js")
+  handler satisfies RouteHandlerConfig<"/api/admin/asignaturas/[asignaturaId]/materias">
+}
+
+// Validate ../../src/app/api/admin/asignaturas/promedios/route.ts
+{
+  const handler = {} as typeof import("../../src/app/api/admin/asignaturas/promedios/route.js")
+  handler satisfies RouteHandlerConfig<"/api/admin/asignaturas/promedios">
 }
 
 // Validate ../../src/app/api/admin/asignaturas/route.ts
@@ -299,6 +359,24 @@ type RouteHandlerConfig<Route extends AppRouteHandlerRoutes = AppRouteHandlerRou
   handler satisfies RouteHandlerConfig<"/api/admin/periodos">
 }
 
+// Validate ../../src/app/api/admin/promocion/grados/route.ts
+{
+  const handler = {} as typeof import("../../src/app/api/admin/promocion/grados/route.js")
+  handler satisfies RouteHandlerConfig<"/api/admin/promocion/grados">
+}
+
+// Validate ../../src/app/api/admin/promocion/route.ts
+{
+  const handler = {} as typeof import("../../src/app/api/admin/promocion/route.js")
+  handler satisfies RouteHandlerConfig<"/api/admin/promocion">
+}
+
+// Validate ../../src/app/api/admin/reportes/route.ts
+{
+  const handler = {} as typeof import("../../src/app/api/admin/reportes/route.js")
+  handler satisfies RouteHandlerConfig<"/api/admin/reportes">
+}
+
 // Validate ../../src/app/api/admin/sedes/route.ts
 {
   const handler = {} as typeof import("../../src/app/api/admin/sedes/route.js")
@@ -315,6 +393,24 @@ type RouteHandlerConfig<Route extends AppRouteHandlerRoutes = AppRouteHandlerRou
 {
   const handler = {} as typeof import("../../src/app/api/docente/asignaciones/route.js")
   handler satisfies RouteHandlerConfig<"/api/docente/asignaciones">
+}
+
+// Validate ../../src/app/api/docente/asistencia/route.ts
+{
+  const handler = {} as typeof import("../../src/app/api/docente/asistencia/route.js")
+  handler satisfies RouteHandlerConfig<"/api/docente/asistencia">
+}
+
+// Validate ../../src/app/api/docente/entregas/calificar/route.ts
+{
+  const handler = {} as typeof import("../../src/app/api/docente/entregas/calificar/route.js")
+  handler satisfies RouteHandlerConfig<"/api/docente/entregas/calificar">
+}
+
+// Validate ../../src/app/api/docente/entregas/route.ts
+{
+  const handler = {} as typeof import("../../src/app/api/docente/entregas/route.js")
+  handler satisfies RouteHandlerConfig<"/api/docente/entregas">
 }
 
 // Validate ../../src/app/api/docente/estudiantes/route.ts
@@ -335,10 +431,34 @@ type RouteHandlerConfig<Route extends AppRouteHandlerRoutes = AppRouteHandlerRou
   handler satisfies RouteHandlerConfig<"/api/docente/info">
 }
 
+// Validate ../../src/app/api/docente/notas/detalles/route.ts
+{
+  const handler = {} as typeof import("../../src/app/api/docente/notas/detalles/route.js")
+  handler satisfies RouteHandlerConfig<"/api/docente/notas/detalles">
+}
+
 // Validate ../../src/app/api/docente/notas/route.ts
 {
   const handler = {} as typeof import("../../src/app/api/docente/notas/route.js")
   handler satisfies RouteHandlerConfig<"/api/docente/notas">
+}
+
+// Validate ../../src/app/api/docente/tareas/[id]/estudiantes/route.ts
+{
+  const handler = {} as typeof import("../../src/app/api/docente/tareas/[id]/estudiantes/route.js")
+  handler satisfies RouteHandlerConfig<"/api/docente/tareas/[id]/estudiantes">
+}
+
+// Validate ../../src/app/api/docente/tareas/route.ts
+{
+  const handler = {} as typeof import("../../src/app/api/docente/tareas/route.js")
+  handler satisfies RouteHandlerConfig<"/api/docente/tareas">
+}
+
+// Validate ../../src/app/api/estudiante/asistencia/route.ts
+{
+  const handler = {} as typeof import("../../src/app/api/estudiante/asistencia/route.js")
+  handler satisfies RouteHandlerConfig<"/api/estudiante/asistencia">
 }
 
 // Validate ../../src/app/api/estudiante/boletin/route.ts
@@ -353,10 +473,22 @@ type RouteHandlerConfig<Route extends AppRouteHandlerRoutes = AppRouteHandlerRou
   handler satisfies RouteHandlerConfig<"/api/estudiante/horario">
 }
 
+// Validate ../../src/app/api/estudiante/init-data/route.ts
+{
+  const handler = {} as typeof import("../../src/app/api/estudiante/init-data/route.js")
+  handler satisfies RouteHandlerConfig<"/api/estudiante/init-data">
+}
+
 // Validate ../../src/app/api/estudiante/notas/route.ts
 {
   const handler = {} as typeof import("../../src/app/api/estudiante/notas/route.js")
   handler satisfies RouteHandlerConfig<"/api/estudiante/notas">
+}
+
+// Validate ../../src/app/api/estudiante/tareas/route.ts
+{
+  const handler = {} as typeof import("../../src/app/api/estudiante/tareas/route.js")
+  handler satisfies RouteHandlerConfig<"/api/estudiante/tareas">
 }
 
 // Validate ../../src/app/api/me/route.ts

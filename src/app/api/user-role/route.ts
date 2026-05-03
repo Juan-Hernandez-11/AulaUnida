@@ -15,12 +15,15 @@ export async function GET(request: Request) {
   try {
     const user = await prisma.user.findUnique({
       where: { firebaseUid },
-      select: { role: true },
+      select: { role: true, id: true, email: true, name: true },
     });
+    
     if (!user) {
-      return NextResponse.json({ error: 'User not found' }, { status: 404 });
+      // Retornar 200 con role: null en lugar de 404
+      return NextResponse.json({ role: null, found: false });
     }
-    return NextResponse.json({ role: user.role });
+    
+    return NextResponse.json({ role: user.role, found: true, userId: user.id, email: user.email, name: user.name });
   } catch (error) {
     console.error('Error en /api/user-role:', error);
     return NextResponse.json({ error: 'Internal server error' }, { status: 500 });

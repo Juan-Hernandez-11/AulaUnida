@@ -1,11 +1,14 @@
 "use client";
 
-import React, { useState, useEffect } from 'react';
-import { usePathname, useSearchParams } from 'next/navigation';
+export const dynamic = 'force-dynamic';
+
+import React, { useState, useEffect, Suspense } from 'react';
+import { usePathname } from 'next/navigation';
+import { useAuth } from '../../../context/authContext';
 import ProtectedRoute from '../../../components/ProtectedRoute';
 import styles from '../../../styles/admin-dashboard.module.css';
 import formStyles from '../../../styles/admin-user-form.module.css';
-import { UserCircleIcon, AcademicCapIcon, ClipboardIcon } from '@heroicons/react/24/outline';
+import { UserCircleIcon, AcademicCapIcon, ClipboardIcon, UserGroupIcon } from '@heroicons/react/24/outline';
 import NextLink from '../../../components/NextLink';
 
 import Button from '../../../components/ui/Button';
@@ -43,10 +46,12 @@ const sidebarLinks = [
   { label: 'Crear Usuario', icon: UserCircleIcon, href: '/admin/usuarios', active: true },
   { label: 'Listado de usuarios', icon: UserCircleIcon, href: '/admin/usuarios/listado' },
   { label: 'Grados/Secciones', icon: AcademicCapIcon, href: '/admin/grados' },
+  { label: 'Promoción', icon: UserGroupIcon, href: '/admin/promocion' },
   { label: 'Matrícula', icon: ClipboardIcon, href: '/admin/matricula' },
 ];
 
 export default function AdminUsuariosPage() {
+  const { user } = useAuth();
   const [users, setUsers] = useState<User[]>([]);
   const [loading, setLoading] = useState(true);
   const [form, setForm] = useState({
@@ -62,7 +67,6 @@ export default function AdminUsuariosPage() {
     photoUrl: ''
   });
   const pathname = usePathname();
-  const searchParams = useSearchParams();
   //    firebaseUid: '', // Solo para edición, no para creación
   const [photoFile, setPhotoFile] = useState<File | null>(null);
   const [photoPreview, setPhotoPreview] = useState<string | null>(null);
@@ -88,11 +92,15 @@ export default function AdminUsuariosPage() {
   // Cargar usuarios al montar el componente
   useEffect(() => {
     const loadUsers = async () => {
+      if (!user) return;
       try {
-        const res = await fetch('/api/admin/usuarios');
+        const token = await user.getIdToken();
+        const res = await fetch('/api/admin/usuarios', {
+          headers: { 'Authorization': `Bearer ${token}` }
+        });
         if (res.ok) {
           const data = await res.json();
-          setUsers(data);
+          setUsers(Array.isArray(data) ? data : []);
         }
       } catch (error) {
         console.error('Error cargando usuarios:', error);
@@ -101,18 +109,19 @@ export default function AdminUsuariosPage() {
     };
     
     loadUsers();
-  }, []);
+  }, [user]);
 
   // Manejar edición por URL
-  useEffect(() => {
-    const editId = searchParams.get('edit');
-    if (editId && users.length > 0) {
-      const userToEdit = users.find(u => u.id === parseInt(editId));
-      if (userToEdit) {
-        handleEdit(userToEdit);
-      }
-    }
-  }, [searchParams, users]);
+  // Comentado por compatibilidad con Next.js 15 build optimization
+  // useEffect(() => {
+  //   const editId = searchParams.get('edit');
+  //   if (editId && users.length > 0) {
+  //     const userToEdit = users.find(u => u.id === parseInt(editId));
+  //     if (userToEdit) {
+  //       handleEdit(userToEdit);
+  //     }
+  //   }
+  // }, [searchParams, users]);
 
   // Obtener usuarios al cargar
   // Cargar usuarios manualmente cuando sea necesario (ejemplo: con un botón o tras crear/editar)
@@ -203,9 +212,13 @@ export default function AdminUsuariosPage() {
     try {
       if (editingId) {
         // Editar usuario existente
+        const token = await user!.getIdToken();
         const res = await fetch('/api/admin/usuarios', {
           method: 'PUT',
-          headers: { 'Content-Type': 'application/json' },
+          headers: { 
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${token}`
+          },
           body: JSON.stringify({ 
             id: editingId, 
             name: form.name, 
@@ -246,9 +259,13 @@ export default function AdminUsuariosPage() {
         }
       } else {
         // Crear nuevo usuario
+        const token = await user!.getIdToken();
         const res = await fetch('/api/admin/usuarios', {
           method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
+          headers: { 
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${token}`
+          },
           body: JSON.stringify(form),
         });
         if (!res.ok) {
@@ -285,9 +302,13 @@ export default function AdminUsuariosPage() {
   const handleDelete = async (id: number) => {
     if (!window.confirm('¿Seguro que deseas eliminar este usuario?')) return;
     try {
+      const token = await user!.getIdToken();
       const res = await fetch('/api/admin/usuarios', {
         method: 'DELETE',
-        headers: { 'Content-Type': 'application/json' },
+        headers: { 
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`
+        },
         body: JSON.stringify({ id }),
       });
       if (!res.ok) {

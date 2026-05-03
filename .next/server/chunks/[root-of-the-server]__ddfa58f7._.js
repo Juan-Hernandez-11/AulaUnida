@@ -221,27 +221,53 @@ var __turbopack_async_dependencies__ = __turbopack_handle_async_dependencies__([
 ;
 async function GET(request) {
     const auth = await (0, __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$lib$2f$requireRole$2e$ts__$5b$app$2d$route$5d$__$28$ecmascript$29$__["requireAuth"])(request);
-    if ('error' in auth) return auth.error;
+    if ('error' in auth) {
+        return auth.error;
+    }
     const { user } = auth;
     try {
         const url = new URL(request.url);
         const estudianteIdParam = url.searchParams.get('estudianteId');
         const materiaIdParam = url.searchParams.get('materiaId');
         const periodoIdParam = url.searchParams.get('periodoId');
-        // Si no vienen params, devolver todas las notas del estudiante autenticado
+        // Si no vienen params, devolver todas las notas del estudiante autenticado con detalles
         if (!estudianteIdParam && !materiaIdParam && !periodoIdParam) {
-            const notas = await __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$lib$2f$prisma$2e$ts__$5b$app$2d$route$5d$__$28$ecmascript$29$__["prisma"].notaMateriaPeriodo.findMany({
-                where: {
-                    estudianteId: user.id
-                },
-                include: {
-                    materia: true,
-                    periodo: true
-                }
-            });
-            return __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$server$2e$js__$5b$app$2d$route$5d$__$28$ecmascript$29$__["NextResponse"].json(notas);
+            try {
+                // Query usando SOLO columnas que existen: id, estudianteId, materiaId, periodoId, valor
+                const notas = await __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$lib$2f$prisma$2e$ts__$5b$app$2d$route$5d$__$28$ecmascript$29$__["prisma"].$queryRaw`
+          SELECT 
+            n.id,
+            n.valor,
+            n."estudianteId",
+            n."materiaId",
+            n."periodoId",
+            m.nombre as "materiaNombre",
+            p.nombre as "periodoNombre"
+          FROM "NotaMateriaPeriodo" n
+          LEFT JOIN "Materia" m ON n."materiaId" = m.id
+          LEFT JOIN "Periodo" p ON n."periodoId" = p.id
+          WHERE n."estudianteId" = ${user.id}
+          ORDER BY n.id DESC
+        `;
+                return __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$server$2e$js__$5b$app$2d$route$5d$__$28$ecmascript$29$__["NextResponse"].json(notas.map((n)=>({
+                        id: n.id,
+                        valor: n.valor,
+                        materia: {
+                            id: n.materiaId,
+                            nombre: n.materiaNombre
+                        },
+                        periodo: {
+                            id: n.periodoId,
+                            nombre: n.periodoNombre
+                        }
+                    })));
+            } catch (dbError) {
+                console.error('Error en query raw:', dbError);
+                // Si falla, retornar array vacío
+                return __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$server$2e$js__$5b$app$2d$route$5d$__$28$ecmascript$29$__["NextResponse"].json([]);
+            }
         }
-        // Si vienen params (estudianteId,materiaId,periodoId) -> cálculo de promedio (verifica permisos)
+        // Si vienen params (estudianteId,materiaId,periodoId) -> cálculo de promedio
         if (estudianteIdParam && materiaIdParam && periodoIdParam) {
             const estudianteId = Number(estudianteIdParam);
             const materiaId = Number(materiaIdParam);
@@ -268,10 +294,12 @@ async function GET(request) {
                     valor: true
                 }
             });
-            if (!notas.length) return __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$server$2e$js__$5b$app$2d$route$5d$__$28$ecmascript$29$__["NextResponse"].json({
-                promedio: null,
-                cantidad: 0
-            });
+            if (notas.length === 0) {
+                return __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$server$2e$js__$5b$app$2d$route$5d$__$28$ecmascript$29$__["NextResponse"].json({
+                    promedio: null,
+                    cantidad: 0
+                });
+            }
             const suma = notas.reduce((acc, n)=>acc + n.valor, 0);
             const promedio = suma / notas.length;
             return __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$server$2e$js__$5b$app$2d$route$5d$__$28$ecmascript$29$__["NextResponse"].json({
@@ -285,11 +313,8 @@ async function GET(request) {
             status: 400
         });
     } catch (error) {
-        return __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$server$2e$js__$5b$app$2d$route$5d$__$28$ecmascript$29$__["NextResponse"].json({
-            error: 'Error al obtener notas'
-        }, {
-            status: 500
-        });
+        console.error('Error general en /api/estudiante/notas:', error);
+        return __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$server$2e$js__$5b$app$2d$route$5d$__$28$ecmascript$29$__["NextResponse"].json([]);
     }
 }
 __turbopack_async_result__();

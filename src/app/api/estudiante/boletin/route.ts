@@ -6,6 +6,7 @@ import { prisma } from '@/lib/prisma';
 initFirebaseAdmin();
 
 // GET: Devuelve datos personales del estudiante y sus notas por periodo para generar el boletín
+// Incluye materias individuales y promedios de asignaturas agrupadas
 export async function GET(request: Request) {
   try {
     const authHeader = request.headers.get('authorization');
@@ -51,8 +52,46 @@ export async function GET(request: Request) {
       include: { materia: true, periodo: true }
     });
 
-    return NextResponse.json({ estudiante, notas });
+    // Calcular promedios de asignaturas
+    const asignaturas = await prisma.asignatura.findMany({
+      include: {
+        materias: { select: { id: true, nombre: true, codigo: true } }
+      }
+    });
+
+    const promediosAsignatura = asignaturas
+      .map(asignatura => {
+        // Obtener las notas de todas las materias de esta asignatura
+        const notasDeAsignatura = notas.filter(nota =>
+          asignatura.materias.some(m => m.id === nota.materiaId)
+        );
+
+        if (notasDeAsignatura.length === 0) {
+          return null;
+        }
+
+        // Calcular promedio
+        const sumaNotas = notasDeAsignatura.reduce((sum, n) => sum + n.valor, 0);
+        const promedio = sumaNotas / notasDeAsignatura.length;
+
+        return {
+          asignatura: {
+            id: asignatura.id,
+            nombre: asignatura.nombre
+          },
+          promedio: parseFloat(promedio.toFixed(2)),
+          materias: notasDeAsignatura.map(n => ({
+            id: n.materiaId,
+            nombre: n.materia.nombre,
+            nota: n.valor
+          }))
+        };
+      })
+      .filter(p => p !== null);
+
+    return NextResponse.json({ estudiante, notas, promediosAsignatura });
   } catch (error) {
+    console.error('Error en GET /api/estudiante/boletin:', error);
     return NextResponse.json({ error: 'No autorizado (token inválido)' }, { status: 401 });
   }
 }

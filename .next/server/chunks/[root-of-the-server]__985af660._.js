@@ -226,7 +226,7 @@ async function GET_STUDENTS(request) {
 const prisma = new __TURBOPACK__imported__module__$5b$externals$5d2f40$prisma$2f$client__$5b$external$5d$__$2840$prisma$2f$client$2c$__cjs$29$__["PrismaClient"]();
 async function PUT(request) {
     const admin = await (0, __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$lib$2f$requireAdmin$2e$ts__$5b$app$2d$route$5d$__$28$ecmascript$29$__["requireAdmin"])(request);
-    if ('error' in admin) return admin;
+    if (admin instanceof __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$server$2e$js__$5b$app$2d$route$5d$__$28$ecmascript$29$__["NextResponse"]) return admin;
     try {
         const body = await request.json();
         const { id, name, email, role, documentType, documentNumber, birthDate, phone, address, gender, photoUrl } = body || {};
@@ -462,7 +462,7 @@ async function PUT(request) {
 }
 async function DELETE(request) {
     const admin = await (0, __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$lib$2f$requireAdmin$2e$ts__$5b$app$2d$route$5d$__$28$ecmascript$29$__["requireAdmin"])(request);
-    if ('error' in admin) return admin;
+    if (admin instanceof __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$server$2e$js__$5b$app$2d$route$5d$__$28$ecmascript$29$__["NextResponse"]) return admin;
     try {
         const body = await request.json();
         const { id } = body;
@@ -491,7 +491,7 @@ async function DELETE(request) {
 }
 async function GET(request) {
     const admin = await (0, __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$lib$2f$requireAdmin$2e$ts__$5b$app$2d$route$5d$__$28$ecmascript$29$__["requireAdmin"])(request);
-    if ('error' in admin) return admin;
+    if (admin instanceof __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$server$2e$js__$5b$app$2d$route$5d$__$28$ecmascript$29$__["NextResponse"]) return admin;
     try {
         const users = await prisma.user.findMany({
             select: {
@@ -517,7 +517,7 @@ async function GET(request) {
 ;
 async function POST(request) {
     const admin = await (0, __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$lib$2f$requireAdmin$2e$ts__$5b$app$2d$route$5d$__$28$ecmascript$29$__["requireAdmin"])(request);
-    if ('error' in admin) return admin;
+    if (admin instanceof __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$server$2e$js__$5b$app$2d$route$5d$__$28$ecmascript$29$__["NextResponse"]) return admin;
     try {
         const body = await request.json();
         const { name, email, role, documentType, documentNumber, birthDate, phone, address, gender, photoUrl } = body || {};

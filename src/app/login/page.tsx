@@ -15,18 +15,23 @@ export default function LoginPage() {
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const { user, loading, logout } = useAuth();
-  const { role, loading: roleLoading } = useUserRole();
+  const { role, loading: roleLoading, found } = useUserRole();
   const router = useRouter();
 
 
   // Si el usuario ya está autenticado y tiene rol, redirige automáticamente
   useEffect(() => {
-    if (user && !loading && role && !roleLoading) {
-      if (role === 'ADMIN' || role === 'admin') router.replace('/admin');
-      else if (role === 'DOCENTE' || role === 'docente') router.replace('/docente');
-      else if (role === 'STUDENT' || role === 'estudiante') router.replace('/estudiante');
+    if (user && !loading && !roleLoading) {
+      if (found === false) {
+        setError("Usuario no registrado en el sistema. Contacta al administrador.");
+        logout();
+      } else if (role) {
+        if (role === 'ADMIN' || role === 'admin') router.replace('/admin');
+        else if (role === 'DOCENTE' || role === 'docente') router.replace('/docente');
+        else if (role === 'STUDENT' || role === 'estudiante') router.replace('/estudiante');
+      }
     }
-  }, [user, loading, role, roleLoading, router]);
+  }, [user, loading, role, roleLoading, found, router, logout]);
 
   // (La redirección ya está incluida arriba)
 

@@ -80,16 +80,12 @@ var __turbopack_async_dependencies__ = __turbopack_handle_async_dependencies__([
 [__TURBOPACK__imported__module__$5b$externals$5d2f$firebase$2d$admin$2f$app__$5b$external$5d$__$28$firebase$2d$admin$2f$app$2c$__esm_import$29$__] = __turbopack_async_dependencies__.then ? (await __turbopack_async_dependencies__)() : __turbopack_async_dependencies__;
 ;
 function initFirebaseAdmin() {
-    // DEBUG: Mostrar las variables de entorno de Firebase
-    console.log('FIREBASE_PROJECT_ID:', process.env.FIREBASE_PROJECT_ID);
-    console.log('FIREBASE_CLIENT_EMAIL:', process.env.FIREBASE_CLIENT_EMAIL);
-    console.log('FIREBASE_PRIVATE_KEY:', process.env.FIREBASE_PRIVATE_KEY ? '[PRESENTE]' : '[NO PRESENTE]');
     if (!(0, __TURBOPACK__imported__module__$5b$externals$5d2f$firebase$2d$admin$2f$app__$5b$external$5d$__$28$firebase$2d$admin$2f$app$2c$__esm_import$29$__["getApps"])().length) {
         (0, __TURBOPACK__imported__module__$5b$externals$5d2f$firebase$2d$admin$2f$app__$5b$external$5d$__$28$firebase$2d$admin$2f$app$2c$__esm_import$29$__["initializeApp"])({
             credential: (0, __TURBOPACK__imported__module__$5b$externals$5d2f$firebase$2d$admin$2f$app__$5b$external$5d$__$28$firebase$2d$admin$2f$app$2c$__esm_import$29$__["cert"])({
                 projectId: process.env.FIREBASE_PROJECT_ID,
                 clientEmail: process.env.FIREBASE_CLIENT_EMAIL,
-                privateKey: process.env.FIREBASE_PRIVATE_KEY?.replace(/\n/g, '\n')
+                privateKey: process.env.FIREBASE_PRIVATE_KEY?.replace(/\\n/g, '\n')
             })
         });
     }
@@ -105,13 +101,11 @@ module.exports = mod;
 "[project]/src/lib/prisma.ts [app-route] (ecmascript)", ((__turbopack_context__) => {
 "use strict";
 
-// DEBUG: Mostrar el valor de la variable de entorno DATABASE_URL
 __turbopack_context__.s([
     "prisma",
     ()=>prisma
 ]);
 var __TURBOPACK__imported__module__$5b$externals$5d2f40$prisma$2f$client__$5b$external$5d$__$2840$prisma$2f$client$2c$__cjs$29$__ = __turbopack_context__.i("[externals]/@prisma/client [external] (@prisma/client, cjs)");
-console.log('DATABASE_URL en tiempo de ejecución:', process.env.DATABASE_URL);
 ;
 const globalForPrisma = /*TURBOPACK member replacement*/ __turbopack_context__.g;
 const prisma = globalForPrisma.prisma || new __TURBOPACK__imported__module__$5b$externals$5d2f40$prisma$2f$client__$5b$external$5d$__$2840$prisma$2f$client$2c$__cjs$29$__["PrismaClient"]();
